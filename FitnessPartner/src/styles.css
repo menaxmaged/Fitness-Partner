@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.icon{
+    cursor: pointer;
+    transition:transform 0.1s ease-in-out;
+  }
+  .icon:hover{
+    transform: scale(1.3);
+  }
+  @media (min-width: 768px) {
+    .tab {
+        transition: transform 0.1s ease-in-out;
+    }
+    .tab:hover {
+        transform: scale(1.1);
+    }
+}
+.cardButtons{
+    cursor: pointer;
+    transition:transform 0.1s ease-in-out;
+  }
+  .cardButtons:hover{
+    transform: scale(1.1);
+  }
