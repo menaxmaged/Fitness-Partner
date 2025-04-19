@@ -3,8 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 // import { CartItemsComponent } from '../Cart/cart-items/cart-items.component';
 // import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
-import { CartItemsComponent } from '../../cart/cart-items/cart-items.component';
-import { CartService } from '../../../services/cart.service';
+import { CartItemsComponent } from '../cart/cart-items/cart-items.component';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-nav-bar',

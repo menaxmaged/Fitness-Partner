@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ContactComponent } from './public/contact/contact.component';
 
 export const routes: Routes = [
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'cart', component: CartComponent },

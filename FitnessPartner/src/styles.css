@@ -21,3 +21,157 @@
   .cardButtons:hover{
     transform: scale(1.1);
   }
+  /* not-found.component.scss */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); */
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 88.2vh;
+  background-color: #0A0A0A;
+  padding: 1rem;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+
+  .content {
+    text-align: center;
+    max-width: 600px;
+
+    .error-code {
+      font-size: 120px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #FF4D4D 0%, #F9CB28 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+  
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .message {
+      font-size: 1.125rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .home-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%) !important;
+      border: none;
+      border-radius: 50px;
+      color: #0A0A0A;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .not-found-container {
+    .content {
+      .error-code {
+        font-size: 80px;
+      }
+      
+      .title {
+        font-size: 2rem;
+      }
+      
+      .message {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+/* Add this to your navbar component's CSS or global styles */
+.gradient-bg {
+  background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  .navbar-brand,
+  .nav-link,
+  .bi-person,
+  .bi-cart,
+  .bi-box-arrow-right {
+    color: white; /* Dark text for better contrast */
+  }
+  
+  .navbar-toggler-icon {
+    filter: invert(1); /* Makes the hamburger menu visible on dark bg */
+  }
+  
+  .nav-link.active {
+    font-weight: 600;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background: #0A0A0A;
+    }
+  }
+  
+}
+
+/* Optional: Add transition effects */
+.navbar {
+  transition: all 0.3s ease;
+}
+
+.fnt{
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%) !important;  
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+    .fnt:hover {
+      transform: translateY(-2px);
+    }
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+/* .bi-person, 
+.bi-cart3, 
+.bi {
+  width: 27px !important; 
+  height: 27px !important;
+  min-width: 27px !important;
+} */
