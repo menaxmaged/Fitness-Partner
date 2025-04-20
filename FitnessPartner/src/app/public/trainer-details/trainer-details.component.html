@@ -1,1 +1,19 @@
-<p>trainer-details works!</p>
+<div *ngIf="trainer">
+  <img [src]="trainer.image" alt="{{ trainer.name }}" class="trainer-img" />
+  <h2>{{ trainer.name }}</h2>
+  <p>{{ trainer.bio }}</p>
+</div>
+<app-trainer-faq [faqs]="trainer?.faq"></app-trainer-faq>
+<app-trainer-products  [products]="products"></app-trainer-products>
+<app-trainer-media></app-trainer-media>
+ <div *ngIf="!trainer">
+  <p>Loading trainer details...</p>
+</div>
+
+<style>
+  .trainer-img {
+    width: 250px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+</style>

@@ -1,0 +1,7 @@
+<div class="faq-section" *ngIf="faqs?.length">
+  <h3>FAQs</h3>
+  <div *ngFor="let faq of faqs" class="faq-item">
+    <strong>Q: {{ faq.question }}</strong>
+    <p>A: {{ faq.answer }}</p>
+  </div>
+</div>

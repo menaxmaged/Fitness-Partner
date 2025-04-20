@@ -1,1 +1,69 @@
-<p>contact works!</p>
+<div class="contact-container">
+  <h2>Contact Us</h2>
+  <form>
+    <label for="name">Name</label>
+    <input id="name" type="text" placeholder="Your Name" />
+
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="Your Email" />
+
+    <label for="message">Message</label>
+    <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+<style>
+  .contact-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%) !important;
+      border: none;
+      border-radius: 50px;
+      color: #0A0A0A;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      margin-top: 35px;
+}
+
+
+</style>

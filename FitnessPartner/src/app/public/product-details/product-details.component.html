@@ -1,1 +1,90 @@
-<p>product-details works!</p>
+<div class="product-details" *ngIf="product">
+  <h2>{{ product.name }}</h2>
+  <div class="product-image-container">
+    <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+  </div>
+  <p class="description">{{ product.description }}</p>
+  <p><strong>Price:</strong> {{ product.price }} $</p>
+  <p *ngIf="product.available_size">
+    <strong>Size:</strong> {{ product.available_size }}
+  </p>
+  <p *ngIf="product.brand"><strong>Brand:</strong> {{ product.brand }}</p>
+
+  <div class="flavors-section" *ngIf="product.available_flavors?.length">
+    <h4>Available Flavors:</h4>
+    <div class="flavor-list">
+      <div class="flavor-card" *ngFor="let flavor of product.available_flavors">
+        <img [src]="product.product_images[flavor]" alt="flavor" />
+        <p>{{ flavor }}</p>
+      </div>
+    </div>
+  </div>
+  <button routerLink="/cart">Add to cart</button>
+</div>
+<style>
+  .product-details {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  .product-image-container {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .product-image {
+    width: 100%;
+    max-width: 300px;
+  }
+  .product-details h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .description {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .flavors-section {
+    margin-top: 30px;
+  }
+
+  .flavor-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .flavor-card {
+    width: 150px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .flavor-card img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+    border: none;
+    border-radius: 50px;
+    color: #0a0a0a;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-top: 35px;
+  }
+</style>

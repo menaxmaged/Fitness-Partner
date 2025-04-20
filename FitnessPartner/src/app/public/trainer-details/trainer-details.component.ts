@@ -1,11 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TrainersDataService } from '../../services/trainers-data.service';
+import { ITrainer } from '../../models/i-trainer';
+import { ITrainerProducts } from '../../models/i-trainer-products';
+import { CommonModule } from '@angular/common';
+import {TrainerFAQComponent} from '../trainer-faq/trainer-faq.component'
+import {TrainerProductsComponent} from '../trainer-products/trainer-products.component'
+import {ProductServicesService} from '../../services/product-services.service'
+import { TrainerMediaComponent } from '../trainer-media/trainer-media.component';
 
 @Component({
   selector: 'app-trainer-details',
-  imports: [],
+  imports: [CommonModule,TrainerFAQComponent,TrainerProductsComponent,TrainerMediaComponent],
   templateUrl: './trainer-details.component.html',
-  styles: ``
+  styles: ``,
 })
-export class TrainerDetailsComponent {
+export class TrainerDetailsComponent implements OnInit {
+  trainerId!: number;
+  trainer!: ITrainer | undefined;
+  products: ITrainerProducts[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+     private trainerService: TrainersDataService,
+     private productService: ProductServicesService
+
+  ) {}
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.trainerId = Number(params.get('id'));
+      console.log('Trainer ID:', this.trainerId);
+      this.getTrainerDetails();
+    });
+  }
+
+  getTrainerDetails() {
+    this.trainerService.getTrainerById(this.trainerId).subscribe(data => {
+      console.log('Trainer Data:', data);
+      this.trainer = data;
+
+      if (this.trainer.products && this.trainer.products.length > 0) {
+        for (let productRef of this.trainer.products) {
+          this.productService.getProductById(productRef.id).subscribe(product => {
+            this.products.push(product);
+            console.log(this.products);
+          });
+        }
+      }
+    });
+  }
+
 
 }

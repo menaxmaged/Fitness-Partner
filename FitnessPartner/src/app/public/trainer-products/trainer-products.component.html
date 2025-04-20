@@ -1,0 +1,36 @@
+ <h3>Health Products</h3>
+  <div class="products-list">
+   <div class="product-card" *ngFor="let product of products">
+     <div class="product-images">
+       <img  [src]="product.image" alt="{{ product.name }}" />
+     </div>
+     <div class="product-info">
+       <button [routerLink]="['/products', product.id]" class="btn btn-primary">View Details</button>
+     </div>
+   </div>
+ </div>
+
+
+ <style>
+  .products-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .product-card {
+    width: 250px;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .product-card img {
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  .product-info {
+    margin-top: 0.5rem;
+  }
+</style>

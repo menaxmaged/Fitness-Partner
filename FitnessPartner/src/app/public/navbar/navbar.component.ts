@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 // import { CartItemsComponent } from '../Cart/cart-items/cart-items.component';
 // import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterModule, CartItemsComponent, CommonModule],
+  imports: [RouterModule, CartItemsComponent, CommonModule,RouterLink],
   templateUrl: './navbar.component.html',
   styles: ``,
 })

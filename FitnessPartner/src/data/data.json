@@ -1,0 +1,603 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "MuscleTech NitroTech Whey Protein",
+      "image": "/assets/products-imgs/whey-protein.jpeg",
+      "description": "A premium whey protein supplement designed to build lean muscle.",
+      "expiration_date": "2025-06-30",
+      "price": 29.99,
+      "brand": "MuscleTech",
+      "available_flavors": ["Chocolate", "Vanilla", "Strawberry"],
+      "available_size": "2 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/nitrotech_chocolate.jpg",
+        "Vanilla": "https://example.com/nitrotech_vanilla.jpg",
+        "Strawberry": "https://example.com/nitrotech_strawberry.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 2,
+      "name": "MuscleTech Cell-Tech Creatine",
+      "image": "/assets/products-imgs/Creatine-Monohydrate.jpeg",
+      "description": "Advanced creatine formula for explosive energy.",
+      "expiration_date": "2025-01-10",
+      "price": 34.99,
+      "brand": "MuscleTech",
+      "available_flavors": ["Fruit Punch", "Grape"],
+      "available_size": "3 lb",
+      "product_images": {
+        "Fruit Punch": "https://example.com/celltech_fruitpunch.jpg",
+        "Grape": "https://example.com/celltech_grape.jpg"
+      },
+      "category": "Creatine"
+    },
+    {
+      "id": 3,
+      "name": "MuscleTech Hydroxycut",
+      "image": "/assets/products-imgs/MuscleTech Hydroxycut.jpeg",
+      "description": "Weight loss formula for appetite control and fat burn.",
+      "expiration_date": "2025-11-30",
+      "price": 24.99,
+      "brand": "MuscleTech",
+      "available_flavors": ["Fruit Punch", "Strawberry"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Fruit Punch": "https://example.com/hydroxycut_fruitpunch.jpg",
+        "Strawberry": "https://example.com/hydroxycut_strawberry.jpg"
+      },
+      "category": "Essential Aminos"
+    },
+    {
+      "id": 4,
+      "name": "MuscleTech Phase8 Protein Powder",
+      "image": "/assets/products-imgs/MuscleTech Phase8 Protein Powder.jpeg",
+      "description": "A sustained-release protein blend for all day muscle support.",
+      "expiration_date": "2025-12-20",
+      "price": 34.99,
+      "brand": "MuscleTech",
+      "available_flavors": ["Chocolate", "Vanilla"],
+      "available_size": "4 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/phase8_chocolate.jpg",
+        "Vanilla": "https://example.com/phase8_vanilla.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 5,
+      "name": "BSN Syntha-6 Protein Powder",
+      "image": "/assets/products-imgs/BSN Syntha-6 Protein Powder.jpeg",
+
+      "description": "A premium protein blend that supports muscle recovery.",
+      "expiration_date": "2025-05-20",
+      "price": 39.99,
+      "brand": "BSN",
+      "available_flavors": [
+        "Chocolate Milkshake",
+        "Vanilla Custard",
+        "Strawberry Milkshake"
+      ],
+      "available_size": "2.91 lb",
+      "product_images": {
+        "Chocolate Milkshake": "https://example.com/syntha6_chocolate.jpg",
+        "Vanilla Custard": "https://example.com/syntha6_vanilla.jpg",
+        "Strawberry Milkshake": "https://example.com/syntha6_strawberry.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 6,
+      "name": "BSN Endorse Pre-Workout",
+      "image": "/assets/products-imgs/Pre-Workout.jpeg",
+      "description": "Fuel your workouts with explosive energy.",
+      "expiration_date": "2025-08-15",
+      "price": 29.99,
+      "brand": "BSN",
+      "available_flavors": ["Fruit Punch", "Grape"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Fruit Punch": "https://example.com/endorse_fruitpunch.jpg",
+        "Grape": "https://example.com/endorse_grape.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": 7,
+      "name": "BSN True Mass",
+      "image": "/assets/products-imgs/BSN True Mass.jpeg",
+      "description": "High-calorie protein for mass gain and recovery.",
+      "expiration_date": "2024-09-30",
+      "price": 49.99,
+      "brand": "BSN",
+      "available_flavors": ["Chocolate Milkshake", "Strawberry"],
+      "available_size": "5 lb",
+      "product_images": {
+        "Chocolate Milkshake": "https://example.com/truemass_chocolate.jpg",
+        "Strawberry": "https://example.com/truemass_strawberry.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 8,
+      "name": "BSN Protein Crisp Bar",
+      "image": "/assets/products-imgs/BSN Protein Crisp Bar.jpeg",
+      "description": "Protein-packed snack with a delicious crispy texture.",
+      "expiration_date": "2024-11-01",
+      "price": 29.99,
+      "brand": "BSN",
+      "available_flavors": ["Chocolate Crunch", "Peanut Butter"],
+      "available_size": "12 bars",
+      "product_images": {
+        "Chocolate Crunch": "https://example.com/proteincrisp_chocolate.jpg",
+        "Peanut Butter": "https://example.com/proteincrisp_peanutbutter.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 9,
+      "name": "Optimum Nutrition Gold Standard Whey",
+      "image": "/assets/products-imgs/whey-protein.jpeg",
+      "description": "The world's best-selling whey protein powder.",
+      "expiration_date": "2025-12-15",
+      "price": 34.99,
+      "brand": "Optimum Nutrition",
+      "available_flavors": [
+        "Double Rich Chocolate",
+        "Vanilla Ice Cream",
+        "Cookies and Cream"
+      ],
+      "available_size": "5 lb",
+      "product_images": {
+        "Double Rich Chocolate": "https://example.com/goldstandard_chocolate.jpg",
+        "Vanilla Ice Cream": "https://example.com/goldstandard_vanilla.jpg",
+        "Cookies and Cream": "https://example.com/goldstandard_cookies.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 10,
+      "name": "Optimum Nutrition Amino Energy",
+      "image": "/assets/products-imgs/BCAA.jpeg",
+      "description": "BCAA and energizing blend for strength and endurance.",
+      "expiration_date": "2023-10-25",
+      "price": 29.99,
+      "brand": "Optimum Nutrition",
+      "available_flavors": ["Peach", "Tropical Punch"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Peach": "https://example.com/aminoenergy_peach.jpg",
+        "Tropical Punch": "https://example.com/aminoenergy_tropical.jpg"
+      },
+      "category": "Essential Aminos"
+    },
+    {
+      "id": 11,
+      "name": "Optimum Nutrition Gold Standard Pre-Workout",
+      "image": "/assets/products-imgs/Optimum Nutrition Gold Standard Pre-Workout.jpeg",
+      "description": "Premium pre-workout formula with a variety of flavors.",
+      "expiration_date": "2025-12-01",
+      "price": 29.99,
+      "brand": "Optimum Nutrition",
+      "available_flavors": ["Blue Raspberry", "Fruit Punch"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Blue Raspberry": "https://example.com/goldpreworkout_blueraspberry.jpg",
+        "Fruit Punch": "https://example.com/goldpreworkout_fruitpunch.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": 12,
+      "name": "Optimum Nutrition Serious Mass",
+      "image": "/assets/products-imgs/Optimum Nutrition Serious Mass.jpeg",
+      "description": "The ultimate weight gain formula.",
+      "expiration_date": "2025-02-28",
+      "price": 39.99,
+      "brand": "Optimum Nutrition",
+      "available_flavors": ["Chocolate", "Vanilla"],
+      "available_size": "6 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/seriousmass_chocolate.jpg",
+        "Vanilla": "https://example.com/seriousmass_vanilla.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": 13,
+      "name": "Red Rex Pre-Workout Formula",
+      "image": "/assets/products-imgs/Red Rex Pre-Workout Formula.jpeg",
+      "description": "Intense energy and focus for your workouts.",
+      "expiration_date": "2024-11-30",
+      "price": 24.99,
+      "brand": "Red Rex",
+      "available_flavors": ["Fruit Punch", "Blue Raspberry"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Fruit Punch": "https://example.com/redrex_fruitpunch.jpg",
+        "Blue Raspberry": "https://example.com/redrex_blueraspberry.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": 14,
+      "name": "Red Rex Hybrid Pre-Workout",
+      "image": "/assets/products-imgs/Red Rex Pre-Workout Formula.jpeg",
+      "description": "Multi-dimensional pre-workout for peak performance.",
+      "expiration_date": "2025-03-15",
+      "price": 34.99,
+      "brand": "Red Rex",
+      "available_flavors": ["Berry Blast", "Green Apple"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Berry Blast": "https://example.com/redrex_hybrid_berry.jpg",
+        "Green Apple": "https://example.com/redrex_hybrid_greenapple.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": 15,
+      "name": "JNX Nutrition BCAA",
+      "image": "/assets/products-imgs/BCAA.jpeg",
+      "description": "Essential amino acids for muscle recovery.",
+      "expiration_date": "2025-09-30",
+      "price": 29.99,
+      "brand": "JNX Nutrition",
+      "available_flavors": ["Lemon Lime", "Watermelon"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Lemon Lime": "https://example.com/jnx_bcaas_lemonlime.jpg",
+        "Watermelon": "https://example.com/jnx_bcaas_watermelon.jpg"
+      },
+      "category": "Essential Aminos"
+    },
+    {
+      "id": 16,
+      "name": "JNX Nutrition Creatine Monohydrate",
+      "image": "/public/assets/products-imgs/JNX Nutrition Creatine Monohydrate.jpeg",
+      "description": "Pure creatine monohydrate for maximized performance.",
+      "expiration_date": "2024-05-01",
+      "price": 19.99,
+      "brand": "JNX Nutrition",
+      "available_flavors": ["Unflavored"],
+      "available_size": "300 g",
+      "product_images": {
+        "Unflavored": "https://example.com/jnx_creatine.jpg"
+      },
+      "category": "Creatine"
+    },
+    {
+      "id": 17,
+      "name": "JNX Nutrition Pre-Workout",
+      "image": "/assets/products-imgs/JNX Nutrition Pre-Workout.jpeg",
+      "description": "Intense energy for your toughest workouts.",
+      "expiration_date": "2025-08-15",
+      "price": 29.99,
+      "brand": "JNX Nutrition",
+      "available_flavors": ["Citrus", "Raspberry Lemonade"],
+      "available_size": "30 servings",
+      "product_images": {
+        "Citrus": "https://example.com/jnx_preworkout_citrus.jpg",
+        "Raspberry Lemonade": "https://example.com/jnx_preworkout_raspberry.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": 18,
+      "name": "JNX Nutrition Whey Protein",
+      "image": "/assets/products-imgs/whey-protein.jpeg",
+      "description": "High-quality whey protein for muscle gains.",
+      "expiration_date": "2025-03-22",
+      "price": 34.99,
+      "brand": "JNX Nutrition",
+      "available_flavors": ["Chocolate", "Vanilla"],
+      "available_size": "2 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/jnx_wheyprotein_chocolate.jpg",
+        "Vanilla": "https://example.com/jnx_wheyprotein_vanilla.jpg"
+      },
+      "category": "Protein"
+    }
+  ],
+  "trainers": [
+    {
+      "id": 1,
+      "name": "Ahmed Samir",
+      "image": "/assets/trainers-imgs/t1.jpeg",
+      "bio": "Ahmed is a certified personal trainer with 8 years of experience in strength training and nutrition coaching. He specializes in helping beginners build healthy habits and achieve long-term results.",
+      "faq": [
+        {
+          "question": "Do I need equipment to start training?",
+          "answer": "No, we can start with bodyweight workouts and build up from there."
+        },
+        {
+          "question": "How many days per week should I train?",
+          "answer": "4-5 days is optimal, but we can adjust based on your schedule."
+        },
+        {
+          "question": "Do you provide a meal plan?",
+          "answer": "Yes, I offer customized meal plans tailored to your fitness goals."
+        }
+      ],
+      "products": [
+        {
+          "id": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Hady Mohamed",
+      "image": "/assets/trainers-imgs/t2.jpeg",
+      "bio": "Hady is a fitness coach who helps people improve flexibility, mental health, and overall wellness. She believes in a holistic approach to health.",
+      "faq": [
+        {
+          "question": "Can I lose weight with yoga only?",
+          "answer": "Yoga helps with weight management, especially when combined with a proper diet."
+        },
+        {
+          "question": "Do you offer online sessions?",
+          "answer": "Yes, I provide online classes via Zoom."
+        },
+        {
+          "question": "What should I wear for yoga sessions?",
+          "answer": "Comfortable, stretchy clothes that allow movement."
+        }
+      ],
+      "products": [
+        {
+          "id": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Mohamed Youssef",
+      "image": "/assets/trainers-imgs/t3.jpg",
+      "bio": "Mohamed is a strength and conditioning coach with a background in sports science. He trains athletes and advanced lifters to improve performance.",
+      "faq": [
+        {
+          "question": "Can you help with powerlifting programs?",
+          "answer": "Yes, I design personalized programs for powerlifters."
+        },
+        {
+          "question": "Do I need supplements?",
+          "answer": "Not always, but I can recommend if needed based on your nutrition."
+        }
+      ],
+      "products": [
+        {
+          "id": 3
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Mohamed Hassan",
+      "image": "/assets/trainers-imgs/t4.jpeg",
+      "bio": "Mohamed is a certified Pilates and functional training instructor. She works with clients of all ages to improve mobility, strength, and core stability.",
+      "faq": [
+        {
+          "question": "Is Pilates good for back pain?",
+          "answer": "Yes, Pilates helps improve posture and relieve back pain."
+        },
+        {
+          "question": "How long are your sessions?",
+          "answer": "Each session is 45-60 minutes depending on the program."
+        }
+      ],
+      "products": [
+        {
+          "id": 4
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Khaled Nabil",
+      "image": "/assets/trainers-imgs/t5.jpeg",
+      "bio": "Khaled is a personal trainer and body transformation specialist. He focuses on fat loss, muscle building, and mindset coaching.",
+
+      "faq": [
+        {
+          "question": "Can I lose weight without cardio?",
+          "answer": "Yes, through strength training and proper diet, it's very possible."
+        },
+        {
+          "question": "Do you provide transformation programs?",
+          "answer": "Yes, I offer 8 and 12-week transformation programs."
+        }
+      ],
+      "products": [
+        {
+          "id": 5
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Tamer Ali",
+      "image": "/assets/trainers-imgs/t6.jpeg",
+      "bio": "Tamer specializes in HIIT (High-Intensity Interval Training) and functional fitness. He helps clients achieve fat loss and improve endurance with a combination of strength and cardio workouts.",
+
+      "faq": [
+        {
+          "question": "How do HIIT workouts work?",
+          "answer": "HIIT involves short bursts of intense exercise followed by short rest periods to maximize fat burning and improve cardiovascular health."
+        },
+        {
+          "question": "Do I need to be in great shape to start?",
+          "answer": "No, HIIT can be modified to suit beginners and gradually increase in intensity as you progress."
+        }
+      ],
+      "products": [
+        {
+          "id": 6
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Maher Ghanem",
+      "image": "/assets/trainers-imgs/t7.jpeg",
+      "bio": "Maher is a certified nutritionist and personal trainer who focuses on sustainable weight loss. She helps her clients develop healthy eating habits along with a personalized fitness plan.",
+
+      "faq": [
+        {
+          "question": "Can I lose weight without dieting?",
+          "answer": "Weight loss is generally a combination of healthy eating and exercise. I help my clients find a balanced approach."
+        }
+      ],
+      "products": [
+        {
+          "id": 7
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Ahmed Fathy",
+      "image": "/assets/trainers-imgs/t8.jpeg",
+      "bio": "Ahmed is a strength coach and powerlifter, helping athletes maximize their performance in the gym. He focuses on personalized programs for improving strength and endurance.",
+
+      "faq": [
+        {
+          "question": "Do you train professional athletes?",
+          "answer": "Yes, I specialize in training athletes who aim to improve strength and powerlifting performance."
+        }
+      ],
+      "products": [
+        {
+          "id": 8
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Fathy Hossam",
+      "image": "/assets/trainers-imgs/t9.jpeg",
+      "bio": "Fathy is a fitness coach who works with all ages to improve their body strength, flexibility, and mental clarity through Pilates and yoga.",
+
+      "faq": [
+        {
+          "question": "How often should I practice yoga?",
+          "answer": "I recommend practicing yoga 3-4 times a week for the best results."
+        }
+      ],
+      "products": [
+        {
+          "id": 9
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Nader Maher",
+      "image": "/assets/trainers-imgs/t10.jpeg",
+      "bio": "Nader is a certified CrossFit trainer who helps clients achieve total body fitness. He focuses on high-intensity training to improve endurance, strength, and overall health.",
+
+      "faq": [
+        {
+          "question": "What is CrossFit?",
+          "answer": "CrossFit is a high-intensity workout that combines strength training, endurance, and cardio to provide full-body fitness."
+        }
+      ],
+      "products": [
+        {
+          "id": 10
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Samer Saeed",
+      "image": "/assets/trainers-imgs/t11.jpeg",
+      "bio": "Samer is a certified yoga instructor and holistic health coach. She focuses on improving mental health, flexibility, and overall well-being through yoga and meditation.",
+
+      "faq": [
+        {
+          "question": "What are the benefits of yoga?",
+          "answer": "Yoga can help improve flexibility, relieve stress, and promote mental clarity."
+        }
+      ],
+      "products": [
+        {
+          "id": 11
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Kareem Ashraf",
+      "image": "/assets/trainers-imgs/t12.jpeg",
+      "bio": "Kareem is a certified personal trainer who helps clients achieve their fitness goals through strength training, bodyweight exercises, and cardiovascular workouts.",
+
+      "faq": [
+        {
+          "question": "Can I get stronger without lifting heavy weights?",
+          "answer": "Yes, strength can be developed through bodyweight exercises, resistance bands, and lighter weights with higher repetitions."
+        }
+      ],
+      "products": [
+        {
+          "id": 12
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Hassan Ibrahim",
+      "image": "/assets/trainers-imgs/t13.jpeg",
+      "bio": "Hassan is a CrossFit and Olympic weightlifting coach who trains athletes looking to enhance their power and agility for sports and competitive events.",
+
+      "faq": [
+        {
+          "question": "Is CrossFit suitable for beginners?",
+          "answer": "Yes, CrossFit can be scaled to suit all fitness levels, including beginners."
+        }
+      ],
+      "products": [
+        {
+          "id": 13
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Mohand Adel",
+      "image": "/assets/trainers-imgs/t14.jpeg",
+      "bio": "Mohand is a certified nutrition and fitness coach. He helps people lose weight and build muscle with tailored fitness programs and nutrition plans.",
+
+      "faq": [
+        {
+          "question": "Do you offer custom meal plans?",
+          "answer": "Yes, I provide personalized meal plans designed to suit your fitness goals."
+        }
+      ],
+      "products": [
+        {
+          "id": 14
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Reda Adel",
+      "image": "/assets/trainers-imgs/t15.jpeg",
+      "bio": "Reda is a CrossFit and Olympic weightlifting coach who trains athletes looking to enhance their power and agility for sports and competitive events.",
+
+      "faq": [
+        {
+          "question": "What type of music do you use in your classes?",
+          "answer": "I use upbeat and motivating music to keep the energy high and the mood fun."
+        }
+      ],
+      "products": [
+        {
+          "id": 15
+        }
+      ]
+    }
+  ]
+}

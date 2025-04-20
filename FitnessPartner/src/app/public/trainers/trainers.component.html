@@ -1,1 +1,25 @@
-<p>trainers works!</p>
+<div class="container">
+  <div class="row mt-5">
+    <div *ngFor="let trainer of trainers" class="col-12 col-md-2 col-lg-4">
+      <div class="card mb-4">
+        <img
+          [src]="trainer.image"
+          alt="{{ trainer.name }}"
+          class="card-img-top"
+        />
+        <h5 class="card-title">{{ trainer.name }}</h5>
+        <button
+          [routerLink]="['/trainers', trainer.id]"
+          class="btn btn-primary"
+        >
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .card-img-top {
+    height: 250px;
+  }
+</style>

@@ -1,1 +1,64 @@
-<p>products works!</p>
+<h2 class="page-title">All Products</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let product of products">
+       <div class="product-card" (click)="toggleFlavors(product)">
+        <img
+          [src]="product.image"
+          alt="{{ product.name }}"
+        />
+        <button [routerLink]="['/products', product.id]">View Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .product-card {
+    width: 300px;
+    padding: 15px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: 0.3s;
+    background-color: #fff;
+  }
+
+  .product-card:hover {
+    transform: scale(1.02);
+  }
+
+  .product-image img {
+    width: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+
+</style>
