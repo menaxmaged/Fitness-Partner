@@ -1,10 +1,10 @@
 
 <div class="ms-4 mt-2 mt-lg-5" *ngIf="cart.length===0; else emptyCart">
-    <app-cart-items></app-cart-items>
+  <app-cart-items></app-cart-items>
 </div>
 <ng-template #emptyCart>
-    <div class="w-50 my-5 mx-auto">
-        <app-cart-items></app-cart-items>
-    </div>
-    <app-cart-total></app-cart-total>
+  <div class="w-50 my-5 mx-auto">
+      <app-cart-items></app-cart-items>
+  </div>
+  <app-cart-total></app-cart-total>
 </ng-template>

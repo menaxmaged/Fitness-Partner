@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  private cartKey = 'cartItems'; 
+  private cartKey = 'cartItems';
   private cartItems: any[] = this.getCartFromStorage();
-  private cartSubject = new BehaviorSubject<any[]>(this.cartItems); 
-  cart$ = this.cartSubject.asObservable(); 
+  private cartSubject = new BehaviorSubject<any[]>(this.cartItems);
+  cart$ = this.cartSubject.asObservable();
   constructor() {}
 
   getCart(): any[] {
@@ -20,11 +20,11 @@ export class CartService {
     console.log('Cart before clearing:', this.cartItems);
     this.cartItems = [];
     this.saveCartToStorage(this.cartItems);
-    this.cartSubject.next([...this.cartItems]); 
+    this.cartSubject.next([...this.cartItems]);
     console.log('Cart after clearing:', this.cartItems);
   }
 
-  
+
   addToCart(product: any) {
     console.log('Cart before:', this.cartItems);
     const inCart = this.cartItems.find((item) => item.id === product.id);
@@ -36,8 +36,8 @@ export class CartService {
       this.cartItems.push({ ...product, quantity: 1, total: product.price });
     }
 
-    this.saveCartToStorage(this.cartItems); 
-    this.cartSubject.next([...this.cartItems]); 
+    this.saveCartToStorage(this.cartItems);
+    this.cartSubject.next([...this.cartItems]);
     console.log('Cart after:', this.cartItems);
     console.log('Total from cart service:', this.getTotal());
   }
@@ -50,20 +50,20 @@ export class CartService {
         inCart.quantity -= 1;
         inCart.total = Number((inCart.price * inCart.quantity).toFixed(2));
       } else {
-        this.deleteFromCart(product.id); 
+        this.deleteFromCart(product.id);
         return;
       }
 
-      this.saveCartToStorage(this.cartItems); 
-      this.cartSubject.next([...this.cartItems]); 
+      this.saveCartToStorage(this.cartItems);
+      this.cartSubject.next([...this.cartItems]);
     }
   }
 
-  
+
   deleteFromCart(productId: number) {
     this.cartItems = this.cartItems.filter((item) => productId !== item.id);
-    this.saveCartToStorage(this.cartItems); 
-    this.cartSubject.next([...this.cartItems]); 
+    this.saveCartToStorage(this.cartItems);
+    this.cartSubject.next([...this.cartItems]);
   }
 
   getTotal(): number {

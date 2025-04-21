@@ -6,7 +6,7 @@
       "image": "/assets/products-imgs/whey-protein.jpeg",
       "description": "A premium whey protein supplement designed to build lean muscle.",
       "expiration_date": "2025-06-30",
-      "price": 29.99,
+      "price": 30,
       "brand": "MuscleTech",
       "available_flavors": ["Chocolate", "Vanilla", "Strawberry"],
       "available_size": "2 lb",
@@ -23,7 +23,7 @@
       "image": "/assets/products-imgs/Creatine-Monohydrate.jpeg",
       "description": "Advanced creatine formula for explosive energy.",
       "expiration_date": "2025-01-10",
-      "price": 34.99,
+      "price": 35,
       "brand": "MuscleTech",
       "available_flavors": ["Fruit Punch", "Grape"],
       "available_size": "3 lb",
@@ -39,7 +39,7 @@
       "image": "/assets/products-imgs/MuscleTech Hydroxycut.jpeg",
       "description": "Weight loss formula for appetite control and fat burn.",
       "expiration_date": "2025-11-30",
-      "price": 24.99,
+      "price": 25,
       "brand": "MuscleTech",
       "available_flavors": ["Fruit Punch", "Strawberry"],
       "available_size": "30 servings",
@@ -55,7 +55,7 @@
       "image": "/assets/products-imgs/MuscleTech Phase8 Protein Powder.jpeg",
       "description": "A sustained-release protein blend for all day muscle support.",
       "expiration_date": "2025-12-20",
-      "price": 34.99,
+      "price": 35,
       "brand": "MuscleTech",
       "available_flavors": ["Chocolate", "Vanilla"],
       "available_size": "4 lb",
@@ -72,7 +72,7 @@
 
       "description": "A premium protein blend that supports muscle recovery.",
       "expiration_date": "2025-05-20",
-      "price": 39.99,
+      "price": 40,
       "brand": "BSN",
       "available_flavors": [
         "Chocolate Milkshake",
@@ -93,7 +93,7 @@
       "image": "/assets/products-imgs/Pre-Workout.jpeg",
       "description": "Fuel your workouts with explosive energy.",
       "expiration_date": "2025-08-15",
-      "price": 29.99,
+      "price": 30,
       "brand": "BSN",
       "available_flavors": ["Fruit Punch", "Grape"],
       "available_size": "30 servings",
@@ -109,7 +109,7 @@
       "image": "/assets/products-imgs/BSN True Mass.jpeg",
       "description": "High-calorie protein for mass gain and recovery.",
       "expiration_date": "2024-09-30",
-      "price": 49.99,
+      "price": 50,
       "brand": "BSN",
       "available_flavors": ["Chocolate Milkshake", "Strawberry"],
       "available_size": "5 lb",
@@ -125,7 +125,7 @@
       "image": "/assets/products-imgs/BSN Protein Crisp Bar.jpeg",
       "description": "Protein-packed snack with a delicious crispy texture.",
       "expiration_date": "2024-11-01",
-      "price": 29.99,
+      "price": 30,
       "brand": "BSN",
       "available_flavors": ["Chocolate Crunch", "Peanut Butter"],
       "available_size": "12 bars",
@@ -141,7 +141,7 @@
       "image": "/assets/products-imgs/whey-protein.jpeg",
       "description": "The world's best-selling whey protein powder.",
       "expiration_date": "2025-12-15",
-      "price": 34.99,
+      "price": 35,
       "brand": "Optimum Nutrition",
       "available_flavors": [
         "Double Rich Chocolate",
@@ -162,7 +162,7 @@
       "image": "/assets/products-imgs/BCAA.jpeg",
       "description": "BCAA and energizing blend for strength and endurance.",
       "expiration_date": "2023-10-25",
-      "price": 29.99,
+      "price": 30,
       "brand": "Optimum Nutrition",
       "available_flavors": ["Peach", "Tropical Punch"],
       "available_size": "30 servings",
@@ -178,7 +178,7 @@
       "image": "/assets/products-imgs/Optimum Nutrition Gold Standard Pre-Workout.jpeg",
       "description": "Premium pre-workout formula with a variety of flavors.",
       "expiration_date": "2025-12-01",
-      "price": 29.99,
+      "price": 30,
       "brand": "Optimum Nutrition",
       "available_flavors": ["Blue Raspberry", "Fruit Punch"],
       "available_size": "30 servings",
@@ -194,7 +194,7 @@
       "image": "/assets/products-imgs/Optimum Nutrition Serious Mass.jpeg",
       "description": "The ultimate weight gain formula.",
       "expiration_date": "2025-02-28",
-      "price": 39.99,
+      "price": 40,
       "brand": "Optimum Nutrition",
       "available_flavors": ["Chocolate", "Vanilla"],
       "available_size": "6 lb",
@@ -210,7 +210,7 @@
       "image": "/assets/products-imgs/Red Rex Pre-Workout Formula.jpeg",
       "description": "Intense energy and focus for your workouts.",
       "expiration_date": "2024-11-30",
-      "price": 24.99,
+      "price": 25,
       "brand": "Red Rex",
       "available_flavors": ["Fruit Punch", "Blue Raspberry"],
       "available_size": "30 servings",
@@ -222,11 +222,11 @@
     },
     {
       "id": 14,
-      "name": "Red Rex Hybrid Pre-Workout",
-      "image": "/assets/products-imgs/Red Rex Pre-Workout Formula.jpeg",
+      "name": "Collagen-Supplement",
+      "image": "/assets/products-imgs/Collagen-Supplement.jpeg",
       "description": "Multi-dimensional pre-workout for peak performance.",
       "expiration_date": "2025-03-15",
-      "price": 34.99,
+      "price": 35,
       "brand": "Red Rex",
       "available_flavors": ["Berry Blast", "Green Apple"],
       "available_size": "30 servings",
@@ -238,11 +238,11 @@
     },
     {
       "id": 15,
-      "name": "JNX Nutrition BCAA",
-      "image": "/assets/products-imgs/BCAA.jpeg",
+      "name": "Magnesium.jpeg",
+      "image": "/assets/products-imgs/Magnesium.jpeg",
       "description": "Essential amino acids for muscle recovery.",
       "expiration_date": "2025-09-30",
-      "price": 29.99,
+      "price": 30,
       "brand": "JNX Nutrition",
       "available_flavors": ["Lemon Lime", "Watermelon"],
       "available_size": "30 servings",
@@ -255,10 +255,10 @@
     {
       "id": 16,
       "name": "JNX Nutrition Creatine Monohydrate",
-      "image": "/public/assets/products-imgs/JNX Nutrition Creatine Monohydrate.jpeg",
+      "image": "/assets/products-imgs/JNX Nutrition Creatine Monohydrate.jpeg",
       "description": "Pure creatine monohydrate for maximized performance.",
       "expiration_date": "2024-05-01",
-      "price": 19.99,
+      "price": 20,
       "brand": "JNX Nutrition",
       "available_flavors": ["Unflavored"],
       "available_size": "300 g",
@@ -269,11 +269,11 @@
     },
     {
       "id": 17,
-      "name": "JNX Nutrition Pre-Workout",
-      "image": "/assets/products-imgs/JNX Nutrition Pre-Workout.jpeg",
+      "name": "OMEN",
+      "image": "/assets/products-imgs/OMEN.jpeg",
       "description": "Intense energy for your toughest workouts.",
       "expiration_date": "2025-08-15",
-      "price": 29.99,
+      "price": 30,
       "brand": "JNX Nutrition",
       "available_flavors": ["Citrus", "Raspberry Lemonade"],
       "available_size": "30 servings",
@@ -285,11 +285,11 @@
     },
     {
       "id": 18,
-      "name": "JNX Nutrition Whey Protein",
-      "image": "/assets/products-imgs/whey-protein.jpeg",
+      "name": "opti-men",
+      "image": "/assets/products-imgs/opti-men.jpeg",
       "description": "High-quality whey protein for muscle gains.",
       "expiration_date": "2025-03-22",
-      "price": 34.99,
+      "price": 35,
       "brand": "JNX Nutrition",
       "available_flavors": ["Chocolate", "Vanilla"],
       "available_size": "2 lb",
@@ -323,6 +323,9 @@
       "products": [
         {
           "id": 1
+        },
+        {
+          "id": 2
         }
       ]
     },
@@ -348,7 +351,8 @@
       "products": [
         {
           "id": 2
-        }
+        },
+        { "id": 4 }
       ]
     },
     {
@@ -369,6 +373,9 @@
       "products": [
         {
           "id": 3
+        },
+        {
+          "id": 5
         }
       ]
     },
@@ -390,6 +397,9 @@
       "products": [
         {
           "id": 4
+        },
+        {
+          "id": 6
         }
       ]
     },
@@ -412,6 +422,9 @@
       "products": [
         {
           "id": 5
+        },
+        {
+          "id": 7
         }
       ]
     },
@@ -434,6 +447,9 @@
       "products": [
         {
           "id": 6
+        },
+        {
+          "id": 8
         }
       ]
     },
@@ -452,6 +468,9 @@
       "products": [
         {
           "id": 7
+        },
+        {
+          "id": 9
         }
       ]
     },
@@ -470,6 +489,9 @@
       "products": [
         {
           "id": 8
+        },
+        {
+          "id": 10
         }
       ]
     },
@@ -488,6 +510,9 @@
       "products": [
         {
           "id": 9
+        },
+        {
+          "id": 11
         }
       ]
     },
@@ -506,6 +531,9 @@
       "products": [
         {
           "id": 10
+        },
+        {
+          "id": 12
         }
       ]
     },
@@ -524,6 +552,9 @@
       "products": [
         {
           "id": 11
+        },
+        {
+          "id": 13
         }
       ]
     },
@@ -542,6 +573,9 @@
       "products": [
         {
           "id": 12
+        },
+        {
+          "id": 14
         }
       ]
     },
@@ -560,6 +594,9 @@
       "products": [
         {
           "id": 13
+        },
+        {
+          "id": 15
         }
       ]
     },
@@ -578,6 +615,9 @@
       "products": [
         {
           "id": 14
+        },
+        {
+          "id": 16
         }
       ]
     },
@@ -596,6 +636,9 @@
       "products": [
         {
           "id": 15
+        },
+        {
+          "id": 17
         }
       ]
     }

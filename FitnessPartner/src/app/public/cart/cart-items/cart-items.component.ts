@@ -10,21 +10,21 @@ import { CartService } from '../../../services/cart.service';
   styles: ``
 })
 export class CartItemsComponent implements OnInit {
-  cartItems: any[] = []; 
+  cartItems: any[] = [];
 
   constructor(private myCart: CartService) {}
 
   ngOnInit() {
-  
+
     this.myCart.cart$.subscribe((cart) => {
       this.cartItems = cart;
     });
 
-   
+
     this.cartItems = this.myCart.getCart();
   }
 
-  
+
   addToCart(product: any) {
     this.myCart.addToCart(product);
   }
