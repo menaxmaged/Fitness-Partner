@@ -20,6 +20,7 @@ import { OrdersComponent } from './profile/orders/orders.component';
 import { PasswordComponent } from './profile/password/password.component';
 import { SettingsComponent } from './profile/settings/settings.component';
 import { AuthGuard } from './auth/auth.guard';
+import { NutritionDetailsComponent } from './public/nutrition-details/nutrition-details.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -54,6 +55,7 @@ export const routes: Routes = [
     ],
   },
 
+  { path: 'nutrient/:id', component: NutritionDetailsComponent },
   { path: 'contactus', component: ContactComponent },
   { path: '**', component: NotFoundComponent },
 ];
