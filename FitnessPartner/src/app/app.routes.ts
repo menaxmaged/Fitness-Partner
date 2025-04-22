@@ -16,6 +16,10 @@ import { ContactComponent } from './public/contact/contact.component';
 import { TrainerDetailsComponent } from './public/trainer-details/trainer-details.component';
 import { FavoritesComponent } from './public/favorites/favorites.component';
 import { CheckoutConfirmationComponent } from './public/checkout-confirmation/checkout-confirmation.component';
+import { OrdersComponent } from './profile/orders/orders.component';
+import { PasswordComponent } from './profile/password/password.component';
+import { SettingsComponent } from './profile/settings/settings.component';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -24,7 +28,11 @@ export const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'favorites', component: FavoritesComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'checkout-confirmation', component: CheckoutConfirmationComponent },
+  {
+    path: 'checkout-confirmation',
+    component: CheckoutConfirmationComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'exercises', component: ExercisesComponent },
   { path: 'nutrition', component: NutritionComponent },
   { path: 'products', component: ProductsComponent },
@@ -33,7 +41,19 @@ export const routes: Routes = [
   { path: 'trainers/:id', component: TrainerDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: ProfileComponent },
+
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'orders', component: OrdersComponent },
+      { path: 'passwords', component: PasswordComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: '', redirectTo: 'settings', pathMatch: 'full' },
+    ],
+  },
+
   { path: 'contactus', component: ContactComponent },
   { path: '**', component: NotFoundComponent },
 ];

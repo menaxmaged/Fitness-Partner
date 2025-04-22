@@ -1,21 +1,49 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FavoritesService } from '../../services/favorites.service';
 
 @Component({
-  selector: 'app-favorites',
-  imports: [CommonModule],
+  selector: 'app-favorites-items',
+  standalone: true,
+  imports: [RouterModule, CommonModule],
   templateUrl: './favorites.component.html',
-  styleUrl: './favorites.component.css',
+  styleUrl:'./favorites.component.css'
 })
 export class FavoritesComponent implements OnInit {
-  favorites: any[] = [];
-
+  favoriteItems: any[] = [];
+  
+  constructor(private myFavorites: FavoritesService) {}
+  
   ngOnInit() {
-    this.favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    this.myFavorites.favorites$.subscribe((favorites) => {
+      this.favoriteItems = favorites;
+    });
+    
+    this.favoriteItems = this.myFavorites.getFavorites();
   }
-
-  removeFavorite(productId: number) {
-    this.favorites = this.favorites.filter(p => p.id !== productId);
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  
+  addToFavorites(product: any) {
+    this.myFavorites.addToFavorites(product);
+  }
+  
+  removeFromFavorites(product: any) {
+    this.myFavorites.removeFromFavorites(product.id);
+    console.log('Item removed from favorites:', product.name);
+  }
+  
+  clearAllFavorites() {
+    this.myFavorites.clearFavorites();
+    console.log('All favorites cleared');
   }
 }
+//   ngOnDestroy() {
+//     if (this.subscription) {
+//       this.subscription.unsubscribe();
+//     }
+//   }
+
+//   removeFavorite(productId: number) {
+//     this.favoritesService.removeFromFavorites(productId);
+//   }
+// }
