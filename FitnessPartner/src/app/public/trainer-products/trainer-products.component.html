@@ -1,17 +1,16 @@
- <h3>Health Products</h3>
-  <div class="products-list">
-   <div class="product-card" *ngFor="let product of products">
-     <div class="product-images">
-       <img  [src]="product.image" alt="{{ product.name }}" />
-     </div>
-     <div class="product-info">
-       <button [routerLink]="['/products', product.id]" class="btn btn-primary">View Details</button>
-     </div>
-   </div>
- </div>
+<h3>Health Products</h3>
+<br>
+<div class="products-list">
+  <div class="product-card" *ngFor="let product of products">
+    <a [routerLink]="['/products', product.id]">
+      <div class="product-images">
+        <img [src]="product.image" alt="{{ product.name }}" />
+      </div>
+    </a>
+  </div>
+</div>
 
-
- <style>
+<style>
   .products-list {
     display: flex;
     flex-wrap: wrap;
@@ -23,13 +22,16 @@
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 8px;
+    cursor: pointer;
   }
 
   .product-card img {
     width: 100%;
     border-radius: 6px;
   }
-
+  .product-card:hover {
+    transform: scale(1.05);
+  }
   .product-info {
     margin-top: 0.5rem;
   }

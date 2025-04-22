@@ -1,10 +1,84 @@
-
-<div class="ms-4 mt-2 mt-lg-5" *ngIf="cart.length===0; else emptyCart">
+<div class="container my-4">
+  <div class="row text-center">
+    <h2 class="fw-bold my-4">Your Shopping Cart 🛒</h2>
+  </div>
+</div>
+<div class="ms-4 mt-2 mt-lg-5" *ngIf="cart.length === 0; else emptyCart">
   <app-cart-items></app-cart-items>
 </div>
+
 <ng-template #emptyCart>
   <div class="w-50 my-5 mx-auto">
-      <app-cart-items></app-cart-items>
+    <app-cart-items></app-cart-items>
   </div>
   <app-cart-total></app-cart-total>
 </ng-template>
+
+<!-- ✅ Show buttons only if there are items in the cart -->
+<div *ngIf="cart.length > 0" class="text-center mt-4">
+  <!-- Checkout button -->
+  <button>
+    <a routerLink="/products" routerLinkActive="active" class="text-black fw-semibold">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-bag-heart mb-0"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"
+        />
+      </svg>
+      Continue Shopping
+    </a>
+  </button>
+  <a
+    routerLink="/checkout"
+    routerLinkActive="active"
+    class="text-decoration-none me-3"
+  >
+    <button type="button" class="btn btn-outline-dark fw-bold border-3">
+      CHECKOUT
+    </button>
+  </a>
+
+  <!-- Continue Shopping button -->
+
+</div>
+
+<!-- Style remains the same -->
+<style>
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+    border: none;
+    border-radius: 50px;
+    color: #0a0a0a;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-left: 10px;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: #0a0a0a;
+  }
+</style>

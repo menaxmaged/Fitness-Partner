@@ -14,13 +14,17 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ContactComponent } from './public/contact/contact.component';
 import { TrainerDetailsComponent } from './public/trainer-details/trainer-details.component';
+import { FavoritesComponent } from './public/favorites/favorites.component';
+import { CheckoutConfirmationComponent } from './public/checkout-confirmation/checkout-confirmation.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'favorites', component: FavoritesComponent },
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'checkout-confirmation', component: CheckoutConfirmationComponent },
   { path: 'exercises', component: ExercisesComponent },
   { path: 'nutrition', component: NutritionComponent },
   { path: 'products', component: ProductsComponent },
@@ -31,5 +35,5 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'contactus', component: ContactComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent },
 ];

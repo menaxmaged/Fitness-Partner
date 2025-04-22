@@ -1,5 +1,10 @@
 <div class="product-details" *ngIf="product">
+ <div class="d-flex justify-content-between">
   <h2>{{ product.name }}</h2>
+  <div class="favorite-icon" (click)="toggleFavorite(product)">
+    <i class="fa-heart" [ngClass]="{ 'fas': isFavorite, 'far': !isFavorite }"></i>
+  </div>
+ </div>
   <div class="product-image-container">
     <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
   </div>
@@ -9,7 +14,6 @@
     <strong>Size:</strong> {{ product.available_size }}
   </p>
   <p *ngIf="product.brand"><strong>Brand:</strong> {{ product.brand }}</p>
-
   <div class="flavors-section" *ngIf="product.available_flavors?.length">
     <h4>Available Flavors:</h4>
     <div class="flavor-list">
@@ -21,6 +25,7 @@
   </div>
   <button routerLink="/cart" (click)="addToCart(product)">Add to cart</button>
 </div>
+
 <style>
   .product-details {
     max-width: 700px;
@@ -87,4 +92,15 @@
     transition: transform 0.2s ease;
     margin-top: 35px;
   }
+  .favorite-icon {
+ font-size: 28px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.favorite-icon .fas {
+  color: red;
+}
+
 </style>

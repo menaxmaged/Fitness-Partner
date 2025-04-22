@@ -1,0 +1,37 @@
+<div class="container text-center my-5">
+  <h2 class="text-success fw-bold mb-4">✅ Your Order Has Been Placed!</h2>
+  <p class="fs-5">Thank you for shopping with us. Your items will be delivered soon.</p>
+  <button routerLink="/products" class="btn btn-outline-primary mt-4">Continue Shopping</button>
+</div>
+<style>
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+    border: none;
+    border-radius: 50px;
+    color: #0a0a0a;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-left: 10px;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: #0a0a0a;
+  }
+</style>

@@ -7,11 +7,10 @@ import { CommonModule } from '@angular/common';
 import {TrainerFAQComponent} from '../trainer-faq/trainer-faq.component'
 import {TrainerProductsComponent} from '../trainer-products/trainer-products.component'
 import {ProductServicesService} from '../../services/product-services.service'
-import { TrainerMediaComponent } from '../trainer-media/trainer-media.component';
 
 @Component({
   selector: 'app-trainer-details',
-  imports: [CommonModule,TrainerFAQComponent,TrainerProductsComponent,TrainerMediaComponent],
+  imports: [CommonModule,TrainerFAQComponent,TrainerProductsComponent],
   templateUrl: './trainer-details.component.html',
   styles: ``,
 })
@@ -49,6 +48,4 @@ export class TrainerDetailsComponent implements OnInit {
       }
     });
   }
-
-
 }

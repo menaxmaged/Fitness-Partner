@@ -1,19 +1,87 @@
-<div *ngIf="trainer">
-  <img [src]="trainer.image" alt="{{ trainer.name }}" class="trainer-img" />
-  <h2>{{ trainer.name }}</h2>
-  <p>{{ trainer.bio }}</p>
+<div class="trainer-details-container" *ngIf="trainer">
+  <div class="text-center">
+    <img [src]="trainer.image" alt="{{ trainer.name }}" class="trainer-img" />
+    <h2 class="trainer-name">{{ trainer.name }}</h2>
+    <p class="trainer-bio">{{ trainer.bio }}</p>
+  </div>
+  <div class="social-icons text-center">
+    <i class="fab fa-facebook"></i>
+    <i class="fab fa-instagram"></i>
+    <i class="fab fa-youtube"></i>
+    <i class="fab fa-twitter"></i>
+    <i class="fab fa-whatsapp"></i>
+  </div>
+  <br />
+  <app-trainer-faq [faqs]="trainer.faq"></app-trainer-faq>
+  <br />
+  <app-trainer-products [products]="products"></app-trainer-products>
 </div>
-<app-trainer-faq [faqs]="trainer?.faq"></app-trainer-faq>
-<app-trainer-products  [products]="products"></app-trainer-products>
-<app-trainer-media></app-trainer-media>
- <div *ngIf="!trainer">
+
+<div *ngIf="!trainer" class="loading-text">
   <p>Loading trainer details...</p>
 </div>
 
 <style>
+  .trainer-details-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  }
+
   .trainer-img {
-    width: 250px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+
+  .trainer-name {
+    font-size: 28px;
+    color: #cc0000;
+    margin-bottom: 10px;
+  }
+
+  .trainer-bio {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 25px;
+    line-height: 1.6;
+  }
+
+  .loading-text {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+    color: #888;
+  }
+  .social-icons {
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+
+  .social-icons i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #444;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .trainer-img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .trainer-name {
+      font-size: 24px;
+    }
+
+    .trainer-bio {
+      font-size: 15px;
+    }
   }
 </style>

@@ -6,13 +6,13 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule,RouterModule,RouterLink],
+  imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './product-details.component.html',
   styles: ``,
 })
 export class ProductDetailsComponent implements OnInit {
   product!: ITrainerProducts;
-
+  isFavorite: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductServicesService,
@@ -28,5 +28,20 @@ export class ProductDetailsComponent implements OnInit {
   }
   addToCart(product: any) {
     this.cartService.addToCart(product);
+  }
+  toggleFavorite(product: any) {
+    this.isFavorite = !this.isFavorite;
+    if (this.isFavorite) {
+      let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const alreadyExists = favorites.find((p: any) => p.id === product.id);
+      if (!alreadyExists) {
+        favorites.push(product);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      }
+    } else {
+      let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      favorites = favorites.filter((p: any) => p.id !== product.id);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
   }
 }
