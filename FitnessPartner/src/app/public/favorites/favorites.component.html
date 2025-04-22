@@ -1,57 +1,44 @@
 <div class="favorites-container">
-  <h2>My Favorite Products</h2>
-  <div *ngIf="favorites.length === 0">No favorite products yet.</div>
-
-  <div class="product-card" *ngFor="let product of favorites">
-    <img [src]="product.image" alt="{{ product.name }}" />
-    <div class="info">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <button (click)="removeFavorite(product.id)">Remove</button>
+  <h2>My Favorites</h2>
+  
+  <div *ngIf="favoriteItems.length === 0" class="empty-favorites">
+    <p>You don't have any favorite items yet.</p>
+    <a routerLink="/products" class="browse-products-btn">Browse Products</a>
+  </div>
+  
+  <div *ngIf="favoriteItems.length > 0" class="favorites-list">
+    <div class="favorites-actions me-2">
+      <button class="clear-all-btn border-0 bg-white text-dark" (click)="clearAllFavorites()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-trash3 trashIcon" viewBox="0 0 16 16">
+        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+      </svg>
+    </button>
+    </div>
+    
+    <div class="favorite-items">
+      <div *ngFor="let item of favoriteItems" class="favorite-item">
+        <div class="item-image">
+          <img [src]="item.image" [alt]="item.name">
+        </div>  
+        
+        <div class="item-details">
+          <h3 class="item-name">{{ item.name }}</h3>
+          <p class="item-brand">{{ item.brand }}</p>
+          <p class="item-price">${{ item.price.toFixed(2) }}</p>
+          <p class="item-size">Size: {{ item.available_size }}</p>
+        </div>
+        
+        <div class="item-actions p-2">
+          <button class="btn btn-outline-light border-0 orange-btn me-md-3" [routerLink]="['/products', item.id]">View Product</button>
+          <button class="remove-btn text-dark border-0 bg-white me-md-5" (click)="removeFromFavorites(item)">
+            <!-- <span class="remove-icon">×</span> Remove -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak trashIcon" viewBox="0 0 16 16">
+              <path d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38 38 0 0 0 .867-.59m-.303-1.01-.971-3.237 1.74-2.608a1 1 0 0 0 .103-.906l-1.3-3.468 1.45-1.813c1.861-.948 4.446.002 5.197 2.11.691 1.94-.055 5.521-6.219 9.922m-1.25 1.137a36 36 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3zm-2.3-3.06-.442-1.106a1 1 0 0 1 .034-.818l1.305-2.61L4.564 3.35a1 1 0 0 1 .168-.991l1.032-1.24c-1.688-.449-3.7.398-4.456 2.128-.711 1.627-.413 4.55 3.706 8.229Z"/>
+            </svg>
+            
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<style>
-  .favorites-container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
-  }
-
-  h2 {
-    margin-bottom: 20px;
-    font-size: 28px;
-  }
-
-  .product-card {
-    display: flex;
-    gap: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    align-items: center;
-  }
-
-  .product-card img {
-    width: 150px;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-  }
-
-  .info {
-    flex: 1;
-  }
-
-  button {
-    margin-top: 10px;
-    padding: 8px 20px;
-    background: #cc0000;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-</style>
