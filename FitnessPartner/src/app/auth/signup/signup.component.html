@@ -1,1 +1,95 @@
-<p>signup works!</p>
+<div class="card shadow-lg p-4 rounded-4 mx-auto my-5 bg-light border-0" style="max-width: 500px; width: 90%;">
+  <h2 class="fw-bold text-center text-primary mb-4">Sign up</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+    <!-- First Name -->
+    <div class="col-md-6">
+      <label for="fName" class="form-label fw-semibold">First Name</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="fas fa-user text-secondary"></i></span>
+        <input type="text" class="form-control border-start-0" id="fName" formControlName="fName"
+          placeholder="First Name">
+      </div>
+      <div *ngIf="fName?.invalid && fName?.touched && fName?.errors?.['required']" class="text-danger mt-1 small">
+        First name is required
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="col-md-6">
+      <label for="lName" class="form-label fw-semibold">Last Name</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="fas fa-user text-secondary"></i></span>
+        <input type="text" class="form-control border-start-0" id="lName" formControlName="lName"
+          placeholder="Last Name">
+      </div>
+      <div *ngIf="lName?.invalid && lName?.touched && lName?.errors?.['required']" class="text-danger mt-1 small">
+        Last name is required
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="col-12">
+      <label for="email" class="form-label fw-semibold">Email Address</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="fas fa-envelope text-secondary"></i></span>
+        <input type="email" class="form-control border-start-0" id="email" formControlName="email"
+          placeholder="example@mail.com">
+      </div>
+      <div *ngIf="email?.invalid && email?.touched" class="text-danger mt-1 small">
+        <div *ngIf="email?.errors?.['required']">Email address is required</div>
+        <div *ngIf="email?.errors?.['found']">Email already in use, please sign in</div>
+        <div *ngIf="!email?.errors?.['required'] && !email?.errors?.['found']">Please add a valid email address</div>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="col-12">
+      <label for="password" class="form-label fw-semibold">Password</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="fas fa-lock text-secondary"></i></span>
+        <input type="password" class="form-control border-start-0" id="password" formControlName="password"
+          placeholder="Enter password">
+      </div>
+      <div *ngIf="password?.invalid && password?.touched" class="text-danger mt-1 small">
+        <div *ngIf="password?.errors?.['required']">Password is required</div>
+        <div *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</div>
+        <div *ngIf="password?.errors?.['pattern']">
+          Password must contain at least one uppercase letter, one number, and one special character
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="col-12">
+      <label for="confirmPassword" class="form-label fw-semibold">Confirm Password</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="fas fa-lock text-secondary"></i></span>
+        <input type="password" class="form-control border-start-0" id="confirmPassword"
+          formControlName="confirmPassword" placeholder="Re-enter password">
+      </div>
+      <div *ngIf="registerForm?.errors?.['passwordMismatch'] && registerForm?.touched" class="text-danger mt-1 small">
+        Passwords don't match
+      </div>
+    </div>
+
+    <!-- Login link -->
+    <div class="col-12 text-center mt-2">
+      <p class="small mb-1">
+        Already have an account?
+        <a routerLink="/login" class="text-decoration-none fw-bold text-primary">Log In</a>
+      </p>
+    </div>
+
+    <!-- Submit button -->
+    <div class="col-12">
+      <button type="submit" class="btn fw-bold w-100 py-2 text-white border-0" [disabled]="registerForm.invalid" style="background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%);
+               transition: all 0.3s ease;
+               box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+               border-radius: 8px;">
+        Sign up
+      </button>
+    </div>
+  </form>
+</div>
