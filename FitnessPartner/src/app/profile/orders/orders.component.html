@@ -1,13 +1,50 @@
 <div class="orders">
-  <div class="order-card" *ngFor="let order of user.orders">
-    <img [src]="order.items[0]?.images[0]" [alt]="order.items[0]?.name" class="order-image" />
-    <div class="order-details">
-      <h3 class="order-date">{{ order.date }}</h3>
-      <p class="order-description">Contains {{ order.items.length }} items</p>
+  <div class="order-card" *ngFor="let order of processedOrders">
+    <div class="order-header">
+      <div class="order-info">
+        <h3 class="order-date">Order Date: {{ order.formattedDate }}</h3>
+        <p class="order-id">Order ID: {{ order.id }}</p>
+        <p class="transaction">Transaction ID: {{ order.transactionId }}</p>
+      </div>
     </div>
-    <div class="order-price">
-      <span class="price">${{ order.total }}</span>
-      <p class="quantity">{{ order.items.length }} items</p>
+    
+    <!-- Product List -->
+    <div class="product-list">
+      <div class="product-item" *ngFor="let item of order.items">
+        <a [routerLink]="['/products', item.id]" class="product-link">
+          <img 
+            [src]="item.image" 
+            [alt]="item.name" 
+            class="product-image" 
+            onerror="this.src='/assets/placeholder-image.png'; this.onerror='';"
+          />
+          <div class="product-details">
+            <h4 class="product-name">{{ item.name }}</h4>
+            <p class="product-brand" *ngIf="item.brand">{{ item.brand }}</p>
+          </div>
+          <div class="product-quantity">
+            <span class="quantity-label">Qty:</span>
+            <span class="quantity-value">{{ getProductQuantity(order, item.id) }}</span>
+          </div>
+          <div class="product-price">${{ item.price }}</div>
+        </a>
+      </div>
     </div>
+    
+    <!-- Order Footer with Total -->
+    <div class="order-footer">
+      <div class="order-summary">
+        <span>{{ getTotalItemCount(order) }} items</span>
+      </div>
+      <div class="order-total">
+        <span class="total-label">Total:</span>
+        <span class="total-price">${{ order.total }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Show message when no orders exist -->
+  <div class="no-orders" *ngIf="processedOrders.length === 0">
+    <p>You don't have any orders yet.</p>
   </div>
 </div>

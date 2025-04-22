@@ -1,0 +1,200 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Checkout & Payment</h2>
+  <div class="row">
+    <!-- Shipping Info -->
+    <div class="col-12 col-md-9">
+      <div class="card p-4 shadow-sm">
+        <form #checkoutForm="ngForm" (ngSubmit)="placeOrder()" novalidate>
+          <h5 class="mb-3 border-bottom pb-2">Shipping Information</h5>
+
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input
+              id="name"
+              name="fullName"
+              type="text"
+              class="form-control"
+              required
+              ngModel
+              #fullName="ngModel"
+            />
+            <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+              Please enter your full name.
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input
+              id="address"
+              name="address"
+              type="text"
+              class="form-control"
+              required
+              ngModel
+              #address="ngModel"
+            />
+            <div class="text-danger mt-1" *ngIf="address.invalid && address.touched">
+              Please enter your address.
+            </div>
+          </div>
+
+          <!-- City -->
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input
+              id="city"
+              name="city"
+              type="text"
+              class="form-control"
+              required
+              ngModel
+              #city="ngModel"
+            />
+            <div class="text-danger mt-1" *ngIf="city.invalid && city.touched">
+              Please enter your city.
+            </div>
+          </div>
+
+          <!-- Zip Code -->
+          <div class="mb-3">
+            <label for="code" class="form-label">Zip Code</label>
+            <input
+              id="code"
+              name="zipCode"
+              type="text"
+              class="form-control"
+              required
+              pattern="^[0-9]{4,10}$"
+              ngModel
+              #zipCode="ngModel"
+            />
+            <div class="text-danger mt-1" *ngIf="zipCode.invalid && zipCode.touched">
+              Please enter a valid zip code.
+            </div>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="mb-3">
+            <label for="num" class="form-label">Phone Number</label>
+            <input
+              id="num"
+              name="phone"
+              type="tel"
+              class="form-control"
+              required
+              pattern="^01[0-2,5]{1}[0-9]{8}$"
+              ngModel
+              #phone="ngModel"
+            />
+            <div class="text-danger mt-1" *ngIf="phone.invalid && phone.touched">
+              Please enter a valid Egyptian phone number.
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <h5 class="mt-4 mb-3 border-bottom pb-2">Payment Method</h5>
+          <div class="mb-3">
+            <label for="paymentMethod" class="form-label">Select Method</label>
+            <select
+              id="paymentMethod"
+              name="paymentMethod"
+              class="form-select"
+              required
+              [(ngModel)]="selectedPaymentMethod"
+              #payment="ngModel"
+            >
+              <option value="" disabled selected>Select a payment method</option>
+              <option value="Cash">Cash on Delivery</option>
+              <option value="Visa">Credit / Debit Card</option>
+              <option value="Fawry">Fawry</option>
+              <option value="VodafoneCash">Vodafone Cash</option>
+            </select>
+            <div class="text-danger mt-1" *ngIf="payment.invalid && payment.touched">
+              Please choose a payment method.
+            </div>
+          </div>
+
+          <!-- Visa Fields -->
+          <div *ngIf="selectedPaymentMethod === 'Visa'">
+            <div class="mb-3">
+              <label class="form-label" for="cardNumber">Card Number</label>
+              <input
+                id="cardNumber"
+                type="text"
+                class="form-control"
+                placeholder="**** **** **** ****"
+                required
+                ngModel
+                name="cardNumber"
+              />
+            </div>
+            <div class="mb-3 row">
+              <div class="col">
+                <label class="form-label" for="expDate">Expiry Date</label>
+                <input
+                  id="expDate"
+                  type="text"
+                  class="form-control"
+                  placeholder="MM/YY"
+                  required
+                  ngModel
+                  name="expDate"
+                />
+              </div>
+              <div class="col">
+                <label class="form-label" for="cvv">CVV</label>
+                <input
+                  id="cvv"
+                  type="text"
+                  class="form-control"
+                  placeholder="***"
+                  required
+                  ngModel
+                  name="cvv"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success w-100 mt-3" [disabled]="checkoutForm.invalid">
+            Confirm Order
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="col-12 col-md-3">
+      <div class="border p-3 rounded shadow-sm mt-4 mt-md-0">
+        <h5 class="mb-3">Order Summary</h5>
+        <app-cart-total></app-cart-total>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+    border: none;
+    border-radius: 50px;
+    color: #0a0a0a;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+</style>
