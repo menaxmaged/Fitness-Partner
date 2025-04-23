@@ -55,6 +55,13 @@
       "email": "verinamaged175@gmail.com",
       "password": "V@123456789",
       "gender": "Female"
+    },
+    {
+      "id": "6e6ccf59-ecc8-495c-b5e0-b32b1107d0d4",
+      "fName": "marwa",
+      "lName": "elgazar",
+      "email": "marwaelgazar1@gmail.com",
+      "password": "Ay@12345"
     }
   ],
   "products": [

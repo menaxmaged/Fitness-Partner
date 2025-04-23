@@ -1,6 +1,5 @@
-
-<div class=" ms-4 mt-lg-3">
-    <!-- <span class="fw-semibold">
+<div class="ms-4 mt-lg-3">
+  <!-- <span class="fw-semibold">
         <a routerLinkActive="active"  routerLink="/home" class="text-decoration-none text-secondary fs-6" >HOME </a>
         <span class="text-secondary">
              /
@@ -17,56 +16,80 @@
 =======
           </span>
 </div> -->
-<!-- <div>
+  <!-- <div>
   <h1 class="ms-4 mt-4">Billing details</h1>
 </div> -->
- 
-<div class="ms-3 my-3 col-11 d-flex flex-wrap justify-content-sm-center justify-content-lg-between my-sm-3">
-  <div class="col-12 col-lg-4 p-4"> <!-- Shopping cart image-->
-      <img class="w-100 ms-3 ms-md-0" src="cartBags.png" alt="cart full of Shopping bags">
-  </div>
 
-  <form class="col-12 col-lg-8">
-    <div class=" p-4">
+  <div
+    class="ms-3 my-3 col-11 d-flex flex-wrap justify-content-sm-center justify-content-lg-between my-sm-3"
+  >
+    <div class="col-12 col-lg-4 p-4">
+      <!-- Shopping cart image-->
+      <img
+        class="w-100 ms-3 ms-md-0"
+        src="cartBags.png"
+        alt="cart full of Shopping bags"
+      />
+    </div>
 
-        <div class="col-10 mt-3 mx-auto mx-lg-0"> <!--Your order -->
+    <form class="col-12 col-lg-8">
+      <div class="p-4">
+        <div class="col-10 mt-3 mx-auto mx-lg-0">
+          <!--Your order -->
           <div>
             <h1 class="mb-4">Your Order</h1>
             <table class="table text-start col-4">
-                <thead>
-                  <tr>
-                    <th scope="col">Products</th>
+              <thead>
+                <tr>
+                  <th scope="col">Products</th>
 
-                    <th scope="col">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (item of cart; track $index) {
-                  <tr>
-                    <td scope="row">{{item.title}}</td>
-                    <td>{{item.total}}</td>
-                  </tr>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of cart; track $index) {
+                <tr>
+                  <td scope="row">
+                    <img height="40px" width="40px" [src]="item.image" alt="" />
+                    x <span>{{item.quantity}}</span>
+                  </td>
+                  <td>{{ item.total }} $</td>
+                </tr>
                 }
                 <tr>
                   <td class="fw-bold">TOTAL</td>
-                  <td >{{total }}</td>
+                  <td>{{ total }} $</td>
                 </tr>
-
               </tbody>
             </table>
-              <div class=" col-12 col-md-12 mx-auto mt-5" >
-                <div #paymentRef class="col-6 col-md-5 mx-auto"></div>
-              </div>
+            <div class="col-12 col-md-12 mx-auto mt-5">
+              <div #paymentRef class="col-6 col-md-5 mx-auto"></div>
+            </div>
           </div>
         </div>
       </div>
-
     </form>
-      </div>
+  </div>
 
-
-<div class="d-flex justify-content-end fixed-bottom">
-  <a routerLinkActive="active"  routerLink="/products" class="text-black fs-6 fw-semibold me-5 " ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart mb-2" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
-    </svg> Continue Shopping</a>
+  <div class="d-flex justify-content-end fixed-bottom">
+    <a
+      routerLinkActive="active"
+      routerLink="/products"
+      class="text-black fs-6 fw-semibold me-5"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-bag-heart mb-2"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"
+        />
+      </svg>
+      Continue Shopping</a
+    >
+  </div>
 </div>
