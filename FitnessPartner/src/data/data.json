@@ -45,6 +45,7 @@
       "avatar": "profileImgRemove.png"
     },
     {
+<<<<<<< HEAD
       "id": "ff0d71e5-d7fd-4a74-86f9-86abd1c0cfd5",
       "fName": "marwa",
       "lName": "elgazar",
@@ -52,6 +53,14 @@
       "password": "M@r2000wa",
       "gender": "Female",
       "mobile": "01206623602"
+=======
+      "id": "1a75c288-5a02-48cf-80db-7abcff8ac748",
+      "fName": "Verina",
+      "lName": "Maged",
+      "email": "verinamaged175@gmail.com",
+      "password": "V@123456789",
+      "gender": "Female"
+>>>>>>> 562251392076fb0b390ffcb65e7ab998153a1b7a
     }
   ],
   "products": [

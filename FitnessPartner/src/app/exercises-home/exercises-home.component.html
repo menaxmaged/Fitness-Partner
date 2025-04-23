@@ -1,0 +1,14 @@
+<div class="container mt-4">
+    <h3 class="text-center mb-4">Home Exercises</h3>
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let group of muscles">
+        <div class="card h-100 cursor-pointer" (click)="goToMuscle(group.muscle)">
+          <img [src]="'assets/muscles/' + group.muscle.toLowerCase() + '.jpg'" class="card-img-top" alt="{{ group.muscle }}">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ group.muscle }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
