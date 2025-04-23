@@ -1,16 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductServicesService } from '../../services/product-services.service';
 import { FavoritesService } from '../../services/favorites.service';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
@@ -24,6 +23,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   favoriteItems: any[] = [];
   private favoritesSub?: Subscription;
   showPopUpMessage: boolean = false;
+  
   // Pagination
   currentPage: number = 1;
   itemsPerPage: number = 9;
@@ -48,7 +48,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductServicesService,
     public favoritesService: FavoritesService,
-    private cartService: CartService
+    private cartService: CartService,
+    private route: ActivatedRoute
   ) {}
   
   ngOnInit(): void {
@@ -65,6 +66,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       });
     }
 
+    // Fetch products
     this.productService.getAllProducts().subscribe((data: any[]) => {
       this.products = data.map(product => ({
         ...product,
@@ -73,20 +75,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
         isHot: Math.random() > 0.7,
         discount: Math.random() > 0.5 ? 10 : 0
       }));
-      
-     
+
       this.filteredProducts = [...this.products];
       
-  
       this.categories = [...new Set(this.products.map(p => p.category))];
       this.brands = [...new Set(this.products.map(p => p.brand))];
-      
-      
       this.priceRange.max = Math.max(...this.products.map(p => p.price));
+      
+      // Apply filters after products are loaded
+      this.applyFilters();
+    });
+
+    // Listen to query parameters (category)
+    this.route.queryParams.subscribe(params => {
+      if (params['category']) {
+        this.selectedCategory = params['category'];
+        this.applyFilters(); // Apply filters whenever category query changes
+      }
     });
   }
 
-
+  // Pagination Methods
   changeItemsPerPage(count: number): void {
     this.itemsPerPage = count;
     this.currentPage = 1; 
@@ -106,26 +115,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
     return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
   }
 
-  // Filter methods
+  // Filter Methods
   applyFilters(): void {
     let filtered = [...this.products];
     
-    // Category filter
+    // Apply Category Filter
     if (this.selectedCategory) {
-      filtered = filtered.filter(p => p.category === this.selectedCategory);
+      filtered = filtered.filter(p => p.category.toLowerCase() === this.selectedCategory.toLowerCase());
     }
-    
-    // Brand filter
+
+    // Apply Brand Filter
     if (this.selectedBrand) {
-      filtered = filtered.filter(p => p.brand === this.selectedBrand);
+      filtered = filtered.filter(p => p.brand.toLowerCase() === this.selectedBrand.toLowerCase());
     }
-    
-    // Price range filter
+
+    // Apply Price Range Filter
     filtered = filtered.filter(p => p.price >= this.priceRange.min && p.price <= this.priceRange.max);
-    
-    // Apply sorting
+
+    // Apply Sorting
     filtered = this.sortProducts(filtered);
     
+    // Update filtered products
     this.filteredProducts = filtered;
     this.currentPage = 1; // Reset to first page when filters change
   }
@@ -138,7 +148,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
 
-  // Sorting methods
+  // Sorting Methods
   sortProducts(products: any[]): any[] {
     switch (this.selectedSort) {
       case 'price-asc':
@@ -151,7 +161,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
         return products;
     }
   }
-  // Existing methods...
+
+  // Wishlist Methods
   isInFavorites(productId: string): boolean {
     return this.favoriteItems.some(item => item.id === productId);
   }
@@ -178,6 +189,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Quick View Methods
   openQuickView(product: any, event: Event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -191,6 +203,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     document.body.style.overflow = '';
   }
 
+  // Cart Methods
   increaseQuantity(): void {
     this.quantity++;
   }

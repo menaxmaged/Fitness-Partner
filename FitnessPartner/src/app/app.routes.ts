@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './public/about/about.component';
 import { CheckoutComponent } from './public/checkout/checkout.component';
 import { HomeComponent } from './public/home/home.component';
@@ -25,8 +25,10 @@ import { ExercisesHomeComponent } from './exercises-home/exercises-home.componen
 import { ExercisesGymComponent } from './exercises-gym/exercises-gym.component';
 import { MuscleExerciseComponent } from './muscle-exercise/muscle-exercise.component';
 import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.component';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
+  
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -68,3 +70,15 @@ export const routes: Routes = [
   { path: 'contactus', component: ContactComponent },
   { path: '**', component: NotFoundComponent },
 ];
+export const appRouting = RouterModule.forRoot(routes, {
+  onSameUrlNavigation: 'reload'
+});
+
+// If you're using NgModule:
+@NgModule({
+  imports: [RouterModule.forRoot(routes, { 
+    onSameUrlNavigation: 'reload' 
+  })],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

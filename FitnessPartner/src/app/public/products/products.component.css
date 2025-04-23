@@ -466,11 +466,10 @@ input[type="range"].form-range {
     z-index: 9999;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: opacity 0.3s ease-in-out;
-  }
-  
-  .pop-up-message {
     opacity: 0.9;
   }
+  
+  
   
   /* Quantity Selector Styles */
 .quantity-selector {
