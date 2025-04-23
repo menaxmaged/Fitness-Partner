@@ -1,0 +1,27 @@
+<div class="container-fluid py-5 bg-dark text-white">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-5">
+      <h1 class="display-5">CALORIE COUNT COMPARISON</h1>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-3 mb-4" *ngFor="let plan of mealPlans">
+      <div class="text-center mb-3">
+        <h2 class="fs-2">{{plan.type}}</h2>
+        <p class="calorie-range fs-4">{{plan.calorieRange}}</p>
+        <p class="small">CALORIES</p>
+      </div>
+
+      <div class="nutrition-info text-center mb-3">
+        <p class="mb-1">Carbohydrate: {{plan.carbs}}g</p>
+        <p class="mb-1">Protein: {{plan.protein}}g</p>
+        <p class="mb-1">Fat: {{plan.fat}}g</p>
+      </div>
+
+      <div class="meal-image">
+        <img [src]="plan.imageUrl" class="img-fluid rounded" alt="{{plan.type}} meal">
+      </div>
+    </div>
+  </div>
+</div>
