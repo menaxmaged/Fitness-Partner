@@ -12,16 +12,11 @@
       "password": "123456W!",
       "orders": [
         {
-          "id": "33dedf74-e0ee-4b43-937a-40725a41099d",
-          "transactionId": "39J107561T063440P",
-          "products": [
-            {
-              "id": "6",
-              "quantity": 4
-            }
-          ],
-          "total": 120,
-          "date": "2025-04-22T21:50:03.574Z"
+          "id": "7505cb2f-558b-44c2-aaf4-08127637dbbd",
+          "transactionId": "2JT96315KU0624125",
+          "productId": ["8", "1"],
+          "total": 60,
+          "date": "2025-04-22T17:01:21.380Z"
         }
       ]
     },
@@ -48,6 +43,15 @@
       "email": "yousef.hamdy141@gmail.com",
       "password": "123456Q!",
       "avatar": "profileImgRemove.png"
+    },
+    {
+      "id": "ff0d71e5-d7fd-4a74-86f9-86abd1c0cfd5",
+      "fName": "marwa",
+      "lName": "elgazar",
+      "email": "marwaelgazar1@gmail.com",
+      "password": "M@r2000wa",
+      "gender": "Female",
+      "mobile": "01206623602"
     }
   ],
   "products": [
@@ -59,11 +63,7 @@
       "expiration_date": "2025-06-30",
       "price": 30,
       "brand": "MuscleTech",
-      "available_flavors": [
-        "Chocolate",
-        "Vanilla",
-        "Strawberry"
-      ],
+      "available_flavors": ["Chocolate", "Vanilla", "Strawberry"],
       "available_size": "2 lb",
       "product_images": {
         "Chocolate": "https://example.com/nitrotech_chocolate.jpg",
@@ -80,10 +80,7 @@
       "expiration_date": "2025-01-10",
       "price": 35,
       "brand": "MuscleTech",
-      "available_flavors": [
-        "Fruit Punch",
-        "Grape"
-      ],
+      "available_flavors": ["Fruit Punch", "Grape"],
       "available_size": "3 lb",
       "product_images": {
         "Fruit Punch": "https://example.com/celltech_fruitpunch.jpg",
@@ -99,10 +96,7 @@
       "expiration_date": "2025-11-30",
       "price": 25,
       "brand": "MuscleTech",
-      "available_flavors": [
-        "Fruit Punch",
-        "Strawberry"
-      ],
+      "available_flavors": ["Fruit Punch", "Strawberry"],
       "available_size": "30 servings",
       "product_images": {
         "Fruit Punch": "https://example.com/hydroxycut_fruitpunch.jpg",
@@ -118,10 +112,7 @@
       "expiration_date": "2025-12-20",
       "price": 35,
       "brand": "MuscleTech",
-      "available_flavors": [
-        "Chocolate",
-        "Vanilla"
-      ],
+      "available_flavors": ["Chocolate", "Vanilla"],
       "available_size": "4 lb",
       "product_images": {
         "Chocolate": "https://example.com/phase8_chocolate.jpg",
@@ -158,10 +149,7 @@
       "expiration_date": "2025-08-15",
       "price": 30,
       "brand": "BSN",
-      "available_flavors": [
-        "Fruit Punch",
-        "Grape"
-      ],
+      "available_flavors": ["Fruit Punch", "Grape"],
       "available_size": "30 servings",
       "product_images": {
         "Fruit Punch": "https://example.com/endorse_fruitpunch.jpg",
@@ -177,10 +165,7 @@
       "expiration_date": "2024-09-30",
       "price": 50,
       "brand": "BSN",
-      "available_flavors": [
-        "Chocolate Milkshake",
-        "Strawberry"
-      ],
+      "available_flavors": ["Chocolate Milkshake", "Strawberry"],
       "available_size": "5 lb",
       "product_images": {
         "Chocolate Milkshake": "https://example.com/truemass_chocolate.jpg",
@@ -196,10 +181,7 @@
       "expiration_date": "2024-11-01",
       "price": 30,
       "brand": "BSN",
-      "available_flavors": [
-        "Chocolate Crunch",
-        "Peanut Butter"
-      ],
+      "available_flavors": ["Chocolate Crunch", "Peanut Butter"],
       "available_size": "12 bars",
       "product_images": {
         "Chocolate Crunch": "https://example.com/proteincrisp_chocolate.jpg",
@@ -236,10 +218,7 @@
       "expiration_date": "2023-10-25",
       "price": 30,
       "brand": "Optimum Nutrition",
-      "available_flavors": [
-        "Peach",
-        "Tropical Punch"
-      ],
+      "available_flavors": ["Peach", "Tropical Punch"],
       "available_size": "30 servings",
       "product_images": {
         "Peach": "https://example.com/aminoenergy_peach.jpg",
@@ -255,10 +234,7 @@
       "expiration_date": "2025-12-01",
       "price": 30,
       "brand": "Optimum Nutrition",
-      "available_flavors": [
-        "Blue Raspberry",
-        "Fruit Punch"
-      ],
+      "available_flavors": ["Blue Raspberry", "Fruit Punch"],
       "available_size": "30 servings",
       "product_images": {
         "Blue Raspberry": "https://example.com/goldpreworkout_blueraspberry.jpg",
@@ -274,10 +250,7 @@
       "expiration_date": "2025-02-28",
       "price": 40,
       "brand": "Optimum Nutrition",
-      "available_flavors": [
-        "Chocolate",
-        "Vanilla"
-      ],
+      "available_flavors": ["Chocolate", "Vanilla"],
       "available_size": "6 lb",
       "product_images": {
         "Chocolate": "https://example.com/seriousmass_chocolate.jpg",
@@ -293,10 +266,7 @@
       "expiration_date": "2024-11-30",
       "price": 25,
       "brand": "Red Rex",
-      "available_flavors": [
-        "Fruit Punch",
-        "Blue Raspberry"
-      ],
+      "available_flavors": ["Fruit Punch", "Blue Raspberry"],
       "available_size": "30 servings",
       "product_images": {
         "Fruit Punch": "https://example.com/redrex_fruitpunch.jpg",
@@ -312,10 +282,7 @@
       "expiration_date": "2025-03-15",
       "price": 35,
       "brand": "Red Rex",
-      "available_flavors": [
-        "Berry Blast",
-        "Green Apple"
-      ],
+      "available_flavors": ["Berry Blast", "Green Apple"],
       "available_size": "30 servings",
       "product_images": {
         "Berry Blast": "https://example.com/redrex_hybrid_berry.jpg",
@@ -331,10 +298,7 @@
       "expiration_date": "2025-09-30",
       "price": 30,
       "brand": "JNX Nutrition",
-      "available_flavors": [
-        "Lemon Lime",
-        "Watermelon"
-      ],
+      "available_flavors": ["Lemon Lime", "Watermelon"],
       "available_size": "30 servings",
       "product_images": {
         "Lemon Lime": "https://example.com/jnx_bcaas_lemonlime.jpg",
@@ -350,9 +314,7 @@
       "expiration_date": "2024-05-01",
       "price": 20,
       "brand": "JNX Nutrition",
-      "available_flavors": [
-        "Unflavored"
-      ],
+      "available_flavors": ["Unflavored"],
       "available_size": "300 g",
       "product_images": {
         "Unflavored": "https://example.com/jnx_creatine.jpg"
@@ -367,10 +329,7 @@
       "expiration_date": "2025-08-15",
       "price": 30,
       "brand": "JNX Nutrition",
-      "available_flavors": [
-        "Citrus",
-        "Raspberry Lemonade"
-      ],
+      "available_flavors": ["Citrus", "Raspberry Lemonade"],
       "available_size": "30 servings",
       "product_images": {
         "Citrus": "https://example.com/jnx_preworkout_citrus.jpg",
@@ -386,10 +345,7 @@
       "expiration_date": "2025-03-22",
       "price": 35,
       "brand": "JNX Nutrition",
-      "available_flavors": [
-        "Chocolate",
-        "Vanilla"
-      ],
+      "available_flavors": ["Chocolate", "Vanilla"],
       "available_size": "2 lb",
       "product_images": {
         "Chocolate": "https://example.com/jnx_wheyprotein_chocolate.jpg",
@@ -730,6 +686,116 @@
           "id": 17
         }
       ]
+    }
+  ],
+  "foods": [
+    {
+      "id": 1,
+      "name": "Bread",
+      "image": "/assets/foods-imgs/bread.jpeg",
+      "calories": 250,
+      "protein": 8,
+      "fat": 2,
+      "carbs": 50
+    },
+    {
+      "id": 2,
+      "name": "Egg",
+      "image": "/assets/foods-imgs/egg.jpeg",
+      "calories": 155,
+      "protein": 13,
+      "fat": 11,
+      "carbs": 1
+    },
+    {
+      "id": 3,
+      "name": "Potato",
+      "image": "/assets/foods-imgs/potato.jpeg",
+      "calories": 130,
+      "protein": 3,
+      "fat": 0.2,
+      "carbs": 30
+    },
+    {
+      "id": 4,
+      "name": "Apple",
+      "image": "/assets/foods-imgs/apple.jpeg",
+      "calories": 95,
+      "protein": 0.5,
+      "fat": 0.3,
+      "carbs": 25
+    },
+    {
+      "id": 5,
+      "name": "Avocado",
+      "image": "/assets/foods-imgs/avocado.jpeg",
+      "calories": 160,
+      "protein": 2,
+      "fat": 15,
+      "carbs": 9
+    },
+    {
+      "id": 6,
+      "name": "Banana",
+      "image": "/assets/foods-imgs/banana.jpeg",
+      "calories": 105,
+      "protein": 1.3,
+      "fat": 0.3,
+      "carbs": 27
+    },
+    {
+      "id": 7,
+      "name": "Rice",
+      "image": "/assets/foods-imgs/rice.jpeg",
+      "calories": 200,
+      "protein": 4,
+      "fat": 0.4,
+      "carbs": 45
+    },
+    {
+      "id": 8,
+      "name": "Pasta",
+      "image": "/assets/foods-imgs/pasta.jpeg",
+      "calories": 131,
+      "protein": 5,
+      "fat": 1.1,
+      "carbs": 25
+    },
+    {
+      "id": 9,
+      "name": "Chicken",
+      "image": "/assets/foods-imgs/Chicken.jpeg",
+      "calories": 165,
+      "protein": 31,
+      "fat": 3.6,
+      "carbs": 0
+    },
+    {
+      "id": 10,
+      "name": "Cheese",
+      "image": "/assets/foods-imgs/Cheese.jpeg",
+      "calories": 113,
+      "protein": 7,
+      "fat": 9,
+      "carbs": 1
+    },
+    {
+      "id": 11,
+      "name": "Chocolate",
+      "image": "/assets/foods-imgs/Chocolate.jpeg",
+      "calories": 546,
+      "protein": 7.6,
+      "fat": 31,
+      "carbs": 61
+    },
+    {
+      "id": 12,
+      "name": "Yogurt",
+      "image": "/assets/foods-imgs/Yogurt.jpg",
+      "calories": 59,
+      "protein": 10,
+      "fat": 0.4,
+      "carbs": 3.6
     }
   ]
 }
