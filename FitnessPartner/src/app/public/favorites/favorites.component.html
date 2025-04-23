@@ -1,11 +1,25 @@
 <div class="favorites-container">
   <h2>My Favorites</h2>
-  
-  <div *ngIf="favoriteItems.length === 0" class="empty-favorites">
-    <p>You don't have any favorite items yet.</p>
-    <a routerLink="/products" class="browse-products-btn">Browse Products</a>
+  <div *ngIf="favoriteItems.length === 0" class="empty-favorites text-center p-4">
+    <!-- Heart animation icon -->
+    <div class="heart-icon mb-3">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+    </div>
+    
+    <!-- Message -->
+    <h3 class="mb-2">Your favorites are empty</h3>
+    <p class="text-muted mb-4">Save your favorite products to see them here!</p>
+    
+    <!-- Action buttons -->
+    <div class="d-flex justify-content-center gap-3">
+      <a routerLink="/products" class="btn btn-outline-light orange-btn px-4">
+        <i class="fas fa-store me-2"></i> Browse Products
+      </a>
+    </div>
   </div>
-  
+
   <div *ngIf="favoriteItems.length > 0" class="favorites-list">
     <div class="favorites-actions me-2">
       <button class="clear-all-btn border-0 bg-white text-dark" (click)="clearAllFavorites()">
@@ -29,13 +43,11 @@
         </div>
         
         <div class="item-actions p-2">
-          <button class="btn btn-outline-light border-0 orange-btn me-md-3" [routerLink]="['/products', item.id]">View Product</button>
-          <button class="remove-btn text-dark border-0 bg-white me-md-5" (click)="removeFromFavorites(item)">
-            <!-- <span class="remove-icon">×</span> Remove -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak trashIcon" viewBox="0 0 16 16">
-              <path d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38 38 0 0 0 .867-.59m-.303-1.01-.971-3.237 1.74-2.608a1 1 0 0 0 .103-.906l-1.3-3.468 1.45-1.813c1.861-.948 4.446.002 5.197 2.11.691 1.94-.055 5.521-6.219 9.922m-1.25 1.137a36 36 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3zm-2.3-3.06-.442-1.106a1 1 0 0 1 .034-.818l1.305-2.61L4.564 3.35a1 1 0 0 1 .168-.991l1.032-1.24c-1.688-.449-3.7.398-4.456 2.128-.711 1.627-.413 4.55 3.706 8.229Z"/>
-            </svg>
-            
+          <button class="btn btn-outline-light border-0 orange-btn" [routerLink]="['/products', item.id]">View Product</button>
+          
+          <button class="remove-btn text-dark border-0 bg-white me-md-5 heart-toggle-btn" (click)="removeFromFavorites(item)">
+            <i class="bi bi-heart-fill heart-icon full-heart fs-4 me-md-5"></i>
+            <i class="bi bi-heartbreak heart-icon broken-heart fs-4 me-md-1"></i>
           </button>
         </div>
       </div>
