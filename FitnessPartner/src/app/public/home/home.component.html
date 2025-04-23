@@ -1,1 +1,83 @@
-<p>home works!</p>
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" style="height: 92vh;">
+        <div class="carousel-item active">
+            <img src="assets/home-imgs/homeSlider2.webp" class="d-block w-100" alt="..." >
+            <div class="carousel-caption d-none d-md-block position-absolute text-overlay">
+                <h1>Welcome to fitness partner</h1>
+                <p style="font-size: 100px; font-weight: bolder; color: #f66c21;">Be Stronger Than Your Excuses</p>
+                <button class="button-design">Know more</button>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="assets/home-imgs/homeSlider7.jpeg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block position-absolute second-text-overlay">
+                <h2>Choose the best trainer for you</h2>
+                <p style= "font-size: 50px; font-weight: bolder">If you want better
+                <span style="font-size: 80px; font-weight: bolder; color: #f66c21;">Results</span>
+                , make better <span style="font-size: 80px; font-weight: bolder; color: #f66c21;">Choices</span>
+            </p>
+                <a class="btn button-design" style="margin-top: 10%;" routerLink="/trainers" routerLinkActive="active">Find Trainer</a>
+            </div>
+        </div>
+        <div class="carousel-item" >
+            <img src="assets/home-imgs/homeSlider3.png" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block position-absolute second-text-overlay" style="height:50vh;">
+                <h1>Welcome to fitness partner</h1>
+                <p style="font-size: 80px; font-weight: bolder; color: #f66c21;">
+                    You are only one workout away from a good mood.
+                </p>
+                <a class="btn button-design" routerLink="/exercises" routerLinkActive="active">Start Exercise </a>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<style>
+    /* Text Overlay Styles */
+.text-overlay {
+    width: 45vw;
+    height:45vh;
+    margin: 10% auto;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);  
+    border-radius: 5px;
+    }
+.second-text-overlay{
+    width: 45vw;
+    height:45vh;
+    left: 10%;
+    top: 10%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);  
+    border-radius: 5px;
+}
+.button-design {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+    border: none;
+    border-radius: 50px;
+    color: #0a0a0a;
+    font-weight: bolder;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin: 10px auto;
+    }
+
+    .button-design:hover {
+        transform: translateY(-2px);
+        color: white;
+    }
+</style>

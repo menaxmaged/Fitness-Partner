@@ -34,6 +34,14 @@
       "email": "yousef.hamdy141@gmail.com",
       "password": "123456Q!",
       "avatar": "profileImgRemove.png"
+    },
+    {
+      "id": "1a75c288-5a02-48cf-80db-7abcff8ac748",
+      "fName": "Verina",
+      "lName": "Maged",
+      "email": "verinamaged175@gmail.com",
+      "password": "V@123456789",
+      "gender": "Female"
     }
   ],
   "products": [
