@@ -9,7 +9,21 @@
     {
       "id": "2",
       "email": "omar@gmail.com",
-      "password": "123456W!"
+      "password": "123456W!",
+      "orders": [
+        {
+          "id": "33dedf74-e0ee-4b43-937a-40725a41099d",
+          "transactionId": "39J107561T063440P",
+          "products": [
+            {
+              "id": "6",
+              "quantity": 4
+            }
+          ],
+          "total": 120,
+          "date": "2025-04-22T21:50:03.574Z"
+        }
+      ]
     },
     {
       "id": "be1f60e2-9b0e-4876-8682-b8a50c38aedf",

@@ -1,0 +1,115 @@
+{
+    "home": [
+      {
+        "muscle": "Chest",
+        "exercises": [
+          {
+            "name": "Push-Up",
+            "videoUrl": "https://www.youtube.com/embed/IODxDxX7oi4"
+          }
+        ]
+      },
+      {
+        "muscle": "Arms",
+        "exercises": [
+          {
+            "name": "Chair Dips",
+            "videoUrl": "https://www.youtube.com/embed/0326dy_-CzM"
+          }
+        ]
+      },
+      {
+        "muscle": "Shoulders",
+        "exercises": [
+          {
+            "name": "Pike Push-Up",
+            "videoUrl": "https://www.youtube.com/embed/CmSRtFYTk60"
+          }
+        ]
+      },
+      {
+        "muscle": "Back",
+        "exercises": [
+          {
+            "name": "Superman Exercise",
+            "videoUrl": "https://www.youtube.com/embed/z6PJMT2y8GQ"
+          }
+        ]
+      },
+      {
+        "muscle": "Legs",
+        "exercises": [
+          {
+            "name": "Bodyweight Squats",
+            "videoUrl": "https://www.youtube.com/embed/aclHkVaku9U"
+          }
+        ]
+      },
+      {
+        "muscle": "Abs",
+        "exercises": [
+          {
+            "name": "Plank",
+            "videoUrl": "https://www.youtube.com/embed/pSHjTRCQxIw"
+          }
+        ]
+      }
+    ],
+    "gym": [
+      {
+        "muscle": "Chest",
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "videoUrl": "https://www.youtube.com/embed/gRVjAtPip0Y"
+          }
+        ]
+      },
+      {
+        "muscle": "Arms",
+        "exercises": [
+          {
+            "name": "Cable Bicep Curls",
+            "videoUrl": "https://www.youtube.com/embed/av7-8igSXTs"
+          }
+        ]
+      },
+      {
+        "muscle": "Shoulders",
+        "exercises": [
+          {
+            "name": "Dumbbell Shoulder Press",
+            "videoUrl": "https://www.youtube.com/embed/B-aVuyhvLHU"
+          }
+        ]
+      },
+      {
+        "muscle": "Back",
+        "exercises": [
+          {
+            "name": "Lat Pulldown",
+            "videoUrl": "https://www.youtube.com/embed/CAwf7n6Luuc"
+          }
+        ]
+      },
+      {
+        "muscle": "Legs",
+        "exercises": [
+          {
+            "name": "Leg Press",
+            "videoUrl": "https://www.youtube.com/embed/M6yPo4qORgE"
+          }
+        ]
+      },
+      {
+        "muscle": "Abs",
+        "exercises": [
+          {
+            "name": "Cable Crunch",
+            "videoUrl": "https://www.youtube.com/embed/2tPL3gE8knQ"
+          }
+        ]
+      }
+    ]
+  }
+  
