@@ -7,7 +7,7 @@
         <button class="btn-filter" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
           <i class="fas fa-filter"></i> Filters
         </button>
-        
+
         <!-- Filter Collapse Panel -->
         <div class="collapse mt-3" id="filterCollapse">
           <div class="card card-body">
@@ -19,7 +19,7 @@
                   <option *ngFor="let category of categories" [value]="category">{{category}}</option>
                 </select>
               </div>
-              
+
               <div class="col-md-4">
                 <h5>Brand</h5>
                 <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
@@ -27,19 +27,19 @@
                   <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
                 </select>
               </div>
-              
+
               <div class="col-md-4">
-                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} EGP</h5>
+                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} $</h5>
                 <div class="d-flex align-items-center">
-                  <input type="range" class="form-range" min="0" [max]="priceRange.max" 
+                  <input type="range" class="form-range" min="0" [max]="priceRange.max"
                          [(ngModel)]="priceRange.min" (change)="applyFilters()" style="width: 45%">
                   <span class="mx-2">to</span>
-                  <input type="range" class="form-range" [min]="priceRange.min" [max]="priceRange.max" 
+                  <input type="range" class="form-range" [min]="priceRange.min" [max]="priceRange.max"
                          [(ngModel)]="priceRange.max" (change)="applyFilters()" style="width: 45%">
                 </div>
               </div>
             </div>
-            
+
             <div class="mt-3">
               <button class="btn btn-sm btn-outline-light orange-btn" (click)="resetFilters()">
                 Reset Filters
@@ -48,17 +48,17 @@
           </div>
         </div>
       </div>
-      
+
       <div class="display-options">
         <div class="show-items">
-          Show: 
-          <span *ngFor="let count of itemsPerPageOptions" 
+          Show:
+          <span *ngFor="let count of itemsPerPageOptions"
                 [class.active]="itemsPerPage === count"
                 (click)="changeItemsPerPage(count)">
             {{count}}
           </span>
         </div>
-        
+
         <div class="sort-options">
           <select class="form-select" [(ngModel)]="selectedSort" (change)="applyFilters()">
             <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-  
+
 
   <!-- Products Grid -->
   <div class="row">
@@ -78,14 +78,14 @@
             <span class="badge new-badge" *ngIf="product.isNew">NEW</span>
             <span class="badge hot-badge" *ngIf="product.isHot">HOT</span>
           </div>
-  
+
           <!-- Product Image -->
           <div class="product-image">
             <img [src]="product.image" alt="{{ product.name }}">
-            
+
             <!-- Hover Buttons -->
             <div class="hover-buttons">
-              <button class="btn-wishlist" (click)="toggleFavorite(product, $event)" 
+              <button class="btn-wishlist" (click)="toggleFavorite(product, $event)"
                      [class.in-favorites]="favoritesService.isFavorite(product.id)">
                 <i [class]="favoritesService.isFavorite(product.id) ? 'fas fa-heart' : 'far fa-heart'"></i>
               </button>
@@ -97,7 +97,7 @@
               </button>
             </div>
           </div>
-  
+
           <!-- Product Info -->
           <div class="product-info">
             <div class="product-categories">
@@ -106,7 +106,7 @@
             <div class="product-brand">{{ product.brand }}</div>
             <h3 class="product-name">{{ product.name }}</h3>
             <div class="product-price">
-              <span class="price">{{ product.price }}.00 EGP</span>
+              <span class="price">{{ product.price }}.00 $</span>
             </div>
             <div class="product-expiry">
               <span class="expiry-date">Expires: {{ formatDate(product.expiration_date) }}</span>
@@ -126,7 +126,7 @@
           </a>
         </li>
 
-        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
             [class.active]="currentPage === i + 1">
           <a class="page-link" (click)="pageChanged(i + 1)">{{i + 1}}</a>
         </li>
@@ -148,7 +148,7 @@
   <div class="modal-overlay" (click)="closeQuickView()"></div>
   <div class="modal-content" *ngIf="selectedProduct">
     <button class="close-modal" (click)="closeQuickView()">×</button>
-    
+
     <div class="modal-body">
       <div class="row">
         <!-- Product Image -->
@@ -160,19 +160,19 @@
             </button>
           </div>
         </div>
-        
+
         <!-- Product Details -->
         <div class="col-md-7">
           <div class="product-price mb-3">
-            <span class="price">{{ selectedProduct.price }}.00 EGP</span>
+            <span class="price">{{ selectedProduct.price }}.00 $</span>
           </div>
-          
+
           <h2 class="product-title mb-3">{{ selectedProduct.name }}</h2>
-          
+
           <div class="product-description mb-4">
             {{ selectedProduct.description }}
           </div>
-          
+
           <div class="product-meta mb-4">
             <!-- <div class="sku mb-2">
               <strong>SKU:</strong> {{ selectedProduct.id }}
@@ -181,7 +181,7 @@
               <strong>Categories:</strong> {{ selectedProduct.category }}
             </div>
           </div>
-          
+
           <div class="product-form">
             <div class="flavor-select mb-3">
               <label>Flavor:</label>
@@ -191,7 +191,18 @@
                   {{ flavor }}
                 </option>
               </select>
-            </div>    
+            </div>
+
+            <!-- <div class="quantity-selector mb-3">
+              <button class="btn-quantity" (click)="decreaseQuantity()">-</button>
+              <input type="text" [value]="quantity" readonly>
+              <button class="btn-quantity" (click)="increaseQuantity()">+</button>
+
+              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct)">
+                ADD TO CART
+              </button>
+            </div> -->
+
             <div class="quantity-selector mb-3">
               <div class="quantity-controls">
                 <button class="btn-quantity" (click)="decreaseQuantity()">
@@ -206,17 +217,17 @@
                   </svg>
                 </button>
               </div>
-              
+
               <button class="btn-add-to-cart" (click)="addToCart(selectedProduct)">
                 ADD TO CART
               </button>
-              
+
               <!-- Pop-up message -->
               <div *ngIf="showPopUpMessage" class="pop-up-message">
                 Item added to cart!
               </div>
             </div>
-            
+
 
             <div class="share-product">
               <strong>Share:</strong>
