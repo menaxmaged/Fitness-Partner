@@ -1,60 +1,247 @@
 <h2 class="page-title my-5">All Products</h2>
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let product of products">
-      <a [routerLink]="['/products', product.id]">
-        <div class="product-card" (click)="toggleFlavors(product)">
-          <img [src]="product.image" alt="{{ product.name }}" />
+
+  <div class="container product-container">
+    <!-- Filters and Display Options Row -->
+    <div class="filters-row mb-4">
+      <div class="filters">
+        <button class="btn-filter" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+          <i class="fas fa-filter"></i> Filters
+        </button>
+        
+        <!-- Filter Collapse Panel -->
+        <div class="collapse mt-3" id="filterCollapse">
+          <div class="card card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <h5>Category</h5>
+                <select class="form-select" [(ngModel)]="selectedCategory" (change)="applyFilters()">
+                  <option value="">All Categories</option>
+                  <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                </select>
+              </div>
+              
+              <div class="col-md-4">
+                <h5>Brand</h5>
+                <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
+                  <option value="">All Brands</option>
+                  <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
+                </select>
+              </div>
+              
+              <div class="col-md-4">
+                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} EGP</h5>
+                <div class="d-flex align-items-center">
+                  <input type="range" class="form-range" min="0" [max]="priceRange.max" 
+                         [(ngModel)]="priceRange.min" (change)="applyFilters()" style="width: 45%">
+                  <span class="mx-2">to</span>
+                  <input type="range" class="form-range" [min]="priceRange.min" [max]="priceRange.max" 
+                         [(ngModel)]="priceRange.max" (change)="applyFilters()" style="width: 45%">
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-3">
+              <button class="btn btn-sm btn-outline-light orange-btn" (click)="resetFilters()">
+                Reset Filters
+              </button>
+            </div>
+          </div>
         </div>
-      </a>
+      </div>
+      
+      <div class="display-options">
+        <div class="show-items">
+          Show: 
+          <span *ngFor="let count of itemsPerPageOptions" 
+                [class.active]="itemsPerPage === count"
+                (click)="changeItemsPerPage(count)">
+            {{count}}
+          </span>
+        </div>
+        
+        <div class="sort-options">
+          <select class="form-select" [(ngModel)]="selectedSort" (change)="applyFilters()">
+            <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+
+  <!-- Products Grid -->
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let product of paginatedProducts">
+        <div class="product-card">
+          <!-- Product Badges -->
+          <div class="product-badges">
+            <span class="badge discount-badge" *ngIf="product.discount">-{{product.discount}}%</span>
+            <span class="badge new-badge" *ngIf="product.isNew">NEW</span>
+            <span class="badge hot-badge" *ngIf="product.isHot">HOT</span>
+          </div>
+  
+          <!-- Product Image -->
+          <div class="product-image">
+            <img [src]="product.image" alt="{{ product.name }}">
+            
+            <!-- Hover Buttons -->
+            <div class="hover-buttons">
+              <button class="btn-wishlist" (click)="toggleFavorite(product, $event)" 
+                     [class.in-favorites]="favoritesService.isFavorite(product.id)">
+                <i [class]="favoritesService.isFavorite(product.id) ? 'fas fa-heart' : 'far fa-heart'"></i>
+              </button>
+              <button class="btn-quick-view" (click)="openQuickView(product, $event)">
+                <i class="far fa-eye"></i>
+              </button>
+              <button class="btn btn-outline-light orange-btn border-0 " [routerLink]="['/products', product.id]">
+                View Product
+              </button>
+            </div>
+          </div>
+  
+          <!-- Product Info -->
+          <div class="product-info">
+            <div class="product-categories">
+              <span>{{ product.category }}</span>
+            </div>
+            <div class="product-brand">{{ product.brand }}</div>
+            <h3 class="product-name">{{ product.name }}</h3>
+            <div class="product-price">
+              <span class="price">{{ product.price }}.00 EGP</span>
+            </div>
+            <div class="product-expiry">
+              <span class="expiry-date">Expires: {{ formatDate(product.expiration_date) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ <!-- Pagination -->
+<div class="row mt-4">
+  <div class="col-12">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center modern-pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="pageChanged(currentPage - 1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+            [class.active]="currentPage === i + 1">
+          <a class="page-link" (click)="pageChanged(i + 1)">{{i + 1}}</a>
+        </li>
+
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="pageChanged(currentPage + 1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+  </div>
+
+<!-- Quick View Modal -->
+<div class="quick-view-modal" [class.active]="selectedProduct">
+  <div class="modal-overlay" (click)="closeQuickView()"></div>
+  <div class="modal-content" *ngIf="selectedProduct">
+    <button class="close-modal" (click)="closeQuickView()">×</button>
+    
+    <div class="modal-body">
+      <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-5">
+          <div class="product-image">
+            <img [src]="selectedProduct.image" alt="{{ selectedProduct.name }}">
+            <button class="btn-view-details" [routerLink]="['/products', selectedProduct.id]" (click)="closeQuickView()">
+              View Details
+            </button>
+          </div>
+        </div>
+        
+        <!-- Product Details -->
+        <div class="col-md-7">
+          <div class="product-price mb-3">
+            <span class="price">{{ selectedProduct.price }}.00 EGP</span>
+          </div>
+          
+          <h2 class="product-title mb-3">{{ selectedProduct.name }}</h2>
+          
+          <div class="product-description mb-4">
+            {{ selectedProduct.description }}
+          </div>
+          
+          <div class="product-meta mb-4">
+            <!-- <div class="sku mb-2">
+              <strong>SKU:</strong> {{ selectedProduct.id }}
+            </div> -->
+            <div class="categories mb-2">
+              <strong>Categories:</strong> {{ selectedProduct.category }}
+            </div>
+          </div>
+          
+          <div class="product-form">
+            <div class="flavor-select mb-3">
+              <label>Flavor:</label>
+              <select class="form-control">
+                <option>Choose an option</option>
+                <option *ngFor="let flavor of selectedProduct.available_flavors">
+                  {{ flavor }}
+                </option>
+              </select>
+            </div>
+            
+            <!-- <div class="quantity-selector mb-3">
+              <button class="btn-quantity" (click)="decreaseQuantity()">-</button>
+              <input type="text" [value]="quantity" readonly>
+              <button class="btn-quantity" (click)="increaseQuantity()">+</button>
+              
+              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct)">
+                ADD TO CART
+              </button>
+            </div> -->
+            
+            <div class="quantity-selector mb-3">
+              <div class="quantity-controls">
+                <button class="btn-quantity" (click)="decreaseQuantity()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                  </svg>
+                </button>
+                <input type="text" [value]="quantity" readonly>
+                <button class="btn-quantity" (click)="increaseQuantity()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct)">
+                ADD TO CART
+              </button>
+              
+              <!-- Pop-up message -->
+              <div *ngIf="showPopUpMessage" class="pop-up-message">
+                Item added to cart!
+              </div>
+            </div>
+            
+
+            <div class="share-product">
+              <strong>Share:</strong>
+              <div class="social-icons">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-pinterest"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-telegram"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<style>
-  .page-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-  }
-
-  .product-card {
-    width: 300px;
-    padding: 15px;
-    border-radius: 16px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: 0.3s;
-    background-color: #fff;
-  }
-
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-
-  .product-image img {
-    width: 100%;
-    border-radius: 12px;
-    cursor: pointer;
-  }
-
-  button {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
-</style>

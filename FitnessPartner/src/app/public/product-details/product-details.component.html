@@ -1,4 +1,4 @@
-<div class="product-details" *ngIf="product">
+<!-- <div class="product-details" *ngIf="product">
  <div class="d-flex justify-content-between">
   <h2>{{ product.name }}</h2>
   <div class="favorite-icon" (click)="toggleFavorite(product)">
@@ -24,9 +24,56 @@
     </div>
   </div>
   <button (click)="addToCart(product)">Add to cart</button>
+</div> -->
+<div class="product-details" *ngIf="product">
+  <div class="d-flex justify-content-between">
+    <h2>{{ product.name }}</h2>
+    <div class="favorite-icon" (click)="toggleFavorite(product)">
+      <i class="fa-heart" [ngClass]="{ 'fas': isFavorite, 'far': !isFavorite }"></i>
+    </div>
+  </div>
+
+  <div class="product-image-container">
+    <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+  </div>
+
+  <p class="description">{{ product.description }}</p>
+  <p><strong>Price:</strong> {{ product.price }} $</p>
+  <p *ngIf="product.available_size">
+    <strong>Size:</strong> {{ product.available_size }}
+  </p>
+  <p *ngIf="product.brand"><strong>Brand:</strong> {{ product.brand }}</p>
+
+  <div class="flavors-section" *ngIf="product.available_flavors?.length">
+    <h4>Available Flavors:</h4>
+    <div class="flavor-list">
+      <div class="flavor-card" *ngFor="let flavor of product.available_flavors">
+        <img [src]="product.product_images[flavor]" alt="flavor" />
+        <p>{{ flavor }}</p>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="addToCart(product)">Add to cart</button>
+
+  <!-- Similar Products Section -->
+  <div *ngIf="similarProducts.length > 0" class="similar-products">
+    <h3>Similar Products</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let similarProduct of similarProducts">
+        <div class="product-card">
+          <img [src]="similarProduct.image" alt="{{ similarProduct.name }}" class="product-image" />
+          <h4>{{ similarProduct.name }}</h4>
+          <p>{{ similarProduct.description }}</p>
+          <button (click)="addToCart(similarProduct)">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<style>
+
+<!-- <style>
   .product-details {
     max-width: 700px;
     margin: 30px auto;
@@ -103,4 +150,4 @@
   color: red;
 }
 
-</style>
+</style> -->

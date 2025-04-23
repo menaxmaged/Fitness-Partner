@@ -1,73 +1,57 @@
+
 // import { Component, OnInit } from '@angular/core';
 // import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 // import { ProductServicesService } from '../../services/product-services.service';
 // import { ITrainerProducts } from '../../models/i-trainer-products';
 // import { CommonModule } from '@angular/common';
 // import { CartService } from '../../services/cart.service';
+// import { FavoritesService } from '../../services/favorites.service'; // Add this import
+
 // @Component({
 //   selector: 'app-product-details',
+//   standalone: true, // Add this if you're using Angular 17+
 //   imports: [CommonModule, RouterModule],
 //   templateUrl: './product-details.component.html',
-//   styles: ``,
+//   styles: ``
 // })
 // export class ProductDetailsComponent implements OnInit {
 //   product!: ITrainerProducts;
 //   isFavorite: boolean = false;
+
 //   constructor(
 //     private route: ActivatedRoute,
 //     private productService: ProductServicesService,
-//     private cartService: CartService
+//     private cartService: CartService,
+//     private favoritesService: FavoritesService // Inject the service
 //   ) {}
+
 //   ngOnInit(): void {
 //     const productId = Number(this.route.snapshot.paramMap.get('id'));
 //     this.productService
 //       .getProductById(productId)
 //       .subscribe((data: ITrainerProducts) => {
 //         this.product = data;
+//         // Check if product is favorite when data loads
+//         this.isFavorite = this.favoritesService.isFavorite(this.product.id);
 //       });
 //   }
-//   addToCart(product: any) {
+
+//   addToCart(product: ITrainerProducts) {
 //     this.cartService.addToCart(product);
 //   }
-//   toggleFavorite(product: any) {
-//     this.isFavorite = !this.isFavorite;
-    
-//     if (this.isFavorite) {
-//       let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-//       const alreadyExists = favorites.some((p: any) => p.id === product.id);
-//       if (!alreadyExists) {
-//         favorites.push(product);
-//         localStorage.setItem('favorites', JSON.stringify(favorites));
-//       }
-//     } else {
-//       let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-//       favorites = favorites.filter((p: any) => p.id !== product.id);
-//       localStorage.setItem('favorites', JSON.stringify(favorites));
-//     }
+
+//   toggleFavorite(product: ITrainerProducts) {
+//     // Use the service instead of direct localStorage manipulation
+//     this.favoritesService.toggleFavorite(product);
+//     // Update local state to reflect the change
+//     this.isFavorite = this.favoritesService.isFavorite(product.id);
 //   }
 // }
-
-// toggleFavorite(product: any) {
-//   this.isFavorite = !this.isFavorite;
-//   if (this.isFavorite) {
-//     let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-//     const alreadyExists = favorites.find((p: any) => p.id === product.id);
-//     if (!alreadyExists) {
-//       favorites.push(product);
-//       localStorage.setItem('favorites', JSON.stringify(favorites));
-//     }
-//   } else {
-//     let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-//     favorites = favorites.filter((p: any) => p.id !== product.id);
-//     localStorage.setItem('favorites', JSON.stringify(favorites));
-//   }
-// }
-
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductServicesService } from '../../services/product-services.service';
-import { ITrainerProducts } from '../../models/i-trainer-products';
+import { IProducts } from '../../models/i-products';  // Import the IProducts interface
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { FavoritesService } from '../../services/favorites.service'; // Add this import
@@ -77,10 +61,11 @@ import { FavoritesService } from '../../services/favorites.service'; // Add this
   standalone: true, // Add this if you're using Angular 17+
   imports: [CommonModule, RouterModule],
   templateUrl: './product-details.component.html',
-  styles: ``
+  styleUrls: ['./product-details.component.css'] // Assuming you have a separate CSS file for styling
 })
 export class ProductDetailsComponent implements OnInit {
-  product!: ITrainerProducts;
+  product!: IProducts;                     // Product object based on IProducts interface
+  similarProducts: IProducts[] = [];        // Similar products based on IProducts interface
   isFavorite: boolean = false;
 
   constructor(
@@ -92,23 +77,32 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const productId = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService
-      .getProductById(productId)
-      .subscribe((data: ITrainerProducts) => {
-        this.product = data;
-        // Check if product is favorite when data loads
-        this.isFavorite = this.favoritesService.isFavorite(this.product.id);
-      });
+
+    // Get product details by ID
+    this.productService.getProductById(productId).subscribe((data: IProducts) => {
+      this.product = data;
+      // Check if product is favorite when data loads
+      this.isFavorite = this.favoritesService.isFavorite(this.product.id);
+
+      // Fetch similar products based on category
+      this.getSimilarProducts(this.product.category);
+    });
   }
 
-  addToCart(product: ITrainerProducts) {
+  // Fetch similar products based on the category
+  getSimilarProducts(category: string): void {
+    this.productService.getProductsByCategory(category).subscribe((products: IProducts[]) => {
+      // Filter out the current product from the similar products
+      this.similarProducts = products.filter(p => p.id !== this.product.id);
+    });
+  }
+
+  addToCart(product: IProducts): void {
     this.cartService.addToCart(product);
   }
 
-  toggleFavorite(product: ITrainerProducts) {
-    // Use the service instead of direct localStorage manipulation
+  toggleFavorite(product: IProducts): void {
     this.favoritesService.toggleFavorite(product);
-    // Update local state to reflect the change
     this.isFavorite = this.favoritesService.isFavorite(product.id);
   }
 }

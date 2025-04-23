@@ -272,3 +272,35 @@
 .logout-btn:hover {
   background-color: #bb2d3b !important;
 }
+
+.modern-pagination .page-link {
+  background: white;
+  color: #CC0000;
+  border: 1px solid #ddd;
+  margin: 0 5px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 8px 16px;
+}
+
+.modern-pagination .page-link:hover {
+  background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%);
+  color: white;
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+.modern-pagination .page-item.active .page-link {
+  background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(204, 0, 0, 0.3);
+}
+
+.modern-pagination .page-item.disabled .page-link {
+  color: #aaa;
+  pointer-events: none;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+}
