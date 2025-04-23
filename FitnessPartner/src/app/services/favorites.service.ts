@@ -5,61 +5,77 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class FavoritesService {
-  private favoritesKey = 'favorites';
-  private favoriteItems: any[] = this.getFavoritesFromStorage();
-  private favoritesSubject = new BehaviorSubject<any[]>(this.favoriteItems);
+  private favoritesKeyPrefix = 'favorites_';
+  private currentUserId: string | null = null;
+  private favoritesSubject = new BehaviorSubject<any[]>([]);
   favorites$ = this.favoritesSubject.asObservable();
 
   constructor() {}
 
+  private getStorageKey(): string {
+    return this.currentUserId ? `${this.favoritesKeyPrefix}${this.currentUserId}` : '';
+  }
+
   private getFavoritesFromStorage(): any[] {
-    const storedFavorites = localStorage.getItem(this.favoritesKey);
+    const key = this.getStorageKey();
+    const storedFavorites = key ? localStorage.getItem(key) : null;
     return storedFavorites ? JSON.parse(storedFavorites) : [];
   }
 
-  private saveFavoritesToStorage(favorites: any[]): void {
-    localStorage.setItem(this.favoritesKey, JSON.stringify(favorites));
+  private updateFavorites(favorites: any[]): void {
+    const key = this.getStorageKey();
+    if (key) {
+      localStorage.setItem(key, JSON.stringify(favorites));
+      this.favoritesSubject.next(favorites);
+    }
+  }
+
+  initializeForUser(userId: string): void {
+    this.currentUserId = userId;
+    const favorites = this.getFavoritesFromStorage();
+    this.favoritesSubject.next(favorites);
+  }
+
+  clearUserData(): void {
+    this.currentUserId = null;
+    this.favoritesSubject.next([]);
   }
 
   getFavorites(): any[] {
-    return this.favoriteItems;
+    return [...this.favoritesSubject.value]; 
   }
 
   getFavoritesCount(): number {
-    return this.favoriteItems.length;
+    return this.favoritesSubject.value.length;
   }
 
   clearFavorites(): void {
-    this.favoriteItems = [];
-    this.saveFavoritesToStorage(this.favoriteItems);
-    this.favoritesSubject.next([...this.favoriteItems]);
+    this.updateFavorites([]);
   }
 
   addToFavorites(product: any): void {
-    const isFavorite = this.favoriteItems.some(item => item.id === product.id);
-
-    if (!isFavorite) {
-      this.favoriteItems.push({ ...product });
-      this.saveFavoritesToStorage(this.favoriteItems);
-      this.favoritesSubject.next([...this.favoriteItems]);
+    if (!this.currentUserId) return;
+    
+    const current = this.getFavorites();
+    if (!current.some(item => item.id === product.id)) {
+      this.updateFavorites([...current, product]);
     }
   }
 
   removeFromFavorites(productId: number): void {
-    this.favoriteItems = this.favoriteItems.filter(item => item.id !== productId);
-    this.saveFavoritesToStorage(this.favoriteItems);
-    this.favoritesSubject.next([...this.favoriteItems]);
+    if (!this.currentUserId) return;
+    
+    const current = this.getFavorites();
+    this.updateFavorites(current.filter(item => item.id !== productId));
   }
 
   isFavorite(productId: number): boolean {
-    return this.favoriteItems.some(item => item.id === productId);
+    return this.getFavorites().some(item => item.id === productId);
   }
 
   toggleFavorite(product: any): void {
-    if (this.isFavorite(product.id)) {
-      this.removeFromFavorites(product.id);
-    } else {
-      this.addToFavorites(product);
-    }
+    this.isFavorite(product.id) 
+      ? this.removeFromFavorites(product.id)
+      : this.addToFavorites(product);
   }
 }

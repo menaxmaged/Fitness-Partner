@@ -1,49 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FavoritesService } from '../../services/favorites.service';
+import { UsersService } from '../../services/users.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-favorites-items',
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './favorites.component.html',
-  styleUrl:'./favorites.component.css'
+  styleUrl: './favorites.component.css'
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent implements OnDestroy {
   favoriteItems: any[] = [];
-  
-  constructor(private myFavorites: FavoritesService) {}
-  
-  ngOnInit() {
-    this.myFavorites.favorites$.subscribe((favorites) => {
-      this.favoriteItems = favorites;
-    });
+  private favoritesSub: Subscription;
+
+  constructor(
+    private myFavorites: FavoritesService,
+    private usersService: UsersService
+  ) {
+    const token = localStorage.getItem('token');
+    const userId = token ? atob(token) : null;
     
-    this.favoriteItems = this.myFavorites.getFavorites();
+    if (userId) {
+      this.myFavorites.initializeForUser(userId);
+    }
+
+    this.favoritesSub = this.myFavorites.favorites$.subscribe(favorites => {
+      this.favoriteItems = favorites;
+      console.log('Favorites component updated:', favorites);
+    });
   }
-  
-  addToFavorites(product: any) {
-    this.myFavorites.addToFavorites(product);
-  }
-  
+
   removeFromFavorites(product: any) {
     this.myFavorites.removeFromFavorites(product.id);
-    console.log('Item removed from favorites:', product.name);
   }
-  
+
   clearAllFavorites() {
     this.myFavorites.clearFavorites();
-    console.log('All favorites cleared');
+  }
+
+  ngOnDestroy() {
+    this.favoritesSub.unsubscribe();
   }
 }
-//   ngOnDestroy() {
-//     if (this.subscription) {
-//       this.subscription.unsubscribe();
-//     }
-//   }
-
-//   removeFavorite(productId: number) {
-//     this.favoritesService.removeFromFavorites(productId);
-//   }
-// }

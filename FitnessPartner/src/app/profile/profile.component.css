@@ -8,3 +8,11 @@
   background-color: #0d6efd;
   color: white !important;
 }
+.logout-btn {
+  background-color: #dc3545 !important; /* Bootstrap danger color */
+  margin-top: 1rem; /* Add some space above */
+}
+
+.logout-btn:hover {
+  background-color: #bb2d3b !important; /* Slightly darker red on hover */
+}

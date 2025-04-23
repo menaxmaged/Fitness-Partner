@@ -12,14 +12,16 @@
       "password": "123456W!",
       "orders": [
         {
-          "id": "7505cb2f-558b-44c2-aaf4-08127637dbbd",
-          "transactionId": "2JT96315KU0624125",
-          "productId": [
-            "8",
-            "1"
+          "id": "33dedf74-e0ee-4b43-937a-40725a41099d",
+          "transactionId": "39J107561T063440P",
+          "products": [
+            {
+              "id": "6",
+              "quantity": 4
+            }
           ],
-          "total": 60,
-          "date": "2025-04-22T17:01:21.380Z"
+          "total": 120,
+          "date": "2025-04-22T21:50:03.574Z"
         }
       ]
     },

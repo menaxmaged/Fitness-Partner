@@ -204,3 +204,71 @@
   transform: translateY(-2px);
   color: white;
 }
+.door-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.door-icon svg {
+  fill: white; 
+  transition: opacity 0.2s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.door-closed {
+  opacity: 1;
+}
+.door-open {
+  opacity: 0;
+}
+
+.door-icon:hover .door-closed {
+  opacity: 0;
+}
+.door-icon:hover .door-open {
+  opacity: 1;
+}
+
+.door-icon-container .door-icon {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.door-icon-container .door-icon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.2s ease;
+  fill: white;
+}
+
+.door-icon-container .door-closed {
+  opacity: 1;
+}
+.door-icon-container .door-open {
+  opacity: 0;
+}
+
+.door-icon-container:hover .door-closed {
+  opacity: 0;
+}
+.door-icon-container:hover .door-open {
+  opacity: 1;
+}
+
+.logout-btn {
+  background-color: #dc3545 !important;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn:hover {
+  background-color: #bb2d3b !important;
+}
