@@ -21,6 +21,10 @@ import { PasswordComponent } from './profile/password/password.component';
 import { SettingsComponent } from './profile/settings/settings.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NutritionDetailsComponent } from './public/nutrition-details/nutrition-details.component';
+import { ExercisesHomeComponent } from './exercises-home/exercises-home.component';
+import { ExercisesGymComponent } from './exercises-gym/exercises-gym.component';
+import { MuscleExerciseComponent } from './muscle-exercise/muscle-exercise.component';
+import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -35,6 +39,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'exercises', component: ExercisesComponent },
+    { path: 'exercises/home', component: ExercisesHomeComponent },
+    { path: 'exercises/gym', component: ExercisesGymComponent },
+    { path: 'exercises/:type/:muscle', component: MuscleExerciseComponent },
+    { path: 'exercises/:type/:muscle/:exercise', component: ExerciseDetailComponent },
+
   { path: 'nutrition', component: NutritionComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },

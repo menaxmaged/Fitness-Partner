@@ -1,0 +1,15 @@
+<div class="container mt-4">
+    <h3 class="text-center text-capitalize">{{ muscleName }} Exercises</h3>
+    <div class="row mt-4">
+      <div class="col-md-6 mb-4" *ngFor="let ex of exercises" (click)="goToExercise(ex.name)" style="cursor: pointer;">
+        <div class="card">
+          <div class="card-body">
+            <h5>{{ ex.name }}</h5>
+            <div class="ratio ratio-16x9">
+              <iframe [src]="ex.videoUrl" frameborder="0" allowfullscreen style="pointer-events: none;"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

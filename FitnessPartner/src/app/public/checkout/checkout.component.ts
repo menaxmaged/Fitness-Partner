@@ -53,13 +53,17 @@ export class CheckoutComponent implements OnInit {
               console.error("User ID not found!");
               return;
             }
-            const newOrder = {
-              id: generateId(),
-              transactionId: transactionId,
-              productId: this.cart.map(item => item.id), // Extract only the IDs
-              total: this.total,
-              date: new Date().toISOString(),
-            };
+            // In your CheckoutComponent's onApprove method
+const newOrder = {
+  id: generateId(),
+  transactionId: transactionId,
+  products: this.cart.map(item => ({
+    id: item.id,
+    quantity: item.quantity // Store both ID and quantity
+  })),
+  total: this.total,
+  date: new Date().toISOString(),
+};  
             this.myUserService.getUserById(userId).subscribe({
               next: (userData: any) => {
                 if (!userData.orders) {
