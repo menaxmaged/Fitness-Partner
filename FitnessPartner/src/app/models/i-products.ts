@@ -12,3 +12,4 @@ export interface IProducts {
     category: string;                    // Category of the product (e.g., "Protein", "Creatine")
   }
   
+  //id: string | number; 
