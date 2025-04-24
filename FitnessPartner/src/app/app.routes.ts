@@ -26,6 +26,7 @@ import { ExercisesGymComponent } from './exercises-gym/exercises-gym.component';
 import { MuscleExerciseComponent } from './muscle-exercise/muscle-exercise.component';
 import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.component';
 import { NgModule } from '@angular/core';
+import { WarmUpComponent } from './warm-up/warm-up.component';
 
 export const routes: Routes = [
   
@@ -43,6 +44,7 @@ export const routes: Routes = [
   { path: 'exercises', component: ExercisesComponent },
     { path: 'exercises/home', component: ExercisesHomeComponent },
     { path: 'exercises/gym', component: ExercisesGymComponent },
+    { path: 'exercises/warm', component: WarmUpComponent },
     { path: 'exercises/:type/:muscle', component: MuscleExerciseComponent },
     { path: 'exercises/:type/:muscle/:exercise', component: ExerciseDetailComponent },
 
