@@ -1,0 +1,334 @@
+[
+    {
+      "id": "1",
+      "name": "Ahmed Samir",
+      "image": "/assets/trainers-imgs/t1.jpeg",
+      "bio": "Ahmed is a certified personal trainer with 8 years of experience in strength training and nutrition coaching. He specializes in helping beginners build healthy habits and achieve long-term results.",
+      "faq": [
+        {
+          "question": "Do I need equipment to start training?",
+          "answer": "No, we can start with bodyweight workouts and build up from there."
+        },
+        {
+          "question": "How many days per week should I train?",
+          "answer": "4-5 days is optimal, but we can adjust based on your schedule."
+        },
+        {
+          "question": "Do you provide a meal plan?",
+          "answer": "Yes, I offer customized meal plans tailored to your fitness goals."
+        }
+      ],
+      "products": [
+        {
+          "id": 1
+        },
+        {
+          "id": 2
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Hady Mohamed",
+      "image": "/assets/trainers-imgs/t2.jpeg",
+      "bio": "Hady is a fitness coach who helps people improve flexibility, mental health, and overall wellness. He believes in a holistic approach to health.",
+      "faq": [
+        {
+          "question": "Can I lose weight with yoga only?",
+          "answer": "Yoga helps with weight management, especially when combined with a proper diet."
+        },
+        {
+          "question": "Do you offer online sessions?",
+          "answer": "Yes, I provide online classes via Zoom."
+        },
+        {
+          "question": "What should I wear for yoga sessions?",
+          "answer": "Comfortable, stretchy clothes that allow movement."
+        }
+      ],
+      "products": [
+        {
+          "id": 2
+        },
+        {
+          "id": 4
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Mohamed Youssef",
+      "image": "/assets/trainers-imgs/t3.jpg",
+      "bio": "Mohamed is a strength and conditioning coach with a background in sports science. He trains athletes and advanced lifters to improve performance.",
+      "faq": [
+        {
+          "question": "Can you help with powerlifting programs?",
+          "answer": "Yes, I design personalized programs for powerlifters."
+        },
+        {
+          "question": "Do I need supplements?",
+          "answer": "Not always, but I can recommend if needed based on your nutrition."
+        }
+      ],
+      "products": [
+        {
+          "id": 3
+        },
+        {
+          "id": 5
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Mohamed Hassan",
+      "image": "/assets/trainers-imgs/t4.jpeg",
+      "bio": "Mohamed is a certified Pilates and functional training instructor. She works with clients of all ages to improve mobility, strength, and core stability.",
+      "faq": [
+        {
+          "question": "Is Pilates good for back pain?",
+          "answer": "Yes, Pilates helps improve posture and relieve back pain."
+        },
+        {
+          "question": "How long are your sessions?",
+          "answer": "Each session is 45-60 minutes depending on the program."
+        }
+      ],
+      "products": [
+        {
+          "id": 4
+        },
+        {
+          "id": 6
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Khaled Nabil",
+      "image": "/assets/trainers-imgs/t5.jpeg",
+      "bio": "Khaled is a personal trainer and body transformation specialist. He focuses on fat loss, muscle building, and mindset coaching.",
+      "faq": [
+        {
+          "question": "Can I lose weight without cardio?",
+          "answer": "Yes, through strength training and proper diet, it's very possible."
+        },
+        {
+          "question": "Do you provide transformation programs?",
+          "answer": "Yes, I offer 8 and 12-week transformation programs."
+        }
+      ],
+      "products": [
+        {
+          "id": 5
+        },
+        {
+          "id": 7
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Tamer Ali",
+      "image": "/assets/trainers-imgs/t6.jpeg",
+      "bio": "Tamer specializes in HIIT (High-Intensity Interval Training) and functional fitness. He helps clients achieve fat loss and improve endurance with a combination of strength and cardio workouts.",
+      "faq": [
+        {
+          "question": "How do HIIT workouts work?",
+          "answer": "HIIT involves short bursts of intense exercise followed by short rest periods to maximize fat burning and improve cardiovascular health."
+        },
+        {
+          "question": "Do I need to be in great shape to start?",
+          "answer": "No, HIIT can be modified to suit beginners and gradually increase in intensity as you progress."
+        }
+      ],
+      "products": [
+        {
+          "id": 6
+        },
+        {
+          "id": 8
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Maher Ghanem",
+      "image": "/assets/trainers-imgs/t7.jpeg",
+      "bio": "Maher is a certified nutritionist and personal trainer who focuses on sustainable weight loss. She helps her clients develop healthy eating habits along with a personalized fitness plan.",
+      "faq": [
+        {
+          "question": "Can I lose weight without dieting?",
+          "answer": "Weight loss is generally a combination of healthy eating and exercise. I help my clients find a balanced approach."
+        }
+      ],
+      "products": [
+        {
+          "id": 7
+        },
+        {
+          "id": 9
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Ahmed Fathy",
+      "image": "/assets/trainers-imgs/t8.jpeg",
+      "bio": "Ahmed is a strength coach and powerlifter, helping athletes maximize their performance in the gym. He focuses on personalized programs for improving strength and endurance.",
+      "faq": [
+        {
+          "question": "Do you train professional athletes?",
+          "answer": "Yes, I specialize in training athletes who aim to improve strength and powerlifting performance."
+        }
+      ],
+      "products": [
+        {
+          "id": 8
+        },
+        {
+          "id": 10
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Fathy Hossam",
+      "image": "/assets/trainers-imgs/t9.jpeg",
+      "bio": "Fathy is a fitness coach who works with all ages to improve their body strength, flexibility, and mental clarity through Pilates and yoga.",
+      "faq": [
+        {
+          "question": "How often should I practice yoga?",
+          "answer": "I recommend practicing yoga 3-4 times a week for the best results."
+        }
+      ],
+      "products": [
+        {
+          "id": 9
+        },
+        {
+          "id": 11
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Nader Maher",
+      "image": "/assets/trainers-imgs/t10.jpeg",
+      "bio": "Nader is a certified CrossFit trainer who helps clients achieve total body fitness. He focuses on high-intensity training to improve endurance, strength, and overall health.",
+      "faq": [
+        {
+          "question": "What is CrossFit?",
+          "answer": "CrossFit is a high-intensity workout that combines strength training, endurance, and cardio to provide full-body fitness."
+        }
+      ],
+      "products": [
+        {
+          "id": 10
+        },
+        {
+          "id": 12
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "Samer Saeed",
+      "image": "/assets/trainers-imgs/t11.jpeg",
+      "bio": "Samer is a certified yoga instructor and holistic health coach. She focuses on improving mental health, flexibility, and overall well-being through yoga and meditation.",
+      "faq": [
+        {
+          "question": "What are the benefits of yoga?",
+          "answer": "Yoga can help improve flexibility, relieve stress, and promote mental clarity."
+        }
+      ],
+      "products": [
+        {
+          "id": 11
+        },
+        {
+          "id": 13
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "Kareem Ashraf",
+      "image": "/assets/trainers-imgs/t12.jpeg",
+      "bio": "Kareem is a certified personal trainer who helps clients achieve their fitness goals through strength training, bodyweight exercises, and cardiovascular workouts.",
+      "faq": [
+        {
+          "question": "Can I get stronger without lifting heavy weights?",
+          "answer": "Yes, strength can be developed through bodyweight exercises, resistance bands, and lighter weights with higher repetitions."
+        }
+      ],
+      "products": [
+        {
+          "id": 12
+        },
+        {
+          "id": 14
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "Hassan Ibrahim",
+      "image": "/assets/trainers-imgs/t13.jpeg",
+      "bio": "Hassan is a CrossFit and Olympic weightlifting coach who trains athletes looking to enhance their power and agility for sports and competitive events.",
+      "faq": [
+        {
+          "question": "Is CrossFit suitable for beginners?",
+          "answer": "Yes, CrossFit can be scaled to suit all fitness levels, including beginners."
+        }
+      ],
+      "products": [
+        {
+          "id": 13
+        },
+        {
+          "id": 15
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "name": "Mohand Adel",
+      "image": "/assets/trainers-imgs/t14.jpeg",
+      "bio": "Mohand is a certified nutrition and fitness coach. He helps people lose weight and build muscle with tailored fitness programs and nutrition plans.",
+      "faq": [
+        {
+          "question": "Do you offer custom meal plans?",
+          "answer": "Yes, I provide personalized meal plans designed to suit your fitness goals."
+        }
+      ],
+      "products": [
+        {
+          "id": 14
+        },
+        {
+          "id": 16
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "name": "Reda Adel",
+      "image": "/assets/trainers-imgs/t15.jpeg",
+      "bio": "Reda is a CrossFit and Olympic weightlifting coach who trains athletes looking to enhance their power and agility for sports and competitive events.",
+      "faq": [
+        {
+          "question": "What type of music do you use in your classes?",
+          "answer": "I use upbeat and motivating music to keep the energy high and the mood fun."
+        }
+      ],
+      "products": [
+        {
+          "id": 15
+        },
+        {
+          "id": 17
+        }
+      ]
+    }
+  ]

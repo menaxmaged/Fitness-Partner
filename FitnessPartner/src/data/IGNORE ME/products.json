@@ -1,0 +1,348 @@
+[
+    {
+      "id": "1",
+      "name": "MuscleTech NitroTech Whey Protein",
+      "image": "/assets/products-imgs/NT_choco.jpg",
+      "description": "A premium whey protein supplement designed to build lean muscle.",
+      "expiration_date": "2027-06-30",
+      "price": 30,
+      "brand": "MuscleTech",
+      "available_flavors": [
+        "Chocolate",
+        "Vanilla",
+        "Strawberry"
+      ],
+      "available_size": "2 lb",
+      "product_images": {
+        "Chocolate": "/assets/products-imgs/NT_choco.jpg",
+        "Vanilla": "/assets/products-imgs/NT_vanilla.jpg",
+        "Strawberry": "/assets/products-imgs/NT_strawberry.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "2",
+      "name": "MuscleTech Cell-Tech Creatine",
+      "image": "/assets/products-imgs/Creatine-Monohydrate.jpeg",
+      "description": "Advanced creatine formula for explosive energy.",
+      "expiration_date": "2027-01-10",
+      "price": 35,
+      "brand": "MuscleTech",
+      "available_flavors": [
+        "Fruit Punch",
+        "Grape"
+      ],
+      "available_size": "3 lb",
+      "product_images": {
+        "Fruit Punch": "https://example.com/celltech_fruitpunch.jpg",
+        "Grape": "https://example.com/celltech_grape.jpg"
+      },
+      "category": "Creatine"
+    },
+    {
+      "id": "3",
+      "name": "MuscleTech Hydroxycut",
+      "image": "/assets/products-imgs/MuscleTech Hydroxycut.jpeg",
+      "description": "Weight loss formula for appetite control and fat burn.",
+      "expiration_date": "2027-11-30",
+      "price": 25,
+      "brand": "MuscleTech",
+      "available_flavors": [
+        "Fruit Punch",
+        "Strawberry"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Fruit Punch": "https://example.com/hydroxycut_fruitpunch.jpg",
+        "Strawberry": "https://example.com/hydroxycut_strawberry.jpg"
+      },
+      "category": "Essential Aminos"
+    },
+    {
+      "id": "4",
+      "name": "MuscleTech Phase8 Protein Powder",
+      "image": "/assets/products-imgs/MuscleTech Phase8 Protein Powder.jpeg",
+      "description": "A sustained-release protein blend for all day muscle support.",
+      "expiration_date": "2027-12-20",
+      "price": 35,
+      "brand": "MuscleTech",
+      "available_flavors": [
+        "Chocolate",
+        "Vanilla"
+      ],
+      "available_size": "4 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/phase8_chocolate.jpg",
+        "Vanilla": "https://example.com/phase8_vanilla.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "5",
+      "name": "BSN Syntha-6 Protein Powder",
+      "image": "/assets/products-imgs/BSN Syntha-6 Protein Powder.jpeg",
+      "description": "A premium protein blend that supports muscle recovery.",
+      "expiration_date": "2027-05-20",
+      "price": 40,
+      "brand": "BSN",
+      "available_flavors": [
+        "Chocolate Milkshake",
+        "Vanilla Custard",
+        "Strawberry Milkshake"
+      ],
+      "available_size": "2.91 lb",
+      "product_images": {
+        "Chocolate Milkshake": "https://example.com/syntha6_chocolate.jpg",
+        "Vanilla Custard": "https://example.com/syntha6_vanilla.jpg",
+        "Strawberry Milkshake": "https://example.com/syntha6_strawberry.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "6",
+      "name": "BSN Endorse Pre-Workout",
+      "image": "/assets/products-imgs/Pre-Workout.jpeg",
+      "description": "Fuel your workouts with explosive energy.",
+      "expiration_date": "2027-08-15",
+      "price": 30,
+      "brand": "BSN",
+      "available_flavors": [
+        "Fruit Punch",
+        "Grape"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Fruit Punch": "https://example.com/endorse_fruitpunch.jpg",
+        "Grape": "https://example.com/endorse_grape.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": "7",
+      "name": "BSN True Mass",
+      "image": "/assets/products-imgs/BSN True Mass.jpeg",
+      "description": "High-calorie protein for mass gain and recovery.",
+      "expiration_date": "2026-09-30",
+      "price": 50,
+      "brand": "BSN",
+      "available_flavors": [
+        "Chocolate Milkshake",
+        "Strawberry"
+      ],
+      "available_size": "5 lb",
+      "product_images": {
+        "Chocolate Milkshake": "https://example.com/truemass_chocolate.jpg",
+        "Strawberry": "https://example.com/truemass_strawberry.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "8",
+      "name": "BSN Protein Crisp Bar",
+      "image": "/assets/products-imgs/BSN Protein Crisp Bar.jpeg",
+      "description": "Protein-packed snack with a delicious crispy texture.",
+      "expiration_date": "2026-11-01",
+      "price": 30,
+      "brand": "BSN",
+      "available_flavors": [
+        "Chocolate Crunch",
+        "Peanut Butter"
+      ],
+      "available_size": "12 bars",
+      "product_images": {
+        "Chocolate Crunch": "https://example.com/proteincrisp_chocolate.jpg",
+        "Peanut Butter": "https://example.com/proteincrisp_peanutbutter.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "9",
+      "name": "Optimum Nutrition Gold Standard Whey",
+      "image": "/assets/products-imgs/whey-protein.jpeg",
+      "description": "The world's best-selling whey protein powder.",
+      "expiration_date": "2027-12-15",
+      "price": 35,
+      "brand": "Optimum Nutrition",
+      "available_flavors": [
+        "Double Rich Chocolate",
+        "Vanilla Ice Cream",
+        "Cookies and Cream"
+      ],
+      "available_size": "5 lb",
+      "product_images": {
+        "Double Rich Chocolate": "https://example.com/goldstandard_chocolate.jpg",
+        "Vanilla Ice Cream": "https://example.com/goldstandard_vanilla.jpg",
+        "Cookies and Cream": "https://example.com/goldstandard_cookies.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "10",
+      "name": "Optimum Nutrition Amino Energy",
+      "image": "/assets/products-imgs/BCAA.jpeg",
+      "description": "BCAA and energizing blend for strength and endurance.",
+      "expiration_date": "2023-10-25",
+      "price": 30,
+      "brand": "Optimum Nutrition",
+      "available_flavors": [
+        "Peach",
+        "Tropical Punch"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Peach": "https://example.com/aminoenergy_peach.jpg",
+        "Tropical Punch": "https://example.com/aminoenergy_tropical.jpg"
+      },
+      "category": "Essential Aminos"
+    },
+    {
+      "id": "11",
+      "name": "Optimum Nutrition Gold Standard Pre-Workout",
+      "image": "/assets/products-imgs/Optimum Nutrition Gold Standard Pre-Workout.jpeg",
+      "description": "Premium pre-workout formula with a variety of flavors.",
+      "expiration_date": "2027-12-01",
+      "price": 30,
+      "brand": "Optimum Nutrition",
+      "available_flavors": [
+        "Blue Raspberry",
+        "Fruit Punch"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Blue Raspberry": "https://example.com/goldpreworkout_blueraspberry.jpg",
+        "Fruit Punch": "https://example.com/goldpreworkout_fruitpunch.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": "12",
+      "name": "Optimum Nutrition Serious Mass",
+      "image": "/assets/products-imgs/Optimum Nutrition Serious Mass.jpeg",
+      "description": "The ultimate weight gain formula.",
+      "expiration_date": "2027-02-28",
+      "price": 40,
+      "brand": "Optimum Nutrition",
+      "available_flavors": [
+        "Chocolate",
+        "Vanilla"
+      ],
+      "available_size": "6 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/seriousmass_chocolate.jpg",
+        "Vanilla": "https://example.com/seriousmass_vanilla.jpg"
+      },
+      "category": "Protein"
+    },
+    {
+      "id": "13",
+      "name": "Red Rex Pre-Workout Formula",
+      "image": "/assets/products-imgs/Red Rex Pre-Workout Formula.jpeg",
+      "description": "Intense energy and focus for your workouts.",
+      "expiration_date": "2026-11-30",
+      "price": 25,
+      "brand": "Red Rex",
+      "available_flavors": [
+        "Fruit Punch",
+        "Blue Raspberry"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Fruit Punch": "https://example.com/redrex_fruitpunch.jpg",
+        "Blue Raspberry": "https://example.com/redrex_blueraspberry.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": "14",
+      "name": "Collagen-Supplement",
+      "image": "/assets/products-imgs/Collagen-Supplement.jpeg",
+      "description": "Multi-dimensional pre-workout for peak performance.",
+      "expiration_date": "2027-03-15",
+      "price": 35,
+      "brand": "Red Rex",
+      "available_flavors": [
+        "Berry Blast",
+        "Green Apple"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Berry Blast": "https://example.com/redrex_hybrid_berry.jpg",
+        "Green Apple": "https://example.com/redrex_hybrid_greenapple.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": "15",
+      "name": "Magnesium.jpeg",
+      "image": "/assets/products-imgs/Magnesium.jpeg",
+      "description": "Essential amino acids for muscle recovery.",
+      "expiration_date": "2027-09-30",
+      "price": 30,
+      "brand": "JNX Nutrition",
+      "available_flavors": [
+        "Lemon Lime",
+        "Watermelon"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Lemon Lime": "https://example.com/jnx_bcaas_lemonlime.jpg",
+        "Watermelon": "https://example.com/jnx_bcaas_watermelon.jpg"
+      },
+      "category": "Essential Aminos"
+    },
+    {
+      "id": "16",
+      "name": "JNX Nutrition Creatine Monohydrate",
+      "image": "/assets/products-imgs/JNX Nutrition Creatine Monohydrate.jpeg",
+      "description": "Pure creatine monohydrate for maximized performance.",
+      "expiration_date": "2026-05-01",
+      "price": 20,
+      "brand": "JNX Nutrition",
+      "available_flavors": [
+        "Unflavored"
+      ],
+      "available_size": "300 g",
+      "product_images": {
+        "Unflavored": "https://example.com/jnx_creatine.jpg"
+      },
+      "category": "Creatine"
+    },
+    {
+      "id": "17",
+      "name": "OMEN",
+      "image": "/assets/products-imgs/OMEN.jpeg",
+      "description": "Intense energy for your toughest workouts.",
+      "expiration_date": "2027-08-15",
+      "price": 30,
+      "brand": "JNX Nutrition",
+      "available_flavors": [
+        "Citrus",
+        "Raspberry Lemonade"
+      ],
+      "available_size": "30 servings",
+      "product_images": {
+        "Citrus": "https://example.com/jnx_preworkout_citrus.jpg",
+        "Raspberry Lemonade": "https://example.com/jnx_preworkout_raspberry.jpg"
+      },
+      "category": "Pre Workout"
+    },
+    {
+      "id": "18",
+      "name": "opti-men",
+      "image": "/assets/products-imgs/opti-men.jpeg",
+      "description": "High-quality whey protein for muscle gains.",
+      "expiration_date": "2027-03-22",
+      "price": 35,
+      "brand": "JNX Nutrition",
+      "available_flavors": [
+        "Chocolate",
+        "Vanilla"
+      ],
+      "available_size": "2 lb",
+      "product_images": {
+        "Chocolate": "https://example.com/jnx_wheyprotein_chocolate.jpg",
+        "Vanilla": "https://example.com/jnx_wheyprotein_vanilla.jpg"
+      },
+      "category": "Protein"
+    }
+  ]
