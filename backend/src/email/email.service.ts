@@ -8,19 +8,19 @@ export class EmailService {
   constructor() {
     // Configure the email transporter
     this.transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.EMAIL_PORT || '587'),
+      host: 'smtp.gmail.com',
+      port: parseInt('587'),
       secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER || 'yousef.hamdy3108@gmail.com', // replace with your email
-        pass: process.env.EMAIL_PASSWORD || '123456Y!', // replace with your app password
+        user: 'yousef.hamdy3108@gmail.com', // replace with your email
+        pass: 'ceax mbel icej ggtn', // replace with your app password
       },
     });
   }
 
   async sendOtpEmail(to: string, otp: string): Promise<void> {
     const mailOptions = {
-      from: process.env.EMAIL_FROM || '"Your App" yousef.hamdy3108@gmail.com', // replace with your email
+      from: '"Fitness Partner" yousef.hamdy3108@gmail.com', // replace with your email
       to,
       subject: 'Email Verification OTP',
       html: `
@@ -44,8 +44,8 @@ export class EmailService {
     try {
       await this.transporter.sendMail(mailOptions);
     } catch (error) {
-      console.error('Error sending email:', error);
-      throw new Error('Failed to send email');
+      console.error('Error sending email:', error.message, error.stack);
+      throw new Error('Failed to send email: ' + error.message);
     }
   }
 }

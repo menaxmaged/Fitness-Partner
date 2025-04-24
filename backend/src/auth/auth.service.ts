@@ -110,36 +110,36 @@ export class AuthService {
     }
   }
 
-  // Register a new user
   async register(userData: any): Promise<any> {
-    // Check if user with this email already exists
-    const existingUser = await this.usersService.findByEmail(userData.email);
-    if (existingUser) {
-      throw new ConflictException('Email already exists');
+    try {
+      const existingUser = await this.usersService.findByEmail(userData.email);
+      if (existingUser) {
+        throw new ConflictException('Email already exists');
+      }
+
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+      const newUser = await this.usersService.create({
+        ...userData,
+        password: hashedPassword,
+        isVerified: false,
+      });
+
+      await this.handleOtp(userData.email);
+
+      return {
+        message: 'User registered successfully. Please verify your email.',
+        user: {
+          id: newUser.id,
+          email: newUser.email,
+          fName: newUser.fName,
+          lName: newUser.lName,
+        },
+      };
+    } catch (error) {
+      console.error('Error in register:', error);
+      throw new InternalServerErrorException('Registration failed');
     }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-
-    // Create a new user (unverified)
-    const newUser = await this.usersService.create({
-      ...userData,
-      password: hashedPassword,
-      isVerified: false,
-    });
-
-    // Handle OTP generation and email sending
-    await this.handleOtp(userData.email);
-
-    return {
-      message: 'User registered successfully. Please verify your email.',
-      user: {
-        id: newUser.id,
-        email: newUser.email,
-        fName: newUser.fName,
-        lName: newUser.lName,
-      },
-    };
   }
 
   // Verify OTP
