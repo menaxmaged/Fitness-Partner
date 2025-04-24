@@ -1,3 +1,4 @@
+<!-- heroo secion -->
 <div
   id="carouselExampleAutoplaying"
   class="carousel slide"
@@ -92,9 +93,128 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<!-- hero section end -->
+<!-- about us section -->
+<div class="container my-5">
+    <h2 class="text-center mb-5">What We Offer</h2>
+    <div class="row justify-content-center">
+        <div class="card col-3 p-0 mx-3 shadow" style="width: 18rem;">
+            <img src="assets/home-imgs/products.jpg" class="card-img-top " alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Nutritional Supplements</h5>
+              <p class="card-text">Discover top-quality nutritional supplements to power 
+                your workouts and boost your wellness.</p>
+            </div>
+          </div>
+        <div class="card col-3 p-0 mx-3 shadow" style="width: 18rem;">
+            <img src="assets/home-imgs/exercises2.webp" class="card-img-top " alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Exercises</h5>
+              <p class="card-text">Access effective exercises for every level—from beginner to beast mode.</p>
+            </div>
+          </div>
+        <div class="card col-3 p-0 mx-3 shadow" style="width: 18rem;">
+            <img src="assets/home-imgs/trainer.jpg" class="card-img-top " alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Personal Trainers</h5>
+              <p class="card-text"> Connect with certified personal trainers who’ll help you 
+                reach your goals with personalized plans.</p>
+            </div>
+          </div>
+        <div class="card col-3 p-0 mx-3 shadow" style="width: 18rem;">
+            <img src="assets/home-imgs/sports-nutrition.jpg" class="card-img-top " alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Nutritional</h5>
+              <p class="card-text">Explore nutrition tips and easy-to-follow meal ideas that support your lifestyle.</p>
+            </div>
+          </div>
+    </div>
+</div>
+<!-- about us section end-->
+
+<!-- our products section -->
+<div class="container-fluid my-5 bg-black text-white">
+    <div class="row">
+        <div class="col-5 p-0">
+            <img src="assets/home-imgs/supplements-1.jpg" alt="">
+        </div>
+        <div class="col-7 my-4 d-flex flex-column justify-content-center align-items-center ">
+            <h2 class="mb-3">Power Up with the Right Supplements</h2>
+            <p class="px-5 fs-5 text-center">Need more energy, faster recovery, or better results? 
+            Our premium supplements are here to help you level up—inside and out.</p>
+            <!-- <h5>Fuel your body. Fuel your goals.</h5> -->
+            <a class="btn button-design" routerLink="/products" routerLinkActive="active">
+                Shop Now</a>
+        </div>
+    </div> 
+</div>
+<!-- our products section end -->
+
+<!-- trainers section -->
+<div class="container my-5">
+  <h2 class="text-center mb-5"> Expert Trainers</h2>
+  <div class="row">
+      <div class="col-lg-4 col-md-6">
+          <div class="single-trainer-item">
+              <img src="assets/home-imgs/trainer-1.jpg" alt="">
+              <div class="trainer-text">
+                  <h5>Patrick Cortez</h5>
+                  <span>Leader</span>
+                  <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+                      voluptatem.</p>
+                  <div class="trainer-social">
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+          <div class="single-trainer-item">
+              <img src="assets/home-imgs/trainer-2.jpg" alt="">
+              <div class="trainer-text">
+                  <h5>Gregory Powers</h5>
+                  <span>Gym coach</span>
+                  <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+                      voluptatem.</p>
+                  <div class="trainer-social">
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+          <div class="single-trainer-item">
+              <img src="assets/home-imgs/trainer-3.jpg" alt="">
+              <div class="trainer-text">
+                  <h5>Walter Wagner</h5>
+                  <span>Dance trainer</span>
+                  <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+                      voluptatem.</p>
+                  <div class="trainer-social">
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<a class="btn button-design my-5" routerLink="/products" routerLinkActive="active" style="margin-left: 42%">
+  Meet Our Trainers</a>
+
 <style>
   /* Text Overlay Styles */
-  .text-overlay {
+
+
+.text-overlay {
     width: 45vw;
     height:50vh;    padding: 2rem;
     margin: 0 auto;
@@ -140,4 +260,93 @@
   .button-design:hover {
     transform: translateY(-2px);
   }
+
+
+  .trainer-section {
+	background: #f5f5f5;
+	padding-top: 90px;
+	padding-bottom: 190px;
+}
+.trainer-section.about-trainer {
+	background: #ffffff;
+}
+.single-trainer-item {
+	position: relative;
+}
+.single-trainer-item:hover .trainer-text {
+	height: 250px;
+	bottom: -90px;
+	padding: 26px 30px 30px;
+	-webkit-box-shadow: 0px 10px 49px 0px rgba(0, 0, 0, 0.15);
+	box-shadow: 0px 10px 49px 0px rgba(0, 0, 0, 0.15);
+}
+.single-trainer-item:hover .trainer-text p {
+	opacity: 1;
+}
+.single-trainer-item:hover .trainer-text .trainer-social {
+	opacity: 1;
+	visibility: visible;
+}
+.single-trainer-item img {
+	min-width: 100%;
+}
+.single-trainer-item .trainer-text {
+	position: absolute;
+	left: 50%;
+	bottom: -55px;
+	text-align: center;
+	background: #ffffff;
+	width: 310px;
+	margin: 0 auto;
+	-webkit-transform: translateX(-155px);
+	-ms-transform: translateX(-155px);
+	transform: translateX(-155px);
+	-webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.15);
+	box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.15);
+	padding: 20px 30px 18px;
+	height: 90px;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	overflow: hidden;
+}
+.single-trainer-item .trainer-text h5 {
+	font-size: 20px;
+	color: #111111;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+.single-trainer-item .trainer-text span {
+	font-size: 16px;
+	color: #f15d44;
+}
+.single-trainer-item .trainer-text p {
+	margin-top: 7px;
+	opacity: 0;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.single-trainer-item .trainer-text .trainer-social {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.single-trainer-item .trainer-text .trainer-social a {
+	display: inline-block;
+	font-size: 17px;
+	color: #111111;
+	margin-right: 25px;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.single-trainer-item .trainer-text .trainer-social a:hover {
+	color: #f15d44;
+}
+.single-trainer-item .trainer-text .trainer-social a:last-child {
+	margin-right: 0;
+}
 </style>
