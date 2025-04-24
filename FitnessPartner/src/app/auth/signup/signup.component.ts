@@ -205,7 +205,6 @@ export class SignupComponent implements OnInit {
 
       this.myUserService.addANewUser(newUser).subscribe({
         next: (response: any) => {
-          // Don't store token yet - need OTP verification first
           console.log('Registration successful, OTP sent');
           this.registeredEmail = this.email?.value ?? '';
           this.showOtpForm = true;
@@ -213,8 +212,9 @@ export class SignupComponent implements OnInit {
         error: (err) => {
           console.error('Error registering user:', err);
           if (err.status === 409) {
-            // Handle email already exists
             this.registerForm.controls['email'].setErrors({ found: true });
+          } else {
+            alert('An unexpected error occurred. Please try again later.');
           }
         },
       });
