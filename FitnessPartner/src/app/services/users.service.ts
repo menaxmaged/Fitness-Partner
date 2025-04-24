@@ -27,6 +27,41 @@
 
 ////////////////// TESTING BACKEND BELOW //////////////////////// ORIGINAL CODE ABOVE //// DO NOT DELETE ///////
 
+// import { HttpClient } from '@angular/common/http';
+// import { Injectable } from '@angular/core';
+// import { Observable } from 'rxjs';
+// import { User } from '../shared/utils/user';
+
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class UsersService {
+//   constructor(private http: HttpClient) {}
+//   private baseUrl = 'http://localhost:3000';
+
+//   getAllUsers(): Observable<User[]> {
+//     return this.http.get<User[]>(`${this.baseUrl}/users`);
+//   }
+
+//   addANewUser(newUser: User): Observable<User> {
+//     return this.http.post<User>(`${this.baseUrl}/auth/register`, newUser);
+//   }
+
+//   getUserById(id: string): Observable<User> {
+//     return this.http.get<User>(`${this.baseUrl}/users/${id}`);
+//   }
+
+//   deleteUser(id: string): Observable<User> {
+//     return this.http.delete<User>(`${this.baseUrl}/users/${id}`);
+//   }
+
+//   editUserData(id: string, updatedUser: User): Observable<User> {
+//     return this.http.put<User>(`${this.baseUrl}/users/${id}`, updatedUser);
+//   }
+// }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -45,6 +80,19 @@ export class UsersService {
 
   addANewUser(newUser: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/auth/register`, newUser);
+  }
+
+  // New method for verifying OTP
+  verifyOtp(email: string, otp: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/auth/verify-otp`, {
+      email,
+      otp,
+    });
+  }
+
+  // New method for resending OTP
+  resendOtp(email: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/auth/resend-otp`, { email });
   }
 
   getUserById(id: string): Observable<User> {
