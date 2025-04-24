@@ -6,14 +6,14 @@
           "exercises": [
             {
               "name": "Push Up",
-              "videoUrl": "https://www.youtube.com/embed/IODxDxX7oi4",
-              "imageUrl": "https://i.pinimg.com/originals/fd/bb/09/fdbb092b58863e5c86fdb8bb1411fcea.gif",
+              "videoUrl": "https://i.pinimg.com/originals/fd/bb/09/fdbb092b58863e5c86fdb8bb1411fcea.gif",
+              "imageUrl": "https://images.ctfassets.net/hjcv6wdwxsdz/4qJnXqgB4tUKkNvut4xNhM/4bc46f308a341152ee579695f0ba8843/push-up-holding.png?w=1200",
               "description": "A classic bodyweight exercise that targets the chest, triceps, and shoulders."
             },
             {
               "name": "Incline Push Up",
-              "videoUrl": "https://www.youtube.com/embed/jOxG1kW4gfI",
-              "imageUrl": "https://www.verywellfit.com/thmb/GG7EXAUxQvwxiu4QAzDBPu6yy44=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/90-3120038--Incline-PushupsGIF-d321334ec54849539010832028d5635a.gif",
+              "videoUrl": "https://www.verywellfit.com/thmb/GG7EXAUxQvwxiu4QAzDBPu6yy44=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/90-3120038--Incline-PushupsGIF-d321334ec54849539010832028d5635a.gif",
+              "imageUrl": "https://s3assets.skimble.com/assets/1422086/image_iphone.jpg",
               "description": "Push-up variation performed with hands elevated to reduce difficulty and isolate upper chest."
             }
           ]
@@ -24,13 +24,13 @@
             {
               "name": "Chair Dips",
               "videoUrl": "https://www.youtube.com/embed/0326dy_-CzM",
-              "imageUrl": "https://www.yogajournal.com/.image/t_share/MTQ2MTgwNjY4NzAxMDkzNzUw/triceps-dip.jpg",
+              "imageUrl": "https://www.verywellfit.com/thmb/PoEHcmQe9M8YbZQG1BjdjaJJhaA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-2A15-TricepDips-939-5a6b97320e23d90036057538.jpg",
               "description": "Targets triceps using a chair or low surface at home."
             },
             {
               "name": "Bicep Curls (With Bottles)",
               "videoUrl": "https://www.youtube.com/embed/RwQVt-hX4AU",
-              "imageUrl": "https://blog.myfitnesspal.com/wp-content/uploads/2021/02/10-Minute-Workout-Use-Water-Bottles.jpg",
+              "imageUrl": "https://images.ctfassets.net/iqo3fk8od6t9/4QJe241Og8rDd5MqDmRRJl/9589ae2117a9bca837dae63b29c19514/Water_bottle_exercises.jpg",
               "description": "A home-friendly bicep workout using water bottles or any light weight."
             }
           ]
@@ -40,8 +40,8 @@
           "exercises": [
             {
               "name": "Pike Push-Up",
-              "videoUrl": "https://www.youtube.com/embed/CmSRtFYTk60",
-              "imageUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2023/02/pike-push-up.gif",
+              "videoUrl": "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/pikepushup-1456956895.gif?resize=640:*",
+              "imageUrl": "https://cdn.mos.cms.futurecdn.net/2oczZ7bJ69ZCSfapuueTyE.jpg",
               "description": "Great bodyweight move that targets shoulders and upper chest."
             }
           ]
@@ -51,8 +51,8 @@
           "exercises": [
             {
               "name": "Superman Exercise",
-              "videoUrl": "https://www.youtube.com/embed/z6PJMT2y8GQ",
-              "imageUrl": "https://post.greatist.com/wp-content/uploads/sites/2/2020/06/Perfect-Your-Form_Superman-Exercise.gif",
+              "videoUrl": "https://i.pinimg.com/originals/c8/68/58/c868587de9b7841f4359310a821a3cd0.gif",
+              "imageUrl": "https://images.ctfassets.net/hjcv6wdwxsdz/79sS2tpNEIFtGYuBfCNxYi/8367923f934c6f2369f50b3f42c57be8/superman-exercise-hold.png",
               "description": "Strengthens lower back and glutes while lying flat on the floor."
             }
           ]
@@ -62,14 +62,14 @@
           "exercises": [
             {
               "name": "Bodyweight Squats",
-              "videoUrl": "https://www.youtube.com/embed/aclHkVaku9U",
-              "imageUrl": "https://www.spotebi.com/wp-content/uploads/2014/10/bodyweight-squat-exercise-illustration.jpg",
+              "videoUrl": "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/bodyweightsquat-1457041691.gif?crop=1xw:1xh;center,top&resize=1200:*",
+              "imageUrl": "https://www.tonal.com/wp-content/uploads/2023/03/Bodyweight-Squat.jpg?resize=576%2C576",
               "description": "Basic squat movement targeting thighs and glutes without any equipment."
             },
             {
               "name": "Lunges",
-              "videoUrl": "https://www.youtube.com/embed/QOVaHwm-Q6U",
-              "imageUrl": "https://media.post.rvohealth.io/wp-content/uploads/sites/2/2020/11/400x400_Lunges.gif",
+              "videoUrl": "https://hips.hearstapps.com/hmg-prod/images/766/fitgif-friday-reverse-lunge-with-pulse-slider-thumbnail-override-1504017362.gif?crop=0.636xw:1xh;center,top&resize=1200:*",
+              "imageUrl": "https://bod-blog-assets.prod.cd.beachbodyondemand.com/bod-blog/wp-content/uploads/2022/10/26150738/static-lunge-600-demo.jpg",
               "description": "Single-leg movement that improves balance and leg strength."
             }
           ]
@@ -79,14 +79,14 @@
           "exercises": [
             {
               "name": "Plank",
-              "videoUrl": "https://www.youtube.com/embed/pSHjTRCQxIw",
-              "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/plank-royalty-free-image-1588004362.jpg",
+              "videoUrl": "https://media.tenor.com/ckw_Fqaqml4AAAAM/exercise-planking.gif",
+              "imageUrl": "https://www.shape.com/thmb/T2GyvzFah3XYR8_L8W16ANWBTXs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/low-plank-hold-b8a63da1ef844f00b6f6a21141ba1d87.jpg",
               "description": "Core stabilization exercise that works abs and lower back."
             },
             {
               "name": "Leg Raises",
-              "videoUrl": "https://www.youtube.com/embed/JB2oyawG9KI",
-              "imageUrl": "https://post.greatist.com/wp-content/uploads/sites/2/2021/06/leg-raises.gif",
+              "videoUrl": "https://cdn.jefit.com/assets/img/exercises/gifs/44.gif",
+              "imageUrl": "https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2013/03/Muscular-Man-Working-Out-His-Lower-Abs-With-Lying-Leg-Raises-Exercise.jpg?quality=86&strip=all",
               "description": "Effective lower abs movement using your own bodyweight."
             }
           ]
@@ -98,14 +98,20 @@
           "exercises": [
             {
               "name": "Bench Press",
-              "videoUrl": "https://www.youtube.com/embed/gRVjAtPip0Y",
-              "imageUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/12/barbell-bench-press.gif",
+              "videoUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/04/barbell-bench-press.gif",
+              "imageUrl": "https://cdn.mos.cms.futurecdn.net/v2/t:0,l:125,cw:750,ch:563,q:80,w:750/pLaRi5jXSHDKu6WRydetBo.jpg",
               "description": "Barbell exercise for chest, shoulders, and triceps."
             },
             {
+                "name": "Incline Bench Press",
+                "videoUrl": "https://media.tenor.com/NuIuWkGoYtMAAAAM/1incline-barbell-press.gif",
+                "imageUrl": "https://contents.mediadecathlon.com/p1980862/k$a5125aea19a32be68916508ec5eba233/tiltable-weights-bench-with-collapsible-pegs-bench-press-fold-corength-8595564.jpg?f=1920x0&format=auto",
+                "description": "Barbell exercise for chest, shoulders, and triceps."
+              },
+            {
               "name": "Cable Crossover",
-              "videoUrl": "https://www.youtube.com/embed/taI4XduLpTk",
-              "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/07/cable-crossover.gif",
+              "videoUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2024/02/cable-standing-crossover.gif",
+              "imageUrl": "https://cdn.shopify.com/s/files/1/0618/9462/3460/files/stock-photo-bodybuilder-is-working-on-his-chest-with-cable-crossover-in-gym-scream-for-motivation-750696826-800x587.jpg",
               "description": "Isolation movement for chest using cable machine."
             }
           ]
@@ -115,14 +121,19 @@
           "exercises": [
             {
               "name": "Cable Bicep Curls",
-              "videoUrl": "https://www.youtube.com/embed/av7-8igSXTs",
-              "imageUrl": "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/06/cable-curl.gif",
+              "videoUrl": "https://149874912.v2.pressablecdn.com/wp-content/uploads/2020/03/cable-curl-with-handle.gif",
+              "imageUrl": "https://gym-mikolo.com/cdn/shop/articles/0_960x540_c2efb097-ab79-4ee0-a9aa-a9f1b37d0d2d.jpg?v=1723097895&width=2048",
               "description": "Machine-based curl targeting biceps."
             },
             {
               "name": "Triceps Pushdown",
-              "videoUrl": "https://www.youtube.com/embed/2-LAMcpzODU",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/Tricep_Pushdown.gif",
+              "videoUrl": "https://media1.popsugar-assets.com/files/thumbor/cIu8pS9avmvz9RXvy8X0qaIR0z0=/fit-in/540x960/filters:format_auto():upscale()/2018/09/25/888/n/1922729/6b17970d9bf279f5_IMB_i0WyJU.GIF",
+              "imageUrl": "https://imagely.mirafit.co.uk/wp/wp-content/uploads/2022/11/tricep-pushdown-with-Mirafit-Cable-Machine.jpg",
+              "description": "Cable machine exercise focusing on triceps."
+            },{
+                "name": "Dumbbell Preacher curl",
+              "videoUrl": "https://framerusercontent.com/images/SHKoH7kCeSYBKxE6wMGxuwF9rg.gif",
+              "imageUrl": "https://www.trainheroic.com/wp-content/uploads/2023/01/AdobeStock_186644984-TH-jpg.webp",
               "description": "Cable machine exercise focusing on triceps."
             }
           ]
@@ -132,8 +143,8 @@
           "exercises": [
             {
               "name": "Dumbbell Shoulder Press",
-              "videoUrl": "https://www.youtube.com/embed/B-aVuyhvLHU",
-              "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/11/dumbbell-shoulder-press.gif",
+              "videoUrl": "https://burnfit.io/wp-content/uploads/2023/11/SEAT_DB_SHD_PRESS.gif",
+              "imageUrl": "https://www.myprotein.ie/images?url=https://blogscdn.thehut.net/app/uploads/sites/478/2019/06/shoulder-workout-min_1646837508.jpg&format=webp&auto=avif&width=700&height=385&fit=crop",
               "description": "Dumbbell exercise that builds shoulder strength and size."
             }
           ]
@@ -143,14 +154,14 @@
           "exercises": [
             {
               "name": "Lat Pulldown",
-              "videoUrl": "https://www.youtube.com/embed/CAwf7n6Luuc",
-              "imageUrl": "https://i.pinimg.com/originals/2a/6e/ed/2a6eedc5883d4fe9e5119f45a842dd14.gif",
+              "videoUrl": "https://media.tenor.com/PVR9ra9tAwcAAAAM/pulley-pegada-aberta.gif",
+              "imageUrl": "https://bellsofsteel.com/cdn/shop/articles/Does-Lat-Pulldown-Work-Forearms.webp?v=1708539827&width=1024",
               "description": "Cable machine movement targeting lats and upper back."
             },
             {
               "name": "Seated Row",
-              "videoUrl": "https://www.youtube.com/embed/GZbfZ033f74",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/seated-cable-row.gif",
+              "videoUrl": "https://burnfit.io/wp-content/uploads/2023/11/SEATED_CABLE_ROW.gif",
+              "imageUrl": "https://www.kingofthegym.com/wp-content/uploads/2018/01/Seated-Cable-Row-Concentric.jpg",
               "description": "Compound pulling exercise focusing on back thickness."
             }
           ]
@@ -160,14 +171,14 @@
           "exercises": [
             {
               "name": "Leg Press",
-              "videoUrl": "https://www.youtube.com/embed/M6yPo4qORgE",
-              "imageUrl": "https://cdn.muscleandstrength.com/sites/default/files/legpress.gif",
+              "videoUrl": "https://media.tenor.com/yBaS_oBgidsAAAAM/gym.gif",
+              "imageUrl": "https://imagely.mirafit.co.uk/wp/wp-content/uploads/2023/03/woman-using-Mirafit-Leg-Press-Machine.jpg",
               "description": "Leg machine that works quads, hamstrings, and glutes."
             },
             {
               "name": "Leg Extension",
-              "videoUrl": "https://www.youtube.com/embed/YyvSfVjQeL0",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/Leg-Extension.gif",
+              "videoUrl": "https://media.tenor.com/bqKtsSuqilQAAAAM/gym.gif",
+              "imageUrl": "https://cdn.shopify.com/s/files/1/0252/3155/6686/files/Leg_Extension_Machine_1.jpg?v=1710959433",
               "description": "Isolates the quadriceps muscles on the front of your thighs."
             }
           ]
@@ -177,14 +188,14 @@
           "exercises": [
             {
               "name": "Cable Crunch",
-              "videoUrl": "https://www.youtube.com/embed/2tPL3gE8knQ",
-              "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/08/cable-crunch.gif",
+              "videoUrl": "https://i.pinimg.com/originals/d8/48/4c/d8484c779529e7c469c75b4713a6c7a8.gif",
+              "imageUrl": "https://flexfitnessapp.com/_next/image/?url=https%3A%2F%2Fflex-web-media-prod.storage.googleapis.com%2F2025%2F01%2Fkneeling-cable-crunch-cover-4.webp&w=1024&q=75",
               "description": "Cable-based core exercise to target upper abs."
             },
             {
               "name": "Ab Roller",
-              "videoUrl": "https://www.youtube.com/embed/J2I0ulT_fgo",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/ab-wheel-rollout.gif",
+              "videoUrl": "https://bodybuilding-wizard.com/wp-content/uploads/2015/05/ab-wheel-rollout-animation-1.gif",
+              "imageUrl": "https://images.pexels.com/photos/8032770/pexels-photo-8032770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               "description": "Challenging abdominal exercise using an ab wheel."
             }
           ]
