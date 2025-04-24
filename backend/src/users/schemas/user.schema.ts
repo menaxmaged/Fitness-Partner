@@ -43,6 +43,12 @@ export class User {
 
   @Prop()
   avatar: string;
+
+  @Prop({ default: false })
+  isVerified: boolean;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

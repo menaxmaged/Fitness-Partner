@@ -1,25 +1,7 @@
 // import { Injectable } from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
 // import { Observable } from 'rxjs';
-// import { ITrainerProducts } from '../models/i-trainer-products';
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class ProductServicesService {
-//   private productsUrl = 'http://localhost:3000/products';
-//   constructor(private ProductHttp: HttpClient) {}
-//   getAllProducts(): Observable<ITrainerProducts[]> {
-//     return this.ProductHttp.get<ITrainerProducts[]>(this.productsUrl);
-//   }
-//   getProductById(id: number) {
-//     return this.ProductHttp.get<ITrainerProducts>(`${this.productsUrl}/${id}`);
-//   }
-// }
-
-// import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-// import { ITrainerProducts } from '../models/i-trainer-products';
+// import { IProducts } from '../models/i-products';  // Import the IProducts interface
 
 // @Injectable({
 //   providedIn: 'root',
@@ -30,50 +12,50 @@
 //   constructor(private ProductHttp: HttpClient) {}
 
 //   // Get all products
-//   getAllProducts(): Observable<ITrainerProducts[]> {
-//     return this.ProductHttp.get<ITrainerProducts[]>(this.productsUrl);
+//   getAllProducts(): Observable<IProducts[]> {
+//     return this.ProductHttp.get<IProducts[]>(this.productsUrl);
 //   }
 
 //   // Get product by ID
-//   getProductById(id: number): Observable<ITrainerProducts> {
-//     return this.ProductHttp.get<ITrainerProducts>(`${this.productsUrl}/${id}`);
+//   getProductById(id: number): Observable<IProducts> {
+//     return this.ProductHttp.get<IProducts>(`${this.productsUrl}/${id}`);
 //   }
 
 //   // Get products by category
-//   getProductsByCategory(category: string): Observable<ITrainerProducts[]> {
-//     return this.ProductHttp.get<ITrainerProducts[]>(this.productsUrl, {
+//   getProductsByCategory(category: string): Observable<IProducts[]> {
+//     return this.ProductHttp.get<IProducts[]>(this.productsUrl, {
 //       params: { category },
 //     });
 //   }
 // }
-
+//////////////////////// BACK END TESTING BELOW ////////////////// DO NOT DELETE ABOVE CODE
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IProducts } from '../models/i-products';  // Import the IProducts interface
+import { IProducts } from '../models/i-products';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductServicesService {
-  private productsUrl = 'http://localhost:3000/products';  // Update this to your actual API URL
+  private productsUrl = 'http://localhost:3000/products';
 
-  constructor(private ProductHttp: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  // Get all products
-  getAllProducts(): Observable<IProducts[]> {
-    return this.ProductHttp.get<IProducts[]>(this.productsUrl);
+  getAllProducts(category?: string): Observable<IProducts[]> {
+    let params = new HttpParams();
+    if (category) {
+      params = params.set('category', category);
+    }
+    return this.http.get<IProducts[]>(this.productsUrl, { params });
   }
 
-  // Get product by ID
-  getProductById(id: number): Observable<IProducts> {
-    return this.ProductHttp.get<IProducts>(`${this.productsUrl}/${id}`);
+  getProductById(id: string | number): Observable<IProducts> {
+    return this.http.get<IProducts>(`${this.productsUrl}/${id}`);
   }
 
-  // Get products by category
   getProductsByCategory(category: string): Observable<IProducts[]> {
-    return this.ProductHttp.get<IProducts[]>(this.productsUrl, {
-      params: { category },
-    });
+    const params = new HttpParams().set('category', category);
+    return this.http.get<IProducts[]>(this.productsUrl, { params });
   }
 }

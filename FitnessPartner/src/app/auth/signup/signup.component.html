@@ -1,7 +1,8 @@
 <div class="card shadow-lg p-4 rounded-4 mx-auto my-5 bg-light border-0" style="max-width: 500px; width: 90%;">
   <h2 class="fw-bold text-center text-primary mb-4">Sign up</h2>
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="row g-3">
+  <!-- Registration Form -->
+  <form *ngIf="!showOtpForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="row g-3">
 
     <!-- First Name -->
     <div class="col-md-6">
@@ -87,6 +88,58 @@
       <button type="submit" class="btn btn-outline-light orange-btn fw-semibold fw-bold w-100 py-2 text-white border-0"
         [disabled]="registerForm.invalid">
         Sign up
+      </button>
+    </div>
+  </form>
+
+  <!-- OTP Verification Form -->
+  <form *ngIf="showOtpForm" [formGroup]="otpForm" (ngSubmit)="verifyOtp()" class="row g-3">
+    <div class="col-12 text-center mb-2">
+      <h4 class="fw-semibold">Verify Your Email</h4>
+      <p class="text-muted">We've sent a verification code to <strong>{{ registeredEmail }}</strong></p>
+    </div>
+
+    <!-- OTP Input -->
+    <div class="col-12">
+      <label for="otp" class="form-label fw-semibold">Enter Verification Code</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="fas fa-key text-secondary"></i></span>
+        <input type="text" class="form-control border-start-0 text-center fs-5 letter-spacing-2" id="otp"
+          formControlName="otp" placeholder="000000" maxlength="6">
+      </div>
+      <div *ngIf="otp?.invalid && otp?.touched" class="text-danger mt-1 small">
+        <div *ngIf="otp?.errors?.['required']">Verification code is required</div>
+        <div *ngIf="otp?.errors?.['minlength'] || otp?.errors?.['maxlength']">Code must be 6 digits</div>
+        <div *ngIf="otp?.errors?.['pattern']">Code must contain only numbers</div>
+      </div>
+      <div *ngIf="otpError" class="text-danger mt-1 small">{{ otpError }}</div>
+    </div>
+
+    <!-- Resend OTP -->
+    <div class="col-12 text-center">
+      <p class="small mb-1">
+        Didn't receive the code?
+        <button type="button" class="btn btn-link text-decoration-none p-0 fw-bold text-primary" (click)="resendOtp()">
+          Resend Code
+        </button>
+      </p>
+      <p *ngIf="otpResent" class="text-success small">Verification code resent!</p>
+    </div>
+
+    <!-- Back to signup -->
+    <div class="col-12 text-center">
+      <p class="small mb-1">
+        <button type="button" class="btn btn-link text-decoration-none p-0" (click)="backToSignup()">
+          Back to Sign up
+        </button>
+      </p>
+    </div>
+
+    <!-- Verify button -->
+    <div class="col-12">
+      <button type="submit" class="btn btn-outline-light orange-btn fw-semibold fw-bold w-100 py-2 text-white border-0"
+        [disabled]="otpForm.invalid">
+        Verify & Complete Registration
       </button>
     </div>
   </form>
