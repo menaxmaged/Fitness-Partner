@@ -22,7 +22,10 @@ export class ExercisesHomeComponent implements OnInit {
     });
   }
 
+
   goToMuscle(muscle: string) {
+    console.log('switching to muscle:', muscle);
     this.router.navigate(['/exercises/home', muscle.toLowerCase()]);
   }
+  
 }
