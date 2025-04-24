@@ -11,7 +11,7 @@ import { EmailModule } from './email/email.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(
-      process.env.MONGO_URI || 'mongodb://localhost:27017/fitness',
+      process.env.MONGO_URI || 'mongodb+srv://omar9tarek:CtwmBFxdXxg9IJqJ@fitnesspartner.rvyrsda.mongodb.net/fpData',
     ),
     AuthModule,
     UsersModule,
