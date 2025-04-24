@@ -17,7 +17,8 @@ import { User } from '../../shared/utils/user';
   templateUrl: './signup.component.html',
 })
 export class SignupComponent implements OnInit {
-  usersData: any;
+  usersData: any[] = []; 
+
   constructor(private myUserService: UsersService, private router: Router) {}
   ngOnInit(): void {
     this.myUserService.getAllUsers().subscribe({
@@ -61,38 +62,41 @@ export class SignupComponent implements OnInit {
   get lName() {
     return this.registerForm.get('lName');
   }
+   
   onSubmit() {
     if (this.registerForm.valid) {
-      const user = this.usersData.find(
-        (u: any) => u.email === this.email?.value
-      );
-      if (user) {
-        this.registerForm.controls['email'].setErrors({ found: true });
-        return;
-      }
+      // Check if passwords match
       if (this.password?.value !== this.confirmPassword?.value) {
         this.confirmPassword?.setErrors({ passwordMismatch: true });
         return;
       }
 
       const newUser: User = {
-        id: generateId(),
         fName: this.fName?.value ?? null,
         lName: this.lName?.value ?? null,
         email: this.email?.value ?? null,
         password: this.password?.value ?? null,
       };
 
+      // We don't need to generate ID here - the backend will do it
+      // No need to check if email exists - backend will handle that
+
       this.myUserService.addANewUser(newUser).subscribe({
-        next: () => {
-          const token = btoa(newUser.id);
-          localStorage.setItem('token', token);
+        next: (response: any) => {
+          // Store the JWT token instead of base64 encoded ID
+          localStorage.setItem('token', response.access_token);
+          localStorage.setItem('userId', response.user.id);
           this.router.navigate(['/home']);
         },
         error: (err) => {
           console.error('Error registering user:', err);
+          if (err.status === 409) {
+            // Handle email already exists
+            this.registerForm.controls['email'].setErrors({ found: true });
+          }
         },
       });
     }
   }
 }
+
