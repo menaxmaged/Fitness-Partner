@@ -26,7 +26,13 @@ export class NavBarComponent implements OnDestroy {
   ) {
     this.myCart.cart$.subscribe(cart => this.cart = cart);
     this.cart = this.myCart.getCart();
-    
+  
+    const token = localStorage.getItem('token');
+    const userId = token ? atob(token) : null;
+    if (userId) {
+      this.favoritesService.initializeForUser(userId);
+    }
+  
     this.favoritesSub = this.favoritesService.favorites$.subscribe(favorites => {
       this.favoritesCount = favorites.length;
       console.log('Navbar favorites count updated:', this.favoritesCount);

@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { BodyFatCalculatorComponent } from '../body-fat-calculator/body-fat-calculator.component';
 import { Nutrient } from '../../models/nutrient.model';
 import { CommonModule } from '@angular/common';
+import { FoodNutritionComponent } from '../food-nutrition/food-nutrition.component';
 import { MealComparisonComponent } from '../meal-comparison/meal-comparison.component';
-@Component({
+ @Component({
   selector: 'app-nutrition',
-  imports: [BodyFatCalculatorComponent, CommonModule, MealComparisonComponent],
+  imports: [BodyFatCalculatorComponent, CommonModule, MealComparisonComponent, FoodNutritionComponent],
   templateUrl: './nutrition.component.html',
   styles: ``,
 })
