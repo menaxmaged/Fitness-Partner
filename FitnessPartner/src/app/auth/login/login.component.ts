@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/users.service';
@@ -34,7 +39,7 @@ export class LoginComponent {
 
     this.myUserService.getAllUsers().subscribe({
       next: (data) => (this.usersData = data),
-      error: (err) => console.error('Error fetching users:', err)
+      error: (err) => console.error('Error fetching users:', err),
     });
   }
 
@@ -43,30 +48,52 @@ export class LoginComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+      ),
     ]),
   });
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const user = this.usersData.find(u => u.email === this.email?.value);
+      const loginData = {
+        email: this.email?.value as string,
+        password: this.password?.value as string,
+      };
 
-      if (!user) {
-        this.loginForm.controls['email']?.setErrors({ notFound: true });
-      } else if (user.password !== this.password?.value) {
-        this.loginForm.controls['password']?.setErrors({ incorrectPassword: true });
-      } else {
-        const loginData = { 
-          email: this.email?.value as string, 
-          password: this.password?.value as string 
-        };
-        this.authService.login(loginData); // Use AuthService login
-        this.favoritesService.initializeForUser(user.id);
-        this.router.navigate(['/home']);
-      }
+      this.authService.login(loginData).subscribe({
+        next: (response) => {
+          // Store the token in localStorage or a service
+          if (response.access_token) {
+            localStorage.setItem('access_token', response.access_token);
+            this.authService.setCurrentUserId(response.user.id);
+            this.favoritesService.initializeForUser(response.user.id);
+            this.router.navigate(['/home']);
+          } else if (response.requiresVerification) {
+            // Handle unverified user case
+            this.router.navigate(['/verify-email'], {
+              queryParams: { email: this.email?.value },
+            });
+          }
+        },
+        error: (err) => {
+          if (err.status === 401) {
+            // Handle authentication errors
+            if (err.error?.message === 'Invalid email or password') {
+              this.loginForm.setErrors({ invalidCredentials: true });
+            }
+          } else {
+            console.error('Login failed:', err);
+          }
+        },
+      });
     }
   }
 }
