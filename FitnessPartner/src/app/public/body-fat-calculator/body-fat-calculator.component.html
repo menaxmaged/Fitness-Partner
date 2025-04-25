@@ -13,7 +13,10 @@
           name="age"
           [(ngModel)]="formData.age"
         />
-        <div *ngIf="fatForm.submitted && fatForm.controls['age'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['age'].invalid"
+          class="text-danger"
+        >
           Age is required and must be a valid number.
         </div>
       </div>
@@ -27,7 +30,10 @@
           name="weight"
           [(ngModel)]="formData.weight"
         />
-        <div *ngIf="fatForm.submitted && fatForm.controls['weight'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['weight'].invalid"
+          class="text-danger"
+        >
           Weight is required and must be a valid number.
         </div>
       </div>
@@ -41,7 +47,10 @@
           name="height"
           [(ngModel)]="formData.height"
         />
-        <div *ngIf="fatForm.submitted && fatForm.controls['height'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['height'].invalid"
+          class="text-danger"
+        >
           Height is required and must be a valid number.
         </div>
       </div>
@@ -55,7 +64,10 @@
           name="neck"
           [(ngModel)]="formData.neck"
         />
-        <div *ngIf="fatForm.submitted && fatForm.controls['neck'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['neck'].invalid"
+          class="text-danger"
+        >
           Neck is required and must be a valid number.
         </div>
       </div>
@@ -69,7 +81,10 @@
           name="waist"
           [(ngModel)]="formData.waist"
         />
-        <div *ngIf="fatForm.submitted && fatForm.controls['waist'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['waist'].invalid"
+          class="text-danger"
+        >
           Waist is required and must be a valid number.
         </div>
       </div>
@@ -83,7 +98,10 @@
           name="hip"
           [(ngModel)]="formData.hip"
         />
-        <div *ngIf="fatForm.submitted && fatForm.controls['hip'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['hip'].invalid"
+          class="text-danger"
+        >
           Hip is required and must be a valid number.
         </div>
       </div>
@@ -100,7 +118,10 @@
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        <div *ngIf="fatForm.submitted && fatForm.controls['gender'].invalid" class="text-danger">
+        <div
+          *ngIf="fatForm.submitted && fatForm.controls['gender'].invalid"
+          class="text-danger"
+        >
           Gender is required.
         </div>
       </div>
@@ -114,11 +135,10 @@
     <h5 class="mb-3">Result:</h5>
     <p><strong>Body Fat (U.S. Navy Method):</strong> {{ result.bodyFat }}%</p>
     <p><strong>Category:</strong> {{ result.status }}</p>
-   
   </div>
 </div>
 <style>
-   button {
+  button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
