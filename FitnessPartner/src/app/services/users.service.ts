@@ -1,69 +1,5 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class UsersService {
-//   constructor(private myClient: HttpClient) {}
-//   private URLData = 'http://localhost:3000/users';
-
-//   getAllUsers() {
-//     return this.myClient.get<any>(this.URLData);
-//   }
-//   addANewUser(newUser: any) {
-//     return this.myClient.post(this.URLData, newUser);
-//   }
-//   getUserById(id: any) {
-//     return this.myClient.get(`${this.URLData}/${id}`);
-//   }
-//   deleteUser(id: any) {
-//     return this.myClient.delete(`${this.URLData}/${id}`);
-//   }
-//   editUserData(id: any, updatedUser: any) {
-//     return this.myClient.put(`${this.URLData}/${id}`, updatedUser);
-//   }
-// }
-
-////////////////// TESTING BACKEND BELOW //////////////////////// ORIGINAL CODE ABOVE //// DO NOT DELETE ///////
-
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs';
-// import { User } from '../shared/utils/user';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class UsersService {
-//   constructor(private http: HttpClient) {}
-//   private baseUrl = 'http://localhost:3000';
-
-//   getAllUsers(): Observable<User[]> {
-//     return this.http.get<User[]>(`${this.baseUrl}/users`);
-//   }
-
-//   addANewUser(newUser: User): Observable<User> {
-//     return this.http.post<User>(`${this.baseUrl}/auth/register`, newUser);
-//   }
-
-//   getUserById(id: string): Observable<User> {
-//     return this.http.get<User>(`${this.baseUrl}/users/${id}`);
-//   }
-
-//   deleteUser(id: string): Observable<User> {
-//     return this.http.delete<User>(`${this.baseUrl}/users/${id}`);
-//   }
-
-//   editUserData(id: string, updatedUser: User): Observable<User> {
-//     return this.http.put<User>(`${this.baseUrl}/users/${id}`, updatedUser);
-//   }
-// }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../shared/utils/user';
 
@@ -71,39 +7,38 @@ import { User } from '../shared/utils/user';
   providedIn: 'root',
 })
 export class UsersService {
+  private apiUrl = 'http://localhost:3000';
+
   constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:3000';
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/users`);
+  editUserData(userId: string, userData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
   }
 
-  addANewUser(newUser: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/auth/register`, newUser);
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users`);
   }
 
-  // New method for verifying OTP
+  getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/users/${id}`);
+  }
+
+  addANewUser(user: User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/register`, user);
+  }
+
+  updateUser(id: string, userData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/users/${id}`, userData);
+  }
+
   verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/verify-otp`, {
+    return this.http.post<any>(`${this.apiUrl}/auth/verify-otp`, {
       email,
       otp,
     });
   }
 
-  // New method for resending OTP
   resendOtp(email: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/resend-otp`, { email });
-  }
-
-  getUserById(id: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/${id}`);
-  }
-
-  deleteUser(id: string): Observable<User> {
-    return this.http.delete<User>(`${this.baseUrl}/users/${id}`);
-  }
-
-  editUserData(id: string, updatedUser: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/users/${id}`, updatedUser);
+    return this.http.post<any>(`${this.apiUrl}/auth/resend-otp`, { email });
   }
 }

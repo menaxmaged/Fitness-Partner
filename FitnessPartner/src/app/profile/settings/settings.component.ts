@@ -17,24 +17,37 @@ export class SettingsComponent implements OnInit {
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    const userId = token ? atob(token) : null;
+    const storedUser = localStorage.getItem('user');
 
-    if (userId) {
-      this.userService.getUserById(userId).subscribe({
-        next: (foundUser) => {
-          this.user = foundUser;
-        },
-        error: (err) => {
-          console.error('User not found', err);
-        },
-      });
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
     } else {
-      console.error('No userId found in localStorage');
+      const userId = localStorage.getItem('userId');
+      if (userId) {
+        this.userService.getUserById(userId).subscribe({
+          next: (foundUser) => {
+            this.user = foundUser;
+            localStorage.setItem('user', JSON.stringify(foundUser));
+          },
+          error: (err) => {
+            console.error('Error fetching user from API:', err);
+            alert('Failed to load user data. Please try again.');
+          },
+        });
+      } else {
+        console.error('No userId found in localStorage');
+        alert('User ID is missing. Please log in again.');
+      }
     }
   }
 
   toggleEdit(): void {
+    if (this.isEditing) {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
+      }
+    }
     this.isEditing = !this.isEditing;
   }
 
@@ -53,20 +66,30 @@ export class SettingsComponent implements OnInit {
     this.user.avatar = 'profileImgRemove.png';
   }
 
+  // saveChanges(): void {
+  //   if (this.user.id) {
+  //     console.log('Sending user data to API:', this.user); // Debugging line
+  //     this.userService.editUserData(this.user.id, this.user).subscribe({
+  //       next: (updatedUser) => {
+  //         console.log('User updated successfully:', updatedUser);
+  //         this.user = updatedUser;
+  //         localStorage.setItem('user', JSON.stringify(updatedUser)); // Save updated user
+  //         this.isEditing = false;
+  //       },
+  //       error: (err) => {
+  //         console.error('Error updating user:', err);
+  //         alert('Failed to update user. Please try again.');
+  //       },
+  //     });
+  //   } else {
+  //     console.error('User ID not found, unable to update.');
+  //     alert('User ID is missing. Please refresh the page and try again.');
+  //   }
+  // }
+
   saveChanges(): void {
-    if (this.user.id) {
-      this.userService.editUserData(this.user.id, this.user).subscribe({
-        next: (updatedUser) => {
-          console.log('User updated successfully:', updatedUser);
-          this.isEditing = false;
-        },
-        error: (err) => {
-          console.error('Error updating user:', err);
-        },
-      });
-    } else {
-      console.error('User ID not found, unable to update.');
-    }
+    localStorage.setItem('user', JSON.stringify(this.user));
+    this.isEditing = false;
   }
 
   triggerFileInput(): void {

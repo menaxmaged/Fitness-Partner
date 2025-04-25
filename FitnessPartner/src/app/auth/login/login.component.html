@@ -15,8 +15,9 @@
         </div>
         <div *ngIf="email?.invalid && email?.touched" class="text-danger mt-1 small">
           <div *ngIf="email?.errors?.['required']">Email address is required</div>
-          <div *ngIf="email?.errors?.['notFound']">Email not found. Please sign up first</div>
-          <div *ngIf="!email?.errors?.['required'] && !email?.errors?.['notFound']">Please add a valid email address
+          <div *ngIf="email?.errors?.['notFound']">Email not found or incorrect credentials</div>
+          <div *ngIf="!email?.errors?.['required'] && !email?.errors?.['notFound'] && email?.errors?.['email']">Please
+            add a valid email address
           </div>
         </div>
       </div>
@@ -29,7 +30,7 @@
           <input type="password" class="form-control border-start-0" id="inputPassword" formControlName="password"
             placeholder="Enter your password">
         </div>
-        <div *ngIf="password?.errors?.['incorrectPassword']" class="text-danger mt-1 small">
+        <div *ngIf="password?.errors?.['incorrectPassword'] && password?.touched" class="text-danger mt-1 small">
           Incorrect password. Please try again
         </div>
       </div>
@@ -51,7 +52,7 @@
       <!-- Sign up link -->
       <div class="text-center">
         <p class="small text-muted">
-          Don’t have an account?
+          Don't have an account?
           <a routerLink="/signup" class="text-decoration-none fw-bold text-primary">Sign up</a>
         </p>
       </div>

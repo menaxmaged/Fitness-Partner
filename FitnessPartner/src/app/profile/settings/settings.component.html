@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <form (ngSubmit)="saveChanges()">
+  <form #form="ngForm" (ngSubmit)="saveChanges()" novalidate>
     <div class="form-row">
       <div class="form-group">
         <label>First Name *</label>
@@ -51,14 +51,14 @@
     </div>
 
     <div class="btn-container">
-      <button type="button" (click)="toggleEdit()" class="btn btn-outline-light orange-btn fw-semibold"
-        *ngIf="!isEditing">
-        Edit Info
+      <button type="button" (click)="toggleEdit()" class="btn btn-outline-light orange-btn fw-semibold">
+        {{ isEditing ? 'Cancel' : 'Edit Info' }}
       </button>
 
       <button type="submit" class="btn btn-outline-light orange-btn fw-semibold" *ngIf="isEditing">
         Save Changes
       </button>
+
     </div>
   </form>
 </main>

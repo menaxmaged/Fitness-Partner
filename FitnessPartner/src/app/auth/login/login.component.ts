@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { FavoritesService } from '../../services/favorites.service';
-import { AuthService } from '../../services/auth.service'; // Add this import
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +24,11 @@ export class LoginComponent {
     private myUserService: UsersService,
     private router: Router,
     private favoritesService: FavoritesService,
-    private authService: AuthService // Inject AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    // Check if user is already logged in
     if (this.authService.getCurrentUserId()) {
       const userId = this.authService.getCurrentUserId();
       if (userId) {
@@ -36,11 +37,6 @@ export class LoginComponent {
       this.router.navigate(['/profile']);
       return;
     }
-
-    this.myUserService.getAllUsers().subscribe({
-      next: (data) => (this.usersData = data),
-      error: (err) => console.error('Error fetching users:', err),
-    });
   }
 
   loginForm = new FormGroup({
@@ -70,12 +66,12 @@ export class LoginComponent {
 
       this.authService.login(loginData).subscribe({
         next: (response) => {
-          // Store the token in localStorage or a service
           if (response.access_token) {
             localStorage.setItem('access_token', response.access_token);
+            localStorage.setItem('token', response.access_token); // Keep both for compatibility
             this.authService.setCurrentUserId(response.user.id);
             this.favoritesService.initializeForUser(response.user.id);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/profile']); // Navigate to profile instead of home
           } else if (response.requiresVerification) {
             // Handle unverified user case
             this.router.navigate(['/verify-email'], {
@@ -87,7 +83,8 @@ export class LoginComponent {
           if (err.status === 401) {
             // Handle authentication errors
             if (err.error?.message === 'Invalid email or password') {
-              this.loginForm.setErrors({ invalidCredentials: true });
+              this.email?.setErrors({ notFound: true });
+              this.password?.setErrors({ incorrectPassword: true });
             }
           } else {
             console.error('Login failed:', err);
