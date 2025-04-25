@@ -1,12 +1,13 @@
-<div class="container mt-4">
+<div class="container mt-4" style="cursor: pointer;">
     <h3 class="text-center text-capitalize">{{ muscleName }} Exercises</h3>
     <div class="row mt-4">
-      <div class="col-md-6 mb-4" *ngFor="let ex of exercises" (click)="goToExercise(ex.name)" style="cursor: pointer;">
+      <div class="col-md-6 mb-4 text-center mx-auto"  *ngFor="let ex of exercises" (click)="goToExercise(ex.name)" >
         <div class="card">
           <div class="card-body">
             <h5>{{ ex.name }}</h5>
-            <div class="ratio ratio-16x9">
-              <iframe [src]="ex.videoUrl" frameborder="0" allowfullscreen style="pointer-events: none;"></iframe>
+            <div class="ratio ratio-16x9  d-flex justify-content-center align-items-center mx-auto">
+              <img src="{{ ex.imageUrl }}" class="card-img-top" alt="{{ ex.name }}" style="width: 85%; height: auto;">
+              <!-- <iframe [src]="ex.safeVideoUrl" frameborder="0" allowfullscreen style="pointer-events: none;"></iframe> -->
             </div>
           </div>
         </div>

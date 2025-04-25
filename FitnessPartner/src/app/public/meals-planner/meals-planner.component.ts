@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IMealPlan } from '../../models/i-meal-plan';
 import { MealPlannerService } from '../../services/meal-planner.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snack';
 
 @Component({

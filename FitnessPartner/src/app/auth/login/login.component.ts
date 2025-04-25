@@ -59,8 +59,11 @@ export class LoginComponent {
       } else if (user.password !== this.password?.value) {
         this.loginForm.controls['password']?.setErrors({ incorrectPassword: true });
       } else {
-        const token = btoa(user.id.toString());
-        this.authService.login(token); // Use AuthService login
+        const loginData = { 
+          email: this.email?.value as string, 
+          password: this.password?.value as string 
+        };
+        this.authService.login(loginData); // Use AuthService login
         this.favoritesService.initializeForUser(user.id);
         this.router.navigate(['/home']);
       }
