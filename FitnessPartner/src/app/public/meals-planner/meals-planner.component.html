@@ -1,21 +1,19 @@
 <div class="container my-4">
-  <div class="row mb-3">
-    <div class="col-12 col-md-6">
-      <label for="goal" class="form-label">Select Your Goal:</label>
-      <select
-        id="goal"
-        class="form-select"
-        [(ngModel)]="selectedGoal"
-        (change)="onGoalChange()"
-      >
-        <option value="" disabled selected>-- Select Goal --</option>
-        <option *ngFor="let g of goals" [value]="g">{{ g }}</option>
-      </select>
-    </div>
-  </div>
+  <h2 class="text-center mb-4">Your Personalized Meal Planner</h2>
+
+  <label for="goal" class="form-label">Select Your Goal:</label>
+  <select
+    id="goal"
+    class="form-select"
+    [(ngModel)]="selectedGoal"
+    (change)="onGoalChange()"
+  >
+    <option value="" disabled selected>-- Select Goal --</option>
+    <option *ngFor="let g of goals" [value]="g">{{ g }}</option>
+  </select>
 
   <ng-container *ngIf="plan; else noPlan">
-    <h2 class="mb-4">
+    <h2 class="my-4">
       Meal Plan for: <span class="text-primary">{{ plan.target }}</span>
     </h2>
 
@@ -44,9 +42,10 @@
                   alt="{{ item.name }}"
                   class="item-thumb"
                 />
-                <span>{{ item.name }}</span> <br> <br>
+                <span>{{ item.name }}</span> <br />
+                <br />
               </div>
-             </td>
+            </td>
             <td>{{ plan.plan[key].calories }}</td>
             <td>{{ plan.plan[key].protein }}</td>
             <td>{{ plan.plan[key].carbs }}</td>

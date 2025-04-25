@@ -5,9 +5,10 @@ import { Nutrient } from '../../models/nutrient.model';
 import { CommonModule } from '@angular/common';
 import { FoodNutritionComponent } from '../food-nutrition/food-nutrition.component';
 import { MealComparisonComponent } from '../meal-comparison/meal-comparison.component';
+import { MealsPlannerComponent } from "../meals-planner/meals-planner.component";
  @Component({
   selector: 'app-nutrition',
-  imports: [BodyFatCalculatorComponent, CommonModule, MealComparisonComponent, FoodNutritionComponent],
+  imports: [BodyFatCalculatorComponent, CommonModule, MealComparisonComponent, FoodNutritionComponent, MealsPlannerComponent],
   templateUrl: './nutrition.component.html',
   styles: ``,
 })
