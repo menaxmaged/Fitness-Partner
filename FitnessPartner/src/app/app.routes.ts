@@ -26,9 +26,10 @@ import { ExercisesGymComponent } from './exercises-gym/exercises-gym.component';
 import { MuscleExerciseComponent } from './muscle-exercise/muscle-exercise.component';
 import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.component';
 import { NgModule } from '@angular/core';
+import { MealsPlannerComponent } from './public/meals-planner/meals-planner.component';
 
 export const routes: Routes = [
-  
+
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -47,6 +48,7 @@ export const routes: Routes = [
     { path: 'exercises/:type/:muscle/:exercise', component: ExerciseDetailComponent },
 
   { path: 'nutrition', component: NutritionComponent },
+  {path :'mealsPlanner' , component:MealsPlannerComponent},
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'trainers', component: TrainersComponent },
@@ -76,8 +78,8 @@ export const appRouting = RouterModule.forRoot(routes, {
 
 // If you're using NgModule:
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { 
-    onSameUrlNavigation: 'reload' 
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
   })],
   exports: [RouterModule]
 })

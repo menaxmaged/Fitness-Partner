@@ -1,194 +1,192 @@
 {
-
-      "home": [
+  "home": [
+    {
+      "muscle": "Chest",
+      "exercises": [
         {
-          "muscle": "Chest",
-          "exercises": [
-            {
-              "name": "Push Up",
-              "videoUrl": "https://www.youtube.com/embed/IODxDxX7oi4",
-              "imageUrl": "https://i.pinimg.com/originals/fd/bb/09/fdbb092b58863e5c86fdb8bb1411fcea.gif",
-              "description": "A classic bodyweight exercise that targets the chest, triceps, and shoulders."
-            },
-            {
-              "name": "Incline Push Up",
-              "videoUrl": "https://www.youtube.com/embed/jOxG1kW4gfI",
-              "imageUrl": "https://www.verywellfit.com/thmb/GG7EXAUxQvwxiu4QAzDBPu6yy44=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/90-3120038--Incline-PushupsGIF-d321334ec54849539010832028d5635a.gif",
-              "description": "Push-up variation performed with hands elevated to reduce difficulty and isolate upper chest."
-            }
-          ]
+          "name": "Push Up",
+          "videoUrl": "https://www.youtube.com/embed/IODxDxX7oi4",
+          "imageUrl": "https://i.pinimg.com/originals/fd/bb/09/fdbb092b58863e5c86fdb8bb1411fcea.gif",
+          "description": "A classic bodyweight exercise that targets the chest, triceps, and shoulders."
         },
         {
-          "muscle": "Arms",
-          "exercises": [
-            {
-              "name": "Chair Dips",
-              "videoUrl": "https://www.youtube.com/embed/0326dy_-CzM",
-              "imageUrl": "https://www.yogajournal.com/.image/t_share/MTQ2MTgwNjY4NzAxMDkzNzUw/triceps-dip.jpg",
-              "description": "Targets triceps using a chair or low surface at home."
-            },
-            {
-              "name": "Bicep Curls (With Bottles)",
-              "videoUrl": "https://www.youtube.com/embed/RwQVt-hX4AU",
-              "imageUrl": "https://blog.myfitnesspal.com/wp-content/uploads/2021/02/10-Minute-Workout-Use-Water-Bottles.jpg",
-              "description": "A home-friendly bicep workout using water bottles or any light weight."
-            }
-          ]
-        },
-        {
-          "muscle": "Shoulders",
-          "exercises": [
-            {
-              "name": "Pike Push-Up",
-              "videoUrl": "https://www.youtube.com/embed/CmSRtFYTk60",
-              "imageUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2023/02/pike-push-up.gif",
-              "description": "Great bodyweight move that targets shoulders and upper chest."
-            }
-          ]
-        },
-        {
-          "muscle": "Back",
-          "exercises": [
-            {
-              "name": "Superman Exercise",
-              "videoUrl": "https://www.youtube.com/embed/z6PJMT2y8GQ",
-              "imageUrl": "https://post.greatist.com/wp-content/uploads/sites/2/2020/06/Perfect-Your-Form_Superman-Exercise.gif",
-              "description": "Strengthens lower back and glutes while lying flat on the floor."
-            }
-          ]
-        },
-        {
-          "muscle": "Legs",
-          "exercises": [
-            {
-              "name": "Bodyweight Squats",
-              "videoUrl": "https://www.youtube.com/embed/aclHkVaku9U",
-              "imageUrl": "https://www.spotebi.com/wp-content/uploads/2014/10/bodyweight-squat-exercise-illustration.jpg",
-              "description": "Basic squat movement targeting thighs and glutes without any equipment."
-            },
-            {
-              "name": "Lunges",
-              "videoUrl": "https://www.youtube.com/embed/QOVaHwm-Q6U",
-              "imageUrl": "https://media.post.rvohealth.io/wp-content/uploads/sites/2/2020/11/400x400_Lunges.gif",
-              "description": "Single-leg movement that improves balance and leg strength."
-            }
-          ]
-        },
-        {
-          "muscle": "Abs",
-          "exercises": [
-            {
-              "name": "Plank",
-              "videoUrl": "https://www.youtube.com/embed/pSHjTRCQxIw",
-              "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/plank-royalty-free-image-1588004362.jpg",
-              "description": "Core stabilization exercise that works abs and lower back."
-            },
-            {
-              "name": "Leg Raises",
-              "videoUrl": "https://www.youtube.com/embed/JB2oyawG9KI",
-              "imageUrl": "https://post.greatist.com/wp-content/uploads/sites/2/2021/06/leg-raises.gif",
-              "description": "Effective lower abs movement using your own bodyweight."
-            }
-          ]
+          "name": "Incline Push Up",
+          "videoUrl": "https://www.youtube.com/embed/jOxG1kW4gfI",
+          "imageUrl": "https://www.verywellfit.com/thmb/GG7EXAUxQvwxiu4QAzDBPu6yy44=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/90-3120038--Incline-PushupsGIF-d321334ec54849539010832028d5635a.gif",
+          "description": "Push-up variation performed with hands elevated to reduce difficulty and isolate upper chest."
         }
-      ],
-      "gym": [
+      ]
+    },
+    {
+      "muscle": "Arms",
+      "exercises": [
         {
-          "muscle": "Chest",
-          "exercises": [
-            {
-              "name": "Bench Press",
-              "videoUrl": "https://www.youtube.com/embed/gRVjAtPip0Y",
-              "imageUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/12/barbell-bench-press.gif",
-              "description": "Barbell exercise for chest, shoulders, and triceps."
-            },
-            {
-              "name": "Cable Crossover",
-              "videoUrl": "https://www.youtube.com/embed/taI4XduLpTk",
-              "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/07/cable-crossover.gif",
-              "description": "Isolation movement for chest using cable machine."
-            }
-          ]
+          "name": "Chair Dips",
+          "videoUrl": "https://www.youtube.com/embed/0326dy_-CzM",
+          "imageUrl": "https://www.yogajournal.com/.image/t_share/MTQ2MTgwNjY4NzAxMDkzNzUw/triceps-dip.jpg",
+          "description": "Targets triceps using a chair or low surface at home."
         },
         {
-          "muscle": "Arms",
-          "exercises": [
-            {
-              "name": "Cable Bicep Curls",
-              "videoUrl": "https://www.youtube.com/embed/av7-8igSXTs",
-              "imageUrl": "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/06/cable-curl.gif",
-              "description": "Machine-based curl targeting biceps."
-            },
-            {
-              "name": "Triceps Pushdown",
-              "videoUrl": "https://www.youtube.com/embed/2-LAMcpzODU",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/Tricep_Pushdown.gif",
-              "description": "Cable machine exercise focusing on triceps."
-            }
-          ]
+          "name": "Bicep Curls (With Bottles)",
+          "videoUrl": "https://www.youtube.com/embed/RwQVt-hX4AU",
+          "imageUrl": "https://blog.myfitnesspal.com/wp-content/uploads/2021/02/10-Minute-Workout-Use-Water-Bottles.jpg",
+          "description": "A home-friendly bicep workout using water bottles or any light weight."
+        }
+      ]
+    },
+    {
+      "muscle": "Shoulders",
+      "exercises": [
+        {
+          "name": "Pike Push-Up",
+          "videoUrl": "https://www.youtube.com/embed/CmSRtFYTk60",
+          "imageUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2023/02/pike-push-up.gif",
+          "description": "Great bodyweight move that targets shoulders and upper chest."
+        }
+      ]
+    },
+    {
+      "muscle": "Back",
+      "exercises": [
+        {
+          "name": "Superman Exercise",
+          "videoUrl": "https://www.youtube.com/embed/z6PJMT2y8GQ",
+          "imageUrl": "https://post.greatist.com/wp-content/uploads/sites/2/2020/06/Perfect-Your-Form_Superman-Exercise.gif",
+          "description": "Strengthens lower back and glutes while lying flat on the floor."
+        }
+      ]
+    },
+    {
+      "muscle": "Legs",
+      "exercises": [
+        {
+          "name": "Bodyweight Squats",
+          "videoUrl": "https://www.youtube.com/embed/aclHkVaku9U",
+          "imageUrl": "https://www.spotebi.com/wp-content/uploads/2014/10/bodyweight-squat-exercise-illustration.jpg",
+          "description": "Basic squat movement targeting thighs and glutes without any equipment."
         },
         {
-          "muscle": "Shoulders",
-          "exercises": [
-            {
-              "name": "Dumbbell Shoulder Press",
-              "videoUrl": "https://www.youtube.com/embed/B-aVuyhvLHU",
-              "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/11/dumbbell-shoulder-press.gif",
-              "description": "Dumbbell exercise that builds shoulder strength and size."
-            }
-          ]
+          "name": "Lunges",
+          "videoUrl": "https://www.youtube.com/embed/QOVaHwm-Q6U",
+          "imageUrl": "https://media.post.rvohealth.io/wp-content/uploads/sites/2/2020/11/400x400_Lunges.gif",
+          "description": "Single-leg movement that improves balance and leg strength."
+        }
+      ]
+    },
+    {
+      "muscle": "Abs",
+      "exercises": [
+        {
+          "name": "Plank",
+          "videoUrl": "https://www.youtube.com/embed/pSHjTRCQxIw",
+          "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/plank-royalty-free-image-1588004362.jpg",
+          "description": "Core stabilization exercise that works abs and lower back."
         },
         {
-          "muscle": "Back",
-          "exercises": [
-            {
-              "name": "Lat Pulldown",
-              "videoUrl": "https://www.youtube.com/embed/CAwf7n6Luuc",
-              "imageUrl": "https://i.pinimg.com/originals/2a/6e/ed/2a6eedc5883d4fe9e5119f45a842dd14.gif",
-              "description": "Cable machine movement targeting lats and upper back."
-            },
-            {
-              "name": "Seated Row",
-              "videoUrl": "https://www.youtube.com/embed/GZbfZ033f74",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/seated-cable-row.gif",
-              "description": "Compound pulling exercise focusing on back thickness."
-            }
-          ]
-        },
-        {
-          "muscle": "Legs",
-          "exercises": [
-            {
-              "name": "Leg Press",
-              "videoUrl": "https://www.youtube.com/embed/M6yPo4qORgE",
-              "imageUrl": "https://cdn.muscleandstrength.com/sites/default/files/legpress.gif",
-              "description": "Leg machine that works quads, hamstrings, and glutes."
-            },
-            {
-              "name": "Leg Extension",
-              "videoUrl": "https://www.youtube.com/embed/YyvSfVjQeL0",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/Leg-Extension.gif",
-              "description": "Isolates the quadriceps muscles on the front of your thighs."
-            }
-          ]
-        },
-        {
-          "muscle": "Abs",
-          "exercises": [
-            {
-              "name": "Cable Crunch",
-              "videoUrl": "https://www.youtube.com/embed/2tPL3gE8knQ",
-              "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/08/cable-crunch.gif",
-              "description": "Cable-based core exercise to target upper abs."
-            },
-            {
-              "name": "Ab Roller",
-              "videoUrl": "https://www.youtube.com/embed/J2I0ulT_fgo",
-              "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/ab-wheel-rollout.gif",
-              "description": "Challenging abdominal exercise using an ab wheel."
-            }
-          ]
+          "name": "Leg Raises",
+          "videoUrl": "https://www.youtube.com/embed/JB2oyawG9KI",
+          "imageUrl": "https://post.greatist.com/wp-content/uploads/sites/2/2021/06/leg-raises.gif",
+          "description": "Effective lower abs movement using your own bodyweight."
         }
       ]
     }
-
+  ],
+  "gym": [
+    {
+      "muscle": "Chest",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "videoUrl": "https://www.youtube.com/embed/gRVjAtPip0Y",
+          "imageUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/12/barbell-bench-press.gif",
+          "description": "Barbell exercise for chest, shoulders, and triceps."
+        },
+        {
+          "name": "Cable Crossover",
+          "videoUrl": "https://www.youtube.com/embed/taI4XduLpTk",
+          "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/07/cable-crossover.gif",
+          "description": "Isolation movement for chest using cable machine."
+        }
+      ]
+    },
+    {
+      "muscle": "Arms",
+      "exercises": [
+        {
+          "name": "Cable Bicep Curls",
+          "videoUrl": "https://www.youtube.com/embed/av7-8igSXTs",
+          "imageUrl": "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/06/cable-curl.gif",
+          "description": "Machine-based curl targeting biceps."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "videoUrl": "https://www.youtube.com/embed/2-LAMcpzODU",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/Tricep_Pushdown.gif",
+          "description": "Cable machine exercise focusing on triceps."
+        }
+      ]
+    },
+    {
+      "muscle": "Shoulders",
+      "exercises": [
+        {
+          "name": "Dumbbell Shoulder Press",
+          "videoUrl": "https://www.youtube.com/embed/B-aVuyhvLHU",
+          "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/11/dumbbell-shoulder-press.gif",
+          "description": "Dumbbell exercise that builds shoulder strength and size."
+        }
+      ]
+    },
+    {
+      "muscle": "Back",
+      "exercises": [
+        {
+          "name": "Lat Pulldown",
+          "videoUrl": "https://www.youtube.com/embed/CAwf7n6Luuc",
+          "imageUrl": "https://i.pinimg.com/originals/2a/6e/ed/2a6eedc5883d4fe9e5119f45a842dd14.gif",
+          "description": "Cable machine movement targeting lats and upper back."
+        },
+        {
+          "name": "Seated Row",
+          "videoUrl": "https://www.youtube.com/embed/GZbfZ033f74",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/seated-cable-row.gif",
+          "description": "Compound pulling exercise focusing on back thickness."
+        }
+      ]
+    },
+    {
+      "muscle": "Legs",
+      "exercises": [
+        {
+          "name": "Leg Press",
+          "videoUrl": "https://www.youtube.com/embed/M6yPo4qORgE",
+          "imageUrl": "https://cdn.muscleandstrength.com/sites/default/files/legpress.gif",
+          "description": "Leg machine that works quads, hamstrings, and glutes."
+        },
+        {
+          "name": "Leg Extension",
+          "videoUrl": "https://www.youtube.com/embed/YyvSfVjQeL0",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/Leg-Extension.gif",
+          "description": "Isolates the quadriceps muscles on the front of your thighs."
+        }
+      ]
+    },
+    {
+      "muscle": "Abs",
+      "exercises": [
+        {
+          "name": "Cable Crunch",
+          "videoUrl": "https://www.youtube.com/embed/2tPL3gE8knQ",
+          "imageUrl": "https://newlife.com.cy/wp-content/uploads/2019/08/cable-crunch.gif",
+          "description": "Cable-based core exercise to target upper abs."
+        },
+        {
+          "name": "Ab Roller",
+          "videoUrl": "https://www.youtube.com/embed/J2I0ulT_fgo",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0559/3961/3836/files/ab-wheel-rollout.gif",
+          "description": "Challenging abdominal exercise using an ab wheel."
+        }
+      ]
+    }
+  ]
+}

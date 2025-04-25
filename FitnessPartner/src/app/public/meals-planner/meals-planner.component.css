@@ -1,0 +1,50 @@
+.goal-selector {
+  margin: 20px 0;
+}
+
+.goal-selector select {
+  padding: 6px 8px;
+  font-size: 1rem;
+}
+
+.meal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.meal-table th,
+.meal-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.meal-table th {
+  background-color: #f5f5f5;
+  text-align: left;
+}
+
+.meal-type {
+  font-weight: bold;
+  width: 120px;
+}
+
+.items-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.item-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
