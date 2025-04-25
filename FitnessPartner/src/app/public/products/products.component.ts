@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -21,7 +22,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   userId: string | null = null;
   favoriteItems: any[] = [];
-  private favoritesSub?: Subscription;
+  isLoading: boolean = true;
   showPopUpMessage: boolean = false;
   
   // Pagination
@@ -45,56 +46,74 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ];
   selectedSort: string = 'default';
 
+  private favoritesSub?: Subscription;
+
   constructor(
     private productService: ProductServicesService,
     public favoritesService: FavoritesService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
-  
+
   ngOnInit(): void {
+    this.initializeUser();
+    this.loadProducts();
+    this.setupQueryParams();
+  }
+
+  private initializeUser(): void {
     const token = localStorage.getItem('token');
     this.isLoggedIn = !!token;
     
     if (this.isLoggedIn && token) {
       this.userId = atob(token);
       this.favoritesService.initializeForUser(this.userId);
-      
       this.favoritesSub = this.favoritesService.favorites$.subscribe(favorites => {
         this.favoriteItems = favorites;
-        console.log('Products component - Favorites updated:', favorites);
       });
     }
+  }
 
-    // Fetch products
-    this.productService.getAllProducts().subscribe((data: any[]) => {
-      this.products = data.map(product => ({
-        ...product,
-        showFlavors: false,
-        isNew: Math.random() > 0.5,
-        isHot: Math.random() > 0.7,
-        discount: Math.random() > 0.5 ? 10 : 0
-      }));
-
-      this.filteredProducts = [...this.products];
-      
-      this.categories = [...new Set(this.products.map(p => p.category))];
-      this.brands = [...new Set(this.products.map(p => p.brand))];
-      this.priceRange.max = Math.max(...this.products.map(p => p.price));
-      
-      // Apply filters after products are loaded
-      this.applyFilters();
-    });
-
-    // Listen to query parameters (category)
-    this.route.queryParams.subscribe(params => {
-      if (params['category']) {
-        this.selectedCategory = params['category'];
-        this.applyFilters(); // Apply filters whenever category query changes
-      }
+  private loadProducts(): void {
+    this.isLoading = true;
+    this.productService.getAllProducts().subscribe({
+      next: (data: any[]) => this.handleProductsLoaded(data),
+      error: (err) => this.handleLoadError(err),
+      complete: () => this.isLoading = false
     });
   }
 
+  private handleProductsLoaded(data: any[]): void {
+    this.products = data.map(product => ({
+      ...product,
+      showFlavors: false,
+      isNew: Math.random() > 0.5,
+      isHot: Math.random() > 0.7,
+      discount: Math.random() > 0.5 ? 10 : 0
+    }));
+
+    this.filteredProducts = [...this.products];
+    this.categories = [...new Set(this.products.map(p => p.category))];
+    this.brands = [...new Set(this.products.map(p => p.brand))];
+    this.priceRange.max = Math.max(...this.products.map(p => p.price));
+    this.applyFilters();
+  }
+
+  private handleLoadError(err: any): void {
+    console.error('Error loading products:', err);
+    this.isLoading = false;
+    this.router.navigate(['/error']);
+  }
+
+  private setupQueryParams(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['category']) {
+        this.selectedCategory = params['category'];
+        this.applyFilters();
+      }
+    });
+  }
   // Pagination Methods
   changeItemsPerPage(count: number): void {
     this.itemsPerPage = count;

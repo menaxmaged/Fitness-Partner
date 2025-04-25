@@ -1,16 +1,15 @@
-// products.controller.ts
 import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { ProductDocument } from './schema/product.schema';
+// import { ProductDocument } from './schema/product.schema';
 import { ProductDto } from './dto/product.dto'; // Add this import
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'; // Optional for Swagger
-@ApiTags('Products') // Optional Swagger decorator
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'; 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get all products' }) // Swagger documentation
+  @ApiOperation({ summary: 'Get all products' }) 
   @ApiResponse({ status: 200, type: [ProductDto] })
   async findAll(@Query('category') category?: string): Promise<ProductDto[]> {
     return this.productsService.findAll(category);
