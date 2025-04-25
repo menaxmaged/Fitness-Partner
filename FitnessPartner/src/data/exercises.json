@@ -49,9 +49,9 @@
         "muscle": "Shoulders",
         "exercises": [
           {
-            "name": "Pike Push-Up",
+            "name": "Pike Push Up",
             "videoUrl": "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/pikepushup-1456956895.gif?resize=640:*",
-            "imageUrl": "https://cdn.mos.cms.futurecdn.net/2oczZ7bJ69ZCSfapuueTyE.jpg",
+            "imageUrl": "../assets/exercises/pike-pushup.jpg",
             "description": "Great bodyweight move that targets shoulders and upper chest.",
             "rating": "medium"
           },
