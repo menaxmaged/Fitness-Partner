@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProductDto } from './dto/product.dto';
@@ -21,12 +22,19 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`Product with id ${id} not found`);
     }
-    return this.toProductDto(product);
+    
+    // Convert Mongoose document to plain object first
+    const plainProduct = product.toObject();
+    
+    // Then transform to DTO
+    return plainToInstance(ProductDto, plainProduct, {
+      excludeExtraneousValues: true,
+    });
   }
 
   private toProductDto(product: ProductDocument): ProductDto {
     return {
-      id: product._id.toString(),
+      id: product.id.toString(),
       name: product.name,
       image: product.image,
       description: product.description,

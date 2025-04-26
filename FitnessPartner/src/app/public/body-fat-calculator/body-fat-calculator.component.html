@@ -114,6 +114,7 @@
     <h5 class="mb-3">Result:</h5>
     <p><strong>Body Fat (U.S. Navy Method):</strong> {{ result.bodyFat }}%</p>
     <p><strong>Category:</strong> {{ result.status }}</p>
+   
   </div>
 </div>
 <style>
@@ -132,5 +133,9 @@
     cursor: pointer;
     transition: transform 0.2s ease;
     margin-top: 35px;
+  }
+  button:hover {
+    transform: scale(1.05);
+    color: white;
   }
 </style>

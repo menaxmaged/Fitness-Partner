@@ -1,8 +1,8 @@
 <!-- Product Details Section -->
 <div class="product-details-container" *ngIf="product">
+
   <div class="breadcrumb-navigation">
     <a [routerLink]="['/']">Home</a> /  
-    <!-- <a [routerLink]="['/products']">{{ product.category }}</a> /  -->
     <a [routerLink]="['/products']" [queryParams]="{ category: product.category} "> {{ product.category }}</a> /
     <span> {{ product.name }}</span>
   </div>
@@ -12,17 +12,23 @@
     <div class="product-images">
       <div class="main-image">
         <div class="discount-badge" *ngIf="discountPercentage > 0">{{ discountPercentage }}% OFF</div>
-        <img [src]="currentImage" [alt]="product.name" />
+        <img [src]="currentImage || product.image" [alt]="product.name" />
+        <!-- <img [src]="currentImage || (product.product_images[product.available_flavors[0]] || '')" [alt]="product.name" /> -->
       </div>
-      <div class="thumbnail-images" *ngIf="Object.keys(product.product_images).length > 0">
-        <!-- Flavor-specific product images -->
-        <div 
-          class="thumbnail" 
-          *ngFor="let flavor of product.available_flavors"
-          (click)="changeImage(product.product_images[flavor])"
-          [class.active]="currentImage === product.product_images[flavor]"
-        >
-          <img [src]="product.product_images[flavor]" [alt]="flavor" />
+      
+      <!-- Thumbnail Images for Flavors -->
+      <div class="thumbnail-images" *ngIf="product.available_flavors && product.available_flavors.length > 0">
+        <div class="thumbnail" 
+             *ngFor="let flavor of product.available_flavors"
+             (click)="selectedFlavor = flavor; onFlavorChange()"
+             [class.active]="selectedFlavor === flavor">
+             <img [src]="product.product_images[flavor] || product.image">
+          <!-- <img [src]="product.product_images[flavor] || product.image"  -->
+          
+          <!-- <img [src]="product.product_images[flavor] || ''" [alt]="flavor" (error)="handleFlavorImageError(flavor)" /> -->
+               <!-- [alt]="flavor"
+               (error)="handleFlavorImageError(flavor)" /> -->
+          <div class="flavor-name">{{ flavor }}</div>
         </div>
       </div>
     </div>
@@ -45,17 +51,21 @@
       <!-- Product Description -->
       <div class="product-description">
         <p>{{ product.description }}</p>
-        <p>Expiration date: {{ product.expiration_date }}</p>
+        <p>Expiration date: {{ product.expiration_date | date:'dd-MM-yyyy' }}</p>
         <p>Size: {{ product.available_size }}</p>
       </div>
 
       <!-- Flavor Selection -->
-      <div class="flavor-selection" *ngIf="product.available_flavors.length > 0">
+      <div class="flavor-selection" *ngIf="product.available_flavors && product.available_flavors.length > 0">
         <label for="flavor">Flavor</label>
-        <select id="flavor" class="flavor-dropdown" [(ngModel)]="selectedFlavor" (change)="onFlavorChange()">
+        <select id="flavor" class="flavor-dropdown" [(ngModel)]="selectedFlavor" (ngModelChange)="onFlavorChange()">
           <option *ngFor="let flavor of product.available_flavors" [value]="flavor">{{ flavor }}</option>
         </select>
-        <button class="clear-button" (click)="clearFlavor()">Clear</button>
+      </div>
+
+      <!-- Currently Selected Flavor Display -->
+      <div class="selected-flavor" *ngIf="selectedFlavor">
+        <p>Selected flavor: <strong>{{ selectedFlavor }}</strong></p>
       </div>
 
       <!-- Stock Status -->
@@ -72,17 +82,12 @@
           <button class="quantity-increase" (click)="increaseQuantity()">+</button>
         </div>
         <button class="add-to-cart-button btn-outline-light orange-btn border-0" (click)="addToCart(product)">ADD TO CART</button>
-        <!-- <div *ngIf="showPopUpMessage" class="pop-up-message">
-          Item added to cart!
-        </div> -->
       </div>
-
-      
 
       <!-- Product Categories -->
       <div class="product-categories">
-        <div>Category: <a [routerLink]="['/category', product.category]">{{ product.category }}</a></div>
-        <div>Brand: <a [routerLink]="['/brand', product.brand]">{{ product.brand }}</a></div>
+        <div>Category: <a [routerLink]="['/products']" [queryParams]="{ category: product.category }">{{ product.category }}</a></div>
+        <div>Brand: <a [routerLink]="['/products']" [queryParams]="{ brand: product.brand }">{{ product.brand }}</a></div>
       </div>
     </div>
   </div>
@@ -90,16 +95,18 @@
   <!-- Related Products Section -->
   <div class="related-products" *ngIf="similarProducts.length > 0">
     <h2 class="section-title">RELATED PRODUCTS</h2>
-    
     <div class="products-grid">
       <div class="product-card" *ngFor="let relatedProduct of similarProducts">
-        <!-- Product Image -->
         <div class="product-image">
-          <a [routerLink]="['/product', relatedProduct.id]">
-            <img [src]="relatedProduct.image" [alt]="relatedProduct.name" />
+          <a [routerLink]="['/products', relatedProduct.id]">
+            <img 
+              [src]="relatedProduct.image" 
+              [alt]="relatedProduct.name"
+              (error)="handleImageError(relatedProduct)"
+            />
           </a>
         </div>
-        
+      
         <!-- Product Category -->
         <div class="product-categories">
           <a [routerLink]="['/category', relatedProduct.category]">{{ relatedProduct.category }}</a>
@@ -116,13 +123,10 @@
         </div>
         
         <!-- Product Actions -->
-        <div class="product-actions">
+        <div class="product-actions ">
           <button class="select-options-button" [routerLink]="['/products', relatedProduct.id]">View Product</button>
         </div>
       </div>
     </div>
   </div>
-
-
 </div>
-

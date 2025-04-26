@@ -1,109 +1,71 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class UsersService {
-//   constructor(private myClient: HttpClient) {}
-//   private URLData = 'http://localhost:3000/users';
-
-//   getAllUsers() {
-//     return this.myClient.get<any>(this.URLData);
-//   }
-//   addANewUser(newUser: any) {
-//     return this.myClient.post(this.URLData, newUser);
-//   }
-//   getUserById(id: any) {
-//     return this.myClient.get(`${this.URLData}/${id}`);
-//   }
-//   deleteUser(id: any) {
-//     return this.myClient.delete(`${this.URLData}/${id}`);
-//   }
-//   editUserData(id: any, updatedUser: any) {
-//     return this.myClient.put(`${this.URLData}/${id}`, updatedUser);
-//   }
-// }
-
-////////////////// TESTING BACKEND BELOW //////////////////////// ORIGINAL CODE ABOVE //// DO NOT DELETE ///////
-
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs';
-// import { User } from '../shared/utils/user';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class UsersService {
-//   constructor(private http: HttpClient) {}
-//   private baseUrl = 'http://localhost:3000';
-
-//   getAllUsers(): Observable<User[]> {
-//     return this.http.get<User[]>(`${this.baseUrl}/users`);
-//   }
-
-//   addANewUser(newUser: User): Observable<User> {
-//     return this.http.post<User>(`${this.baseUrl}/auth/register`, newUser);
-//   }
-
-//   getUserById(id: string): Observable<User> {
-//     return this.http.get<User>(`${this.baseUrl}/users/${id}`);
-//   }
-
-//   deleteUser(id: string): Observable<User> {
-//     return this.http.delete<User>(`${this.baseUrl}/users/${id}`);
-//   }
-
-//   editUserData(id: string, updatedUser: User): Observable<User> {
-//     return this.http.put<User>(`${this.baseUrl}/users/${id}`, updatedUser);
-//   }
-// }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { User } from '../shared/utils/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
+  private apiUrl = 'http://localhost:3000';
+
   constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:3000';
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/users`);
+  // Helper method to get auth headers
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('access_token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 
-  addANewUser(newUser: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/auth/register`, newUser);
+  editUserData(userId: string, userData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/${userId}`, userData, {
+      headers: this.getAuthHeaders()
+    });
   }
 
-  // New method for verifying OTP
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  getUserById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  addANewUser(user: User): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/register`, user);
+  }
+
+  updateUser(id: string, userData: any): Observable<any> {
+    // Don't set content-type header when sending FormData - browser will set it correctly with boundary
+    const headers = userData instanceof FormData 
+      ? new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('access_token')}` })
+      : new HttpHeaders({
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json'
+        });
+  
+    return this.http.put(`${this.apiUrl}/users/${id}`, userData, { headers });
+  }
+
+  
+
   verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/verify-otp`, {
+    return this.http.post(`${this.apiUrl}/auth/verify-otp`, {
       email,
       otp,
     });
   }
 
-  // New method for resending OTP
   resendOtp(email: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/resend-otp`, { email });
+    return this.http.post(`${this.apiUrl}/auth/resend-otp`, { email });
   }
 
-  getUserById(id: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/${id}`);
-  }
-
-  deleteUser(id: string): Observable<User> {
-    return this.http.delete<User>(`${this.baseUrl}/users/${id}`);
-  }
-
-  editUserData(id: string, updatedUser: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/users/${id}`, updatedUser);
-  }
+  // Remove the duplicate login method since it's handled by AuthService
 }

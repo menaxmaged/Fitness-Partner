@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { FavoritesService } from '../../services/favorites.service';
-import { AuthService } from '../../services/auth.service'; // Add this import
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +17,19 @@ import { AuthService } from '../../services/auth.service'; // Add this import
   imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   usersData: any[] = [];
 
   constructor(
     private myUserService: UsersService,
     private router: Router,
     private favoritesService: FavoritesService,
-    private authService: AuthService // Inject AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.getCurrentUserId()) {
+    // Check if user is already logged in
+    if (this.authService.isAuthenticated()) {
       const userId = this.authService.getCurrentUserId();
       if (userId) {
         this.favoritesService.initializeForUser(userId);
@@ -31,11 +37,6 @@ export class LoginComponent {
       this.router.navigate(['/profile']);
       return;
     }
-
-    this.myUserService.getAllUsers().subscribe({
-      next: (data) => (this.usersData = data),
-      error: (err) => console.error('Error fetching users:', err)
-    });
   }
 
   loginForm = new FormGroup({
@@ -43,30 +44,52 @@ export class LoginComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+      ),
     ]),
   });
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const user = this.usersData.find(u => u.email === this.email?.value);
+      const loginData = {
+        email: this.email?.value as string,
+        password: this.password?.value as string,
+      };
 
-      if (!user) {
-        this.loginForm.controls['email']?.setErrors({ notFound: true });
-      } else if (user.password !== this.password?.value) {
-        this.loginForm.controls['password']?.setErrors({ incorrectPassword: true });
-      } else {
-        const loginData = { 
-          email: this.email?.value as string, 
-          password: this.password?.value as string 
-        };
-        this.authService.login(loginData); // Use AuthService login
-        this.favoritesService.initializeForUser(user.id);
-        this.router.navigate(['/home']);
-      }
+      this.authService.login(loginData).subscribe({
+        next: (response) => {
+          if (response.access_token) {
+            // AuthService will handle token storage
+            this.authService.setCurrentUserId(response.user.id);
+            this.favoritesService.initializeForUser(response.user.id);
+            this.router.navigate(['/profile']); // Navigate to profile instead of home
+          } else if (response.requiresVerification) {
+            // Handle unverified user case
+            this.router.navigate(['/verify-email'], {
+              queryParams: { email: this.email?.value },
+            });
+          }
+        },
+        error: (err) => {
+          if (err.status === 401) {
+            // Handle authentication errors
+            if (err.error?.message === 'Invalid email or password') {
+              this.email?.setErrors({ notFound: true });
+              this.password?.setErrors({ incorrectPassword: true });
+            }
+          } else {
+            console.error('Login failed:', err);
+          }
+        },
+      });
     }
   }
 }

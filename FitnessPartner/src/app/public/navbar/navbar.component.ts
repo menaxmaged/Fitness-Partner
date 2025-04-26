@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-nav-bar',
   standalone: true,
   imports: [RouterModule, CartItemsComponent, CommonModule, RouterLink],
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
 })
 export class NavBarComponent implements OnDestroy {
   cart: any[] = [];
@@ -24,19 +24,28 @@ export class NavBarComponent implements OnDestroy {
     private myCart: CartService,
     private router: Router
   ) {
-    this.myCart.cart$.subscribe(cart => this.cart = cart);
+    this.myCart.cart$.subscribe((cart) => (this.cart = cart));
     this.cart = this.myCart.getCart();
-  
+
     const token = localStorage.getItem('token');
-    const userId = token ? atob(token) : null;
+    let userId = null;
+
+    if (token) {
+      const payload = token.split('.')[1]; // Get the middle part
+      const decodedPayload = JSON.parse(atob(payload));
+      userId = decodedPayload.userId; // or whatever the field name is
+    }
+
     if (userId) {
       this.favoritesService.initializeForUser(userId);
     }
-  
-    this.favoritesSub = this.favoritesService.favorites$.subscribe(favorites => {
-      this.favoritesCount = favorites.length;
-      console.log('Navbar favorites count updated:', this.favoritesCount);
-    });
+
+    this.favoritesSub = this.favoritesService.favorites$.subscribe(
+      (favorites) => {
+        this.favoritesCount = favorites.length;
+        console.log('Navbar favorites count updated:', this.favoritesCount);
+      }
+    );
   }
 
   ngOnDestroy() {

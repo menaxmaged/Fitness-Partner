@@ -6,12 +6,13 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   products: any[] = [];
@@ -21,84 +22,113 @@ export class ProductsComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   userId: string | null = null;
   favoriteItems: any[] = [];
-  private favoritesSub?: Subscription;
+  isLoading: boolean = true;
   showPopUpMessage: boolean = false;
-  
+
   // Pagination
   currentPage: number = 1;
   itemsPerPage: number = 9;
   itemsPerPageOptions: number[] = [9, 12, 18, 24];
-  
+
   // Filters
   categories: string[] = [];
   brands: string[] = [];
   selectedCategory: string = '';
   selectedBrand: string = '';
-  priceRange: { min: number, max: number } = { min: 0, max: 1000 };
-  
+  priceRange: { min: number; max: number } = { min: 0, max: 1000 };
+
   // Sorting
   sortOptions = [
     { value: 'default', label: 'Default sorting' },
     { value: 'price-asc', label: 'Sort by price: low to high' },
     { value: 'price-desc', label: 'Sort by price: high to low' },
-    { value: 'name-asc', label: 'Sort by name' }
+    { value: 'name-asc', label: 'Sort by name' },
   ];
   selectedSort: string = 'default';
+
+  private favoritesSub?: Subscription;
 
   constructor(
     private productService: ProductServicesService,
     public favoritesService: FavoritesService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
-  
+
   ngOnInit(): void {
+    this.initializeUser();
+    this.loadProducts();
+    this.setupQueryParams();
+  }
+
+  private initializeUser(): void {
     const token = localStorage.getItem('token');
     this.isLoggedIn = !!token;
-    
+
     if (this.isLoggedIn && token) {
-      this.userId = atob(token);
-      this.favoritesService.initializeForUser(this.userId);
-      
-      this.favoritesSub = this.favoritesService.favorites$.subscribe(favorites => {
-        this.favoriteItems = favorites;
-        console.log('Products component - Favorites updated:', favorites);
-      });
-    }
-
-    // Fetch products
-    this.productService.getAllProducts().subscribe((data: any[]) => {
-      this.products = data.map(product => ({
-        ...product,
-        showFlavors: false,
-        isNew: Math.random() > 0.5,
-        isHot: Math.random() > 0.7,
-        discount: Math.random() > 0.5 ? 10 : 0
-      }));
-
-      this.filteredProducts = [...this.products];
-      
-      this.categories = [...new Set(this.products.map(p => p.category))];
-      this.brands = [...new Set(this.products.map(p => p.brand))];
-      this.priceRange.max = Math.max(...this.products.map(p => p.price));
-      
-      // Apply filters after products are loaded
-      this.applyFilters();
-    });
-
-    // Listen to query parameters (category)
-    this.route.queryParams.subscribe(params => {
-      if (params['category']) {
-        this.selectedCategory = params['category'];
-        this.applyFilters(); // Apply filters whenever category query changes
+      try {
+        // Add try-catch to handle invalid token formats
+        this.userId = atob(token);
+        this.favoritesService.initializeForUser(this.userId);
+        this.favoritesSub = this.favoritesService.favorites$.subscribe(
+          (favorites) => {
+            this.favoriteItems = favorites;
+          }
+        );
+      } catch (error) {
+        console.error('Token decoding failed:', error);
+        // Handle invalid token - clear it and reset login state
+        localStorage.removeItem('token');
+        this.isLoggedIn = false;
+        this.userId = null;
       }
+    }
+  }
+
+  private loadProducts(): void {
+    this.isLoading = true;
+    this.productService.getAllProducts().subscribe({
+      next: (data: any[]) => this.handleProductsLoaded(data),
+      error: (err) => this.handleLoadError(err),
+      complete: () => (this.isLoading = false),
     });
   }
 
+  private handleProductsLoaded(data: any[]): void {
+    this.products = data.map((product) => ({
+      ...product,
+      showFlavors: false,
+      isNew: Math.random() > 0.5,
+      isHot: Math.random() > 0.7,
+      discount: Math.random() > 0.5 ? 10 : 0,
+    }));
+
+    this.filteredProducts = [...this.products];
+    this.categories = [...new Set(this.products.map((p) => p.category))];
+    this.brands = [...new Set(this.products.map((p) => p.brand))];
+    this.priceRange.max = Math.max(...this.products.map((p) => p.price));
+    this.applyFilters();
+  }
+
+  private handleLoadError(err: any): void {
+    console.error('Error loading products:', err);
+    this.isLoading = false;
+    this.router.navigate(['/error']);
+  }
+
+  private setupQueryParams(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['category']) {
+        this.selectedCategory = params['category'];
+        this.applyFilters();
+      }
+    });
+  }
   // Pagination Methods
   changeItemsPerPage(count: number): void {
     this.itemsPerPage = count;
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.applyFilters();
   }
 
@@ -108,7 +138,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   get paginatedProducts(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredProducts.slice(
+      startIndex,
+      startIndex + this.itemsPerPage
+    );
   }
 
   get totalPages(): number {
@@ -118,23 +151,29 @@ export class ProductsComponent implements OnInit, OnDestroy {
   // Filter Methods
   applyFilters(): void {
     let filtered = [...this.products];
-    
+
     // Apply Category Filter
     if (this.selectedCategory) {
-      filtered = filtered.filter(p => p.category.toLowerCase() === this.selectedCategory.toLowerCase());
+      filtered = filtered.filter(
+        (p) => p.category.toLowerCase() === this.selectedCategory.toLowerCase()
+      );
     }
 
     // Apply Brand Filter
     if (this.selectedBrand) {
-      filtered = filtered.filter(p => p.brand.toLowerCase() === this.selectedBrand.toLowerCase());
+      filtered = filtered.filter(
+        (p) => p.brand.toLowerCase() === this.selectedBrand.toLowerCase()
+      );
     }
 
     // Apply Price Range Filter
-    filtered = filtered.filter(p => p.price >= this.priceRange.min && p.price <= this.priceRange.max);
+    filtered = filtered.filter(
+      (p) => p.price >= this.priceRange.min && p.price <= this.priceRange.max
+    );
 
     // Apply Sorting
     filtered = this.sortProducts(filtered);
-    
+
     // Update filtered products
     this.filteredProducts = filtered;
     this.currentPage = 1; // Reset to first page when filters change
@@ -143,7 +182,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   resetFilters(): void {
     this.selectedCategory = '';
     this.selectedBrand = '';
-    this.priceRange = { min: 0, max: Math.max(...this.products.map(p => p.price)) };
+    this.priceRange = {
+      min: 0,
+      max: Math.max(...this.products.map((p) => p.price)),
+    };
     this.selectedSort = 'default';
     this.applyFilters();
   }
@@ -164,7 +206,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   // Wishlist Methods
   isInFavorites(productId: string): boolean {
-    return this.favoriteItems.some(item => item.id === productId);
+    return this.favoriteItems.some((item) => item.id === productId);
   }
 
   addToWishlist(product: any, event: Event): void {
@@ -176,12 +218,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   toggleFavorite(product: any, event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    
+
     if (!this.isLoggedIn) {
       alert('Please log in to add items to your favorites');
       return;
     }
-    
+
     if (this.isInFavorites(product.id)) {
       this.favoritesService.removeFromFavorites(product.id);
     } else {

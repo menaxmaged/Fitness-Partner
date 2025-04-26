@@ -1,4 +1,5 @@
 export interface IProducts {
+    _id: number;
     id: number;                          // Unique ID of the product
     name: string;                        // Name of the product
     image: string;                       // Main image URL of the product
@@ -10,6 +11,7 @@ export interface IProducts {
     available_size: string;              // Size of the product (e.g., "2 lb", "3 lb")
     product_images: { [key: string]: string };  // Mapping of flavors to images
     category: string;                    // Category of the product (e.g., "Protein", "Creatine")
+    discount?: number;
   }
   
   //id: string | number; 

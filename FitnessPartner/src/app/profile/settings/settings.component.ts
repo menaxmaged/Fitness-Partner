@@ -1,78 +1,134 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { UsersService } from '../../services/users.service';
+import { User } from '../../shared/utils/user';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [CommonModule, FormsModule],
+  selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css'],
+  styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  user: any = {};
+  user: User = {} as User;
   isEditing = false;
+  userId!: string;
 
-  constructor(private userService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    const userId = token ? atob(token) : null;
+    this.loadUserData();
+  }
 
-    if (userId) {
-      this.userService.getUserById(userId).subscribe({
-        next: (foundUser) => {
-          this.user = foundUser;
-        },
-        error: (err) => {
-          console.error('User not found', err);
-        },
-      });
-    } else {
-      console.error('No userId found in localStorage');
+  loadUserData(): void {
+    // Get current user ID from localStorage
+    this.userId = localStorage.getItem('userId') || '';
+    
+    if (!this.userId || !localStorage.getItem('access_token')) {
+      // this.toastr.error('Please log in to access your settings');
+      this.router.navigate(['/login']);
+      return;
     }
+    
+    this.usersService.getUserById(this.userId).subscribe({
+      next: (userData: User) => {
+        this.user = userData;
+      },
+      error: (error) => {
+        if (error.status === 401) {
+          // this.toastr.error('Session expired. Please log in again');
+          this.router.navigate(['/login']);
+        } else {
+          // this.toastr.error('Failed to load user data');
+          console.error('Error loading user data:', error);
+        }
+      }
+    });
   }
 
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
-  }
-
-  uploadPhoto(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.user.avatar = e.target.result;
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  deleteAvatar(): void {
-    this.user.avatar = 'profileImgRemove.png';
-  }
-
-  saveChanges(): void {
-    if (this.user.id) {
-      this.userService.editUserData(this.user.id, this.user).subscribe({
-        next: (updatedUser) => {
-          console.log('User updated successfully:', updatedUser);
-          this.isEditing = false;
-        },
-        error: (err) => {
-          console.error('Error updating user:', err);
-        },
-      });
-    } else {
-      console.error('User ID not found, unable to update.');
+    if (!this.isEditing) {
+      // Reload user data to discard changes when cancelling
+      this.loadUserData();
     }
   }
 
   triggerFileInput(): void {
-    const fileInput = document.getElementById(
-      'upload-photo'
-    ) as HTMLInputElement;
-    fileInput.click();
+    document.getElementById('upload-photo')?.click();
+  }
+
+  uploadPhoto(event: any): void {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    this.usersService.updateUser(this.userId, formData).subscribe({
+      next: () => {
+        // this.toastr.success('Avatar updated successfully');
+        this.loadUserData(); // Reload to show new avatar
+      },
+      error: (error) => {
+        this.handleApiError(error, 'Failed to update avatar');
+      }
+    });
+  }
+
+  deleteAvatar(): void {
+    const userData = { avatar: null };
+    
+    this.usersService.updateUser(this.userId, userData).subscribe({
+      next: () => {
+        // this.toastr.success('Avatar deleted successfully');
+        this.user.avatar = undefined;
+      },
+      error: (error) => {
+        this.handleApiError(error, 'Failed to delete avatar');
+      }
+    });
+  }
+
+  
+  saveChanges(): void {
+    if (!this.isEditing) return;
+  
+    // Use a JSON object instead of FormData
+    const userData = {
+      fName: this.user.fName,
+      lName: this.user.lName,
+      email: this.user.email,
+      mobile: this.user.mobile || "01xxxxxxxxx", // Ensure default if empty
+      gender: this.user.gender
+    };
+  
+    this.usersService.updateUser(this.userId, userData).subscribe({
+      next: () => {
+          //       // this.toastr.success('Profile updated successfully');
+        this.isEditing = false;
+      },
+      error: (error) => {
+        this.handleApiError(error, 'Failed to update profile');
+      }
+    });
+  }
+
+
+  // Helper method to handle API errors consistently
+  private handleApiError(error: any, defaultMessage: string): void {
+    console.error(defaultMessage, error);
+    
+    if (error.status === 401) {
+      // this.toastr.error('Session expired. Please log in again');
+      this.router.navigate(['/login']);
+    } else {
+      // this.toastr.error(defaultMessage);
+    }
   }
 }
