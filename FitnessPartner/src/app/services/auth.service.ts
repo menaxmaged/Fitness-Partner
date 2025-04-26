@@ -1,8 +1,7 @@
-// ////////////////// TESTING BACKEND BELOW //////////////////////// ORIGINAL CODE ABOVE //// DO NOT DELETE ///////
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(
-    !!localStorage.getItem('token') || !!localStorage.getItem('access_token')
+    !!localStorage.getItem('access_token')
   );
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   private apiUrl = 'http://localhost:3000/auth';
@@ -36,7 +35,6 @@ export class AuthService {
       tap((response: any) => {
         // Only store credentials if login was successful (not requiring verification)
         if (response.access_token && !response.requiresVerification) {
-          localStorage.setItem('token', response.access_token);
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('userId', response.user.id);
           this.isLoggedInSubject.next(true);
@@ -58,7 +56,6 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, userData).pipe(
       tap((response: any) => {
         if (response.access_token) {
-          localStorage.setItem('token', response.access_token);
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('userId', response.user.id);
           this.isLoggedInSubject.next(true);
@@ -68,7 +65,6 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
     localStorage.removeItem('access_token');
     localStorage.removeItem('userId');
     this.isLoggedInSubject.next(false);
@@ -80,9 +76,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return (
-      localStorage.getItem('token') || localStorage.getItem('access_token')
-    );
+    return localStorage.getItem('access_token');
   }
 
   isLoggedIn(): boolean {

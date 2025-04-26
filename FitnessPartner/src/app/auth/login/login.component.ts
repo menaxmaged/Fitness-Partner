@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +17,7 @@ import { AuthService } from '../../services/auth.service';
   imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   usersData: any[] = [];
 
   constructor(
@@ -29,7 +29,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     // Check if user is already logged in
-    if (this.authService.getCurrentUserId()) {
+    if (this.authService.isAuthenticated()) {
       const userId = this.authService.getCurrentUserId();
       if (userId) {
         this.favoritesService.initializeForUser(userId);
@@ -67,8 +67,7 @@ export class LoginComponent {
       this.authService.login(loginData).subscribe({
         next: (response) => {
           if (response.access_token) {
-            localStorage.setItem('access_token', response.access_token);
-            localStorage.setItem('token', response.access_token); // Keep both for compatibility
+            // AuthService will handle token storage
             this.authService.setCurrentUserId(response.user.id);
             this.favoritesService.initializeForUser(response.user.id);
             this.router.navigate(['/profile']); // Navigate to profile instead of home

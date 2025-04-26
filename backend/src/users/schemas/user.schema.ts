@@ -25,6 +25,12 @@ export type UserDocument = User & Document;
 export class User {
   @Prop()
   id: string;
+  
+  @Prop()
+  gender:string;
+
+  @Prop({default: "01xxxxxxxxx"})
+  mobile:string;
 
   @Prop({ required: true })
   fName: string;

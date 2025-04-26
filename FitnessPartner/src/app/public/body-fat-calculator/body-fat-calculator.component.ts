@@ -7,7 +7,7 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-body-fat-calculator',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule, RouterLink],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './body-fat-calculator.component.html',
   styleUrls: ['./body-fat-calculator.component.css'],
 })
