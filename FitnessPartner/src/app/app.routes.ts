@@ -26,8 +26,8 @@ import { ExercisesGymComponent } from './exercises-gym/exercises-gym.component';
 import { MuscleExerciseComponent } from './muscle-exercise/muscle-exercise.component';
 import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.component';
 import { NgModule } from '@angular/core';
-import { WarmUpComponent } from './warm-up/warm-up.component';
 import { MealsPlannerComponent } from './public/meals-planner/meals-planner.component';
+import { WarmUpComponent } from './warm-up/warm-up.component';
 
 export const routes: Routes = [
 
