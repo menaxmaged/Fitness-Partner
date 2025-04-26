@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -39,6 +40,21 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
+  }
+
+  @Put(':id/password')
+  async updatePassword(
+    @Param('id') id: string,
+    @Body() passwordUpdateDto: { currentPassword: string; newPassword: string },
+    @Req() request,
+  ) {
+    // Optional: Check if user is updating their own password or is admin
+    const requestingUserId = request.user.userId;
+    return this.usersService.updatePassword(
+      id,
+      passwordUpdateDto.currentPassword,
+      passwordUpdateDto.newPassword,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
