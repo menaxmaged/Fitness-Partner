@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-body-fat-calculator',
@@ -54,7 +54,7 @@ export class BodyFatCalculatorComponent {
       status: this.getCategory(bodyFatPercentage),
     };
 
-     const fatData = {
+    const fatData = {
       ...this.formData,
       bodyFat: this.result.bodyFat,
       fatStatus: this.result.status,
