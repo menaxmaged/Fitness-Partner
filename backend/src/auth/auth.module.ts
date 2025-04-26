@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { Otp, OtpSchema } from './schemas/otp.schema';
 import { EmailModule } from '../email/email.module';
-
+import { JwtStrategy } from './strategies/jwt.strategy';
 @Module({
   imports: [
     UsersModule,
@@ -19,7 +19,7 @@ import { EmailModule } from '../email/email.module';
     MongooseModule.forFeature([{ name: Otp.name, schema: OtpSchema }]),
     EmailModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })
