@@ -91,6 +91,11 @@ export class PasswordComponent implements OnInit {
         this.originalPassword = '••••••••';
         this.currentPassword = this.originalPassword;
         this.showPassword = false;
+
+        // Automatically hide the success message after 3 seconds
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
       },
       error: (err) => {
         console.error('Error updating password:', err);
