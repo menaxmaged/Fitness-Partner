@@ -1,8 +1,7 @@
-
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ExerciseService } from '../services/exercise.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 interface MuscleGroup {
   muscle: string;
@@ -19,34 +18,26 @@ interface MuscleGroup {
   selector: 'app-warm-up',
   imports: [CommonModule],
   templateUrl: './warm-up.component.html',
-  styleUrl: './warm-up.component.css'
+  styleUrls: ['./warm-up.component.css']
 })
 export class WarmUpComponent {
   muscles: MuscleGroup[] = [];
   isLoading: boolean = true;
   error: string | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private exerciseService: ExerciseService, // Inject ExerciseService
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3200/warm').subscribe({
-      next: (data) => {
-        console.log('Received data:', data);
-        this.muscles = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error:', err); 
-        this.error = 'Failed to load warm-up exercises';
-        this.isLoading = false;
-      }
-    });
+    this.fetchWarmUpExercises();
   }
 
   fetchWarmUpExercises(): void {
-    this.http.get<MuscleGroup[]>('http://localhost:3200/warm').subscribe({
+    this.exerciseService.getWarmExercises().subscribe({
       next: (data) => {
-        this.muscles = data;
+        this.muscles = this.groupExercisesByMuscle(data);
         this.isLoading = false;
       },
       error: (err) => {
@@ -57,12 +48,28 @@ export class WarmUpComponent {
     });
   }
 
+  groupExercisesByMuscle(exercises: any[]): MuscleGroup[] {
+    const grouped: { [muscle: string]: any[] } = {};
+
+    for (const exercise of exercises) {
+      if (!grouped[exercise.muscle]) {
+        grouped[exercise.muscle] = [];
+      }
+      grouped[exercise.muscle].push(exercise);
+    }
+
+    return Object.keys(grouped).map(muscle => ({
+      muscle,
+      exercises: grouped[muscle]
+    }));
+  }
+
   goToMuscle(muscle: string): void {
     this.router.navigate(['/exercises/warm', muscle.toLowerCase()]);
   }
+
   handleImageError(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
     imgElement.src = 'assets/muscles/default.jpg';
   }
-  
 }

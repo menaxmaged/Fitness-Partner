@@ -13,13 +13,38 @@ import { Router } from '@angular/router';
 
 export class ExercisesHomeComponent implements OnInit {
   muscles: any[] = [];
+  constructor(
+    private exerciseService: ExerciseService,
+    private router: Router
+  ) {}
 
-  constructor(private http: HttpClient, private router: Router) {}
+  // constructor(private http: HttpClient, private router: Router) {}
 
+  // ngOnInit(): void {
+  //   this.http.get<any[]>('http://localhost:3200/home').subscribe(data => {
+  //     this.muscles = data;
+  //   });
+  // }
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3200/home').subscribe(data => {
-      this.muscles = data;
+    
+    this.exerciseService.getHomeExercises().subscribe(data => {
+      this.muscles = this.groupExercisesByMuscle(data);
     });
+  }
+
+  groupExercisesByMuscle(exercises: any[]): any[] {
+    const grouped: { [muscle: string]: any[] } = {};
+
+    for (const exercise of exercises) {
+      if (!grouped[exercise.muscle]) {
+        grouped[exercise.muscle] = [];
+      }
+      grouped[exercise.muscle].push(exercise);
+    }
+    return Object.keys(grouped).map(muscle => ({
+      muscle,
+      exercises: grouped[muscle]
+    }));
   }
 
 
