@@ -29,6 +29,10 @@ import { FavoritesModule } from './favorites/favorites.module';
     UsersModule,
     EmailModule,
     ProductsModule,
+    ExerciseModule,
+    CartModule,
+    FavoritesModule,
+
   ],
   controllers: [AppController],
   providers: [AppService],
