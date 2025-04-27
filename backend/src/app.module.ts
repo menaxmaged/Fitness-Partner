@@ -8,6 +8,8 @@ import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
 import { ProductsModule } from './products/products.module';
 import { ExerciseModule } from './exercise/exercise.module';
+import { CartModule } from './cart/cart.module'; // <<== ADD THIS LINE!
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -27,8 +29,6 @@ import { ExerciseModule } from './exercise/exercise.module';
     UsersModule,
     EmailModule,
     ProductsModule,
-    
-    ExerciseModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -25,12 +25,12 @@ export type UserDocument = User & Document;
 export class User {
   @Prop()
   id: string;
-  
-  @Prop()
-  gender:string;
 
-  @Prop({default: "01xxxxxxxxx"})
-  mobile:string;
+  @Prop()
+  gender: string;
+
+  @Prop({ default: '01xxxxxxxxx' })
+  mobile: string;
 
   @Prop({ required: true })
   fName: string;
@@ -55,6 +55,9 @@ export class User {
 
   @Prop({ default: Date.now })
   createdAt: Date;
+
+  @Prop({ type: [String], default: [] })
+  favorites: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

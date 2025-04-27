@@ -10,10 +10,9 @@
   <div class="product-content">
     <!-- Left Column - Product Images -->
     <div class="product-images">
-      <div class="main-image">
+      <div class="">
         <div class="discount-badge" *ngIf="discountPercentage > 0">{{ discountPercentage }}% OFF</div>
         <img [src]="currentImage || product.image" [alt]="product.name" />
-        <!-- <img [src]="currentImage || (product.product_images[product.available_flavors[0]] || '')" [alt]="product.name" /> -->
       </div>
       
       <!-- Thumbnail Images for Flavors -->
@@ -22,12 +21,7 @@
              *ngFor="let flavor of product.available_flavors"
              (click)="selectedFlavor = flavor; onFlavorChange()"
              [class.active]="selectedFlavor === flavor">
-             <img [src]="product.product_images[flavor] || product.image">
-          <!-- <img [src]="product.product_images[flavor] || product.image"  -->
-          
-          <!-- <img [src]="product.product_images[flavor] || ''" [alt]="flavor" (error)="handleFlavorImageError(flavor)" /> -->
-               <!-- [alt]="flavor"
-               (error)="handleFlavorImageError(flavor)" /> -->
+          <img [src]="product.product_images[flavor] || product.image">
           <div class="flavor-name">{{ flavor }}</div>
         </div>
       </div>
@@ -37,7 +31,19 @@
     <div class="product-info">
       <div class="stock-status">IN STOCK</div>
       
-      <h1 class="product-title">{{ product.name }}</h1>
+      <!-- Title with Toggleable Heart Icon -->
+      <h1 class="product-title d-flex justify-content-between align-items-center">
+        {{ product.name }}
+        <button (click)="toggleFavorite()" class="btn p-0">
+          <i class="bi" [ngClass]="isFavorite ? 'bi-heart-fill text-danger' : 'bi-heart text-muted'"></i>
+        </button>
+      </h1>
+      
+      <!-- Login message pop-up -->
+      <div *ngIf="showLoginMessage" class="text-danger w-50">
+        <p>Must be logged in</p>
+      </div>
+      
       
       <div class="product-meta">
         <span class="brand-label">Brands: <a [routerLink]="['/brand', product.brand]">{{ product.brand }}</a></span>
@@ -76,12 +82,15 @@
 
       <!-- Quantity Controls and Add to Cart -->
       <div class="purchase-controls">
-        <div class="quantity-control">
+        <div class="quantity-control mx-auto">
           <button class="quantity-decrease" (click)="decreaseQuantity()">−</button>
           <input type="number" class="quantity-input" [(ngModel)]="quantity" min="1" />
           <button class="quantity-increase" (click)="increaseQuantity()">+</button>
         </div>
-        <button class="add-to-cart-button btn-outline-light orange-btn border-0" (click)="addToCart(product)">ADD TO CART</button>
+        <div *ngIf="showPopUpMessage" class="pop-up-message d-block">
+          Item added to cart!
+        </div>
+        <button class="add-to-cart-button btn-outline-light orange-btn w-100 p-3" (click)="addToCart(product)">ADD TO CART</button>
       </div>
 
       <!-- Product Categories -->
@@ -102,7 +111,6 @@
             <img 
               [src]="relatedProduct.image" 
               [alt]="relatedProduct.name"
-              (error)="handleImageError(relatedProduct)"
             />
           </a>
         </div>

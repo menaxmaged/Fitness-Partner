@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { tap, catchError, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -14,8 +14,15 @@ export class AuthService {
   );
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   private apiUrl = 'http://localhost:3000/auth';
+  
+  // Event emitter for cart synchronization
+  private cartSyncRequired = new BehaviorSubject<boolean>(false);
+  cartSyncRequired$ = this.cartSyncRequired.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) {
     // Check token validity on service initialization
     this.checkTokenValidity();
   }
@@ -38,6 +45,8 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('userId', response.user.id);
           this.isLoggedInSubject.next(true);
+          // Signal cart service to sync cart
+          this.cartSyncRequired.next(true);
         }
       }),
       catchError((error) => {
@@ -50,6 +59,8 @@ export class AuthService {
   setCurrentUserId(userId: string): void {
     localStorage.setItem('userId', userId);
     this.isLoggedInSubject.next(true);
+    // Signal cart service to sync cart
+    this.cartSyncRequired.next(true);
   }
 
   register(userData: any): Observable<any> {
@@ -59,6 +70,8 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('userId', response.user.id);
           this.isLoggedInSubject.next(true);
+          // Signal cart service to sync cart
+          this.cartSyncRequired.next(true);
         }
       })
     );
@@ -88,3 +101,118 @@ export class AuthService {
     return !!this.getToken();
   }
 }
+
+//////////////////// TESTING THE BELOW CODE ///////// DO NOT DELETE THE CODE ABOVE
+// import { Injectable } from '@angular/core';
+// import { HttpClient } from '@angular/common/http';
+// import { BehaviorSubject, Observable, of } from 'rxjs';
+// import { tap, catchError, switchMap } from 'rxjs/operators';
+// import { throwError } from 'rxjs';
+// import { Router } from '@angular/router';
+// import { FavoritesService } from './favorites.service';
+
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class AuthService {
+//   private isLoggedInSubject = new BehaviorSubject<boolean>(
+//     !!localStorage.getItem('access_token')
+//   );
+//   isLoggedIn$ = this.isLoggedInSubject.asObservable();
+//   private apiUrl = 'http://localhost:3000/auth';
+  
+//   // Event emitter for cart synchronization
+//   private cartSyncRequired = new BehaviorSubject<boolean>(false);
+//   cartSyncRequired$ = this.cartSyncRequired.asObservable();
+
+//   constructor(
+//     private http: HttpClient,
+//     private router: Router,
+//     private favoritesService: FavoritesService
+//   ) {
+//     // Check token validity & initialize favorites on service init
+//     this.checkTokenValidity();
+//   }
+
+//   private checkTokenValidity() {
+//     const token = this.getToken();
+//     if (token) {
+//       this.isLoggedInSubject.next(true);
+//       const userId = this.getCurrentUserId();
+//       if (userId) {
+//         this.favoritesService.initializeForUser(userId);
+//       }
+//     } else {
+//       this.isLoggedInSubject.next(false);
+//     }
+//   }
+
+//   login(credentials: { email: string; password: string }): Observable<any> {
+//     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+//       tap((response: any) => {
+//         if (response.access_token && !response.requiresVerification) {
+//           localStorage.setItem('access_token', response.access_token);
+//           localStorage.setItem('userId', response.user.id);
+//           this.isLoggedInSubject.next(true);
+//           // Signal cart service to sync cart
+//           this.cartSyncRequired.next(true);
+//           // Initialize favorites for this user
+//           this.favoritesService.initializeForUser(response.user.id);
+//         }
+//       }),
+//       catchError((error) => {
+//         console.error('Login error:', error);
+//         return throwError(() => error);
+//       })
+//     );
+//   }
+
+//   setCurrentUserId(userId: string): void {
+//     localStorage.setItem('userId', userId);
+//     this.isLoggedInSubject.next(true);
+//     // Signal cart service to sync cart
+//     this.cartSyncRequired.next(true);
+//     // Initialize favorites for this user
+//     this.favoritesService.initializeForUser(userId);
+//   }
+
+//   register(userData: any): Observable<any> {
+//     return this.http.post(`${this.apiUrl}/register`, userData).pipe(
+//       tap((response: any) => {
+//         if (response.access_token) {
+//           localStorage.setItem('access_token', response.access_token);
+//           localStorage.setItem('userId', response.user.id);
+//           this.isLoggedInSubject.next(true);
+//           // Signal cart service to sync cart
+//           this.cartSyncRequired.next(true);
+//           // Initialize favorites for this user
+//           this.favoritesService.initializeForUser(response.user.id);
+//         }
+//       })
+//     );
+//   }
+
+//   logout() {
+//     localStorage.removeItem('access_token');
+//     localStorage.removeItem('userId');
+//     this.isLoggedInSubject.next(false);
+//     this.router.navigate(['/login']);
+//   }
+
+//   getCurrentUserId(): string | null {
+//     return localStorage.getItem('userId');
+//   }
+
+//   getToken(): string | null {
+//     return localStorage.getItem('access_token');
+//   }
+
+//   isLoggedIn(): boolean {
+//     return this.isLoggedInSubject.value;
+//   }
+
+//   // Method to check if user is authenticated, can be used in route guards
+//   isAuthenticated(): boolean {
+//     return !!this.getToken();
+//   }
+// }
