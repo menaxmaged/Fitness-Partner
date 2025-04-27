@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
+import { IProducts } from '../../models/i-products'; // Import the interface
 
 @Component({
   selector: 'app-products',
@@ -15,10 +16,11 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  products: any[] = [];
-  filteredProducts: any[] = [];
-  selectedProduct: any = null;
+  products: IProducts[] = [];
+  filteredProducts: IProducts[] = [];
+  selectedProduct: IProducts | null = null;
   quantity: number = 1;
+  selectedFlavor: string = '';  // To store selected flavor
   isLoggedIn: boolean = false;
   userId: string | null = null;
   favoriteItems: any[] = [];
@@ -68,7 +70,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     if (this.isLoggedIn && token) {
       try {
-        // Add try-catch to handle invalid token formats
         this.userId = atob(token);
         this.favoritesService.initializeForUser(this.userId);
         this.favoritesSub = this.favoritesService.favorites$.subscribe(
@@ -78,7 +79,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         );
       } catch (error) {
         console.error('Token decoding failed:', error);
-        // Handle invalid token - clear it and reset login state
         localStorage.removeItem('token');
         this.isLoggedIn = false;
         this.userId = null;
@@ -89,13 +89,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private loadProducts(): void {
     this.isLoading = true;
     this.productService.getAllProducts().subscribe({
-      next: (data: any[]) => this.handleProductsLoaded(data),
+      next: (data: IProducts[]) => this.handleProductsLoaded(data),
       error: (err) => this.handleLoadError(err),
       complete: () => (this.isLoading = false),
     });
   }
 
-  private handleProductsLoaded(data: any[]): void {
+  private handleProductsLoaded(data: IProducts[]): void {
     this.products = data.map((product) => ({
       ...product,
       showFlavors: false,
@@ -125,6 +125,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // Flavor selection method
+  onFlavorSelect(selected: string): void {
+    if (selected && selected !== 'Choose an option') {
+      this.selectedFlavor = selected;
+    }
+  }
+  
+
   // Pagination Methods
   changeItemsPerPage(count: number): void {
     this.itemsPerPage = count;
@@ -136,12 +145,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.currentPage = page;
   }
 
-  get paginatedProducts(): any[] {
+  get paginatedProducts(): IProducts[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredProducts.slice(
-      startIndex,
-      startIndex + this.itemsPerPage
-    );
+    return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   get totalPages(): number {
@@ -182,16 +188,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   resetFilters(): void {
     this.selectedCategory = '';
     this.selectedBrand = '';
-    this.priceRange = {
-      min: 0,
-      max: Math.max(...this.products.map((p) => p.price)),
-    };
+    this.priceRange = { min: 0, max: Math.max(...this.products.map((p) => p.price)) };
     this.selectedSort = 'default';
     this.applyFilters();
   }
 
   // Sorting Methods
-  sortProducts(products: any[]): any[] {
+  sortProducts(products: IProducts[]): IProducts[] {
     switch (this.selectedSort) {
       case 'price-asc':
         return [...products].sort((a, b) => a.price - b.price);
@@ -202,47 +205,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       default:
         return products;
     }
-  }
-
-  // Wishlist Methods
-  isInFavorites(productId: string): boolean {
-    return this.favoriteItems.some((item) => item.id === productId);
-  }
-
-  addToWishlist(product: any, event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log('Added to wishlist:', product);
-  }
-
-  toggleFavorite(product: any, event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (!this.isLoggedIn) {
-      alert('Please log in to add items to your favorites');
-      return;
-    }
-
-    if (this.isInFavorites(product.id)) {
-      this.favoritesService.removeFromFavorites(product.id);
-    } else {
-      this.favoritesService.addToFavorites(product);
-    }
-  }
-
-  // Quick View Methods
-  openQuickView(product: any, event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.selectedProduct = product;
-    this.quantity = 1;
-    document.body.style.overflow = 'hidden';
-  }
-
-  closeQuickView(): void {
-    this.selectedProduct = null;
-    document.body.style.overflow = '';
   }
 
   // Cart Methods
@@ -256,16 +218,107 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  addToCart(product: any): void {
-    for (let i = 0; i < this.quantity; i++) {
-      this.cartService.addToCart(product);
-    }
+  // addToCart(product: IProducts, available_flavors: string[]): void {
+  //   // If no selectedFlavor, use the first available flavor
+  //   if (!this.selectedFlavor && available_flavors && available_flavors.length > 0) {
+  //     this.selectedFlavor = available_flavors[0];
+  //   }
+  
+  //   const productToAdd = {
+  //     ...product,
+  //     selectedFlavor: this.selectedFlavor,
+  //     quantity: this.quantity
+  //   };
+  
+  //   this.cartService.addToCart(productToAdd, available_flavors);
+  
+  //   console.log('Adding to cart from ProductsComponent:', {
+  //     productId: product.id,
+  //     name: product.name,
+  //     price: product.price,
+  //     selectedFlavor: this.selectedFlavor,
+  //     quantity: this.quantity
+  //   });
+  
+  //   // Show confirmation popup
+  //   this.showPopUpMessage = true;
+  //   setTimeout(() => {
+  //     this.showPopUpMessage = false;
+  //   }, 800);
+  // }
+  
+  
+  
+  
+  
+  // Wishlist Methods
+  
+  
+  addToCart(product: IProducts, available_flavors: string[]): void {
+    // If no selectedFlavor, use the first available flavor
+    const flavor = this.selectedFlavor || 
+                  (available_flavors && available_flavors.length > 0 ? available_flavors[0] : '');
+  
+    const productToAdd = {
+      id: product.id,  // This is important - cart service needs this as productId
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      selectedFlavor: flavor,
+      quantity: this.quantity
+    };
+  
+    console.log('Adding to cart from ProductsComponent:', productToAdd);
+    this.cartService.addToCart(productToAdd, available_flavors);
+  
+    // Show confirmation popup
     this.showPopUpMessage = true;
-
-    // Hide the pop-up message after 3 seconds
     setTimeout(() => {
       this.showPopUpMessage = false;
     }, 800);
+  }
+  
+  isInFavorites(productId: string): boolean {
+    return this.favoriteItems.some((item) => item.id === productId);
+  }
+
+  toggleFavorite(product: IProducts, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!this.isLoggedIn) {
+      alert('Please log in to add items to your favorites');
+      return;
+    }
+
+    if (this.isInFavorites(String(product.id))) {
+      this.favoritesService.removeFromFavorites(product.id);
+    } else {
+      this.favoritesService.addToFavorites(product);
+    }
+  }
+
+  // Quick View Methods
+  openQuickView(product: IProducts, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.selectedProduct = product;
+    this.quantity = 1;
+    
+    // Auto-select the first available flavor
+    if (this.selectedProduct.available_flavors && this.selectedProduct.available_flavors.length > 0) {
+      this.selectedFlavor = this.selectedProduct.available_flavors[0];
+    } else {
+      this.selectedFlavor = ''; // No flavor options
+    }
+  
+    document.body.style.overflow = 'hidden';
+  }
+  
+
+  closeQuickView(): void {
+    this.selectedProduct = null;
+    document.body.style.overflow = '';
   }
 
   formatDate(dateString: string): string {

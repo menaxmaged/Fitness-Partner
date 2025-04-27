@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { tap, catchError, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -14,8 +14,15 @@ export class AuthService {
   );
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   private apiUrl = 'http://localhost:3000/auth';
+  
+  // Event emitter for cart synchronization
+  private cartSyncRequired = new BehaviorSubject<boolean>(false);
+  cartSyncRequired$ = this.cartSyncRequired.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) {
     // Check token validity on service initialization
     this.checkTokenValidity();
   }
@@ -38,6 +45,8 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('userId', response.user.id);
           this.isLoggedInSubject.next(true);
+          // Signal cart service to sync cart
+          this.cartSyncRequired.next(true);
         }
       }),
       catchError((error) => {
@@ -50,6 +59,8 @@ export class AuthService {
   setCurrentUserId(userId: string): void {
     localStorage.setItem('userId', userId);
     this.isLoggedInSubject.next(true);
+    // Signal cart service to sync cart
+    this.cartSyncRequired.next(true);
   }
 
   register(userData: any): Observable<any> {
@@ -59,6 +70,8 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('userId', response.user.id);
           this.isLoggedInSubject.next(true);
+          // Signal cart service to sync cart
+          this.cartSyncRequired.next(true);
         }
       })
     );

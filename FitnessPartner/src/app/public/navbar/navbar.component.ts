@@ -31,21 +31,40 @@ export class NavBarComponent implements OnDestroy {
     let userId = null;
 
     if (token) {
-      const payload = token.split('.')[1]; // Get the middle part
-      const decodedPayload = JSON.parse(atob(payload));
-      userId = decodedPayload.userId; // or whatever the field name is
+      try {
+        // Split token and handle URL-safe base64 encoding
+        const [header, payload, signature] = token.split('.');
+        
+        // Base64 URL-safe decoding with padding
+        const decodedPayload = JSON.parse(
+          atob(
+            payload
+              .replace(/-/g, '+')
+              .replace(/_/g, '/')
+              .padEnd(payload.length + (4 - (payload.length % 4)) % 4, '=')
+          )
+        );
+        
+        userId = decodedPayload.userId;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        // Handle invalid token (optional: clear invalid token)
+        localStorage.removeItem('token');
+      }
     }
 
     if (userId) {
       this.favoritesService.initializeForUser(userId);
+      this.favoritesSub = this.favoritesService.favorites$.subscribe(
+        (favorites) => {
+          this.favoritesCount = favorites.length;
+          console.log('Navbar favorites count updated:', this.favoritesCount);
+        }
+      );
+    } else {
+      // Handle case where user isn't logged in
+      this.favoritesSub = new Subscription();
     }
-
-    this.favoritesSub = this.favoritesService.favorites$.subscribe(
-      (favorites) => {
-        this.favoritesCount = favorites.length;
-        console.log('Navbar favorites count updated:', this.favoritesCount);
-      }
-    );
   }
 
   ngOnDestroy() {

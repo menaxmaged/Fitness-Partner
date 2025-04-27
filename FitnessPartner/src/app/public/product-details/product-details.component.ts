@@ -162,7 +162,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   discountPercentage: number = 0;
   isLoading: boolean = true;
   private routeSub!: Subscription;
-  
+
   Object = Object;
 
   constructor(
@@ -190,12 +190,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   loadProductDetails(productId: string): void {
     this.isLoading = true;
-    
-    // Reset state for new product
-    this.currentImage = '';
-    this.selectedFlavor = '';
-    this.quantity = 1;
-  
     this.productService.getProductById(productId).pipe(
       catchError((error) => {
         console.error('Error loading product:', error);
@@ -205,79 +199,32 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     ).subscribe((product: IProducts | null) => {
       this.isLoading = false;
       if (!product) return;
-  
+
       this.product = product;
-      
-      // Debug log
-      console.log('Product loaded:', {
-        name: this.product?.name,
-        image: this.product?.image,
-        flavors: this.product?.available_flavors,
-        images: this.product?.product_images?.[this.selectedFlavor]
-      });
-  
-      // Set initial flavor and image if flavors are available
+      this.discountPercentage = product.discount || 0;
+
       if (this.product.available_flavors && this.product.available_flavors.length > 0) {
-        // this.selectedFlavor = this.product.available_flavors[0];
-        this.selectedFlavor = "Chocolate";
-        // Use the selected flavor's image
+        this.selectedFlavor = this.product.available_flavors[0];
         this.updateCurrentImage();
       } else {
-        // If no flavors available, use the default image
         this.currentImage = this.product.image;
       }
-  
-      // Set favorites
+
       this.isFavorite = this.favoritesService.isFavorite(this.product.id);
-  
-      // Calculate discount
-      this.discountPercentage = product.discount || 0;
-      
-      // Reset scroll position
       window.scrollTo(0, 0);
-      
-      // Load similar products
       this.getSimilarProducts(this.product.category);
     });
   }
 
-  // New method to update current image based on selected flavor
-  // updateCurrentImage(): void {
-  //   if (!this.selectedFlavor || !this.product) {
-  //     this.currentImage = this.product?.image || '';
-  //     return;
-  //   }
-
-  //   // Check if product_images exists and has the selected flavor
-  //   if (this.product.product_images && this.product.product_images[this.selectedFlavor]) {
-  //     this.currentImage = this.product.product_images[this.selectedFlavor];
-  //     console.log(`Updated image to ${this.selectedFlavor} flavor:`, this.currentImage);
-  //   } else {
-  //     // Fallback to the default image if no specific flavor image is found
-  //     this.currentImage = this.product.image;
-  //     console.log('No flavor image found, using default:', this.currentImage);
-  //   }
-  // }
   updateCurrentImage(): void {
     if (!this.selectedFlavor || !this.product || !this.product.product_images) {
-      // If no flavor is selected, use the first available flavor's image
-      if (this.product?.available_flavors?.length > 0) {
-        const defaultFlavor = this.product.available_flavors[0];
-        this.currentImage = this.product.product_images[defaultFlavor] || '';
-      } else {
-        this.currentImage = '';
-      }
+      this.currentImage = this.product?.image || '';
       return;
     }
-  
-    // Set image based on selected flavor
     this.currentImage = this.product.product_images[this.selectedFlavor] || '';
-    console.log(`Updated image to ${this.selectedFlavor} flavor:`, this.currentImage);
   }
-  
 
   onFlavorChange(): void {
-    console.log(`Flavor changed to: ${this.selectedFlavor}`);
     this.updateCurrentImage();
   }
 
@@ -287,58 +234,29 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         this.similarProducts = products.filter(p => 
           p.id !== this.product.id && 
           p.category === this.product.category
-        ).slice(0, 4); // Limit to 4 products
+        ).slice(0, 4);
       },
       error: (err) => console.error('Error loading similar products:', err)
     });
   }
 
-  handleImageError(product: IProducts): void {
-    console.warn('Failed to load image for product:', product.id);
-    product.image = '/assets/fallback-image.jpg'; 
-  }
-
-  handleFlavorImageError(flavor: string): void {
-    console.warn(`Failed to load thumbnail image for flavor: ${flavor}`);
-    // We don't modify the product_images object directly as it might be needed elsewhere
-  }
-
-  toggleFavorite(product: IProducts): void {
-    this.favoritesService.toggleFavorite(product.id);
-    this.isFavorite = this.favoritesService.isFavorite(product.id);
-  }
-
-  navigateToProduct(id: string): void {
-    this.router.navigate(['/products', id]);
-  }
-
-  resetProductState(): void {
-    this.product = null!; 
-    this.similarProducts = [];
-    this.currentImage = '';
-    this.selectedFlavor = '';
-  }
-
   addToCart(product: IProducts): void {
+    // Make sure we have the required fields
     const productToAdd = {
-      ...product,
+      id: product.id,         // This is the original product ID
+      productId: product.id,  // Make sure we have productId explicitly
+      name: product.name,
+      image: product.image,
+      price: product.price,
       selectedFlavor: this.selectedFlavor,
       quantity: this.quantity
     };
-    for(let i=0; i<this.quantity; i++) {
-      this.cartService.addToCart(productToAdd);
-    }
+    
+    console.log('Adding to cart from product details:', productToAdd);
+    
+    this.cartService.addToCart(productToAdd, product.available_flavors);
   }
 
-  clearFlavor(): void {
-    this.selectedFlavor = '';
-    this.currentImage = this.product.image;
-  }
-  
-  changeImage(imageUrl: string): void {
-    this.currentImage = imageUrl;
-  }
-  
   increaseQuantity(): void {
     this.quantity++;
   }

@@ -97,7 +97,7 @@
   </div>
 </nav>
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end w-35" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasRightLabel">
       <a class="text-black fs-5" routerLink="/cart" routerLinkActive="active" data-bs-dismiss="offcanvas"
@@ -138,7 +138,7 @@
     <div class="" *ngIf="cart.length > 0; elseCond">
       <div class="d-flex justify-content-center">
         <a routerLinkActive="active" routerLink="/checkout" class="text-decoration-none">
-          <button type="button" class="btn btn-outline-light orange-btn fw-semibold border-3" data-bs-dismiss="offcanvas"
+          <button type="button" class="btn btn-outline-light orange-btn fw-semibold border-3 " data-bs-dismiss="offcanvas"
             aria-label="Close">
             CHECKOUT
           </button>
@@ -147,3 +147,31 @@
     </div>
   </div>
 </div>
+
+
+<style>
+ /* Custom responsive width class */
+.w-35 {
+  width: 35% !important;
+}
+
+@media (max-width: 1199px) { /* Large screens (>=lg) */
+  .w-35 {
+    width: 50% !important; /* Adjust for large screens */
+  }
+}
+
+@media (max-width: 991px) { /* Medium screens (>=md) */
+  .w-35 {
+    width: 75% !important; /* Adjust for medium screens */
+  }
+}
+
+@media (max-width: 767px) { /* Small screens (>=sm) */
+  .w-35 {
+    width: 75% !important; /* Adjust for small screens */
+    font-size: 2px !important;
+  }
+}
+
+</style>
