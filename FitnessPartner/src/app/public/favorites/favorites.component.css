@@ -213,3 +213,9 @@ heart-icon {
 .heart-toggle-btn:hover .broken-heart {
   opacity: 1;
 }
+/* You can add this to favorites.component.css */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

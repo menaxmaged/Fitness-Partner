@@ -1,18 +1,22 @@
 <div class="favorites-container">
   <h2>My Favorites</h2>
-  <div *ngIf="favoriteItems.length === 0" class="empty-favorites text-center p-4">
-    <!-- Heart animation icon -->
+  
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="loading-spinner text-center p-4">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Empty Favorites Message -->
+  <div *ngIf="!loading && favoriteItems.length === 0" class="empty-favorites text-center p-4">
     <div class="heart-icon mb-3">
       <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
       </svg>
     </div>
-    
-    <!-- Message -->
     <h3 class="mb-2">Your favorites are empty</h3>
     <p class="text-muted mb-4">Save your favorite products to see them here!</p>
-    
-    <!-- Action buttons -->
     <div class="d-flex justify-content-center gap-3">
       <a routerLink="/products" class="btn btn-outline-light orange-btn px-4">
         <i class="fas fa-store me-2"></i> Browse Products
@@ -20,37 +24,15 @@
     </div>
   </div>
 
-  <div *ngIf="favoriteItems.length > 0" class="favorites-list">
+  <!-- Favorites List -->
+  <div *ngIf="!loading && favoriteItems.length > 0" class="favorites-list">
     <div class="favorites-actions me-2">
-      <button class="clear-all-btn border-0 bg-white text-dark" (click)="clearAllFavorites()">
+      <button class="clear-all-btn border-0 bg-white text-dark" (click)="clearAllFavorites()" [disabled]="loading">
         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-trash3 trashIcon" viewBox="0 0 16 16">
-        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-      </svg>
-    </button>
+          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+        </svg>
+      </button>
     </div>
-    
+
     <div class="favorite-items">
       <div *ngFor="let item of favoriteItems" class="favorite-item">
-        <div class="item-image">
-          <img [src]="item.image" [alt]="item.name">
-        </div>  
-        
-        <div class="item-details">
-          <h3 class="item-name">{{ item.name }}</h3>
-          <p class="item-brand">{{ item.brand }}</p>
-          <p class="item-price">${{ item.price.toFixed(2) }}</p>
-          <p class="item-size">Size: {{ item.available_size }}</p>
-        </div>
-        
-        <div class="item-actions p-2">
-          <button class="btn btn-outline-light border-0 orange-btn" [routerLink]="['/products', item.id]">View Product</button>
-          
-          <button class="remove-btn text-dark border-0 bg-white me-md-5 heart-toggle-btn" (click)="removeFromFavorites(item)">
-            <i class="bi bi-heart-fill heart-icon full-heart fs-4 me-md-5"></i>
-            <i class="bi bi-heartbreak heart-icon broken-heart fs-4 me-md-1"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

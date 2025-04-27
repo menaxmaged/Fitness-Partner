@@ -135,7 +135,7 @@ export class CartService {
       price: Number(product.price),
       selectedFlavor: product.selectedFlavor || (available_flavors && available_flavors.length > 0 ? available_flavors[0] : 'Unflavored'),
       quantity: 1,
-      total: Number(product.price)
+      // total: Number(product.price)
     };
 
     console.log('Adding to cart:', productToAdd);
