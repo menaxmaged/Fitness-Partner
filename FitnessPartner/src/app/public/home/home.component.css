@@ -4,7 +4,7 @@
 }
 .text-overlay {
     width: 45vw;
-    height: 50vh;
+    height: 60vh;
     padding: 2rem;
     margin: 0 auto;
     text-align: center;
@@ -170,7 +170,6 @@
 }
 
 .button-design {
-    margin-top: 1.5rem;
     display: inline-block;
     padding: 0.75rem 2rem;
     background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%);

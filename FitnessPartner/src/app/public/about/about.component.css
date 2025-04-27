@@ -55,18 +55,3 @@
     font-size: 50px;
     color: #cc0000;
 }
-
-  .feature-card {
-    background: #1c1c1c;
-    border: none;
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(255, 165, 0, 0.4);
-  }
-  
-  
