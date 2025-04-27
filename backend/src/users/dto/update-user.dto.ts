@@ -4,6 +4,6 @@ export class UpdateUserDto {
   readonly mobile?: string;
   readonly gender?: string;
   readonly email?: string;
-  readonly avatar?: string;
+  readonly password?: string;
   isVerified?: boolean;
 }

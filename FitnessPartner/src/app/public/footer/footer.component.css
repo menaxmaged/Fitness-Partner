@@ -1,0 +1,28 @@
+.quick-links a {
+    display: inline-block;
+    transition: color 0.3s ease;
+    transform: 0.3s ease;
+  }
+  
+  .quick-links a:hover {
+    color: #ff9933 !important;
+    font-weight: bold;
+    transform: scale(1.1);
+  }
+
+footer .btn-outline-light{
+    transition: color 0.3s ease;
+    transform: 0.3s ease;
+    border-radius: 50%;
+}
+footer .btn-outline-light:hover {
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%);;
+    border-color: #d95a15;
+    color: #fff;
+    transform: scale(1.1); 
+}
+
+footer hr {
+    border-top: 2px solid #d95a15;
+    width: 100%;
+}
