@@ -3,6 +3,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from "./public/navbar/navbar.component";
 import { routes } from './app.routes';
 import { FooterComponent } from './public/footer/footer.component';
+import * as AOS from 'aos';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,4 +19,7 @@ import { FooterComponent } from './public/footer/footer.component';
 })
 export class AppComponent {
   title = 'FitnessPartner';
+  ngOnInit() {
+    AOS.init();
+  }
 }
