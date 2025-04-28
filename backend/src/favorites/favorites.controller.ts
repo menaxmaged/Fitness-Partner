@@ -14,12 +14,18 @@ export class FavoritesController {
   }
   
   @Post(':productId')
-  addFavorite(@Param('productId') productId: string, @Req() req) {
-    return this.favoritesService.addFavorite(req.user.email, productId); // <-- email
-  }
+async addFavorite(@Param('productId') productId: string, @Req() req) {
+  const user = await this.favoritesService.addFavorite(req.user.email, productId);
+  return user?.favorites || []; // Return just the favorites array or an empty array if user is null
+}
   
-  @Delete(':productId')
-  removeFavorite(@Param('productId') productId: string, @Req() req) {
-    return this.favoritesService.removeFavorite(req.user.email, productId); // <-- email
-  }
+@Delete(':productId')
+async removeFavorite(@Param('productId') productId: string, @Req() req) {
+  const user = await this.favoritesService.removeFavorite(req.user.email, productId);
+  return user?.favorites || []; // Return just the favorites array
+}
+  @Delete()
+  clearFavorites(@Req() req) {
+  return this.favoritesService.clearFavorites(req.user.email);
+}
 }
