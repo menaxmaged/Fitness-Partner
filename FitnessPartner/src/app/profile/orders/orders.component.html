@@ -4,7 +4,7 @@
       <div class="order-info">
         <h3 class="order-date">Order Date: {{ order.formattedDate }}</h3>
         <p class="order-id">Order ID: {{ order.id }}</p>
-        <p class="transaction">Transaction ID: {{ order.transactionId }}</p>
+        <!-- <p class="transaction">Transaction ID: {{ order.transactionId }}</p> -->
       </div>
     </div>
     
@@ -21,12 +21,15 @@
           <div class="product-details">
             <h4 class="product-name">{{ item.name }}</h4>
             <p class="product-brand" *ngIf="item.brand">{{ item.brand }}</p>
+            <p class="product-brand" >{{ item.selectedFlavor }}</p>
           </div>
           <div class="product-quantity">
             <span class="quantity-label">Qty:</span>
-            <span class="quantity-value">{{ getProductQuantity(order, item.id) }}</span>
+            <span class="quantity-value">
+              {{ getProductQuantity(order, item.id, item.selectedFlavor) }}
+            </span>
           </div>
-          <div class="product-price">${{ item.price }}</div>
+          <div class="product-price">${{ item.total }}</div>
         </a>
       </div>
     </div>

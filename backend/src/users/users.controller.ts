@@ -62,4 +62,9 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
+
+  @Post(':id/orders')
+async addOrder(@Param('id') id: string, @Body() order: any) {
+  return this.usersService.addOrder(id, order);
+}
 }
