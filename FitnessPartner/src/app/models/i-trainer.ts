@@ -1,5 +1,7 @@
 import {  IFAQ } from './i-faq';
 export interface ITrainer {
+specialty: any;
+rating: any;
   id: number;
   name: string;
   image: string;

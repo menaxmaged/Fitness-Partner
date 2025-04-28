@@ -1,9 +1,11 @@
-// src/app/services/favorites.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject,Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { IProducts } from '../models/i-products';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,8 +22,6 @@ export class FavoritesService {
   /** Get headers with Authorization token */
   private getHeaders() {
     const token = this.authService.getToken(); // Get the token from AuthService
-    console.log(this.authService.getToken());
-
     return token
       ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
       : new HttpHeaders();
@@ -75,13 +75,33 @@ export class FavoritesService {
   }
   
   toggleFavorite(product: any): Observable<any[]> {
-    return this.isFavorite(product.id)
+    console.log(product.id, "in service");
+  
+    const isFav = this.isFavorite(product.id);
+    console.log(isFav, "this is isFav");
+  
+    return isFav
       ? this.removeFromFavorites(product.id)
       : this.addToFavorites(product);
   }
-/** Check if a product is in favorites */
-isFavorite(productId: number | string): boolean {
-  return this.favoritesSubject.value.some((i) => i.id === productId);
+  
+  /** Check if a product is in favorites */
+  isFavorite(productId: number | string): boolean {
+    // Debug the favorites structure to see what we're working with
+    console.log('Current favorites structure:', this.favoritesSubject.value);
+    
+    // Check if the favorites array contains the product ID
+    // This handles both possibilities: array of IDs or array of objects with ID property
+    return this.favoritesSubject.value.some((item) => {
+      // Handle case where item is the ID itself
+      if (typeof item === 'number' || typeof item === 'string') {
+        return item === productId;
+      }
+      // Handle case where item is an object with ID
+      else if (item && typeof item === 'object') {
+        return item.id === productId || item.productId === productId;
+      }
+      return false;
+    });
+  }
 }
-}
-

@@ -48,8 +48,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
   }
-
-  
+ 
   loadProductDetails(id: string): void {
     this.isLoading = true;
     this.productService.getProductById(id).pipe(
@@ -96,28 +95,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     setTimeout(()=> this.showPopUpMessage = false, 800);
   }
 
-  toggleFavorite(): void {
-    if (!this.authService.isLoggedIn()) {
-      this.showLoginMessage = true;
-      setTimeout(() => this.showLoginMessage = false, 3000);
-      return;
-    }
-  
-    // Remove the direct isFavorite toggle
-    if (this.favoritesService.isFavorite(this.product.id)) {
-      this.favoritesService.removeFromFavorites(this.product.id)
-        .subscribe(() => {
-          this.isFavorite = false;
-        });
-    } else {
-      this.favoritesService.addToFavorites(this.product)
-        .subscribe(() => {
-          this.isFavorite = true;
-        });
-    }
-  }
     increaseQuantity(): void {
     this.quantity++;
+  }
+
+  toggleFavorite(prod: IProducts): void {
+    const currentlyFavorite = this.favoritesService.isFavorite(prod.id)
+    console.log(currentlyFavorite, " currFav");
+    this.favoritesService.toggleFavorite(prod).subscribe(() => {
+      this.isFavorite = !currentlyFavorite;
+      console.log(this.isFavorite, "is favorite now");
+    });
   }
 
   decreaseQuantity(): void {
