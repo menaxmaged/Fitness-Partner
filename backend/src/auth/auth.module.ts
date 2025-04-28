@@ -9,26 +9,32 @@ import { Otp, OtpSchema } from './schemas/otp.schema';
 import { EmailModule } from '../email/email.module';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { MailModule } from './mail/mail.module';
+import { User, UserSchema } from 'src/users/schemas/user.schema';
+import { Token, TokenSchema } from './entities/token.entity';
 @Module({
   imports: [
     UsersModule,
-    // PassportModule,
-    // JwtModule.register({
-    //   secret: process.env.JWT_SECRET || 'your-secret-key', // use environment variable in production
-    //   signOptions: { expiresIn: '30d' },
-    // }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         secret: config.get('JWT_SECRET'),
         signOptions: { expiresIn: '3d' },
-      }),}),
+      }),
+    }),
     MongooseModule.forFeature([{ name: Otp.name, schema: OtpSchema }]),
     EmailModule,
+
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      { name: Token.name, schema: TokenSchema },
+    ]),
+    MailModule,
+    UsersModule,
   ],
-  providers: [AuthService,JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
-  exports: [AuthService,JwtModule],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
