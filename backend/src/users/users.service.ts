@@ -101,4 +101,17 @@ export class UsersService {
 
     return { message: 'Password updated successfully' };
   }
+  async addOrder(userId: string, order: any): Promise<User> {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { id: userId },
+      { $push: { orders: order } },
+      { new: true }
+    ).exec();
+  
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID "${userId}" not found`);
+    }
+  
+    return updatedUser;
+  }
 }
