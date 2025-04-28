@@ -10,6 +10,7 @@ import { ProductsModule } from './products/products.module';
 import { ExerciseModule } from './exercise/exercise.module';
 import { CartModule } from './cart/cart.module'; // <<== ADD THIS LINE!
 import { FavoritesModule } from './favorites/favorites.module';
+import { TrainerModule } from './trainers/trainers.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { FavoritesModule } from './favorites/favorites.module';
     CartModule,
     FavoritesModule,
 
+    TrainerModule
   ],
   controllers: [AppController],
   providers: [AppService],
