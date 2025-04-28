@@ -29,4 +29,12 @@ export class FavoritesService {
       { new: true }
     );
   }
+
+  async clearFavorites(userEmail: string) {
+    return this.userModel.findOneAndUpdate(
+      { email: userEmail },
+      { $set: { favorites: [] } }, // Set favorites to an empty array
+      { new: true }
+    );
+  }
 }

@@ -10,18 +10,74 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
+import * as crypto from 'crypto';
 import { User } from '../users/schemas/user.schema';
 import { Otp, OtpDocument } from './schemas/otp.schema';
 import { EmailService } from '../email/email.service';
+import { MailService } from './mail/mail.service';
+import { Token } from './entities/token.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Token.name) private tokenModel: Model<Token>,
+    private mailService: MailService,
     private usersService: UsersService,
     private jwtService: JwtService,
     @InjectModel(Otp.name) private otpModel: Model<OtpDocument>,
     private emailService: EmailService,
   ) {}
+
+  async forgotPassword(email: string): Promise<{ message: string }> {
+    try {
+      const user = await this.userModel.findOne({ email });
+      if (!user) {
+        // Return success message even if user doesn't exist (security best practice)
+        return { message: 'If the email exists, a reset link has been sent' };
+      }
+
+      // Delete any existing tokens
+      await this.tokenModel.deleteMany({ userId: user._id });
+
+      // Create reset token
+      const token = crypto.randomBytes(32).toString('hex');
+      await this.tokenModel.create({
+        userId: user._id,
+        token,
+      });
+
+      await this.mailService.sendResetPasswordEmail(user.email, token);
+      return { message: 'If the email exists, a reset link has been sent' };
+    } catch (error) {
+      console.error('Forgot password error:', error);
+      throw new InternalServerErrorException(
+        'Failed to process password reset request',
+      );
+    }
+  }
+
+  async resetPassword(
+    token: string,
+    email: string,
+    password: string,
+  ): Promise<void> {
+    const user = await this.userModel.findOne({ email });
+    if (!user) throw new Error('Invalid email');
+
+    const resetToken = await this.tokenModel.findOne({
+      userId: user._id,
+      token,
+    });
+    if (!resetToken) throw new Error('Invalid or expired token');
+
+    // Update password
+    user.password = await bcrypt.hash(password, 12);
+    await user.save();
+
+    // Delete token
+    await this.tokenModel.deleteMany({ userId: user._id });
+  }
 
   // Helper method to generate a 6-digit OTP
   private generateOtp(): string {
