@@ -1,15 +1,34 @@
-<!-- cover -->
-<div class="container-fluid p-0 position-relative">
-  <img src="assets/nutrition-imgs/poster.jpg" class="img-fluid w-100 cover-img-style">
-</div>
 
-<!--Intro-->
 <div class="container mt-5 mb-3">
+  <h2 class="text-center fw-bold fs-1 mb-5" style="color: #ff9933;" data-aos="fade-down" data-aos-duration="1000">Smart Nutrition for a Stronger You</h2>
+  <!-- Food Mode Section -->
+  <div class="row justify-content-center">
+    <div
+      class="col-md-4 mb-4"
+      *ngFor="let nutrient of nutrients"
+      (click)="goToDetails(nutrient)"
+      data-aos="fade-down" 
+      data-aos-duration="1000"
+    >
+      <div class="card h-100 shadow-sm" style="cursor: pointer">
+        <img
+          [src]="nutrient.image"
+          class="card-img-top"
+          alt="{{ nutrient.title }}"
+          style="height: 200px; object-fit: cover"
+        />
+        <div class="card-body text-center">
+          <h5 class="card-title" style="color: #343a40;">{{ nutrient.title }}</h5>
+          <p class="card-text" style="color: #6c757d;">{{ nutrient.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Choose section-->
   <div class="row">
     <div class="col-12" data-aos="fade-right" data-aos-duration="1000">
-      <h2 class="text-center fw-bold fs-1" style="color: #ff9933;">Smart Nutrition for a Stronger You</h2>
       <p class="fs-4 mt-md-5"> At Fitness Partner, we believe that good nutrition is the
-         foundation of real progress. That’s why we offer smart, easy-to-use tools to help
+        foundation of real progress. That’s why we offer smart, easy-to-use tools to help
           you understand your body, choose the right foods, and plan your meals like a pro — 
           with a little help from AI magic.</p>
       <p class="fs-4 mb-md-5">Here’s how we support your journey:</p>
@@ -22,7 +41,7 @@
       <p class="px-5 fs-5 fw-medium">Understand where you stand and where you’re headed. 
         Use our Body Fat Calculator to get a clear picture of your current body composition
         — and track your progress over time.</p>
-        <a [routerLink]="['/nutrition']" fragment="fat-calculator" class="btn button-design">Calculate Now</a>
+        <a [routerLink]="['/nutrition']" fragment="fat-calculator" class="btn button-design" style="margin-top: 4.6rem;">Calculate Now</a>
       </div>
     <div class="col-md-4 d-flex flex-column align-items-center" style="background-color: #ff7e33d9;" data-aos="fade-down" data-aos-duration="1000">
       <!-- icon -->
@@ -32,7 +51,7 @@
         and nutrients in your favorite foods? With Know Your Food, just search any item 
         — like apples, chicken, or oats — and instantly see detailed nutrition facts to 
         make smarter choices.</p>
-        <a [routerLink]="['/nutrition']" fragment="know-food" class="btn button-design">Search Food Info</a>
+        <a [routerLink]="['/nutrition']" fragment="know-food" class="btn button-design" style="margin-top: 2.7rem;">Search Food Info</a>
     </div>
     <div class="col-md-4 d-flex flex-column align-items-center" style="background-color: #ff9933b3;" data-aos="fade-up" data-aos-duration="1000">
       <!-- icon -->
@@ -46,7 +65,7 @@
     </div>
   </div>
 </div>
-<!--intro end-->
+<!--Choose section end-->
 
 
 <div class="container py-4">
@@ -78,26 +97,5 @@
     </div>
   </div>
 
-  <!-- Food Mode Section -->
-  <h2 class="text-center my-3" style="color: #cb4c0d;">Food Mode</h2>
-  <div class="row justify-content-center">
-    <div
-      class="col-md-4 mb-4"
-      *ngFor="let nutrient of nutrients"
-      (click)="goToDetails(nutrient)"
-    >
-      <div class="card h-100 shadow-sm" style="cursor: pointer">
-        <img
-          [src]="nutrient.image"
-          class="card-img-top"
-          alt="{{ nutrient.title }}"
-          style="height: 200px; object-fit: cover"
-        />
-        <div class="card-body text-center">
-          <h5 class="card-title" style="color: #343a40;">{{ nutrient.title }}</h5>
-          <p class="card-text" style="color: #6c757d;">{{ nutrient.description }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 </div>
