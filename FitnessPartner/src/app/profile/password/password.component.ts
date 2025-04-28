@@ -1,3 +1,4 @@
+// password.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,9 +15,12 @@ import { AuthService } from '../../services/auth.service';
 export class PasswordComponent implements OnInit {
   user: any = {};
   currentPassword: string = '';
-  originalPassword: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
   isEditing = false;
-  showPassword = false;
+  showCurrentPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
   errorMessage = '';
   successMessage = '';
 
@@ -27,14 +31,10 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = this.authService.getCurrentUserId();
-
     if (userId) {
       this.userService.getUserById(userId).subscribe({
         next: (foundUser) => {
           this.user = foundUser;
-          // Use placeholder for password - real password isn't sent to frontend for security
-          this.currentPassword = '••••••••'; // Placeholder
-          this.originalPassword = this.currentPassword;
         },
         error: (err) => {
           console.error('Error fetching user data:', err);
@@ -48,29 +48,32 @@ export class PasswordComponent implements OnInit {
     }
   }
 
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-    console.log('password' + this.currentPassword);
-  }
-
   toggleEdit(): void {
     this.isEditing = true;
     this.errorMessage = '';
     this.successMessage = '';
     this.currentPassword = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
   }
 
   cancelEdit(): void {
     this.isEditing = false;
     this.errorMessage = '';
     this.successMessage = '';
-    this.currentPassword = this.originalPassword;
-    this.showPassword = false;
+    this.showCurrentPassword = false;
+    this.showNewPassword = false;
+    this.showConfirmPassword = false;
   }
 
   savePassword(): void {
-    if (!this.currentPassword) {
-      this.errorMessage = 'Password cannot be empty';
+    if (!this.currentPassword || !this.newPassword || !this.confirmPassword) {
+      this.errorMessage = 'All fields are required';
+      return;
+    }
+
+    if (this.newPassword !== this.confirmPassword) {
+      this.errorMessage = 'New passwords do not match';
       return;
     }
 
@@ -81,25 +84,26 @@ export class PasswordComponent implements OnInit {
     }
 
     const passwordData = {
-      password: this.currentPassword,
+      currentPassword: this.currentPassword,
+      newPassword: this.newPassword,
     };
 
-    this.userService.updateUser(userId, passwordData).subscribe({
+    this.userService.updatePassword(userId, passwordData).subscribe({
       next: (response) => {
         this.successMessage = 'Password updated successfully!';
         this.isEditing = false;
-        this.originalPassword = '••••••••';
-        this.currentPassword = this.originalPassword;
-        this.showPassword = false;
+        this.currentPassword = '';
+        this.newPassword = '';
+        this.confirmPassword = '';
 
-        // Automatically hide the success message after 3 seconds
         setTimeout(() => {
           this.successMessage = '';
         }, 3000);
       },
       error: (err) => {
         console.error('Error updating password:', err);
-        this.errorMessage = 'Failed to update password. Please try again.';
+        this.errorMessage =
+          err.error?.message || 'Failed to update password. Please try again.';
       },
     });
   }
