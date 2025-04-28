@@ -1,20 +1,71 @@
+<!-- cover -->
+<div class="container-fluid p-0 position-relative">
+  <img src="assets/nutrition-imgs/poster.jpg" class="img-fluid w-100 cover-img-style">
+</div>
+
+<!--Intro-->
+<div class="container mt-5 mb-3">
+  <div class="row">
+    <div class="col-12" data-aos="fade-right" data-aos-duration="1000">
+      <h2 class="text-center fw-bold fs-1" style="color: #ff9933;">Smart Nutrition for a Stronger You</h2>
+      <p class="fs-4 mt-md-5"> At Fitness Partner, we believe that good nutrition is the
+         foundation of real progress. That’s why we offer smart, easy-to-use tools to help
+          you understand your body, choose the right foods, and plan your meals like a pro — 
+          with a little help from AI magic.</p>
+      <p class="fs-4 mb-md-5">Here’s how we support your journey:</p>
+    </div>
+    <!--Cards-->
+    <div class="col-md-4 d-flex flex-column align-items-center" style="background-color: #fd650dd9;" data-aos="fade-up" data-aos-duration="1000">
+      <!-- icon -->
+      <i class="fa-solid fa-child-reaching second-icon mt-4"></i>
+      <h4 class="text-center fw-bold my-3">Body Fat Calculator</h4>
+      <p class="px-5 fs-5 fw-medium">Understand where you stand and where you’re headed. 
+        Use our Body Fat Calculator to get a clear picture of your current body composition
+        — and track your progress over time.</p>
+        <a [routerLink]="['/nutrition']" fragment="fat-calculator" class="btn button-design">Calculate Now</a>
+      </div>
+    <div class="col-md-4 d-flex flex-column align-items-center" style="background-color: #ff7e33d9;" data-aos="fade-down" data-aos-duration="1000">
+      <!-- icon -->
+      <i class="fa-solid fa-carrot second-icon mt-4"></i>
+      <h4 class="text-center fw-bold my-3">Know Your Food</h4>
+      <p class="px-5 fs-5 fw-medium">Curious about the calories, fats, proteins,
+        and nutrients in your favorite foods? With Know Your Food, just search any item 
+        — like apples, chicken, or oats — and instantly see detailed nutrition facts to 
+        make smarter choices.</p>
+        <a [routerLink]="['/nutrition']" fragment="know-food" class="btn button-design">Search Food Info</a>
+    </div>
+    <div class="col-md-4 d-flex flex-column align-items-center" style="background-color: #ff9933b3;" data-aos="fade-up" data-aos-duration="1000">
+      <!-- icon -->
+      <i class="fa-solid fa-utensils second-icon mt-4"></i>
+      <h4 class="text-center fw-bold my-3">Meal Planner</h4>
+      <p class="px-5 fs-5 fw-medium">Take the stress out of eating right.
+        Choose from carefully designed meal plans — whether your goal is fat loss,
+        muscle gain, or better health — or let our <span style="font-size: 28px; color: #cc0000;">AI</span> build a customized meal plan based 
+        on your personal data, InBody results, and goals.</p>
+        <a [routerLink]="['/nutrition']" fragment="meal-planner" class="btn button-design mb-3">Choose Your Meal Plan</a>
+    </div>
+  </div>
+</div>
+<!--intro end-->
+
+
 <div class="container py-4">
   <!-- Body Fat Calculator Section -->
-  <div class="row mb-4">
+  <div class="row mb-4" id="fat-calculator">
     <div class="col-12">
-       <app-body-fat-calculator></app-body-fat-calculator>
+      <app-body-fat-calculator></app-body-fat-calculator>
     </div>
   </div>
 
   <!-- Food Nutrition Section -->
-  <div class="row mb-4">
+  <div class="row mb-4" id="know-food">
     <div class="col-12">
        <app-food-nutrition></app-food-nutrition>
     </div>
   </div>
 
   <!-- Meal Planner Section -->
-  <div class="row mb-4">
+  <div class="row mb-4" id="meal-planner">
     <div class="col-12">
        <app-meals-planner></app-meals-planner>
     </div>

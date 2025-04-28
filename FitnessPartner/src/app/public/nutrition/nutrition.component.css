@@ -1,0 +1,26 @@
+.cover-img-style{
+    height: 90vh;
+    object-fit: cover;
+}
+
+.button-design {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff6633 100%);
+    border: none;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.button-design:hover {
+    transform: translateY(-2px);
+}
+
+.second-icon{
+    font-size: 50px;
+    color: #cc0000;
+}
