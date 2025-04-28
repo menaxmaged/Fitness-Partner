@@ -130,9 +130,10 @@ export class OrdersComponent implements OnInit {
       
       this.processedOrders = await Promise.all(
         orders.map(async (order: any) => ({
-          ...order,
+          ...order,showDetails: true,
           formattedDate: this.formatDate(order.date),
-          items: await this.getOrderItems(order.products)
+          items: await this.getOrderItems(order.products),
+          address: order.address || this.getDefaultAddress() 
         }))
       );
       
@@ -180,5 +181,17 @@ export class OrdersComponent implements OnInit {
   }
   cartTotal(){
     return this.cart.getTotal();
+  }
+  toggleDetails(order: any): void {
+    order.showDetails = !order.showDetails;
+  }
+  private getDefaultAddress() {
+    return {
+      street: 'Address not available',
+      city: 'N/A',
+      state: 'N/A',
+      zipCode: 'N/A',
+      country: 'N/A'
+    };
   }
 }

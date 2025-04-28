@@ -19,6 +19,7 @@ export class CheckoutComponent implements OnInit {
   cart: any[] = [];
   total: number = 0;
   done: boolean = false;
+  cartLen:number=0;
 
   constructor(
     private myCart: CartService,
@@ -31,6 +32,11 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.myCart.cart$.subscribe((cart) => {
       this.total = this.myCart.getTotal();
+      this.cartLen= this.myCart.getCart().length;
+      console.log(this.cartLen," This is cart length");
+      if(this.cartLen===0){
+        this.router.navigate(['/cart']);
+      }
     });
 
     this.total = this.myCart.getTotal();
@@ -51,6 +57,9 @@ export class CheckoutComponent implements OnInit {
         return actions.order.capture().then((details: any) => {
           const transactionId = details.id;
           const userId = localStorage.getItem('userId');
+          const shippingAddress = details.purchase_units[0]?.shipping?.address || {};
+          const payerInfo = details.payer;
+
           if (!userId) {
             console.error("User ID not found!");
             return;
@@ -66,6 +75,14 @@ export class CheckoutComponent implements OnInit {
             })),
             total: this.total,
             date: new Date().toISOString(),
+            address: {
+              street: shippingAddress.address_line_1 || '',
+              city: shippingAddress.admin_area_2 || '',
+              state: shippingAddress.admin_area_1 || '',
+              zipCode: shippingAddress.postal_code || '',
+              country: shippingAddress.country_code || '',
+              fullName: `${payerInfo.name?.given_name} ${payerInfo.name?.surname}` || ''
+            }
           };
 
           this.myUserService.getUserById(userId).subscribe({
@@ -104,7 +121,7 @@ export class CheckoutComponent implements OnInit {
                   });
 
                   console.log("Payment successful");
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/profile/orders']);
                 },
                 error: (err: any) => console.error("Error saving order:", err),
               });
