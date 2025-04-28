@@ -4,7 +4,6 @@ import { NavBarComponent } from "./public/navbar/navbar.component";
 import { routes } from './app.routes';
 import { FooterComponent } from './public/footer/footer.component';
 import * as AOS from 'aos';
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,7 +11,7 @@ import * as AOS from 'aos';
     RouterOutlet, 
     NavBarComponent,
     FooterComponent,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

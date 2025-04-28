@@ -47,14 +47,11 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   }
 
   removeFromFavorites(item: IProducts): void {
-    // Add a 'removing' class for the fade-out effect
     const element = document.getElementById(`favorite-item-${item.id}`);
     if (element) {
       element.classList.add('removing');
     }
-  
-    // Perform the HTTP request to remove the favorite
-    this.favoritesService.removeFromFavorites(item.id).subscribe({
+      this.favoritesService.removeFromFavorites(item.id).subscribe({
       next: (updatedFavorites) => {
         // After fade-out effect completes, remove from array
         setTimeout(() => {
