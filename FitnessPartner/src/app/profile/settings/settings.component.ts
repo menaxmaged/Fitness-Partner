@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   user: User = {} as User;
   isEditing = false;
   userId!: string;
+  successMessage: string = '';
 
   constructor(
     private usersService: UsersService,
@@ -99,19 +100,22 @@ export class SettingsComponent implements OnInit {
   saveChanges(): void {
     if (!this.isEditing) return;
   
-    // Use a JSON object instead of FormData
     const userData = {
       fName: this.user.fName,
       lName: this.user.lName,
       email: this.user.email,
-      mobile: this.user.mobile || "01xxxxxxxxx", // Ensure default if empty
+      mobile: this.user.mobile || "01xxxxxxxxx",
       gender: this.user.gender
     };
   
     this.usersService.updateUser(this.userId, userData).subscribe({
       next: () => {
-          //       // this.toastr.success('Profile updated successfully');
         this.isEditing = false;
+        this.successMessage = 'Profile updated successfully!';
+        // Clear the message after 3 seconds
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
       },
       error: (error) => {
         this.handleApiError(error, 'Failed to update profile');

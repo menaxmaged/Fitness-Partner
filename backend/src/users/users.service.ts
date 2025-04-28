@@ -80,13 +80,12 @@ export class UsersService {
     currentPassword: string,
     newPassword: string,
   ) {
-    const user = await this.userModel.findById(userId);
+    const user = await this.userModel.findOne({ id: userId });
 
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    // Verify current password
     const isPasswordValid = await bcrypt.compare(
       currentPassword,
       user.password,
@@ -96,10 +95,7 @@ export class UsersService {
       throw new UnauthorizedException('Current password is incorrect');
     }
 
-    // Hash the new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-    // Update the password
     user.password = hashedPassword;
     await user.save();
 

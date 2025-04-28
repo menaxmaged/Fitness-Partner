@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, catchError, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthResponse } from '../interfaces/auth-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +15,12 @@ export class AuthService {
   );
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   private apiUrl = 'http://localhost:3000/auth';
-  
+
   // Event emitter for cart synchronization
   private cartSyncRequired = new BehaviorSubject<boolean>(false);
   cartSyncRequired$ = this.cartSyncRequired.asObservable();
 
-  constructor(
-    private http: HttpClient, 
-    private router: Router
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     // Check token validity on service initialization
     this.checkTokenValidity();
   }
@@ -99,5 +97,21 @@ export class AuthService {
   // Method to check if user is authenticated, can be used in route guards
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  // Update your Angular auth.service.ts
+  forgotPassword(email: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/forgot-password`, {
+      email,
+    });
+  }
+
+  resetPassword(data: {
+    token: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) {
+    return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
 }

@@ -28,9 +28,10 @@ import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.compo
 import { NgModule } from '@angular/core';
 import { MealsPlannerComponent } from './public/meals-planner/meals-planner.component';
 import { WarmUpComponent } from './warm-up/warm-up.component';
+import { ForgotPasswordComponent } from './public/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './public/reset-password/reset-password.component';
 
 export const routes: Routes = [
-
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -43,14 +44,17 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'exercises', component: ExercisesComponent },
-    { path: 'exercises/home', component: ExercisesHomeComponent },
-    { path: 'exercises/gym', component: ExercisesGymComponent },
-    { path: 'exercises/warm', component: WarmUpComponent },
-    { path: 'exercises/:type/:muscle', component: MuscleExerciseComponent },
-    { path: 'exercises/:type/:muscle/:exercise', component: ExerciseDetailComponent },
+  { path: 'exercises/home', component: ExercisesHomeComponent },
+  { path: 'exercises/gym', component: ExercisesGymComponent },
+  { path: 'exercises/warm', component: WarmUpComponent },
+  { path: 'exercises/:type/:muscle', component: MuscleExerciseComponent },
+  {
+    path: 'exercises/:type/:muscle/:exercise',
+    component: ExerciseDetailComponent,
+  },
 
   { path: 'nutrition', component: NutritionComponent },
-  {path :'mealsPlanner' , component:MealsPlannerComponent},
+  { path: 'mealsPlanner', component: MealsPlannerComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'trainers', component: TrainersComponent },
@@ -69,20 +73,26 @@ export const routes: Routes = [
       { path: '', redirectTo: 'settings', pathMatch: 'full' },
     ],
   },
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'resetPassword', component: ResetPasswordComponent },
 
   { path: 'nutrient/:id', component: NutritionDetailsComponent },
   { path: 'contactus', component: ContactComponent },
+
   { path: '**', component: NotFoundComponent },
 ];
+
 export const appRouting = RouterModule.forRoot(routes, {
-  onSameUrlNavigation: 'reload'
+  onSameUrlNavigation: 'reload',
 });
 
 // If you're using NgModule:
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    onSameUrlNavigation: 'reload'
-  })],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload',
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

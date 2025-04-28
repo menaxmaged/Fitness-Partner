@@ -1,4 +1,6 @@
 <main class="profile-content">
+  <!-- Add this right after the main opening tag -->
+  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
 
   <form #form="ngForm" (ngSubmit)="saveChanges()" novalidate>
     <div class="form-row">

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from "./public/navbar/navbar.component";
 import { routes } from './app.routes';
 import { FooterComponent } from './public/footer/footer.component';
 import * as AOS from 'aos';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,13 +14,22 @@ import * as AOS from 'aos';
     NavBarComponent,
     FooterComponent,
     RouterModule,
+    CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+  constructor(public router:Router){}
+
   title = 'FitnessPartner';
   ngOnInit() {
     AOS.init();
+  }
+
+  isAuthPage():boolean {
+    const currentRoute = this.router.url;
+    return currentRoute === '/login' || currentRoute === '/signup'; 
   }
 }
