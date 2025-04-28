@@ -1,9 +1,9 @@
 // src/app/services/favorites.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
-
+import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -54,45 +54,34 @@ export class FavoritesService {
       });
   }
 
-  /** Add a product to favorites */
-  addToFavorites(product: any): void {
-    this.http
-      .post(`${this.apiUrl}/${product.id}`, null, { headers: this.getHeaders() })
-      .subscribe({
-        next: () => {
-          const current = this.favoritesSubject.value;
-          if (!current.some((i) => i.id === product.id)) {
-            this.favoritesSubject.next([...current, product]);
-          }
-        },
-        error: (err) => console.error('Failed to add to favorites:', err),
-      });
+  addToFavorites(product: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/${product.id}`, null, { 
+      headers: this.getHeaders() 
+    }).pipe(
+      tap((updatedFavorites: any[]) => {
+        this.favoritesSubject.next(updatedFavorites);
+      })
+    );
   }
-
-  /** Remove a product from favorites */
-  removeFromFavorites(productId: number | string): void {
-    this.http
-      .delete(`${this.apiUrl}/${productId}`, { headers: this.getHeaders() })
-      .subscribe({
-        next: () => {
-          const current = this.favoritesSubject.value;
-          this.favoritesSubject.next(
-            current.filter((i) => i.id !== productId)
-          );
-        },
-        error: (err) => console.error('Failed to remove favorite:', err),
-      });
+  
+  removeFromFavorites(productId: number | string): Observable<any[]> {
+    return this.http.delete<any[]>(`${this.apiUrl}/${productId}`, { 
+      headers: this.getHeaders() 
+    }).pipe(
+      tap((updatedFavorites: any[]) => {
+        this.favoritesSubject.next(updatedFavorites);
+      })
+    );
   }
-
-  /** Check if a product is in favorites */
-  isFavorite(productId: number | string): boolean {
-    return this.favoritesSubject.value.some((i) => i.id === productId);
-  }
-
-  /** Toggle favorite state */
-  toggleFavorite(product: any): void {
-    this.isFavorite(product.id)
+  
+  toggleFavorite(product: any): Observable<any[]> {
+    return this.isFavorite(product.id)
       ? this.removeFromFavorites(product.id)
       : this.addToFavorites(product);
   }
+/** Check if a product is in favorites */
+isFavorite(productId: number | string): boolean {
+  return this.favoritesSubject.value.some((i) => i.id === productId);
 }
+}
+

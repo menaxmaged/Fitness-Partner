@@ -1,89 +1,80 @@
-// import { Component, OnDestroy } from '@angular/core';
-// import { RouterModule } from '@angular/router';
-// import { CommonModule } from '@angular/common';
-// import { FavoritesService } from '../../services/favorites.service';
-// import { UsersService } from '../../services/users.service';
-// import { Subscription } from 'rxjs';
-
-// @Component({
-//   selector: 'app-favorites-items',
-//   standalone: true,
-//   imports: [RouterModule, CommonModule],
-//   templateUrl: './favorites.component.html',
-//   styleUrl: './favorites.component.css'
-// })
-// export class FavoritesComponent implements OnDestroy {
-//   favoriteItems: any[] = [];
-//   private favoritesSub: Subscription;
-//   loading: boolean = true;  // To track loading state
-
-//   constructor(
-//     private myFavorites: FavoritesService,
-//     private usersService: UsersService
-//   ) {
-//     const token = localStorage.getItem('token');
-//     const userId = token ? atob(token) : null;
-    
-//     if (userId) {
-//       this.myFavorites.initializeForUser(userId);
-//     }
-
-//     this.favoritesSub = this.myFavorites.favorites$.subscribe(favorites => {
-//       this.favoriteItems = favorites;
-//       this.loading = false;  // Set loading to false when data is fetched
-//       console.log('Favorites component updated:', favorites);
-//     });
-//   }
-
-//   removeFromFavorites(product: any) {
-//     this.myFavorites.removeFromFavorites(product.id);
-//   }
-
-//   clearAllFavorites() {
-//     this.myFavorites.clearFavorites();
-//   }
-
-//   ngOnDestroy() {
-//     this.favoritesSub.unsubscribe();
-//   }
-// }
-// src/app/components/favorites/favorites.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, forkJoin } from 'rxjs';
 import { FavoritesService } from '../../services/favorites.service';
-import { Subscription } from 'rxjs';
+import { ProductServicesService } from '../../services/product-services.service';
+import { IProducts } from '../../models/i-products';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  imports:[CommonModule],
-  selector: 'app-favorites-items',
-  standalone: true,
+  imports: [CommonModule, RouterModule],
+  selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.css']
+  styleUrls: ['./favorites.component.css'],
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
-  favoriteItems: any[] = [];
+  favoriteItems: IProducts[] = [];
   private favSub!: Subscription;
-  loading: boolean = true;
-  constructor(private favoritesService: FavoritesService) {}
+  private favoritesIds: (number | string)[] = [];
 
-  ngOnInit() {
-    this.favSub = this.favoritesService.favorites$.subscribe(list => {
-      this.loading = false;
-      this.favoriteItems = list;
+  constructor(
+    private favoritesService: FavoritesService,
+    private productServices: ProductServicesService
+  ) {}
+
+  ngOnInit(): void {
+    this.favSub = this.favoritesService.favorites$.subscribe((favoriteIds) => {
+      this.favoritesIds = favoriteIds; // Save locally
+      this.loadFavoriteItems();
     });
   }
 
-  removeFromFavorites(item: any) {
-    this.favoritesService.removeFromFavorites(item.id);
+  private loadFavoriteItems(): void {
+    if (this.favoritesIds.length > 0) {
+      const requests = this.favoritesIds.map(id => this.productServices.getProductById(id));
+      forkJoin(requests).subscribe({
+        next: (products) => {
+          this.favoriteItems = products;
+        },
+        error: (err) => {
+          console.error('Error loading favorite products', err);
+          this.favoriteItems = [];
+        }
+      });
+    } else {
+      this.favoriteItems = [];
+    }
   }
 
-  clearAllFavorites() {
+  removeFromFavorites(item: IProducts): void {
+    // Add a 'removing' class for the fade-out effect
+    const element = document.getElementById(`favorite-item-${item.id}`);
+    if (element) {
+      element.classList.add('removing');
+    }
+  
+    // Perform the HTTP request to remove the favorite
+    this.favoritesService.removeFromFavorites(item.id).subscribe({
+      next: (updatedFavorites) => {
+        // After fade-out effect completes, remove from array
+        setTimeout(() => {
+          this.favoriteItems = this.favoriteItems.filter(fav => fav.id !== item.id);
+        }, 500); // Match the duration of the fade-out
+      },
+      error: (error) => {
+        console.error('Failed to remove favorite:', error);
+      }
+    });
+  }
+  
+  clearAllFavorites(): void {
     this.favoritesService.clearFavorites();
+    this.favoriteItems = [];
   }
 
-  ngOnDestroy() {
-    this.favSub.unsubscribe();
+  ngOnDestroy(): void {
+    if (this.favSub) {
+      this.favSub.unsubscribe();
+    }
   }
 }
-
-
