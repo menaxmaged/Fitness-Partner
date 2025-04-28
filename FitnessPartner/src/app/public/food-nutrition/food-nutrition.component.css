@@ -15,3 +15,12 @@ input.form-control {
   border-radius: 50px;
   padding: 0.75rem 1.25rem;
 }
+
+.background-section {
+  background-image: url('/assets/nutrition-imgs/food-background.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* height: 100vh;
+  width: 100%; */
+}
