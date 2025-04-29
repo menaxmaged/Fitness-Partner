@@ -22,11 +22,11 @@ import { UpdateProductDto } from './dto/update-product.dto';
 
 @ApiTags('Products')
 @Controller('products')
-@UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
+  @Roles('user')
   @ApiOperation({ summary: 'Get all products' }) 
   @ApiResponse({ status: 200, type: [ProductDto] })
   async findAll(@Query('category') category?: string): Promise<ProductDto[]> {
@@ -46,6 +46,7 @@ export class ProductsController {
   }
 
   // Admin routes
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('admin')
   @Roles('admin')
   async create(@Body() createDto: CreateProductDto) {
