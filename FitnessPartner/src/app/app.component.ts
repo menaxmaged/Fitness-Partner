@@ -29,7 +29,7 @@ export class AppComponent {
   }
 
   isAuthPage():boolean {
-    const currentRoute = this.router.url;
-    return currentRoute === '/login' || currentRoute === '/signup'; 
+    const hiddenRoutes = ['/login','/signup','/forgotPassword','/resetPassword'];
+    return hiddenRoutes.includes(this.router.url); 
   }
 }
