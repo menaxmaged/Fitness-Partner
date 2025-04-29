@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Put,
   Delete,
   Param,
@@ -9,6 +10,8 @@ import {
   Body,
   NotFoundException,
   UseGuards,
+  BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 // import { ProductDocument } from './schema/product.schema';
@@ -19,10 +22,13 @@ import { RolesGuard } from '../common/roles.guard';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { UpdateFlavorQuantityDto } from './dto/UpdateFlavorQuantityDto.dto';
 
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
+  private readonly logger = new Logger(ProductsController.name);
+  
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
@@ -63,5 +69,76 @@ export class ProductsController {
   @Roles('admin')
   async delete(@Param('id') id: string) {
     return this.productsService.delete(id);
+  }
+
+  @Patch(':id/flavors')
+  @ApiOperation({ summary: 'Update the inventory quantity for a specific flavor' })
+  @ApiResponse({ status: 200, description: 'Flavor quantity updated successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request - Invalid flavor or quantity' })
+  @ApiResponse({ status: 404, description: 'Product not found' })
+  async updateFlavorQuantity(
+    @Param('id') id: string,
+    @Body() updateFlavorQuantityDto: UpdateFlavorQuantityDto,
+  ) {
+    const { flavor, quantity } = updateFlavorQuantityDto;
+  
+    this.logger.log(`Updating flavor quantity for product ${id}: ${flavor}, quantity: ${quantity}`);
+    this.logger.log(`Flavor type: ${typeof flavor}, Flavor value: "${flavor}"`);
+    
+    try {
+      // Ensure the product exists before trying to update flavor quantity
+      const product = await this.productsService.findById(id);
+      
+      if (!product) {
+        throw new NotFoundException(`Product with id ${id} not found`);
+      }
+      
+      // Add detailed logging
+      this.logger.log(`Product found with ID ${id}`);
+      
+      // Log flavor_quantity keys to check for exact matches
+      if (product.flavor_quantity) {
+        const keys = Object.keys(product.flavor_quantity);
+        this.logger.log(`Flavor quantity keys: ${JSON.stringify(keys)}`);
+        
+        // Check each key with string representation and character codes
+        keys.forEach(key => {
+          this.logger.log(`Key: "${key}", Length: ${key.length}, Char codes: ${[...key].map(c => c.charCodeAt(0))}`);
+        });
+        
+        // Check the flavor we're looking for with string representation and character codes
+        this.logger.log(`Looking for flavor: "${flavor}", Length: ${flavor.length}, Char codes: ${[...flavor].map(c => c.charCodeAt(0))}`);
+        
+        // Direct property access - log the value
+        const directValue = product.flavor_quantity[flavor];
+        this.logger.log(`Direct property access value: ${directValue}`);
+        
+        // Check 'in' operator
+        const hasProperty = flavor in product.flavor_quantity;
+        this.logger.log(`'${flavor}' in flavor_quantity: ${hasProperty}`);
+      }
+      
+      // Try to use the flavor directly - simplest approach
+      if (product.flavor_quantity && product.flavor_quantity[flavor] !== undefined) {
+        this.logger.log(`Found flavor directly: ${flavor}`);
+        
+        if (product.flavor_quantity[flavor] < quantity) {
+          throw new BadRequestException(
+            `Not enough inventory for flavor '${flavor}'. Available: ${product.flavor_quantity[flavor]}, Requested: ${quantity}`
+          );
+        }
+        
+        const result = await this.productsService.updateFlavorQuantity(id, flavor, quantity);
+        this.logger.log(`Successfully updated flavor quantity for product ${id}`);
+        return result;
+      }
+      
+      this.logger.log(`Could not find flavor directly, will attempt case-insensitive matching`);
+      throw new BadRequestException(`Debug error - flavor quantity issues for '${flavor}'`);
+      
+    } catch (error) {
+      this.logger.error(`Failed to update flavor quantity: ${error.message}`, error.stack);
+      throw error;
+    }
   }
 }

@@ -14,6 +14,9 @@ export interface IProducts {
     discount?: number;
     isHot?:boolean;
     isNew?:boolean;
+    quantity:number;
+    inStock:boolean;
+    flavor_quantity: { [key: string]: number };
   }
   
   //id: string | number; 
