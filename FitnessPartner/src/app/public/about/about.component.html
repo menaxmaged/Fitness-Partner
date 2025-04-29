@@ -1,9 +1,4 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="modern-spinner">
-    <div class="spinner-circle"></div>
-    <div class="spinner-text">Loading About...</div>
-  </div>
-</div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading About...'"></app-loading-spinner>
 
 <div class="container-fluid p-0 position-relative">
   <img src="assets/about-us/aboutUs.jpg" class="img-fluid w-100 cover-img-style">

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-exercises-gym',
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingSpinnerComponent],
   templateUrl: './exercises-gym.component.html',
   styleUrls: ['./exercises-gym.component.css']
 })

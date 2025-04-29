@@ -1,9 +1,4 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="modern-spinner">
-    <div class="spinner-circle"></div>
-    <div class="spinner-text">Loading Home...</div>
-  </div>
-</div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Home...'"></app-loading-spinner>
 
 <!-- heroo secion -->
 <div

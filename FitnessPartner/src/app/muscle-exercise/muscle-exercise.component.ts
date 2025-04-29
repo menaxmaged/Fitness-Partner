@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ExerciseService } from '../services/exercise.service';
+import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-muscle-exercise',
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingSpinnerComponent],
   templateUrl: './muscle-exercise.component.html',
   styleUrls: ['./muscle-exercise.component.css']
 })

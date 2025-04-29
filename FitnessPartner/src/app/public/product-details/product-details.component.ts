@@ -170,10 +170,11 @@ import { AuthService } from '../../services/auth.service';
 import { Subscription, catchError, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, LoadingSpinnerComponent],
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
