@@ -93,7 +93,7 @@ export class UsersController {
 
   // ✅ Admin: Get single user by ID
   @Get(':id')
-  @Roles('admin')
+  // @Roles('admin')
   findOne(@Param('id') id: string) {
     return this.usersService.findById(id);
   }
