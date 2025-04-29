@@ -40,11 +40,21 @@ export class ForgotPasswordComponent {
         this.isSuccess = true;
         this.message = response.message;
         this.isLoading = false;
+
+        // Clear the message after 5 seconds
+        setTimeout(() => {
+          this.message = '';
+        }, 3000);
       },
       error: (err) => {
         this.isSuccess = false;
         this.message = err.error?.message || 'Failed to send reset link';
         this.isLoading = false;
+
+        // Clear the message after 5 seconds
+        setTimeout(() => {
+          this.message = '';
+        }, 3000);
       },
     });
   }
