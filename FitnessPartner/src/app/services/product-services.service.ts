@@ -32,6 +32,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IProducts } from '../models/i-products';
 
 @Injectable({
@@ -51,7 +52,18 @@ export class ProductServicesService {
   }
 
   getProductById(id: string | number): Observable<IProducts> {
-    return this.http.get<IProducts>(`${this.productsUrl}/${id}`);
+    return this.http.get<IProducts>(`${this.productsUrl}/${id}`).pipe(
+      map(product => {
+        // Ensure product_images is properly parsed as an object
+        if (product.product_images && typeof product.product_images === 'object' && !Array.isArray(product.product_images)) {
+          // It's already a plain object
+        } else {
+          // If it's not an object, transform it (this shouldn't happen with a correct schema)
+          product.product_images = {};
+        }
+        return product;
+      })
+    );
   }
 
   getProductsByCategory(category: string): Observable<IProducts[]> {

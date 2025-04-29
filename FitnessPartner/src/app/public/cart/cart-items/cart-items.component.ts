@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart-items',
@@ -22,8 +22,23 @@ export class CartItemsComponent implements OnInit {
   }
 
   addToCart(product: any) {
-    const availableFlavors = product.available_flavors || []; // Default to an empty array if not provided
-    this.myCart.addToCart(product, availableFlavors);
+    const availableFlavors = product.available_flavors || [];
+
+    this.myCart.addToCart({
+      productId: product.productId || product._id || product.id,
+      name: product.name,
+      image: product.image,
+      price: Number(product.price),
+      selectedFlavor: product.selectedFlavor || (availableFlavors?.length ? availableFlavors[0] : 'Unflavored'),
+      quantity: 1
+    }).subscribe({
+      next: () => {
+        console.log('Product added successfully to cart.');
+      },
+      error: (err) => {
+        console.error('Failed to add product to cart', err);
+      }
+    });
   }
 
   removeFromCart(product: any) {
@@ -31,7 +46,7 @@ export class CartItemsComponent implements OnInit {
   }
 
   trashItem(product: any) {
-    const selectedFlavor = product.selectedFlavor || ''; // Default to empty string if no flavor
+    const selectedFlavor = product.selectedFlavor || '';
     console.log('Trashing item:', {
       productId: product.productId,
       name: product.name,
@@ -39,6 +54,7 @@ export class CartItemsComponent implements OnInit {
     });
     this.myCart.deleteFromCart(product.productId, selectedFlavor);
   }
+
   trackByFn(index: number, item: any): number {
     return item.id; // Assuming each item has a unique 'id' field
   }

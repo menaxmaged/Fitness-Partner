@@ -91,6 +91,8 @@ export const appRouting = RouterModule.forRoot(routes, {
   imports: [
     RouterModule.forRoot(routes, {
       onSameUrlNavigation: 'reload',
+      anchorScrolling: 'enabled',
+      scrollPositionRestoration:'enabled',
     }),
   ],
   exports: [RouterModule],

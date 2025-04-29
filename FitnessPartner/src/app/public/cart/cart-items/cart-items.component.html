@@ -43,7 +43,7 @@
             
           </span>
       
-          <span class="w-25 text-wrap ms-3" style="font-size: 0.85rem;">{{ item.price | currency: 'USD' }}</span>
+          <span class="w-25 text-wrap ms-3" style="font-size: 0.85rem;">{{ item.price | currency: 'EGP' }}</span>
       
           <span class="w-25 me-4">
             <button class="btn p-0 ms-2" (click)="removeFromCart(item)" type="button">
@@ -59,7 +59,7 @@
             </button>
           </span>
       
-          <span class="w-25 text-wrap" style="font-size: 0.85rem;">{{ item.total | currency: 'USD' }}</span>
+          <span class="w-25 text-wrap" style="font-size: 0.85rem;">{{ item.total | currency: 'EGP' }}</span>
         </div>
         <hr>
       </div>

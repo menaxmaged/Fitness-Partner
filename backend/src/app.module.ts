@@ -11,6 +11,7 @@ import { ExerciseModule } from './exercise/exercise.module';
 import { CartModule } from './cart/cart.module'; // <<== ADD THIS LINE!
 import { FavoritesModule } from './favorites/favorites.module';
 import { TrainerModule } from './trainers/trainers.module';
+import { MailModule } from './auth/mail/mail.module';
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { TrainerModule } from './trainers/trainers.module';
     ExerciseModule,
     CartModule,
     FavoritesModule,
-
+    MailModule,
     TrainerModule
   ],
   controllers: [AppController],

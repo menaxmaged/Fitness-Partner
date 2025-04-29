@@ -153,3 +153,31 @@
   border-radius: 8px;
   color: #666;
 }
+.toggle-details-btn {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: auto;
+}
+.product-list {
+  overflow: hidden;
+  max-height: 1000px; /* large enough to show all products */
+  transition: max-height 0.5s ease;
+}
+
+.product-list.hidden {
+  max-height: 0;
+  transition: max-height 0.5s ease;
+}
+
+.toggle-details-btn {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: auto;
+}
+

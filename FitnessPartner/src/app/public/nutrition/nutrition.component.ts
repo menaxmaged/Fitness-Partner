@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BodyFatCalculatorComponent } from '../body-fat-calculator/body-fat-calculator.component';
 import { Nutrient } from '../../models/nutrient.model';
 import { CommonModule } from '@angular/common';
@@ -8,11 +8,11 @@ import { MealComparisonComponent } from '../meal-comparison/meal-comparison.comp
 import { MealsPlannerComponent } from "../meals-planner/meals-planner.component";
  @Component({
   selector: 'app-nutrition',
-  imports: [BodyFatCalculatorComponent, CommonModule, MealComparisonComponent, FoodNutritionComponent, MealsPlannerComponent],
+  imports: [BodyFatCalculatorComponent, CommonModule, MealComparisonComponent, FoodNutritionComponent, MealsPlannerComponent,RouterModule],
   templateUrl: './nutrition.component.html',
-  styles: ``,
+  styleUrl: './nutrition.component.css',
 })
-export class NutritionComponent {
+export class NutritionComponent implements OnInit{
   nutrients: Nutrient[] = [
     {
       id: 1,
@@ -37,7 +37,18 @@ export class NutritionComponent {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private activRoute:ActivatedRoute) {}
+
+  ngOnInit() {
+    this.activRoute.fragment.subscribe(fragment => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  }
 
   goToDetails(nutrient: Nutrient) {
     this.router.navigate(['/nutrient', nutrient.id]);

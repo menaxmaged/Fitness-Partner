@@ -1,4 +1,4 @@
-import { Expose, Transform } from 'class-transformer';
+import { Expose } from 'class-transformer';
 
 export class ProductDto {
   @Expose()
@@ -29,7 +29,6 @@ export class ProductDto {
   available_size: string;
 
   @Expose()
-  @Transform(({ value }) => Object.fromEntries(value))
   product_images: Record<string, string>;
 
   @Expose()

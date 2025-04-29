@@ -83,5 +83,11 @@ export class UsersService {
     return this.http.post(`${this.apiUrl}/auth/resend-otp`, { email });
   }
 
-  // Remove the duplicate login method since it's handled by AuthService
+  addOrder(userId: string, order: any): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/users/${userId}/orders`,
+      order,
+      { headers: this.getAuthHeaders() }
+    );
+  }
 }

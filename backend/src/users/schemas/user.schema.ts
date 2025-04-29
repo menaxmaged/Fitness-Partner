@@ -45,7 +45,24 @@ export class User {
   password: string;
 
   @Prop({ type: [Object], default: [] })
-  orders: Order[];
+  orders: [{
+    id: string;
+    transactionId: string;
+    products: Array<{
+      productId: string;
+      quantity: number;
+      flavor: string;
+    }>;
+    total: number;
+    date: Date;
+    address: {
+      street: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      country: string;
+    };
+  }]
 
   @Prop()
   avatar: string;

@@ -25,7 +25,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   quantity = 1;
   selectedFlavor = '';
   isLoggedIn = false;
-  favoriteItems: IProducts[] = [];
   isLoading = true;
   showPopUpMessage = false;
 
@@ -66,9 +65,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {
       this.favoritesService.initialize();
-      this.favoritesSub = this.favoritesService.favorites$.subscribe(favs => {
-        this.favoriteItems = favs;
-      });
     }
 
     // 2) Load products and apply filters/pagination
@@ -187,25 +183,29 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   // Cart
-  addToCart(product: IProducts, available_flavors: string[]): void {
-    const flavor =
+  addToCart(product: any, available_flavors: string[]): void {
+    const flavor = 
       this.selectedFlavor ||
-      (available_flavors?.[0] ?? '');
-    this.cartService.addToCart(
-      {
-        id: product.id,
-        productId: product.id,
-        name: product.name,
-        image: product.image,
-        price: product.price,
-        selectedFlavor: flavor,
-        quantity: this.quantity,
+      (available_flavors?.length ? available_flavors[0] : 'Unflavored');
+  
+    this.cartService.addToCart({
+      productId: product.productId || product._id || product.id,
+      name: product.name,
+      image: product.image,
+      price: Number(product.price),
+      selectedFlavor: flavor,
+      quantity: this.quantity,
+    }).subscribe({
+      next: () => {
+        this.showPopUpMessage = true;
+        setTimeout(() => (this.showPopUpMessage = false), 800);
       },
-      available_flavors
-    );
-    this.showPopUpMessage = true;
-    setTimeout(() => (this.showPopUpMessage = false), 800);
+      error: (err) => {
+        console.error('Failed to add to cart', err);
+      }
+    });
   }
+  
   increaseQuantity(): void {
     this.quantity++;
   }
@@ -224,8 +224,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
       alert('Please log in to add items to your favorites');
       return;
     }
-    this.favoritesService.toggleFavorite(product);
+    this.favoritesService.toggleFavorite(product).subscribe();
   }
+  
 
   // Quick View
   openQuickView(product: IProducts, event: Event): void {
