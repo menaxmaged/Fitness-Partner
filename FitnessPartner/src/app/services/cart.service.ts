@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError, finalize } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private apiUrl = 'http://localhost:3000/cart';
-  private cartItems: any[] = [];
+  private anys: any[] = [];
   private cartSubject = new BehaviorSubject<any[]>([]);
   cart$ = this.cartSubject.asObservable();
   private isLoadingCart = false;
@@ -44,7 +43,7 @@ export class CartService {
 
   // Reset cart to empty state
   private resetCart(): void {
-    this.cartItems = [];
+    this.anys = [];
     this.cartSubject.next([]);
   }
 
@@ -85,9 +84,9 @@ export class CartService {
       })
     ).subscribe(cart => {
       if (Array.isArray(cart)) {
-        this.cartItems = cart;
-        this.cartSubject.next([...this.cartItems]);
-        console.log('Cart loaded from server:', this.cartItems);
+        this.anys = cart;
+        this.cartSubject.next([...this.anys]);
+        console.log('Cart loaded from server:', this.anys);
       } else {
         console.error('Server returned invalid cart format:', cart);
         this.resetCart();
@@ -96,7 +95,7 @@ export class CartService {
   }
 
   getCart(): any[] {
-    return [...this.cartItems]; // Return a copy to prevent direct modification
+    return [...this.anys]; // Return a copy to prevent direct modification
   }
 
   clearCart(): void {
@@ -120,46 +119,32 @@ export class CartService {
     });
   }
 
-  addToCart(product: any, available_flavors: string[] = []): void {
+  addToCart(item: any): Observable<any[]> {
     if (!this.authService.isLoggedIn()) {
       console.log('User not logged in, redirecting to login');
       this.router.navigate(['/login']);
-      return;
+      return throwError(() => new Error('Not authenticated'));
     }
 
-    // Normalize the product data to ensure it has all required fields
-    const productToAdd = {
-      productId: product.productId || product._id || product.id,
-      name: product.name,
-      image: product.image,
-      price: Number(product.price),
-      selectedFlavor: product.selectedFlavor || (available_flavors && available_flavors.length > 0 ? available_flavors[0] : 'Unflavored'),
-      quantity: 1,
-      // total: Number(product.price)
-    };
-
-    console.log('Adding to cart:', productToAdd);
-
-    this.http.post<any[]>(`${this.apiUrl}/add`, productToAdd, {
-      headers: this.getAuthHeaders()
-    }).pipe(
+    return this.http.post<any[]>(
+      `${this.apiUrl}/add`,
+      item,
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      tap(updatedCart => {
+        // push the new cart into your subject
+        this.cartSubject.next(updatedCart);
+      }),
       catchError((error: HttpErrorResponse) => {
         console.error('Error adding to cart:', error);
-        
         if (error.status === 401) {
-          console.log('Authentication failed, redirecting to login');
+          // session expired or invalid token
           this.authService.logout();
+          this.router.navigate(['/login']);
         }
-        
-        return of(null);
+        return throwError(() => error);
       })
-    ).subscribe(updatedCart => {
-      if (updatedCart && Array.isArray(updatedCart)) {
-        this.cartItems = updatedCart;
-        this.cartSubject.next([...this.cartItems]);
-        console.log('Product added to cart on server');
-      }
-    });
+    );
   }
 
   removeOneFromCart(product: any): void {
@@ -191,8 +176,8 @@ export class CartService {
       })
     ).subscribe(updatedCart => {
       if (updatedCart && Array.isArray(updatedCart)) {
-        this.cartItems = updatedCart;
-        this.cartSubject.next([...this.cartItems]);
+        this.anys = updatedCart;
+        this.cartSubject.next([...this.anys]);
         console.log('Removed one item from cart on server');
       }
     });
@@ -226,8 +211,8 @@ export class CartService {
       })
     ).subscribe(updatedCart => {
       if (updatedCart && Array.isArray(updatedCart)) {
-        this.cartItems = updatedCart;
-        this.cartSubject.next([...this.cartItems]);
+        this.anys = updatedCart;
+        this.cartSubject.next([...this.anys]);
         console.log('Item deleted from cart on server');
       }
     });
@@ -235,7 +220,7 @@ export class CartService {
 
   getTotal(): number {
     return Number(
-      this.cartItems.reduce((total, item) => total + (item.total || 0), 0).toFixed(2)
+      this.anys.reduce((total, item) => total + (item.total || 0), 0).toFixed(2)
     );
   }
 }

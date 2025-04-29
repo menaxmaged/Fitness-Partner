@@ -4,7 +4,7 @@
         <div class="order-info">
           <h3 class="order-date">Order Date: {{ order.formattedDate }}</h3>
           <p class="order-id">Order ID: {{ order.id }}</p>
-          <p class="order-id">Shipping Address: {{ order.address.street }}</p>
+          <p class="order-id">Shipping Address: {{ order.address.street }}, {{order.address.city}}, {{order.address.state}}</p>
         </div>
         <button class="btn btn-outline-light orange-btn border-0" (click)="toggleDetails(order)">
           {{ order.showDetails ? 'Hide Details' : 'Show Details' }}
@@ -32,7 +32,7 @@
                 {{ getProductQuantity(order, item.id, item.selectedFlavor) }}
               </span>
             </div>
-            <div class="product-price">${{ item.total }}</div>
+            <div class="product-price">{{ item.total }} EGP</div>
           </a>
         </div>
       </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="order-total">
           <span class="total-label">Total:</span>
-          <span class="total-price">${{ order.total }}</span>
+          <span class="total-price">{{ order.total }} EGP</span>
         </div>
       </div>
     </div>

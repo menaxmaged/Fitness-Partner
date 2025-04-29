@@ -10,9 +10,9 @@
   <div class="product-content">
     <!-- Left Column - Product Images -->
     <div class="product-images">
-      <div class="">
+      <div class="main-image-container">
         <div class="discount-badge" *ngIf="discountPercentage > 0">{{ discountPercentage }}% OFF</div>
-        <img [src]="currentImage || product.image" [alt]="product.name" />
+        <img class="main-image" [src]="currentImage" [alt]="product.name" />
       </div>
       
       <!-- Thumbnail Images for Flavors -->

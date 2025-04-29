@@ -36,7 +36,7 @@
               </div>
 
               <div class="col-md-4">
-                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} $</h5>
+                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} EGP</h5>
                 <div class="d-flex align-items-center">
                   <input type="range" class="form-range" min="0" [max]="priceRange.max"
                          [(ngModel)]="priceRange.min" (change)="applyFilters()" style="width: 45%">
@@ -113,7 +113,7 @@
             <div class="product-brand">{{ product.brand }}</div>
             <h3 class="product-name">{{ product.name }}</h3>
             <div class="product-price">
-              <span class="price">{{ product.price }}.00 $</span>
+              <span class="price">{{ product.price }}.00 EGP</span>
             </div>
             <div class="product-expiry">
               <span class="expiry-date">Expires: {{ formatDate(product.expiration_date) }}</span>

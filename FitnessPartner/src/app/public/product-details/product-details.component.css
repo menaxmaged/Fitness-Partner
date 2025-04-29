@@ -533,3 +533,142 @@
   background: linear-gradient(to right, #d32f2f, #ef6c00);
 }
 
+.product-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%; /* Ensures it takes full width, but remains responsive */
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Max width for the main image container */
+  height: 300px; /* Fixed height for the main image container */
+  overflow: hidden; /* Hide any overflow, if image is too big */
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Maintain aspect ratio and prevent distortion */
+}
+
+.thumbnail-images {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.thumbnail {
+  margin: 0 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.thumbnail img {
+  width: 60px; /* Thumbnail size */
+  height: 60px;
+  object-fit: cover; /* Crop images if necessary, maintaining aspect ratio */
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.thumbnail.active img {
+  border-color: #000; /* Highlight the active thumbnail */
+}
+
+.flavor-name {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #555;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+/* keep the two columns side by side */
+.product-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* left column: images */
+.product-images {
+  flex: 0 0 40%;        /* take up to 40% of the row */
+  max-width: 500px;     /* but never grow past 500px */
+  box-sizing: border-box;
+}
+
+/* right column: info */
+.product-info {
+  flex: 1 1 55%;        /* fill the rest of the space */
+}
+
+/* force the main-image to a fixed aspect ratio,
+   but still shrink/grow responsively */
+.main-image-container {
+  width: 100%;
+  aspect-ratio: 4 / 3;  /* change to 16/9 or 1/1 if you prefer */
+  position: relative;
+  overflow: hidden;
+}
+
+/* make the <img> fill that container cleanly */
+.main-image-container .main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* or 'cover' if you want it to fill and crop */
+  display: block;
+}
+
+/* thumbnails below it */
+.thumbnail-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.thumbnail {
+  cursor: pointer;
+  text-align: center;
+}
+
+.thumbnail img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.thumbnail.active img {
+  border: 2px solid #000;
+}
+
+/* discount badge stays in the corner of the main-image-container */
+.discount-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: rgba(255, 0, 0, 0.8);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}

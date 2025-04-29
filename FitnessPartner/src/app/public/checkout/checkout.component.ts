@@ -34,11 +34,11 @@ export class CheckoutComponent implements OnInit {
       this.total = this.myCart.getTotal();
       this.cartLen= this.myCart.getCart().length;
       console.log(this.cartLen," This is cart length");
-      if(this.cartLen===0){
-        this.router.navigate(['/cart']);
-      }
+     
     });
-
+    if(this.cartLen===0){
+      this.router.navigate(['/cart']);
+    }
     this.total = this.myCart.getTotal();
 
     window.paypal.Buttons({

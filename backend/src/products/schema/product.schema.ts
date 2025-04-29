@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
-@Schema({ _id: false }) // Disable automatic _id generation
+@Schema({ _id: false })
 export class Product extends Document {
   @Prop({ type: String, required: true, unique: true })
-  declare id: string; // Your custom ID acts as primary key
+  declare id: string;
 
   @Prop({ required: true })
   name: string;
@@ -30,8 +30,9 @@ export class Product extends Document {
   @Prop({ required: true })
   available_size: string;
 
-  @Prop({ type: Map, of: String })
-  product_images: Map<string, string>;
+  // 🔥 CHANGED HERE
+  @Prop({ type: Object })
+  product_images: Record<string, string>;
 
   @Prop({ required: true })
   category: string;

@@ -12,39 +12,29 @@ export class ProductsService {
   ) {}
 
   async findAll(category?: string): Promise<ProductDto[]> {
-    const query = category ? { category } : {};
-    const products = await this.productModel.find(query).exec();
-    return products.map(product => this.toProductDto(product));
+    const filter = category ? { category } : {};
+    // Use lean() to return plain JavaScript objects
+    const products = await this.productModel.find(filter).lean().exec();
+    return products.map(prod => this.toProductDto(prod as ProductDocument));
   }
 
   async findOne(id: string): Promise<ProductDto> {
-    const product = await this.productModel.findOne({ id }).exec();
+    // Use lean() to get plain object without Mongoose document overhead
+    const product = await this.productModel.findOne({ id }).lean().exec();
     if (!product) {
       throw new NotFoundException(`Product with id ${id} not found`);
     }
-    
-    // Convert Mongoose document to plain object first
-    const plainProduct = product.toObject();
-    
-    // Then transform to DTO
-    return plainToInstance(ProductDto, plainProduct, {
-      excludeExtraneousValues: true,
-    });
+    return this.toProductDto(product as ProductDocument);
   }
 
   private toProductDto(product: ProductDocument): ProductDto {
-    return {
-      id: product.id.toString(),
-      name: product.name,
-      image: product.image,
-      description: product.description,
-      expiration_date: product.expiration_date,
-      price: product.price,
-      brand: product.brand,
-      available_flavors: product.available_flavors,
-      available_size: product.available_size,
-      product_images: Object.fromEntries(product.product_images),
-      category: product.category,
+    // Ensure product_images is a plain object
+    const dtoPayload = {
+      ...product,
+      product_images: product.product_images ?? {},
     };
+    return plainToInstance(ProductDto, dtoPayload, {
+      excludeExtraneousValues: true,
+    });
   }
 }
