@@ -158,7 +158,8 @@ export class AuthService {
     await this.otpModel.deleteOne({ _id: otpRecord._id });
 
     // Generate JWT token
-    const payload = { email: user.email, sub: user.id };
+    ////////////////////////// Last Edit //////////////////////////
+    const payload = { email: user.email, sub: user.id, role: user.role, };
     const access_token = this.jwtService.sign(payload, { expiresIn: '1h' });
 
     return {
@@ -170,6 +171,7 @@ export class AuthService {
         fName: user.fName,
         lName: user.lName,
         isVerified: user.isVerified,
+        role: user.role,
       },
     };
   }
@@ -218,7 +220,7 @@ export class AuthService {
     }
 
     // Generate JWT token
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: user.id, role: user.role };
     const access_token = this.jwtService.sign(payload, { expiresIn: '1h' });
 
     return {
@@ -230,6 +232,7 @@ export class AuthService {
         fName: user.fName,
         lName: user.lName,
         isVerified: user.isVerified,
+        role: user.role,
       },
     };
   }

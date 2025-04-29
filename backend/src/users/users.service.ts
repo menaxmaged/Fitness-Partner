@@ -43,6 +43,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new this.userModel({
       ...createUserDto,
+      // role: createUserDto.role || 'user',
       id: uuidv4(),
       orders: [],
     });
