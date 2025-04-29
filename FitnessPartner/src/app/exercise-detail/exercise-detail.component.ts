@@ -76,10 +76,12 @@ export class ExerciseDetailComponent implements OnInit {
       this.type = type;
       this.muscle = muscle;
       
-      this.exerciseService.getExerciseDetails(type, muscle, exerciseName).subscribe(data => {
-        this.exercise = data;
+      this.exerciseService.getExerciseDetails(type, muscle, exerciseName).subscribe({
+        next: data=> {this.exercise = data;
         this.muscle = muscle;
-        this.type = type;
+        this.type = type;},
+        error: err=>this.handleLoadError(err),
+        complete: ()=>{this.isLoading = false;}
       });
 
       // this.exerciseService.getExerciseDetails(type, muscle, exerciseName).subscribe({
@@ -101,6 +103,11 @@ export class ExerciseDetailComponent implements OnInit {
     }
   }
   
+  private handleLoadError(err: any): void {
+    console.error('Error loading Exercise:', err);
+    this.isLoading = false;
+    this.router.navigate(['/error']);
+  }
   // capitalizeFirstLetter(text: string): string {
   //   if (!text) return '';
   //   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();

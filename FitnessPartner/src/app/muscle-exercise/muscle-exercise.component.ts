@@ -37,14 +37,15 @@ export class MuscleExerciseComponent implements OnInit {
               ? this.sanitizer.bypassSecurityTrustResourceUrl(exercise.videoUrl)
               : null
           }));
-          this.isLoading = false;
         },
-        error: (err) => {
-          console.error('Error fetching exercises:', err);
-          this.error = 'Failed to load exercises. Please try again later.';
-          this.isLoading = false;
-        }
+        error: (err) => {this.handleLoadError(err);},
+        complete:()=>{ this.isLoading =false;}
       });
+  }
+  private handleLoadError(err: any): void {
+    console.error('Error fetching exercises:', err);
+    this.isLoading = false;
+    this.router.navigate(['/error']);
   }
 
   goToExercise(exerciseName: string) {

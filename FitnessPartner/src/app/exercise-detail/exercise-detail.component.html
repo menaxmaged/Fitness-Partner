@@ -21,6 +21,12 @@
     <!-- } -->
   <!-- </style> -->
 
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="modern-spinner">
+      <div class="spinner-circle"></div>
+      <div class="spinner-text">Loading Exercise...</div>
+    </div>
+  </div>
 
   <div class="container exercise-detail-container">
     <div class="row justify-content-center">

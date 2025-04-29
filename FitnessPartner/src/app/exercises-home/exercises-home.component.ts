@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 
 export class ExercisesHomeComponent implements OnInit {
   muscles: any[] = [];
+  isLoading:boolean = true;
   constructor(
     private exerciseService: ExerciseService,
     private router: Router
@@ -27,9 +28,17 @@ export class ExercisesHomeComponent implements OnInit {
   // }
   ngOnInit(): void {
     
-    this.exerciseService.getHomeExercises().subscribe(data => {
-      this.muscles = this.groupExercisesByMuscle(data);
+    this.exerciseService.getHomeExercises().subscribe({
+      next: data=>{this.muscles = this.groupExercisesByMuscle(data);},
+      error: err=> {this.handleLoadError(err);},
+      complete: ()=> {this.isLoading = false;}
     });
+  }
+
+  private handleLoadError(err: any): void {
+    console.error('Error loading Exercises:', err);
+    this.isLoading = false;
+    this.router.navigate(['/error']);
   }
 
   groupExercisesByMuscle(exercises: any[]): any[] {
