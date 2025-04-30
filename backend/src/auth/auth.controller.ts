@@ -1,41 +1,58 @@
-// // src/auth/auth.controller.ts
-// import { Controller, Post, Body, UnauthorizedException, HttpException, HttpStatus } from '@nestjs/common';
-// import { AuthService } from './auth.service';
-// import { UsersService } from '../users/users.service';
-// @Controller('auth')
-// export class AuthController {
-//   constructor(
-//     private authService: AuthService,
-//     private usersService: UsersService,
-//   ) {}
-
-//   @Post('login')
-//   async login(@Body() loginData: { email: string; password: string }) {
-//     const user = await this.authService.validateUser(loginData.email, loginData.password);
-//     if (!user) {
-//       throw new UnauthorizedException('Invalid credentials');
-//     }
-//     return this.authService.login(user);
-//   }
-
-//   @Post('register')
-// async register(@Body() registerData: any) {
-//   // Check if user already exists
-//   const existingUser = await this.usersService.findByEmail(registerData.email);
-//   if (existingUser) {
-//     throw new HttpException('Email already exists', HttpStatus.CONFLICT);
-//   }
-
-//   return this.authService.register(registerData);
-// }
-// }
-
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  HttpCode,
+  HttpStatus,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  @Post('forgot-password')
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Request password reset' })
+  @ApiResponse({
+    status: 200,
+    description: 'Reset link sent if email exists',
+    type: Object,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    try {
+      return await this.authService.forgotPassword(forgotPasswordDto.email);
+    } catch (error) {
+      console.error('Controller error:', error);
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+  @Post('reset-password')
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Reset password with token' })
+  @ApiResponse({ status: 200, description: 'Password successfully reset' })
+  @ApiResponse({ status: 400, description: 'Invalid token or email' })
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    if (resetPasswordDto.password !== resetPasswordDto.confirmPassword) {
+      throw new Error('Passwords do not match');
+    }
+
+    await this.authService.resetPassword(
+      resetPasswordDto.token,
+      resetPasswordDto.email,
+      resetPasswordDto.password,
+    );
+
+    return { message: 'Password successfully reset' };
+  }
 
   @Post('register')
   async register(@Body() userData: any) {

@@ -1,161 +1,182 @@
-<div class="container my-5">
-  <h2 class="text-center mb-4">Body Fat Calculator</h2>
-
-  <form (ngSubmit)="calculateFat(fatForm)" #fatForm="ngForm">
-    <div class="row g-3">
-      <div class="col-md-4">
-        <label for="age" class="form-label">Age</label>
-        <input
-          id="age"
-          class="form-control"
-          type="number"
-          required
-          name="age"
-          [(ngModel)]="formData.age"
-        />
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['age'].invalid"
-          class="text-danger"
-        >
-          Age is required and must be a valid number.
+<div class="container-fluid my-5">
+  <h2 class="text-center fw-bold fs-1 mb-4" style="color: #ff9933">
+    Body Fat Calculator
+  </h2>
+  <div class="row">
+    <div class="col-md-7" data-aos="fade-right" data-aos-duration="1000">
+      <form
+        (ngSubmit)="calculateFat(fatForm)"
+        #fatForm="ngForm"
+        class="shadow p-4 rounded bg-light"
+      >
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="age" class="form-label">Age</label>
+            <input
+              id="age"
+              class="form-control"
+              type="number"
+              required
+              name="age"
+              [(ngModel)]="formData.age"
+            />
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['age'].invalid"
+              class="text-danger"
+            >
+              Age is required and must be a valid number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="weight" class="form-label">Weight (kg)</label>
+            <input
+              id="weight"
+              class="form-control"
+              type="number"
+              required
+              name="weight"
+              [(ngModel)]="formData.weight"
+            />
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['weight'].invalid"
+              class="text-danger"
+            >
+              Weight is required and must be a valid number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="height" class="form-label">Height (cm)</label>
+            <input
+              id="height"
+              class="form-control"
+              type="number"
+              required
+              name="height"
+              [(ngModel)]="formData.height"
+            />
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['height'].invalid"
+              class="text-danger"
+            >
+              Height is required and must be a valid number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="neck" class="form-label">Neck (cm)</label>
+            <input
+              id="neck"
+              class="form-control"
+              type="number"
+              required
+              name="neck"
+              [(ngModel)]="formData.neck"
+            />
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['neck'].invalid"
+              class="text-danger"
+            >
+              Neck is required and must be a valid number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="waist" class="form-label">Waist (cm)</label>
+            <input
+              id="waist"
+              class="form-control"
+              type="number"
+              required
+              name="waist"
+              [(ngModel)]="formData.waist"
+            />
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['waist'].invalid"
+              class="text-danger"
+            >
+              Waist is required and must be a valid number.
+            </div>
+          </div>
+          <div class="col-md-4" *ngIf="formData.gender === 'female'">
+            <label for="hip" class="form-label">Hip (cm)</label>
+            <input
+              id="hip"
+              class="form-control"
+              type="number"
+              required
+              name="hip"
+              [(ngModel)]="formData.hip"
+            />
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['hip'].invalid"
+              class="text-danger"
+            >
+              Hip is required and must be a valid number.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="gender" class="form-label">Gender</label>
+            <select
+              id="gender"
+              class="form-select"
+              required
+              name="gender"
+              [(ngModel)]="formData.gender"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <div
+              *ngIf="fatForm.submitted && fatForm.controls['gender'].invalid"
+              class="text-danger"
+            >
+              Gender is required.
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary mt-3" type="submit">
+              Calculate
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <label for="weight" class="form-label">Weight (kg)</label>
-        <input
-          id="weight"
-          class="form-control"
-          type="number"
-          required
-          name="weight"
-          [(ngModel)]="formData.weight"
-        />
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['weight'].invalid"
-          class="text-danger"
-        >
-          Weight is required and must be a valid number.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="height" class="form-label">Height (cm)</label>
-        <input
-          id="height"
-          class="form-control"
-          type="number"
-          required
-          name="height"
-          [(ngModel)]="formData.height"
-        />
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['height'].invalid"
-          class="text-danger"
-        >
-          Height is required and must be a valid number.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="neck" class="form-label">Neck (cm)</label>
-        <input
-          id="neck"
-          class="form-control"
-          type="number"
-          required
-          name="neck"
-          [(ngModel)]="formData.neck"
-        />
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['neck'].invalid"
-          class="text-danger"
-        >
-          Neck is required and must be a valid number.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="waist" class="form-label">Waist (cm)</label>
-        <input
-          id="waist"
-          class="form-control"
-          type="number"
-          required
-          name="waist"
-          [(ngModel)]="formData.waist"
-        />
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['waist'].invalid"
-          class="text-danger"
-        >
-          Waist is required and must be a valid number.
-        </div>
-      </div>
-      <div class="col-md-4" *ngIf="formData.gender === 'female'">
-        <label for="hip" class="form-label">Hip (cm)</label>
-        <input
-          id="hip"
-          class="form-control"
-          type="number"
-          required
-          name="hip"
-          [(ngModel)]="formData.hip"
-        />
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['hip'].invalid"
-          class="text-danger"
-        >
-          Hip is required and must be a valid number.
-        </div>
-      </div>
-      <div class="col-md-6">
-        <label for="gender" class="form-label">Gender</label>
-        <select
-          id="gender"
-          class="form-select"
-          required
-          name="gender"
-          [(ngModel)]="formData.gender"
-        >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        <div
-          *ngIf="fatForm.submitted && fatForm.controls['gender'].invalid"
-          class="text-danger"
-        >
-          Gender is required.
-        </div>
-      </div>
-      <div class="col-12">
-        <button class="btn btn-primary mt-3" type="submit">Calculate</button>
-      </div>
+      </form>
+   
     </div>
-  </form>
+    <div class="col-md-5" data-aos="fade-left" data-aos-duration="1000">
+      <img
+        src="assets/nutrition-imgs/body-fat-1.svg"
+        alt="Body Fat Calculator"
+        class="img-fluid"
+      />
+    </div>
 
-  <div *ngIf="result" class="alert alert-warning mt-5 shadow-sm rounded">
-    <h5 class="mb-3">Result:</h5>
-    <p><strong>Body Fat (U.S. Navy Method):</strong> {{ result.bodyFat }}%</p>
-    <p><strong>Category:</strong> {{ result.status }}</p>
+     <div *ngIf="result" class="alert alert-warning mt-5 shadow-sm rounded">
+      <h5 class="mb-3">Result:</h5>
+      <p><strong>Body Fat (U.S. Navy Method):</strong> {{ result.bodyFat }}%</p>
+      <p><strong>Category:</strong> {{ result.status }}</p>
+    </div>
   </div>
+  <style>
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+      border: none;
+      border-radius: 50px;
+      color: #0a0a0a;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      margin-top: 35px;
+    }
+    button:hover {
+      transform: scale(1.05);
+      color: white;
+    }
+  </style>
 </div>
-<style>
-  button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 0.875rem 2rem;
-    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
-    border: none;
-    border-radius: 50px;
-    color: #0a0a0a;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    margin-top: 35px;
-  }
-  button:hover {
-    transform: scale(1.05);
-    color: white;
-  }
-</style>
+
+<hr />

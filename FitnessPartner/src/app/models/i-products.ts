@@ -12,6 +12,11 @@ export interface IProducts {
     product_images: { [key: string]: string };  // Mapping of flavors to images
     category: string;                    // Category of the product (e.g., "Protein", "Creatine")
     discount?: number;
+    isHot?:boolean;
+    isNew?:boolean;
+    quantity:number;
+    inStock:boolean;
+    flavor_quantity: { [key: string]: number };
   }
   
   //id: string | number; 

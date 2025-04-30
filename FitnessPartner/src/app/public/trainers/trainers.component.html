@@ -1,8 +1,10 @@
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Trainers...'"></app-loading-spinner>
+
 <div class="container my-5">
   <h2 class="text-center mb-5">Our Professional Trainers</h2>
 
   <div class="row gy-5">
-    <div *ngFor="let trainer of trainers" class="col-12 col-md-4">
+    <div *ngFor="let trainer of trainers" class="col-12 col-md-4 col-lg-3">
       <a [routerLink]="['/trainers', trainer.id]" class="trainer-card">
         <div class="image-container">
           <img
@@ -34,8 +36,10 @@
 
   .trainer-img {
     width: 100%;
-    height: 250px;
-     transition: transform 0.3s ease;
+    height: 270px;
+    object-fit: cover; 
+    object-position: top;
+    transition: transform 0.3s ease;
     display: block;
   }
 
@@ -75,3 +79,157 @@
     }
   }
 </style>
+
+
+<!-- <div class="container my-5"> -->
+  <!-- <h2 class="text-center mb-5">Our Professional Trainers</h2> -->
+
+  <!-- <div class="row gy-4 gx-4"> -->
+    <!-- <div *ngFor="let trainer of trainers" class="col-12 col-sm-6 col-md-4 col-lg-3"> -->
+      <!-- <a [routerLink]="['/trainers', trainer.id]" class="trainer-card"> -->
+        <!-- <div class="image-container"> -->
+          <!-- <img -->
+            <!-- [src]="trainer.image" -->
+            <!-- alt="{{ trainer.name }}" -->
+            <!-- class="trainer-img" -->
+            <!-- loading="lazy" -->
+          <!-- /> -->
+          <!-- <div class="overlay"> -->
+            <!-- <div class="trainer-info"> -->
+              <!-- <span class="trainer-name">{{ trainer.name }}</span> -->
+              <!-- <span class="trainer-specialty" *ngIf="trainer.specialty">{{ trainer.specialty }}</span> -->
+              <!-- <span class="trainer-rating" *ngIf="trainer.rating"> -->
+                <!-- <i class="fas fa-star"></i> {{ trainer.rating }} -->
+              <!-- </span> -->
+            <!-- </div> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </a> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </div> -->
+
+<!-- <style> -->
+  <!-- .trainer-card { -->
+    <!-- text-decoration: none; -->
+    <!-- display: block; -->
+    <!-- height: 100%; -->
+  <!-- } -->
+
+  <!-- .image-container { -->
+    <!-- position: relative; -->
+    <!-- overflow: hidden; -->
+    <!-- border-radius: 12px; -->
+    <!-- box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); -->
+    <!-- transition: all 0.3s ease; -->
+    <!-- aspect-ratio: 3/4; -->
+    <!-- height: 100%; -->
+  <!-- } -->
+
+  <!-- .trainer-img { -->
+    <!-- width: 100%; -->
+    <!-- height: 100%; -->
+    <!-- object-fit: cover; -->
+    <!-- object-position: top center; -->
+    <!-- transition: transform 0.5s ease; -->
+    <!-- display: block; -->
+  <!-- } -->
+
+  <!-- .image-container:hover { -->
+    <!-- box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); -->
+  <!-- } -->
+
+  <!-- .image-container:hover .trainer-img { -->
+    <!-- transform: scale(1.1); -->
+  <!-- } -->
+
+  <!-- .overlay { -->
+    <!-- position: absolute; -->
+    <!-- bottom: 0; -->
+    <!-- left: 0; -->
+    <!-- right: 0; -->
+    <!-- background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%); -->
+    <!-- color: #fff; -->
+    <!-- padding: 20px 15px; -->
+    <!-- transition: all 0.3s ease; -->
+  <!-- } -->
+
+  <!-- .trainer-info { -->
+    <!-- display: flex; -->
+    <!-- flex-direction: column; -->
+    <!-- gap: 5px; -->
+  <!-- } -->
+
+  <!-- .trainer-name { -->
+    <!-- font-size: 1.1rem; -->
+    <!-- font-weight: 600; -->
+    <!-- white-space: nowrap; -->
+    <!-- overflow: hidden; -->
+    <!-- text-overflow: ellipsis; -->
+  <!-- } -->
+
+  <!-- .trainer-specialty { -->
+    <!-- font-size: 0.85rem; -->
+    <!-- opacity: 0.9; -->
+    <!-- font-weight: 400; -->
+  <!-- } -->
+
+  <!-- .trainer-rating { -->
+    <!-- font-size: 0.9rem; -->
+    <!-- color: #FFD700; -->
+    <!-- display: flex; -->
+    <!-- align-items: center; -->
+    <!-- gap: 3px; -->
+  <!-- } -->
+
+  <!-- h2 { -->
+    <!-- font-size: 2.5rem; -->
+    <!-- font-weight: 700; -->
+    <!-- color: #2c3e50; -->
+    <!-- position: relative; -->
+    <!-- padding-bottom: 15px; -->
+  <!-- } -->
+
+  <!-- h2:after { -->
+    <!-- content: ''; -->
+    <!-- position: absolute; -->
+    <!-- width: 80px; -->
+    <!-- height: 4px; -->
+    <!-- background: linear-gradient(90deg, #ff6b00, #ffa500); -->
+    <!-- bottom: 0; -->
+    <!-- left: 50%; -->
+    <!-- transform: translateX(-50%); -->
+    <!-- border-radius: 2px; -->
+  <!-- } -->
+
+  <!-- @media (max-width: 991px) { -->
+    <!-- h2 { -->
+      <!-- font-size: 2rem; -->
+    <!-- } -->
+  <!-- } -->
+
+  <!-- @media (max-width: 767px) { -->
+    <!-- .image-container { -->
+      <!-- aspect-ratio: 2/3; -->
+    <!-- } -->
+    
+    <!-- h2 { -->
+      <!-- font-size: 1.8rem; -->
+    <!-- } -->
+    
+    <!-- .trainer-name { -->
+      <!-- font-size: 1rem; -->
+    <!-- } -->
+  <!-- } -->
+
+  <!-- @media (max-width: 575px) { -->
+    <!-- .col-sm-6 { -->
+      <!-- flex: 0 0 100%; -->
+      <!-- max-width: 100%; -->
+    <!-- } -->
+    
+    <!-- .image-container { -->
+      <!-- aspect-ratio: 16/9; -->
+    <!-- } -->
+  <!-- } -->
+<!-- </style> -->

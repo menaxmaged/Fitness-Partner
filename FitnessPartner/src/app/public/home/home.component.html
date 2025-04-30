@@ -1,3 +1,8 @@
+<app-loading-spinner
+  *ngIf="isLoading"
+  [message]="'Loading Home...'"
+></app-loading-spinner>
+
 <!-- heroo secion -->
 <div
   id="carouselExampleAutoplaying"
@@ -11,14 +16,14 @@
         class="d-block w-100"
         alt="Body bilder man"
       />
-      <div
-        class="carousel-caption d-block position-absolute text-overlay"
-      >
-        <h1>Welcome to fitness partner</h1>
-        <p class=" mt-3 firstqutefont qute-style" >
-          Be Stronger Than Your Excuses
+      <div class="carousel-caption d-block position-absolute text-overlay">
+        <h1>{{ "home.WELCOME_MESSAGE" | translate }}</h1>
+        <p class="mt-3 firstqutefont qute-style">
+          {{ "home.p1" | translate }}
         </p>
-        <a class="btn button-design" href="#aboutUs">Know more</a>
+        <a class="btn button-design" href="#aboutUs">{{
+          "home.link1" | translate
+        }}</a>
       </div>
     </div>
     <div class="carousel-item">
@@ -30,21 +35,26 @@
       <div
         class="carousel-caption d-block position-absolute second-text-overlay"
       >
-      <div class="px-2 mt-2">
-        <h2>Choose the best trainer for you</h2>
-        <p class="third-qute-font1">
-          If you want better
-          <span class="third-qute-font2 qute-style">Results</span>
-          , make better
-          <span class="third-qute-font2 qute-style">Choices</span>
-        </p>
-        <a
-          class="btn button-design"
-           routerLink="/trainers"
-          routerLinkActive="active"
-          >Meet Trainers</a
-        >
-       </div>
+        <div class="px-2 mt-2">
+          <h2>{{ "home.selectTrainer" | translate }}</h2>
+          <p class="third-qute-font1">
+            {{ "home.p2.txt1" | translate }}
+            <span class="third-qute-font2 qute-style">
+              {{ "home.p2.s1" | translate }}
+            </span>
+            {{ "home.p2.txt2" | translate }}
+            <span class="third-qute-font2 qute-style">
+              {{ "home.p2.s2" | translate }}
+            </span>
+          </p>
+          <a
+            class="btn button-design"
+            routerLink="/trainers"
+            routerLinkActive="active"
+          >
+            {{ "home.link2" | translate }}
+          </a>
+        </div>
       </div>
     </div>
     <div class="carousel-item">
@@ -56,15 +66,16 @@
       <div
         class="carousel-caption p-4 d-block position-absolute second-text-overlay"
       >
-        <h1>Welcome to fitness partner</h1>
+        <h1>{{ "home.WELCOME_MESSAGE" | translate }}</h1>
         <p class="second-qute-font qute-style">
-          You are only one workout away from a good mood.
+          {{ "home.p3" | translate }}
         </p>
         <a
           class="btn button-design mt-lg-0"
           routerLink="/exercises"
           routerLinkActive="active"
-          >Start Exercise
+        >
+          {{ "home.link3" | translate }}
         </a>
       </div>
     </div>
@@ -76,7 +87,7 @@
     data-bs-slide="prev"
   >
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+    <span class="visually-hidden">{{ "home.prev" | translate }}</span>
   </button>
   <button
     class="carousel-control-next"
@@ -85,123 +96,174 @@
     data-bs-slide="next"
   >
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+    <span class="visually-hidden">{{ "home.next" | translate }}</span>
   </button>
 </div>
 <!-- hero section end -->
 <!-- about us section -->
 <div class="container my-5" id="aboutUs">
-    <h2 class="text-center mb-5">What We Offer</h2>
-    <div class="row justify-content-center">
-        <div class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow" style="width: 18rem;">
-            <img src="assets/home-imgs/products.jpg" class="card-img-top " alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center">Nutritional Supplements</h5>
-              <p class="card-text">Discover top-quality nutritional supplements to power 
-                your workouts and boost your wellness.</p>
-            </div>
-          </div>
-        <div class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow" style="width: 18rem;">
-            <img src="assets/home-imgs/exercises2.webp" class="card-img-top " alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center">Exercises</h5>
-              <p class="card-text">Access effective exercises for every level—from beginner to beast mode.</p>
-            </div>
-          </div>
-        <div class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow" style="width: 18rem;">
-            <img src="assets/home-imgs/trainer.jpg" class="card-img-top " alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center">Personal Trainers</h5>
-              <p class="card-text"> Connect with certified personal trainers who’ll help you 
-                reach your goals with personalized plans.</p>
-            </div>
-          </div>
-        <div class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow" style="width: 18rem;">
-            <img src="assets/home-imgs/sports-nutrition.jpg" class="card-img-top " alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center">Nutritional</h5>
-              <p class="card-text">Explore nutrition tips and easy-to-follow meal ideas that support your lifestyle.</p>
-            </div>
-          </div>
+  <h2 class="text-center mb-5">{{ "home.aboutHeader" | translate }}</h2>
+  <div class="row justify-content-center">
+    <div
+      class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
+      style="width: 18rem"
+    >
+      <img src="assets/home-imgs/products.jpg" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title text-center">Nutritional Supplements</h5>
+        <p class="card-text">
+          Discover top-quality nutritional supplements to power your workouts
+          and boost your wellness.
+        </p>
+      </div>
     </div>
+    <div
+      class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
+      style="width: 18rem"
+    >
+      <img
+        src="assets/home-imgs/exercises2.webp"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title text-center">Exercises</h5>
+        <p class="card-text">
+          Access effective exercises for every level—from beginner to beast
+          mode.
+        </p>
+      </div>
+    </div>
+    <div
+      class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
+      style="width: 18rem"
+    >
+      <img src="assets/home-imgs/trainer.jpg" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title text-center">Personal Trainers</h5>
+        <p class="card-text">
+          Connect with certified personal trainers who’ll help you reach your
+          goals with personalized plans.
+        </p>
+      </div>
+    </div>
+    <div
+      class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
+      style="width: 18rem"
+    >
+      <img
+        src="assets/home-imgs/sports-nutrition.jpg"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title text-center">Nutritional</h5>
+        <p class="card-text">
+          Explore nutrition tips and easy-to-follow meal ideas that support your
+          lifestyle.
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- about us section end-->
 
 <!-- our products section -->
 <div class="container-fluid my-5 bg-black text-white">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-5  p-0 m-sm-auto">
-            <img src="assets/home-imgs/supplements-1.jpg" alt="" class="img-fluid">
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-7 my-4 d-flex flex-column justify-content-center align-items-center ">
-            <h2 class="mb-3">Power Up with the Right Supplements</h2>
-            <p class="px-5 fs-5 text-center">Need more energy, faster recovery, or better results? 
-            Our premium supplements are here to help you level up—inside and out.</p>
-            <!-- <h5>Fuel your body. Fuel your goals.</h5> -->
-            <a class="btn button-design" routerLink="/products" routerLinkActive="active">
-                Shop Now</a>
-        </div>
-    </div> 
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-5 p-0 m-sm-auto">
+      <img src="assets/home-imgs/supplements-1.jpg" alt="" class="img-fluid" />
+    </div>
+    <div
+      class="col-sm-12 col-md-6 col-lg-7 my-4 d-flex flex-column justify-content-center align-items-center"
+    >
+      <h2 class="mb-3">Power Up with the Right Supplements</h2>
+      <p class="px-5 fs-5 text-center">
+        Need more energy, faster recovery, or better results? Our premium
+        supplements are here to help you level up—inside and out.
+      </p>
+      <!-- <h5>Fuel your body. Fuel your goals.</h5> -->
+      <a
+        class="btn button-design"
+        routerLink="/products"
+        routerLinkActive="active"
+      >
+        Shop Now</a
+      >
+    </div>
+  </div>
 </div>
 <!-- our products section end -->
 
 <!-- trainers section -->
 <div class="container my-5">
-  <h2 class="text-center mb-5"> Expert Trainers</h2>
+  <h2 class="text-center mb-5">Expert Trainers</h2>
   <div class="row">
-      <div class="col-lg-4 col-md-6 my-5">
-          <div class="single-trainer-item">
-              <img src="assets/home-imgs/trainer-1.jpg" alt="" class="img-fluid">
-              <div class="trainer-text">
-                  <h5>Patrick Cortez</h5>
-                  <span>Leader</span>
-                  <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                      voluptatem.</p>
-                  <div class="trainer-social">
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                      <a href="#"><i class="fa fa-instagram"></i></a>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
-                  </div>
-              </div>
+    <div class="col-lg-4 col-md-6 my-5">
+      <div class="single-trainer-item">
+        <img src="assets/home-imgs/trainer-1.jpg" alt="" class="img-fluid" />
+        <div class="trainer-text">
+          <h5>Patrick Cortez</h5>
+          <span>Leader</span>
+          <p>
+            non numquam eius modi tempora incidunt ut labore et dolore magnam
+            aliquam quaerat voluptatem.
+          </p>
+          <div class="trainer-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
           </div>
+        </div>
       </div>
-      <div class="col-lg-4 col-md-6 my-5">
-          <div class="single-trainer-item">
-              <img src="assets/home-imgs/trainer-2.jpg" alt="" class="img-fluid">
-              <div class="trainer-text">
-                  <h5>Gregory Powers</h5>
-                  <span>Gym coach</span>
-                  <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                      voluptatem.</p>
-                  <div class="trainer-social">
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                      <a href="#"><i class="fa fa-instagram"></i></a>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
-                  </div>
-              </div>
+    </div>
+    <div class="col-lg-4 col-md-6 my-5">
+      <div class="single-trainer-item">
+        <img src="assets/home-imgs/trainer-2.jpg" alt="" class="img-fluid" />
+        <div class="trainer-text">
+          <h5>Gregory Powers</h5>
+          <span>Gym coach</span>
+          <p>
+            non numquam eius modi tempora incidunt ut labore et dolore magnam
+            aliquam quaerat voluptatem.
+          </p>
+          <div class="trainer-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
           </div>
+        </div>
       </div>
-      <div class="col-lg-4 col-md-6 my-5">
-          <div class="single-trainer-item">
-              <img src="assets/home-imgs/trainer-3.jpg" alt="" class="img-fluid">
-              <div class="trainer-text">
-                  <h5>Walter Wagner</h5>
-                  <span>Dance trainer</span>
-                  <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                      voluptatem.</p>
-                  <div class="trainer-social">
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                      <a href="#"><i class="fa fa-instagram"></i></a>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
-                  </div>
-              </div>
+    </div>
+    <div class="col-lg-4 col-md-6 my-5">
+      <div class="single-trainer-item">
+        <img src="assets/home-imgs/trainer-3.jpg" alt="" class="img-fluid" />
+        <div class="trainer-text">
+          <h5>Walter Wagner</h5>
+          <span>Dance trainer</span>
+          <p>
+            non numquam eius modi tempora incidunt ut labore et dolore magnam
+            aliquam quaerat voluptatem.
+          </p>
+          <div class="trainer-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
           </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>
-<a class="btn button-design my-5" routerLink="/trainers" routerLinkActive="active" style="margin-left: 40%">
-  Meet Our Trainers</a>
+<a
+  class="btn button-design my-5"
+  routerLink="/trainers"
+  routerLinkActive="active"
+  style="margin-left: 40%"
+>
+  Meet Our Trainers</a
+>
 <!-- trainers section end -->

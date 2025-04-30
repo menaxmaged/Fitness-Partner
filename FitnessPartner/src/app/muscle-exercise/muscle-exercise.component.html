@@ -1,16 +1,81 @@
-<div class="container mt-4" style="cursor: pointer;">
-    <h3 class="text-center text-capitalize">{{ muscleName }} Exercises</h3>
-    <div class="row mt-4">
-      <div class="col-md-6 mb-4 text-center mx-auto"  *ngFor="let ex of exercises" (click)="goToExercise(ex.name)" >
-        <div class="card">
-          <div class="card-body">
-            <h5>{{ ex.name }}</h5>
-            <div class="ratio ratio-16x9  d-flex justify-content-center align-items-center mx-auto">
-              <img src="{{ ex.imageUrl }}" class="card-img-top" alt="{{ ex.name }}" style="width: 85%; height: auto;">
-              <!-- <iframe [src]="ex.safeVideoUrl" frameborder="0" allowfullscreen style="pointer-events: none;"></iframe> -->
-            </div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Muscles Exercises...'"></app-loading-spinner>
+
+<div class="container my-5">
+  <h2 class="text-center mb-5">{{ muscleName }} Exercises</h2>
+
+  <div class="row gy-5">
+    <div class="col-12 col-md-6" *ngFor="let ex of exercises" (click)="goToExercise(ex.name)">
+      <div class="exercise-card">
+        <div class="image-container">
+          <img
+            [src]="ex.imageUrl"
+            alt="{{ ex.name }}"
+            class="exercise-img"
+          />
+          <div class="overlay">
+            <span>{{ ex.name }}</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>
+
+<style>
+  .exercise-card {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .exercise-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+
+  .image-container:hover .exercise-img {
+    transform: scale(1.05);
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+
+  .image-container:hover .overlay {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 767px) {
+    .exercise-img {
+      height: 200px;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+  }
+</style>

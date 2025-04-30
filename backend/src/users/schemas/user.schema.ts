@@ -26,6 +26,12 @@ export class User {
   @Prop()
   id: string;
 
+  @Prop()
+  gender: string;
+
+  @Prop({ default: '01xxxxxxxxx' })
+  mobile: string;
+
   @Prop({ required: true })
   fName: string;
 
@@ -39,7 +45,24 @@ export class User {
   password: string;
 
   @Prop({ type: [Object], default: [] })
-  orders: Order[];
+  orders: [{
+    id: string;
+    transactionId: string;
+    products: Array<{
+      productId: string;
+      quantity: number;
+      flavor: string;
+    }>;
+    total: number;
+    date: Date;
+    address: {
+      street: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      country: string;
+    };
+  }]
 
   @Prop()
   avatar: string;
@@ -49,6 +72,17 @@ export class User {
 
   @Prop({ default: Date.now })
   createdAt: Date;
+
+  @Prop({ type: [String], default: [] })
+  favorites: string[];
+
+
+  @Prop({ 
+    type: String, 
+    enum: ['user', 'trainer', 'admin'], 
+    default: 'user' 
+  })
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

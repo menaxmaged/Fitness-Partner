@@ -1,45 +1,63 @@
 <div class="container my-5">
-  <h2 class="text-center mb-4 text-gradient p-3">🍏 Know Your Food 🍫</h2>
-  <p class="text-center mb-4 text-muted">
+  <h2 class="text-center fw-bold fs-1" style="color: #ff9933">
+    Know Your Food
+  </h2>
+  <p class="text-center mb-4 text-muted fs-5">
     Track your calories, protein, fat, and carbs easily!
   </p>
 
- <div class="row">
-  <div class="col-12 col-lg-9 m-auto">
-    <input
-    type="text"
-    class="form-control mb-4"
-    placeholder="Search for food..."
-    [(ngModel)]="searchTerm"
-  />
-  </div>
- </div>
-  <div class="row" *ngIf="searchTerm && filteredFoods().length > 0">
-    <div class="col-md-12 col-lg-8 mb-4 m-auto" *ngFor="let food of filteredFoods()">
-      <div class="card shadow-sm w-100 p-2">
-        <div class="row">
-          <div class="col-6 mt-3">
-            <img [src]="food.image" class="card-img-top" alt="food" />
-          </div>
-          <div class="col-6">
-            <div class="card-body">
-              <h5 class="card-title text-center">{{ food.name }}</h5>
-              <ul class="list-unstyled text-center">
-                <li><strong>Calories:</strong> {{ food.calories }} kcal</li>
-                <li><strong>Protein:</strong> {{ food.protein }} g</li>
-                <li><strong>Carbs:</strong> {{ food.carbs }} g</li>
-                <li><strong>Fat:</strong> {{ food.fat }} g</li>
-              </ul>
+  <div class="row">
+    <div class="col-12 col-lg-9 m-auto">
+      <input
+        type="text"
+        class="form-control mb-4 focus-ring focus-ring-warning border-warning border-2"
+        placeholder="Search for food..."
+        [(ngModel)]="searchTerm"
+      />
+      <div class="row d-flex justify-content-center">
+        <div
+          class="row d-flex justify-content-center col-md-8"
+          *ngIf="searchTerm && filteredFoods().length > 0"
+        >
+          <div class="col-md-10 mb-4" *ngFor="let food of filteredFoods()">
+            <div class="card shadow-sm p-2">
+              <div class="row">
+                <div class="col-4 mt-3">
+                  <img [src]="food.image" class="card-img-top" alt="food" />
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+                    <h4 class="card-title text-center">{{ food.name }}</h4>
+                    <ul class="list-unstyled text-center">
+                      <li>
+                        <strong>Calories:</strong> {{ food.calories }} kcal
+                      </li>
+                      <li><strong>Protein:</strong> {{ food.protein }} g</li>
+                      <li><strong>Carbs:</strong> {{ food.carbs }} g</li>
+                      <li><strong>Fat:</strong> {{ food.fat }} g</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+          <img
+            src="assets/nutrition-imgs/calorie-1.svg"
+            alt=""
+            class="img-fluid"
+          />
+        </div>
+      </div>
+      <div
+        *ngIf="searchTerm && filteredFoods().length === 0"
+        class="text-center text-muted mt-4 fs-4 fw-bold"
+      >
+        No matching food found 🍽️
       </div>
     </div>
-  </div>
-  <div
-    *ngIf="searchTerm && filteredFoods().length === 0"
-    class="text-center text-muted mt-4"
-  >
-    No matching food found 🍽️
+
+    <hr />
   </div>
 </div>

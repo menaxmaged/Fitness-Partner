@@ -1,81 +1,107 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { IProducts } from '../models/i-products';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoritesService {
-  private favoritesKeyPrefix = 'favorites_';
-  private currentUserId: string | null = null;
+  private apiUrl = 'http://localhost:3000/favorites';
   private favoritesSubject = new BehaviorSubject<any[]>([]);
   favorites$ = this.favoritesSubject.asObservable();
 
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  private getStorageKey(): string {
-    return this.currentUserId ? `${this.favoritesKeyPrefix}${this.currentUserId}` : '';
+  /** Get headers with Authorization token */
+  private getHeaders() {
+    const token = this.authService.getToken(); // Get the token from AuthService
+    return token
+      ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      : new HttpHeaders();
+      
   }
 
-  private getFavoritesFromStorage(): any[] {
-    const key = this.getStorageKey();
-    const storedFavorites = key ? localStorage.getItem(key) : null;
-    return storedFavorites ? JSON.parse(storedFavorites) : [];
+  /** Fetch the user's favorites from the backend */
+  initialize(): void {
+    this.http.get<any[]>(this.apiUrl, { headers: this.getHeaders() }).subscribe({
+      next: (list) => this.favoritesSubject.next(list),
+      error: (err) => {
+        console.error('Failed to load favorites:', err);
+        this.favoritesSubject.next([]);
+      },
+    });
   }
 
-  private updateFavorites(favorites: any[]): void {
-    const key = this.getStorageKey();
-    if (key) {
-      localStorage.setItem(key, JSON.stringify(favorites));
-      this.favoritesSubject.next(favorites);
-    }
-  }
-
-  initializeForUser(userId: string): void {
-    this.currentUserId = userId;
-    const favorites = this.getFavoritesFromStorage();
-    this.favoritesSubject.next(favorites);
-  }
-
+  /** Clear in-memory favorites (e.g. on logout) */
   clearUserData(): void {
-    this.currentUserId = null;
     this.favoritesSubject.next([]);
   }
 
-  getFavorites(): any[] {
-    return [...this.favoritesSubject.value]; 
-  }
-
-  getFavoritesCount(): number {
-    return this.favoritesSubject.value.length;
-  }
-
+  /** Remove all favorites via backend */
   clearFavorites(): void {
-    this.updateFavorites([]);
+    this.http
+      .delete(this.apiUrl, { headers: this.getHeaders() })
+      .subscribe({
+        next: () => this.favoritesSubject.next([]),
+        error: (err) => console.error('Failed to clear favorites:', err),
+      });
   }
 
-  addToFavorites(product: any): void {
-    if (!this.currentUserId) return;
-    
-    const current = this.getFavorites();
-    if (!current.some(item => item.id === product.id)) {
-      this.updateFavorites([...current, product]);
-    }
+  addToFavorites(product: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/${product.id}`, null, { 
+      headers: this.getHeaders() 
+    }).pipe(
+      tap((updatedFavorites: any[]) => {
+        this.favoritesSubject.next(updatedFavorites);
+      })
+    );
   }
-
-  removeFromFavorites(productId: number): void {
-    if (!this.currentUserId) return;
-    
-    const current = this.getFavorites();
-    this.updateFavorites(current.filter(item => item.id !== productId));
+  
+  removeFromFavorites(productId: number | string): Observable<any[]> {
+    return this.http.delete<any[]>(`${this.apiUrl}/${productId}`, { 
+      headers: this.getHeaders() 
+    }).pipe(
+      tap((updatedFavorites: any[]) => {
+        this.favoritesSubject.next(updatedFavorites);
+      })
+    );
   }
-
-  isFavorite(productId: number): boolean {
-    return this.getFavorites().some(item => item.id === productId);
-  }
-
-  toggleFavorite(product: any): void {
-    this.isFavorite(product.id) 
+  
+  toggleFavorite(product: any): Observable<any[]> {
+    console.log(product.id, "in service");
+  
+    const isFav = this.isFavorite(product.id);
+    console.log(isFav, "this is isFav");
+  
+    return isFav
       ? this.removeFromFavorites(product.id)
       : this.addToFavorites(product);
+  }
+  
+  /** Check if a product is in favorites */
+  isFavorite(productId: number | string): boolean {
+    // Debug the favorites structure to see what we're working with
+    console.log('Current favorites structure:', this.favoritesSubject.value);
+    
+    // Check if the favorites array contains the product ID
+    // This handles both possibilities: array of IDs or array of objects with ID property
+    return this.favoritesSubject.value.some((item) => {
+      // Handle case where item is the ID itself
+      if (typeof item === 'number' || typeof item === 'string') {
+        return item === productId;
+      }
+      // Handle case where item is an object with ID
+      else if (item && typeof item === 'object') {
+        return item.id === productId || item.productId === productId;
+      }
+      return false;
+    });
   }
 }

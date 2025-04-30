@@ -1,116 +1,274 @@
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg gradient-bg" >
+<nav class="navbar navbar-expand-lg gradient-bg">
   <div class="container-fluid">
-    <a class="navbar-brand fs-3 ms-0 text-white" routerLink="/home" routerLinkActive="active">Fitness Partner</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-      aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <a
+      class="navbar-brand fs-3 ms-0 text-white"
+      routerLink="/home"
+      routerLinkActive="active"
+      >Fitness Partner</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse me-5 mt-2" id="navbarScroll">
-      <ul class="navbar-nav mx-auto gap-md-3 my-2 my-lg-0 navbar-nav-scroll " style="--bs-scroll-height: 100px">
+      <ul
+        class="navbar-nav mx-auto gap-md-3 my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
+      >
         <li class="nav-item tab">
-          <a class="nav-link active text-white tab" aria-current="page" routerLink="/home" routerLinkActive="active">HOME</a>
+          <a
+            class="nav-link active text-white tab"
+            aria-current="page"
+            routerLink="/home"
+            routerLinkActive="active"
+            >HOME</a
+          >
         </li>
         <li class="nav-item tab">
-          <a class="nav-link active text-white tab" aria-current="page" routerLink="/products" routerLinkActive="active">SHOP</a>
+          <a
+            class="nav-link active text-white tab"
+            aria-current="page"
+            routerLink="/products"
+            routerLinkActive="active"
+            >SHOP</a
+          >
         </li>
         <li class="nav-item tab">
-          <a class="nav-link active text-white tab" aria-current="page" routerLink="/trainers" routerLinkActive="active">TRAINERS</a>
+          <a
+            class="nav-link active text-white tab"
+            aria-current="page"
+            routerLink="/trainers"
+            routerLinkActive="active"
+            >TRAINERS</a
+          >
         </li>
         <li class="nav-item tab">
-          <a class="nav-link active text-white tab" aria-current="page" routerLink="/exercises" routerLinkActive="active">EXERCISES HUB</a>
+          <a
+            class="nav-link active text-white tab"
+            aria-current="page"
+            routerLink="/exercises"
+            routerLinkActive="active"
+            >EXERCISES HUB</a
+          >
         </li>
         <li class="nav-item tab">
-          <a class="nav-link active text-white tab" aria-current="page" routerLink="/nutrition" routerLinkActive="active">NUTRITION</a>
+          <a
+            class="nav-link active text-white tab"
+            aria-current="page"
+            routerLink="/nutrition"
+            routerLinkActive="active"
+            >NUTRITION</a
+          >
         </li>
         <li class="nav-item tab">
-          <a class="nav-link text-white tab" routerLink="/about" routerLinkActive="active">ABOUT</a>
+          <a
+            class="nav-link text-white tab"
+            routerLink="/about"
+            routerLinkActive="active"
+            >ABOUT</a
+          >
         </li>
         <li class="nav-item tab">
-          <a class="nav-link text-white tab" routerLink="/contactus" routerLinkActive="active">CONTACT US</a>
+          <a
+            class="nav-link text-white tab"
+            routerLink="/contactus"
+            routerLinkActive="active"
+            >CONTACT US</a
+          >
         </li>
+
       </ul>
+        <!-- Localization -->
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-globe text-white"></i>
+          </button>
+          <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+            <li class="dropdown-item">
+              <button (click)="changeLang('en')" class="home-button">English</button>
+            </li>
+            <li class="dropdown-item">
+              <button (click)="changeLang('ar')" class="home-button">عربي</button>
+            </li>
+          </ul>
+        </div>
       <form class="d-flex gap-2" role="search">
         <!-- User Icon  -->
-        <a *ngIf="authService.isLoggedIn$ | async" 
-   routerLink="/profile" 
-   class="nav-link">
-  <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor"
-       class="bi bi-person icon fs-6" viewBox="0 0 16 16">
-    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-  </svg>
-</a>  
+        <a
+          *ngIf="authService.isLoggedIn$ | async"
+          routerLink="/profile"
+          class="nav-link"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="34"
+            height="34"
+            fill="currentColor"
+            class="bi bi-person icon fs-6"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"
+            />
+          </svg>
+        </a>
 
         <!-- Heart Icon  -->
-        <a class="position-relative" routerLink="/favorites" routerLinkActive="active">
+        <a
+          class="position-relative"
+          routerLink="/favorites"
+          routerLinkActive="active"
+        >
           <span class="ms-1 position-relative" style="cursor: pointer">
             <!-- Dynamic heart icon based on favoritesCount -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                 [class.bi-heart]="favoritesCount === 0"
-                 [class.bi-heart-fill]="favoritesCount > 0"
-                 class="text-white icon mt-1" viewBox="0 0 16 16">
-              <path *ngIf="favoritesCount === 0" d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38 38 0 0 0 .867-.59m-.303-1.01-.971-3.237 1.74-2.608a1 1 0 0 0 .103-.906l-1.3-3.468 1.45-1.813c1.861-.948 4.446.002 5.197 2.11.691 1.94-.055 5.521-6.219 9.922m-1.25 1.137a36 36 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3zm-2.3-3.06-.442-1.106a1 1 0 0 1 .034-.818l1.305-2.61L4.564 3.35a1 1 0 0 1 .168-.991l1.032-1.24c-1.688-.449-3.7.398-4.456 2.128-.711 1.627-.413 4.55 3.706 8.229Z"/>
-              <path *ngIf="favoritesCount > 0" fill-rule="evenodd" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="currentColor"
+              [class.bi-heart]="favoritesCount === 0"
+              [class.bi-heart-fill]="favoritesCount > 0"
+              class="text-white icon mt-1"
+              viewBox="0 0 16 16"
+            >
+              <path
+                *ngIf="favoritesCount === 0"
+                d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38 38 0 0 0 .867-.59m-.303-1.01-.971-3.237 1.74-2.608a1 1 0 0 0 .103-.906l-1.3-3.468 1.45-1.813c1.861-.948 4.446.002 5.197 2.11.691 1.94-.055 5.521-6.219 9.922m-1.25 1.137a36 36 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3zm-2.3-3.06-.442-1.106a1 1 0 0 1 .034-.818l1.305-2.61L4.564 3.35a1 1 0 0 1 .168-.991l1.032-1.24c-1.688-.449-3.7.398-4.456 2.128-.711 1.627-.413 4.55 3.706 8.229Z"
+              />
+              <path
+                *ngIf="favoritesCount > 0"
+                fill-rule="evenodd"
+                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
+              />
             </svg>
 
             <!-- Favorites count badge -->
-            <span *ngIf="favoritesCount > 0"
-                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white"
-                  style="font-size: 0.65rem; padding: 0.25rem 0.4rem;">
+            <span
+              *ngIf="favoritesCount > 0"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white"
+              style="font-size: 0.65rem; padding: 0.25rem 0.4rem"
+            >
               {{ favoritesCount }}
             </span>
           </span>
         </a>
 
         <!-- Cart Icon  -->
-
-          <span class="ms-1 position-relative" style="cursor: pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-               class="bi bi-cart3 text-white icon" viewBox="0 0 16 16">
-            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+        <span
+          class="ms-1 position-relative"
+          style="cursor: pointer"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="currentColor"
+            class="bi bi-cart3 text-white icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+            />
           </svg>
-          <span *ngIf="cart.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white"
-                style="font-size: 0.65rem; padding: 0.25rem 0.4rem;">
+          <span
+            *ngIf="cart.length > 0"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white"
+            style="font-size: 0.65rem; padding: 0.25rem 0.4rem"
+          >
             {{ cart.length }}
           </span>
         </span>
 
-
         <!-- Logout Icon -->
         <a class="mt-1 ms-1 door-icon" (click)="OnLogout()">
           <!-- Closed door -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-door-closed door-closed" viewBox="0 0 16 16">
-            <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
-            <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            class="bi bi-door-closed door-closed"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"
+            />
+            <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0" />
           </svg>
-          
+
           <!-- Open door  -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-door-open door-open" viewBox="0 0 16 16">
-            <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
-            <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            class="bi bi-door-open door-open"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"
+            />
+            <path
+              d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"
+            />
           </svg>
         </a>
-        
       </form>
     </div>
   </div>
 </nav>
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div
+  class="offcanvas offcanvas-end w-35"
+  tabindex="-1"
+  id="offcanvasRight"
+  aria-labelledby="offcanvasRightLabel"
+>
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasRightLabel">
-      <a class="text-black fs-5" routerLink="/cart" routerLinkActive="active" data-bs-dismiss="offcanvas"
-        aria-label="Close">
+      <a
+        class="text-black fs-5"
+        routerLink="/cart"
+        routerLinkActive="active"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      >
         <!--********MINI CART  ICON HERE ****-->
-        <span class="d-block text-dark">Cart details
+        <span class="d-block text-dark"
+          >Cart details
           <span class="position-relative">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-              class="bi bi-cart3 text-dark ms-2 icon mb-2" viewBox="0 0 16 16">
-              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="currentColor"
+              class="bi bi-cart3 text-dark ms-2 icon mb-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+              />
             </svg>
-            <span *ngIf="cart.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white"
-              style="font-size: 0.65rem; padding: 0.25rem 0.4rem;">
+            <span
+              *ngIf="cart.length > 0"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white"
+              style="font-size: 0.65rem; padding: 0.25rem 0.4rem"
+            >
               {{ cart.length }}
               <span class="visually-hidden">items in cart</span>
             </span>
@@ -118,15 +276,25 @@
         </span>
       </a>
     </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
   <div class="offcanvas-body fs-6">
     <!-- CANVAS BODY -->
     <div class="ms-4 mt-lg-5 mb-5">
       <!--BREAD CRUMB-->
       <span class="fw-semibold">
-        <a routerLinkActive="active" routerLink="/home" class="text-decoration-none text-secondary fs-6"
-          data-bs-dismiss="offcanvas" aria-label="Close">HOME
+        <a
+          routerLinkActive="active"
+          routerLink="/home"
+          class="text-decoration-none text-secondary fs-6"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          >HOME
         </a>
         <span class="text-secondary"> / </span>
         <span class="text-dark"> CART </span>
@@ -137,9 +305,17 @@
 
     <div class="" *ngIf="cart.length > 0; elseCond">
       <div class="d-flex justify-content-center">
-        <a routerLinkActive="active" routerLink="/checkout" class="text-decoration-none">
-          <button type="button" class="btn btn-outline-light orange-btn fw-semibold border-3" data-bs-dismiss="offcanvas"
-            aria-label="Close">
+        <a
+          routerLinkActive="active"
+          routerLink="/checkout"
+          class="text-decoration-none"
+        >
+          <button
+            type="button"
+            class="btn btn-outline-light orange-btn fw-semibold border-3"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          >
             CHECKOUT
           </button>
         </a>
@@ -147,3 +323,53 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Custom responsive width class */
+  .w-35 {
+    width: 35% !important;
+  }
+
+  @media (max-width: 1199px) {
+    /* Large screens (>=lg) */
+    .w-35 {
+      width: 50% !important; /* Adjust for large screens */
+    }
+  }
+
+  @media (max-width: 991px) {
+    /* Medium screens (>=md) */
+    .w-35 {
+      width: 75% !important; /* Adjust for medium screens */
+    }
+  }
+
+  @media (max-width: 767px) {
+    /* Small screens (>=sm) */
+    .w-35 {
+      width: 75% !important; /* Adjust for small screens */
+      font-size: 2px !important;
+    }
+  }
+  .home-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%) !important;
+      border: none;
+      border-radius: 50px;
+      color:white;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+
+    }
+</style>

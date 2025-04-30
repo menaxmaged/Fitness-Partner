@@ -1,47 +1,77 @@
-import { Component, OnDestroy } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, forkJoin } from 'rxjs';
 import { FavoritesService } from '../../services/favorites.service';
-import { UsersService } from '../../services/users.service';
-import { Subscription } from 'rxjs';
+import { ProductServicesService } from '../../services/product-services.service';
+import { IProducts } from '../../models/i-products';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-favorites-items',
-  standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [CommonModule, RouterModule],
+  selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styleUrl: './favorites.component.css'
+  styleUrls: ['./favorites.component.css'],
 })
-export class FavoritesComponent implements OnDestroy {
-  favoriteItems: any[] = [];
-  private favoritesSub: Subscription;
+export class FavoritesComponent implements OnInit, OnDestroy {
+  favoriteItems: IProducts[] = [];
+  private favSub!: Subscription;
+  private favoritesIds: (number | string)[] = [];
 
   constructor(
-    private myFavorites: FavoritesService,
-    private usersService: UsersService
-  ) {
-    const token = localStorage.getItem('token');
-    const userId = token ? atob(token) : null;
-    
-    if (userId) {
-      this.myFavorites.initializeForUser(userId);
-    }
+    private favoritesService: FavoritesService,
+    private productServices: ProductServicesService
+  ) {}
 
-    this.favoritesSub = this.myFavorites.favorites$.subscribe(favorites => {
-      this.favoriteItems = favorites;
-      console.log('Favorites component updated:', favorites);
+  ngOnInit(): void {
+    this.favSub = this.favoritesService.favorites$.subscribe((favoriteIds) => {
+      this.favoritesIds = favoriteIds; // Save locally
+      this.loadFavoriteItems();
     });
   }
 
-  removeFromFavorites(product: any) {
-    this.myFavorites.removeFromFavorites(product.id);
+  private loadFavoriteItems(): void {
+    if (this.favoritesIds.length > 0) {
+      const requests = this.favoritesIds.map(id => this.productServices.getProductById(id));
+      forkJoin(requests).subscribe({
+        next: (products) => {
+          this.favoriteItems = products;
+        },
+        error: (err) => {
+          console.error('Error loading favorite products', err);
+          this.favoriteItems = [];
+        }
+      });
+    } else {
+      this.favoriteItems = [];
+    }
   }
 
-  clearAllFavorites() {
-    this.myFavorites.clearFavorites();
+  removeFromFavorites(item: IProducts): void {
+    const element = document.getElementById(`favorite-item-${item.id}`);
+    if (element) {
+      element.classList.add('removing');
+    }
+      this.favoritesService.removeFromFavorites(item.id).subscribe({
+      next: (updatedFavorites) => {
+        // After fade-out effect completes, remove from array
+        setTimeout(() => {
+          this.favoriteItems = this.favoriteItems.filter(fav => fav.id !== item.id);
+        }, 500); // Match the duration of the fade-out
+      },
+      error: (error) => {
+        console.error('Failed to remove favorite:', error);
+      }
+    });
+  }
+  
+  clearAllFavorites(): void {
+    this.favoritesService.clearFavorites();
+    this.favoriteItems = [];
   }
 
-  ngOnDestroy() {
-    this.favoritesSub.unsubscribe();
+  ngOnDestroy(): void {
+    if (this.favSub) {
+      this.favSub.unsubscribe();
+    }
   }
 }

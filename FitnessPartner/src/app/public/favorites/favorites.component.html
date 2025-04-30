@@ -30,27 +30,27 @@
     </div>
     
     <div class="favorite-items">
-      <div *ngFor="let item of favoriteItems" class="favorite-item">
+      <div *ngFor="let item of favoriteItems" class="favorite-item" [id]="'favorite-item-' + item.id">
         <div class="item-image">
           <img [src]="item.image" [alt]="item.name">
-        </div>  
-        
+        </div>
+      
         <div class="item-details">
           <h3 class="item-name">{{ item.name }}</h3>
           <p class="item-brand">{{ item.brand }}</p>
-          <p class="item-price">${{ item.price.toFixed(2) }}</p>
           <p class="item-size">Size: {{ item.available_size }}</p>
         </div>
-        
+      
         <div class="item-actions p-2">
           <button class="btn btn-outline-light border-0 orange-btn" [routerLink]="['/products', item.id]">View Product</button>
-          
+      
           <button class="remove-btn text-dark border-0 bg-white me-md-5 heart-toggle-btn" (click)="removeFromFavorites(item)">
             <i class="bi bi-heart-fill heart-icon full-heart fs-4 me-md-5"></i>
             <i class="bi bi-heartbreak heart-icon broken-heart fs-4 me-md-1"></i>
           </button>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

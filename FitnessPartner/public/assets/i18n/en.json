@@ -1,0 +1,20 @@
+{
+  "home": {
+    "WELCOME_MESSAGE": "Welcome to fitness partner",
+    "p1": "Fuel your journey with AI-powered fitness and expert support",
+    "link1": "Know more",
+    "selectTrainer": "Choose the best trainer for you",
+    "p2": {
+      "txt1": "If you want better",
+      "s1": "Results",
+      "txt2": ",make better",
+      "s2": "Choices"
+    },
+    "link2": "Meet Trainers",
+    "p3": "You are only one workout away from a good mood.",
+    "link3": "Start Exercise",
+    "prev": "Previous",
+    "next": "Next",
+    "aboutHeader":"What We Offer"
+  }
+}

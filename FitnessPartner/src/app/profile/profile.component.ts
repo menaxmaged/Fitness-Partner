@@ -9,7 +9,10 @@ import { FavoritesService } from '../services/favorites.service';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
-  constructor( private favoritesService: FavoritesService, private router: Router){}
+  constructor(
+    private favoritesService: FavoritesService,
+    private router: Router
+  ) {}
   logout() {
     localStorage.removeItem('token');
     this.favoritesService.clearUserData();

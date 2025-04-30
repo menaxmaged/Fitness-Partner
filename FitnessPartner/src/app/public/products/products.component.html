@@ -1,9 +1,4 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="modern-spinner">
-    <div class="spinner-circle"></div>
-    <div class="spinner-text">Loading Gains...</div>
-  </div>
-</div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Products...'"></app-loading-spinner>
 
 <h2 class="page-title my-5">All Products</h2>
 
@@ -36,7 +31,7 @@
               </div>
 
               <div class="col-md-4">
-                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} $</h5>
+                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} EGP</h5>
                 <div class="d-flex align-items-center">
                   <input type="range" class="form-range" min="0" [max]="priceRange.max"
                          [(ngModel)]="priceRange.min" (change)="applyFilters()" style="width: 45%">
@@ -113,7 +108,7 @@
             <div class="product-brand">{{ product.brand }}</div>
             <h3 class="product-name">{{ product.name }}</h3>
             <div class="product-price">
-              <span class="price">{{ product.price }}.00 $</span>
+              <span class="price">{{ product.price }}.00 EGP</span>
             </div>
             <div class="product-expiry">
               <span class="expiry-date">Expires: {{ formatDate(product.expiration_date) }}</span>
@@ -171,7 +166,7 @@
         <!-- Product Details -->
         <div class="col-md-7">
           <div class="product-price mb-3">
-            <span class="price">{{ selectedProduct.price }}.00 $</span>
+            <span class="price">{{ selectedProduct.price }}.00 EGP</span>
           </div>
 
           <h2 class="product-title mb-3">{{ selectedProduct.name }}</h2>
@@ -190,25 +185,23 @@
           </div>
 
           <div class="product-form">
-            <div class="flavor-select mb-3">
+            <div class="flavor-select mb-3" *ngIf="(selectedProduct?.available_flavors ?? []).length > 1">
               <label>Flavor:</label>
-              <select class="form-control">
-                <option>Choose an option</option>
-                <option *ngFor="let flavor of selectedProduct.available_flavors">
+              <select class="form-control" [(ngModel)]="selectedFlavor" (change)="onFlavorSelect(selectedFlavor)">
+                <option *ngIf="!selectedFlavor" disabled selected>Choose an option</option>
+                <option *ngFor="let flavor of selectedProduct.available_flavors" [value]="flavor">
                   {{ flavor }}
                 </option>
               </select>
             </div>
-
-            <!-- <div class="quantity-selector mb-3">
-              <button class="btn-quantity" (click)="decreaseQuantity()">-</button>
-              <input type="text" [value]="quantity" readonly>
-              <button class="btn-quantity" (click)="increaseQuantity()">+</button>
-
-              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct)">
-                ADD TO CART
-              </button>
-            </div> -->
+          
+            <!-- Optional: Show selected flavor if only 1 -->
+            <div class="selected-flavor mb-3" *ngIf="selectedProduct?.available_flavors?.length === 1">
+              <label>Flavor:</label>
+              <p class="form-control-static">{{ selectedFlavor }}</p>
+            </div>
+          
+          
 
             <div class="quantity-selector mb-3">
               <div class="quantity-controls">
@@ -225,7 +218,7 @@
                 </button>
               </div>
 
-              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct)">
+              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct, [quantity.toString()])">
                 ADD TO CART
               </button>
 

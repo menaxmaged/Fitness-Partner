@@ -1,18 +1,8 @@
 <main class="profile-content">
-  <div class="profile-header">
-    <div class="avatar-container">
-      <img [src]="user.avatar || '/public/profileImgRemove.png'" class="avatar" />
-      <label for="upload-photo" class="upload-icon">📷</label>
-      <input type="file" id="upload-photo" hidden (change)="uploadPhoto($event)" />
-    </div>
-    <div class="button-group">
-      <button (click)="triggerFileInput()" class="upload-btn">Upload
-        New</button>
-      <button (click)="deleteAvatar()" class="delete-btn">Delete Avatar</button>
-    </div>
-  </div>
+  <!-- Add this right after the main opening tag -->
+  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
 
-  <form (ngSubmit)="saveChanges()">
+  <form #form="ngForm" (ngSubmit)="saveChanges()" novalidate>
     <div class="form-row">
       <div class="form-group">
         <label>First Name *</label>
@@ -51,14 +41,14 @@
     </div>
 
     <div class="btn-container">
-      <button type="button" (click)="toggleEdit()" class="btn btn-outline-light orange-btn fw-semibold"
-        *ngIf="!isEditing">
-        Edit Info
+      <button type="button" (click)="toggleEdit()" class="btn btn-outline-light orange-btn fw-semibold">
+        {{ isEditing ? 'Cancel' : 'Edit Info' }}
       </button>
 
       <button type="submit" class="btn btn-outline-light orange-btn fw-semibold" *ngIf="isEditing">
         Save Changes
       </button>
+
     </div>
   </form>
 </main>

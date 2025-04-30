@@ -7,6 +7,11 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
 import { ProductsModule } from './products/products.module';
+import { ExerciseModule } from './exercise/exercise.module';
+import { CartModule } from './cart/cart.module'; // <<== ADD THIS LINE!
+import { FavoritesModule } from './favorites/favorites.module';
+import { TrainerModule } from './trainers/trainers.module';
+import { MailModule } from './auth/mail/mail.module';
 
 @Module({
   imports: [
@@ -26,6 +31,11 @@ import { ProductsModule } from './products/products.module';
     UsersModule,
     EmailModule,
     ProductsModule,
+    ExerciseModule,
+    CartModule,
+    FavoritesModule,
+    MailModule,
+    TrainerModule
   ],
   controllers: [AppController],
   providers: [AppService],

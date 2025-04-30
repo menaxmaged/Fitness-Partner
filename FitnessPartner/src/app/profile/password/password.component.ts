@@ -1,63 +1,110 @@
+// password.component.ts
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-password',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
 })
 export class PasswordComponent implements OnInit {
-  user: any = { password: '' };
-  showPassword: boolean = false;
-  isEditing: boolean = false;
+  user: any = {};
+  currentPassword: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
+  isEditing = false;
+  showCurrentPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
+  errorMessage = '';
+  successMessage = '';
 
-  constructor(private userService: UsersService) {}
+  constructor(
+    private userService: UsersService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    const userId = token ? atob(token) : null;
-
+    const userId = this.authService.getCurrentUserId();
     if (userId) {
       this.userService.getUserById(userId).subscribe({
         next: (foundUser) => {
           this.user = foundUser;
         },
         error: (err) => {
-          console.error('User not found', err);
+          console.error('Error fetching user data:', err);
+          this.errorMessage =
+            'Failed to load user data. Please try again later.';
         },
       });
     } else {
       console.error('No userId found in localStorage');
+      this.errorMessage = 'User session not found. Please log in again.';
     }
-  }
-
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
   }
 
   toggleEdit(): void {
-    if (this.isEditing && this.user.id) {
-      this.userService.getUserById(this.user.id).subscribe({
-        next: (currentUser) => {
-          const updatedUser = { ...currentUser, password: this.user.password };
-          this.userService.editUserData(this.user.id, updatedUser).subscribe({
-            next: () => {
-              console.log('Password updated successfully');
-            },
-            error: (err) => {
-              console.error('Error updating password:', err);
-            },
-          });
-        },
-        error: (err) => {
-          console.error('Error fetching user data:', err);
-        },
-      });
+    this.isEditing = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.currentPassword = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
+  }
+
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.showCurrentPassword = false;
+    this.showNewPassword = false;
+    this.showConfirmPassword = false;
+  }
+
+  savePassword(): void {
+    if (!this.currentPassword || !this.newPassword || !this.confirmPassword) {
+      this.errorMessage = 'All fields are required';
+      return;
     }
 
-    this.isEditing = !this.isEditing;
+    if (this.newPassword !== this.confirmPassword) {
+      this.errorMessage = 'New passwords do not match';
+      return;
+    }
+
+    const userId = this.authService.getCurrentUserId();
+    if (!userId) {
+      this.errorMessage = 'User ID not found. Please log in again.';
+      return;
+    }
+
+    const passwordData = {
+      currentPassword: this.currentPassword,
+      newPassword: this.newPassword,
+    };
+
+    this.userService.updatePassword(userId, passwordData).subscribe({
+      next: (response) => {
+        this.successMessage = 'Password updated successfully!';
+        this.isEditing = false;
+        this.currentPassword = '';
+        this.newPassword = '';
+        this.confirmPassword = '';
+
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
+      },
+      error: (err) => {
+        console.error('Error updating password:', err);
+        this.errorMessage =
+          err.error?.message || 'Failed to update password. Please try again.';
+      },
+    });
   }
 }

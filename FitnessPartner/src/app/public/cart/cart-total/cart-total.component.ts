@@ -1,24 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../../../services/cart.service';
 import { RouterModule } from '@angular/router';
+import { CartService } from '../../../services/cart.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-cart-total',
-  imports: [RouterModule,CommonModule],
+  standalone: true,
+  imports: [RouterModule, CommonModule],
   templateUrl: './cart-total.component.html',
   styles: ``
 })
-export class CartTotalComponent implements OnInit {
+export class CartTotalComponent implements OnInit, OnDestroy {
   total: number = 0;
+  private cartSub!: Subscription;
 
   constructor(private myCart: CartService) {}
 
   ngOnInit() {
-    
-    this.myCart.cart$.subscribe((cart) => {
-      this.total = this.myCart.getTotal(); 
+    this.cartSub = this.myCart.cart$.subscribe(cart => {
+      this.total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     });
+  }
 
-    this.total = this.myCart.getTotal();
+  ngOnDestroy() {
+    if (this.cartSub) {
+      this.cartSub.unsubscribe();
+    }
   }
 }
