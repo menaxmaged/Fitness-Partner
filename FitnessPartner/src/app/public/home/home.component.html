@@ -1,7 +1,8 @@
 <app-loading-spinner
   *ngIf="isLoading"
-  [message]="'Loading Home...'"
-></app-loading-spinner>
+  [message]="'home.loadingMsg' | translate"
+>
+</app-loading-spinner>
 
 <!-- heroo secion -->
 <div
@@ -102,7 +103,9 @@
 <!-- hero section end -->
 <!-- about us section -->
 <div class="container my-5" id="aboutUs">
-  <h2 class="text-center mb-5">{{ "home.aboutHeader" | translate }}</h2>
+  <h2 class="text-center mb-5">
+    {{ "home.about.nutrition.header" | translate }}
+  </h2>
   <div class="row justify-content-center">
     <div
       class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
@@ -110,10 +113,11 @@
     >
       <img src="assets/home-imgs/products.jpg" class="card-img-top" alt="..." />
       <div class="card-body">
-        <h5 class="card-title text-center">Nutritional Supplements</h5>
+        <h5 class="card-title text-center">
+          {{ "home.about.nutrition.h5" | translate }}
+        </h5>
         <p class="card-text">
-          Discover top-quality nutritional supplements to power your workouts
-          and boost your wellness.
+          {{ "home.about.nutrition.p" | translate }}
         </p>
       </div>
     </div>
@@ -127,10 +131,11 @@
         alt="..."
       />
       <div class="card-body">
-        <h5 class="card-title text-center">Exercises</h5>
+        <h5 class="card-title text-center">
+          {{ "home.exercises.h5" | translate }}
+        </h5>
         <p class="card-text">
-          Access effective exercises for every level—from beginner to beast
-          mode.
+          {{ "home.exercises.p" | translate }}
         </p>
       </div>
     </div>
@@ -140,10 +145,11 @@
     >
       <img src="assets/home-imgs/trainer.jpg" class="card-img-top" alt="..." />
       <div class="card-body">
-        <h5 class="card-title text-center">Personal Trainers</h5>
+        <h5 class="card-title text-center">
+          {{ "home.personalTrainer.h5" | translate }}
+        </h5>
         <p class="card-text">
-          Connect with certified personal trainers who’ll help you reach your
-          goals with personalized plans.
+          {{ "home.personalTrainer.p" | translate }}
         </p>
       </div>
     </div>
@@ -157,10 +163,11 @@
         alt="..."
       />
       <div class="card-body">
-        <h5 class="card-title text-center">Nutritional</h5>
+        <h5 class="card-title text-center">
+          {{ "home.nutrition.h5" | translate }}
+        </h5>
         <p class="card-text">
-          Explore nutrition tips and easy-to-follow meal ideas that support your
-          lifestyle.
+          {{ "home.nutrition.p" | translate }}
         </p>
       </div>
     </div>
@@ -177,10 +184,9 @@
     <div
       class="col-sm-12 col-md-6 col-lg-7 my-4 d-flex flex-column justify-content-center align-items-center"
     >
-      <h2 class="mb-3">Power Up with the Right Supplements</h2>
+      <h2 class="mb-3">{{ "home.products.h2" | translate }}</h2>
       <p class="px-5 fs-5 text-center">
-        Need more energy, faster recovery, or better results? Our premium
-        supplements are here to help you level up—inside and out.
+        {{ "home.products.p" | translate }}
       </p>
       <!-- <h5>Fuel your body. Fuel your goals.</h5> -->
       <a
@@ -188,8 +194,8 @@
         routerLink="/products"
         routerLinkActive="active"
       >
-        Shop Now</a
-      >
+        {{ "home.products.link" | translate }}
+      </a>
     </div>
   </div>
 </div>
@@ -197,7 +203,7 @@
 
 <!-- trainers section -->
 <div class="container my-5">
-  <h2 class="text-center mb-5">Expert Trainers</h2>
+  <h2 class="text-center mb-5">{{ "home.trainers.h2" | translate }}</h2>
   <div class="row">
     <div class="col-lg-4 col-md-6 my-5">
       <div class="single-trainer-item">
@@ -206,14 +212,13 @@
           <h5>Patrick Cortez</h5>
           <span>Leader</span>
           <p>
-            non numquam eius modi tempora incidunt ut labore et dolore magnam
-            aliquam quaerat voluptatem.
+            {{ "home.trainers.p1" | translate }}
           </p>
           <div class="trainer-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
           </div>
         </div>
       </div>
@@ -225,14 +230,13 @@
           <h5>Gregory Powers</h5>
           <span>Gym coach</span>
           <p>
-            non numquam eius modi tempora incidunt ut labore et dolore magnam
-            aliquam quaerat voluptatem.
+            {{ "home.trainers.p2" | translate }}
           </p>
           <div class="trainer-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
           </div>
         </div>
       </div>
@@ -243,15 +247,12 @@
         <div class="trainer-text">
           <h5>Walter Wagner</h5>
           <span>Dance trainer</span>
-          <p>
-            non numquam eius modi tempora incidunt ut labore et dolore magnam
-            aliquam quaerat voluptatem.
-          </p>
+          <p>{{ "home.trainers.p3" | translate }}</p>
           <div class="trainer-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
           </div>
         </div>
       </div>
@@ -264,6 +265,6 @@
   routerLinkActive="active"
   style="margin-left: 40%"
 >
-  Meet Our Trainers</a
+  {{ "home.link4" | translate }}</a
 >
 <!-- trainers section end -->

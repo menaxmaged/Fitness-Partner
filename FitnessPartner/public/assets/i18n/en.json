@@ -1,5 +1,6 @@
 {
   "home": {
+    "loadingMsg":"Loading Home...",
     "WELCOME_MESSAGE": "Welcome to fitness partner",
     "p1": "Fuel your journey with AI-powered fitness and expert support",
     "link1": "Know more",
@@ -15,6 +16,36 @@
     "link3": "Start Exercise",
     "prev": "Previous",
     "next": "Next",
-    "aboutHeader":"What We Offer"
+    "about": {
+      "nutrition": {
+        "header": "What we offer",
+        "h5": "Nutritional Supplements",
+        "p": "Discover top-quality nutritional supplements to power your workouts and boost your wellness."
+      }
+    },
+    "exercises": {
+      "h5": "Exercises",
+      "p": "Access effective exercises for every level—from beginner to beast mode"
+    },
+    "personalTrainer": {
+      "h5": "Personal Trainers",
+      "p": "Connect with certified personal trainers who'll help you reach your goals with personalized plans"
+    },
+    "nutrition": {
+      "h5": "Nutrition",
+      "p": "Explore nutrition tips and easy-to-follow meal ideas that support your lifestyle."
+    },
+    "products": {
+      "h2": "Power Up with the Right Supplements",
+      "p": "Need more energy, faster recovery, or better results? Our premium supplements are here to help you level up—inside and out.",
+      "link": "Shop Now"
+    },
+    "trainers": {
+      "h2": "Expert Trainers",
+      "p1": "A certified personal trainer with 8 years of experience in strength training and nutrition coaching.",
+      "p2": " A fitness coach who helps people improve flexibility, mental health, and overall wellness.",
+      "p3": "A Dance trainer and body transformation specialist."
+    },
+    "link4":"Meet Our Trainers"
   }
 }
