@@ -12,6 +12,8 @@ import { CartModule } from './cart/cart.module'; // <<== ADD THIS LINE!
 import { FavoritesModule } from './favorites/favorites.module';
 import { TrainerModule } from './trainers/trainers.module';
 import { MailModule } from './auth/mail/mail.module';
+import { GymMachineController } from './gym-machine/gym-machine.controller';
+import { GymMachineModule } from './gym-machine/gym-machine.module';
 
 @Module({
   imports: [
@@ -35,7 +37,8 @@ import { MailModule } from './auth/mail/mail.module';
     CartModule,
     FavoritesModule,
     MailModule,
-    TrainerModule
+    TrainerModule,
+  GymMachineModule
   ],
   controllers: [AppController],
   providers: [AppService],
