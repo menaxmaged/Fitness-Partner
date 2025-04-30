@@ -1,9 +1,4 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="modern-spinner">
-    <div class="spinner-circle"></div>
-    <div class="spinner-text">Loading Exercises...</div>
-  </div>
-</div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Product Details...'"></app-loading-spinner>
 
 <!-- Product Details Section -->
 <div class="product-details-container" *ngIf="product">
