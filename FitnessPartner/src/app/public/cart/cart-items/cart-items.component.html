@@ -13,17 +13,17 @@
     </div>
   </ng-template>
   
-  <div class="container-fluid px-2" *ngIf="cartItems.length > 0; else emptyCart">
-    <div class="w-100 mx-auto mt-4">
+  <div class="container px-2" *ngIf="cartItems.length > 0; else emptyCart">
+    <div class="mt-4">
       <div class="d-flex justify-content-evenly text-center text-muted fw-bold">
-        <span class="w-25 text-wrap fs-6">Product</span>
-        <span class="w-25 text-wrap fs-6">Price</span>
-        <span class="w-25 text-wrap fs-6">Quantity</span>
-        <span class="w-25 text-wrap fs-6">Total</span>
+        <span class="w-25 fs-6">Product</span>
+        <span class="w-25 fs-6">Price</span>
+        <span class="w-25 fs-6">Quantity</span>
+        <span class="w-25  fs-6">Total</span>
       </div>
       <hr>
       <!-- Loop through cart items -->
-      <div *ngFor="let item of cartItems; trackBy: trackByFn" class="mb-1">
+      <div *ngFor="let item of cartItems; trackBy: trackByFn">
         <div class="d-flex justify-content-evenly align-items-center text-center">
           <!-- Trash button -->
           <button type="button" class="btn mb-1" aria-label="Close" (click)="trashItem(item)">
@@ -35,10 +35,11 @@
       
           <span class="w-25 d-flex align-items-center text-wrap">
             <img src="{{ item.image }}" alt="Product" class="me-2 rounded" style="width: 50px; height: 50px; object-fit: cover;">
-            <span class="small text-truncate w-100">{{ item.title }}</span>
+            
+            <!-- <span class="small text-truncate w-100">{{ item.name }}</span> -->
       
             <span class="small text-muted me-2 ms-0 fw-semibold d-none d-sm-block" *ngIf="item.selectedFlavor">
-                {{ item.selectedFlavor }}
+              {{ item.name }} ({{ item.selectedFlavor }})
             </span>
             
           </span>
