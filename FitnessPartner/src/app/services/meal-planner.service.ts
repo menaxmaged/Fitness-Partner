@@ -8,7 +8,7 @@ import { IMealPlan } from './../models/i-meal-plan';
   providedIn: 'root',
 })
 export class MealPlannerService {
-  private jsonUrl = 'http://localhost:3000/meal_plans';
+  private jsonUrl = 'http://localhost:3001/meal_plans';
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<IMealPlan[]> {
