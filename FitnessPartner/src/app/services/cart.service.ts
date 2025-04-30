@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError, finalize } from 'rxjs/operators';
+import { tap, catchError, finalize, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private apiUrl = 'http://localhost:3000/cart';
-  private anys: any[] = [];
+  private cartItems: any[] = [];
   private cartSubject = new BehaviorSubject<any[]>([]);
+  private totalSubject = new BehaviorSubject<number>(0);
+  
   cart$ = this.cartSubject.asObservable();
+  total$ = this.totalSubject.asObservable();
+  
   private isLoadingCart = false;
 
   constructor(
@@ -43,8 +48,9 @@ export class CartService {
 
   // Reset cart to empty state
   private resetCart(): void {
-    this.anys = [];
+    this.cartItems = [];
     this.cartSubject.next([]);
+    this.totalSubject.next(0);
   }
 
   loadCart(): void {
@@ -84,9 +90,10 @@ export class CartService {
       })
     ).subscribe(cart => {
       if (Array.isArray(cart)) {
-        this.anys = cart;
-        this.cartSubject.next([...this.anys]);
-        console.log('Cart loaded from server:', this.anys);
+        this.cartItems = cart;
+        this.cartSubject.next([...this.cartItems]);
+        this.updateTotalFromCartItems();
+        console.log('Cart loaded from server:', this.cartItems);
       } else {
         console.error('Server returned invalid cart format:', cart);
         this.resetCart();
@@ -94,8 +101,17 @@ export class CartService {
     });
   }
 
+  // Update total whenever cart changes
+  private updateTotalFromCartItems(): void {
+    const newTotal = Number(
+      this.cartItems.reduce((total, item) => total + (item.total || 0), 0).toFixed(2)
+    );
+    this.totalSubject.next(newTotal);
+    console.log('Updated cart total:', newTotal);
+  }
+
   getCart(): any[] {
-    return [...this.anys]; // Return a copy to prevent direct modification
+    return [...this.cartItems]; // Return a copy to prevent direct modification
   }
 
   clearCart(): void {
@@ -132,8 +148,10 @@ export class CartService {
       { headers: this.getAuthHeaders() }
     ).pipe(
       tap(updatedCart => {
-        // push the new cart into your subject
-        this.cartSubject.next(updatedCart);
+        // Update local cart and total
+        this.cartItems = updatedCart;
+        this.cartSubject.next([...this.cartItems]);
+        this.updateTotalFromCartItems();
       }),
       catchError((error: HttpErrorResponse) => {
         console.error('Error adding to cart:', error);
@@ -176,8 +194,9 @@ export class CartService {
       })
     ).subscribe(updatedCart => {
       if (updatedCart && Array.isArray(updatedCart)) {
-        this.anys = updatedCart;
-        this.cartSubject.next([...this.anys]);
+        this.cartItems = updatedCart;
+        this.cartSubject.next([...this.cartItems]);
+        this.updateTotalFromCartItems();
         console.log('Removed one item from cart on server');
       }
     });
@@ -211,8 +230,9 @@ export class CartService {
       })
     ).subscribe(updatedCart => {
       if (updatedCart && Array.isArray(updatedCart)) {
-        this.anys = updatedCart;
-        this.cartSubject.next([...this.anys]);
+        this.cartItems = updatedCart;
+        this.cartSubject.next([...this.cartItems]);
+        this.updateTotalFromCartItems();
         console.log('Item deleted from cart on server');
       }
     });
@@ -220,7 +240,7 @@ export class CartService {
 
   getTotal(): number {
     return Number(
-      this.anys.reduce((total, item) => total + (item.total || 0), 0).toFixed(2)
+      this.cartItems.reduce((total, item) => total + (item.total || 0), 0).toFixed(2)
     );
   }
 }
