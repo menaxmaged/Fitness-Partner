@@ -2,7 +2,14 @@
 
 <div class="container my-5">
     <h2 class="text-center mb-5">Gym Exercises</h2>
-  
+     <!-- Breadcrumb Navigation -->
+     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/exercises']">Exercises</a></li>
+        <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Gym exercises</li>
+      </ol>
+    </nav>
     <div class="row gy-5">
       <div class="col-12 col-md-6" *ngFor="let group of muscles">
         <div class="muscle-card" (click)="goToMuscle(group.muscle)">
@@ -22,6 +29,14 @@
   </div>
   
   <style>
+    .breadcrumb-item a {
+    color: #e83f01;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .breadcrumb-item a:hover {
+    color: #cc0000;
+  }
     .muscle-card {
       cursor: pointer;
       text-decoration: none;

@@ -284,6 +284,7 @@
 }
 
 .modern-pagination .page-link:hover {
+  cursor: pointer;
   background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%);
   color: white;
   border-color: transparent;

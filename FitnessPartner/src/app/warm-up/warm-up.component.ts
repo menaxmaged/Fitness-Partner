@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 
 interface MuscleGroup {
   muscle: string;
@@ -16,7 +17,7 @@ interface MuscleGroup {
 
 @Component({
   selector: 'app-warm-up',
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
   templateUrl: './warm-up.component.html',
   styleUrls: ['./warm-up.component.css']
 })
@@ -38,13 +39,13 @@ export class WarmUpComponent {
     this.exerciseService.getWarmExercises().subscribe({
       next: (data) => {
         this.muscles = this.groupExercisesByMuscle(data);
-        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error fetching warm-up exercises:', err);
         this.error = 'Failed to load warm-up exercises. Please try again later.';
-        this.isLoading = false;
-      }
+        
+      },
+      complete: ()=>{this.isLoading = false;}
     });
   }
 

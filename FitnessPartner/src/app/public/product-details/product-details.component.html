@@ -2,12 +2,15 @@
 
 <!-- Product Details Section -->
 <div class="product-details-container" *ngIf="product">
-
-  <div class="breadcrumb-navigation">
-    <a [routerLink]="['/']">Home</a> /  
-    <a [routerLink]="['/products']" [queryParams]="{ category: product.category} "> {{ product.category }}</a> /
-    <span> {{ product.name }}</span>
-  </div>
+  <!-- Breadcrumb Navigation -->
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/products']">Products</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/products']" [queryParams]="{ category: product.category} "> {{ product.category }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">{{ product.name }}</li>
+    </ol>
+  </nav>
 
   <div class="product-content">
     <!-- Left Column - Product Images -->

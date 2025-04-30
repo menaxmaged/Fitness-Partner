@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TrainersDataService } from '../../services/trainers-data.service';
 import { ITrainer } from '../../models/i-trainer';
 import { ITrainerProducts } from '../../models/i-trainer-products';
@@ -11,7 +11,7 @@ import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-sp
 
 @Component({
   selector: 'app-trainer-details',
-  imports: [CommonModule, TrainerFAQComponent, TrainerProductsComponent, LoadingSpinnerComponent],
+  imports: [RouterLink, CommonModule, TrainerFAQComponent, TrainerProductsComponent, LoadingSpinnerComponent],
   templateUrl: './trainer-details.component.html',
   styles: ``,
 })

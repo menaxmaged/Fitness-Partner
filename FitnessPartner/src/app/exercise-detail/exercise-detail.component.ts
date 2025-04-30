@@ -38,7 +38,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../services/exercise.service';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
@@ -46,7 +46,7 @@ import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinn
 
 @Component({
   selector: 'app-exercise-detail',
-  imports: [CommonModule, LoadingSpinnerComponent],
+  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
   templateUrl: './exercise-detail.component.html',
   styleUrl: './exercise-detail.component.css'
 })
