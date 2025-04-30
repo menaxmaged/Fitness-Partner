@@ -87,6 +87,14 @@
 </style> -->
 <div class="trainer-details-wrapper" *ngIf="trainer">
   <div class="trainer-details-content">
+    <!-- Breadcrumb Navigation -->
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/trainers']">Trainers</a></li>
+        <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Trainer details</li>
+      </ol>
+    </nav>
     <!-- Main Content Grid -->
     <div class="trainer-grid">
       <!-- Trainer Profile Card -->
@@ -124,6 +132,15 @@
 <app-loading-spinner *ngIf="!trainer" [message]="'Loading trainer details...'"></app-loading-spinner>
 
 <style>
+  .breadcrumb-item a {
+    color: #e83f01;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .breadcrumb-item a:hover {
+    color: #cc0000;
+  }
+  
   .trainer-details-wrapper {
     padding: 20px;
     background: #f8f9fa;

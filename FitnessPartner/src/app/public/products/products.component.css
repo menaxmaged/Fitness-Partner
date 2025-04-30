@@ -553,3 +553,12 @@ input[type="range"].form-range {
     80% { opacity: 1; }
     100% { opacity: 0; }
   }
+
+  .breadcrumb-item a {
+    color: #e83f01;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .breadcrumb-item a:hover {
+    color: #cc0000;
+  }

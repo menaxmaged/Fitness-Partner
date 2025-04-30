@@ -1,8 +1,14 @@
 <app-loading-spinner *ngIf="isLoading" [message]="'Loading Exercises...'"></app-loading-spinner>
 
 <div class="container my-5">
-    <h2 class="text-center mb-5">Choose Your Workout Style</h2>
-  
+  <!-- Breadcrumb Navigation -->
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Exercises Hub</li>
+    </ol>
+  </nav>
+  <h2 class="text-center mb-5">Choose Your Workout Style</h2>
     <div class="row gy-5 justify-content-center">
       <div class="col-12 col-md-5">
         <div class="workout-card" (click)="navigateTo('home')">
@@ -53,6 +59,14 @@
   
   
   <style>
+    .breadcrumb-item a {
+    color: #e83f01;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .breadcrumb-item a:hover {
+    color: #cc0000;
+  }
     .workout-card {
       cursor: pointer;
       text-decoration: none;

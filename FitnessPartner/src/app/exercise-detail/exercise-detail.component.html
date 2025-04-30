@@ -23,6 +23,16 @@
   <app-loading-spinner *ngIf="isLoading" [message]="'Loading Exercise Details...'"></app-loading-spinner>
 
   <div class="container exercise-detail-container">
+    <!-- Breadcrumb Navigation -->
+   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+     <ol class="breadcrumb">
+       <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/exercises']">Exercises</a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/exercises/',type]">{{type}} exercises</a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/exercises/',type,muscle]">{{muscle}} exercises</a></li>
+       <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">{{exercise.name}}</li>
+     </ol>
+   </nav>
     <div class="row justify-content-center">
       <div class="col-12 col-lg-10">
         <!-- Header Section -->
@@ -93,6 +103,15 @@
   </div>
   
   <style>
+    .breadcrumb-item a {
+    color: #e83f01;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .breadcrumb-item a:hover {
+    color: #cc0000;
+  }
+  
     .exercise-detail-container {
       padding: 2rem 0;
       max-width: 1200px;

@@ -3,6 +3,13 @@
 <h2 class="page-title my-5">All Products</h2>
 
   <div class="container product-container">
+    <!-- Breadcrumb Navigation -->
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Products</li>
+    </ol>
+  </nav>
     <!-- Filters and Display Options Row -->
     <div class="filters-row mb-4">
       <div class="filters">

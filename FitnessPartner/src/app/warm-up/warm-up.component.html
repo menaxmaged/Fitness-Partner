@@ -3,7 +3,14 @@
     
     <!-- Loading State -->
     <app-loading-spinner *ngIf="isLoading" [message]="'Loading Warm-up Exercises...'"></app-loading-spinner>
-  
+    <!-- Breadcrumb Navigation -->
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/exercises']">Exercises</a></li>
+        <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Warm-up</li>
+      </ol>
+    </nav>
     <!-- Error State -->
     <div *ngIf="error" class="alert alert-danger text-center">
       {{ error }}
@@ -31,6 +38,14 @@
   </div>
 
 <style>
+  .breadcrumb-item a {
+    color: #e83f01;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .breadcrumb-item a:hover {
+    color: #cc0000;
+  }
     .muscle-card {
       cursor: pointer;
       text-decoration: none;

@@ -672,3 +672,12 @@
   border-radius: 0.25rem;
   font-size: 0.9rem;
 }
+
+.breadcrumb-item a {
+  color: #e83f01;
+  text-decoration: none;
+  font-size: 18px;
+}
+.breadcrumb-item a:hover {
+  color: #cc0000;
+}

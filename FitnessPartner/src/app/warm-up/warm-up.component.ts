@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 
@@ -17,7 +17,7 @@ interface MuscleGroup {
 
 @Component({
   selector: 'app-warm-up',
-  imports: [CommonModule, LoadingSpinnerComponent],
+  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
   templateUrl: './warm-up.component.html',
   styleUrls: ['./warm-up.component.css']
 })
