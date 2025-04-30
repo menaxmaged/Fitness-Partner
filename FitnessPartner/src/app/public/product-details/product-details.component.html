@@ -1,9 +1,4 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="modern-spinner">
-    <div class="spinner-circle"></div>
-    <div class="spinner-text">Loading Exercises...</div>
-  </div>
-</div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Product Details...'"></app-loading-spinner>
 
 <!-- Product Details Section -->
 <div class="product-details-container" *ngIf="product">
@@ -69,36 +64,43 @@
       </div>
 
       <!-- Flavor Selection -->
-      <div class="flavor-selection" *ngIf="product.available_flavors && product.available_flavors.length > 0">
-        <label for="flavor">Flavor</label>
-        <select id="flavor" class="flavor-dropdown" [(ngModel)]="selectedFlavor" (ngModelChange)="onFlavorChange()">
-          <option *ngFor="let flavor of product.available_flavors" [value]="flavor">{{ flavor }}</option>
-        </select>
-      </div>
+     <!-- Flavor Selection -->
+<div class="flavor-selection" *ngIf="product.available_flavors?.length">
+  <label for="flavor">Flavor</label>
+  <select id="flavor" class="flavor-dropdown" [(ngModel)]="selectedFlavor" (ngModelChange)="onFlavorChange()">
+    <option *ngFor="let flavor of product.available_flavors" [value]="flavor">{{ flavor }}</option>
+  </select>
+</div>
 
-      <!-- Currently Selected Flavor Display -->
-      <div class="selected-flavor" *ngIf="selectedFlavor">
-        <p>Selected flavor: <strong>{{ selectedFlavor }}</strong></p>
-      </div>
+<!-- Currently Selected Flavor Display -->
+<div class="selected-flavor" *ngIf="selectedFlavor">
+  <p>Selected flavor: <strong>{{ selectedFlavor }}</strong></p>
+</div>
 
-      <!-- Stock Status -->
-      <div class="stock-indicator">
-        <span class="in-stock-icon"></span>
-        <span>In stock</span>
-      </div>
+<!-- Out of stock warning -->
+<div class="text-danger mb-2" *ngIf="isFlavorOutOfStock">
+  This flavor is currently out of stock.
+</div>
 
-      <!-- Quantity Controls and Add to Cart -->
-      <div class="purchase-controls">
-        <div class="quantity-control mx-auto">
-          <button class="quantity-decrease" (click)="decreaseQuantity()">−</button>
-          <input type="number" class="quantity-input" [(ngModel)]="quantity" min="1" />
-          <button class="quantity-increase" (click)="increaseQuantity()">+</button>
-        </div>
-        <div *ngIf="showPopUpMessage" class="pop-up-message d-block">
-          Item added to cart!
-        </div>
-        <button class="add-to-cart-button btn-outline-light orange-btn w-100 p-3" (click)="addToCart(product)">ADD TO CART</button>
-      </div>
+<!-- Quantity Controls and Add to Cart -->
+<div class="purchase-controls">
+  <div class="quantity-control mx-auto">
+    <button class="quantity-decrease" (click)="decreaseQuantity()">−</button>
+    <input type="number" class="quantity-input" [(ngModel)]="quantity" min="1" />
+    <button class="quantity-increase" (click)="increaseQuantity()">+</button>
+  </div>
+
+  <div *ngIf="showPopUpMessage" class="pop-up-message d-block">
+    Item added to cart!
+  </div>
+
+  <button class="add-to-cart-button btn-outline-light orange-btn w-100 p-3"
+          (click)="addToCart(product)"
+          [disabled]="isFlavorOutOfStock">
+    ADD TO CART
+  </button>
+</div>
+
 
       <!-- Product Categories -->
       <div class="product-categories">

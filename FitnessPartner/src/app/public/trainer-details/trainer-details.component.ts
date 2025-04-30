@@ -7,10 +7,11 @@ import { CommonModule } from '@angular/common';
 import {TrainerFAQComponent} from '../trainer-faq/trainer-faq.component'
 import {TrainerProductsComponent} from '../trainer-products/trainer-products.component'
 import {ProductServicesService} from '../../services/product-services.service'
+import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-trainer-details',
-  imports: [CommonModule,TrainerFAQComponent,TrainerProductsComponent],
+  imports: [CommonModule, TrainerFAQComponent, TrainerProductsComponent, LoadingSpinnerComponent],
   templateUrl: './trainer-details.component.html',
   styles: ``,
 })

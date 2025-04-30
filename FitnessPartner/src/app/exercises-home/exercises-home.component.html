@@ -1,9 +1,4 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="modern-spinner">
-    <div class="spinner-circle"></div>
-    <div class="spinner-text">Loading Exercises...</div>
-  </div>
-</div>
+<app-loading-spinner *ngIf="isLoading" [message]="'Loading Exercises...'"></app-loading-spinner>
 
 <div class="container my-5">
     <h2 class="text-center mb-5">Home Exercises</h2>

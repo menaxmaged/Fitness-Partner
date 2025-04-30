@@ -15,7 +15,7 @@ export interface FoodItem {
   providedIn: 'root',
 })
 export class FoodNutritionService {
-  private dataUrl = 'http://localhost:3000/foods';
+  private dataUrl = 'http://localhost:3001/foods';
 
   constructor(private http: HttpClient) {}
 

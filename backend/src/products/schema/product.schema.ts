@@ -36,6 +36,24 @@ export class Product {
 
   @Prop()
   category: string;
+
+  @Prop({ type: Map, of: Number })  // Add flavor_quantity as a map of string (flavor) to number (quantity)
+  flavor_quantity: Record<string, number>;
+
+  @Prop({ type: Number })
+  quantity: number;
+
+  @Prop({ type: Boolean })
+  inStock: boolean;
+
+  @Prop({ type: Boolean })
+  isHot?: boolean;
+
+  @Prop({ type: Boolean })
+  isNew?: boolean;
+
+  @Prop({ type: Number })
+  discount?: number;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

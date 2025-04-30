@@ -3,9 +3,10 @@ import {TrainersDataService} from '../../services/trainers-data.service';
 import { ITrainer } from '../../models/i-trainer';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 @Component({
   selector: 'app-trainers',
-  imports: [RouterLink,CommonModule,RouterModule],
+  imports: [RouterLink, CommonModule, RouterModule, LoadingSpinnerComponent],
   templateUrl: './trainers.component.html',
   styleUrl:'./trainers.component.css'
 })
