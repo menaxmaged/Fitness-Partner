@@ -1,21 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event, RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-exercises',
   imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
   templateUrl: './exercises.component.html',
   styles: ``
 })
-export class ExercisesComponent {
+export class ExercisesComponent implements OnInit {
   isLoading =false;
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.router.events.subscribe((event:Event) => {
       if (event instanceof NavigationStart) {
         this.isLoading = true;
       } else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
         this.isLoading = false;
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        const el = document.getElementById(fragment);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     });
   }
