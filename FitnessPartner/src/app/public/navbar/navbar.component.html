@@ -55,6 +55,7 @@
             class="nav-link active text-white tab"
             aria-current="page"
             routerLink="/exercises"
+            fragment="workout"
             routerLinkActive="active"
             >EXERCISES HUB</a
           >
@@ -84,28 +85,32 @@
             >CONTACT US</a
           >
         </li>
-
       </ul>
-        <!-- Localization -->
-        <div class="dropdown">
-          <button
-            class="btn dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="fas fa-globe text-white"></i>
-          </button>
-          <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
-            <li class="dropdown-item">
-              <button (click)="changeLang('en')" class="home-button">English</button>
-            </li>
-            <li class="dropdown-item">
-              <button (click)="changeLang('ar')" class="home-button">عربي</button>
-            </li>
-          </ul>
-        </div>
+      <!-- Localization -->
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fas fa-globe text-white"></i>
+        </button>
+        <ul
+          class="dropdown-menu text-center"
+          aria-labelledby="dropdownMenuButton1"
+        >
+          <li class="dropdown-item">
+            <button (click)="changeLang('en')" class="home-button">
+              English
+            </button>
+          </li>
+          <li class="dropdown-item">
+            <button (click)="changeLang('ar')" class="home-button">عربي</button>
+          </li>
+        </ul>
+      </div>
       <form class="d-flex gap-2" role="search">
         <!-- User Icon  -->
         <a
@@ -352,24 +357,22 @@
     }
   }
   .home-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      padding: 0.875rem 2rem;
-      background: linear-gradient(90deg, #CC0000 0%, #FF9933 100%) !important;
-      border: none;
-      border-radius: 50px;
-      color:white;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%) !important;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 
-      &:hover {
-        transform: translateY(-2px);
-      }
-
-
+    &:hover {
+      transform: translateY(-2px);
     }
+  }
 </style>
