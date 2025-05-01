@@ -6,7 +6,7 @@
 //   password: string;
 //   avatar?: string;
 //   isVerified?: boolean;
-//   role?: 'user' | 'trainer' | 'admin'; 
+//   role?: 'user' | 'trainer' | 'admin';
 // }
 
 import { IsString, IsEmail, IsOptional, IsBoolean } from 'class-validator';
@@ -32,5 +32,9 @@ export class CreateUserDto {
   @IsBoolean()
   isVerified?: boolean;
 
-  // role?: 'user' | 'trainer' | 'admin'; 
+  @IsOptional()
+  @IsString()
+  authProvider?: string;
+
+  // role?: 'user' | 'trainer' | 'admin';
 }
