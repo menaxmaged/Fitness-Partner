@@ -11,6 +11,8 @@ import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { AuthService } from '../../services/auth.service';
+import { GoogleAuthService } from '../../services/google-auth.service';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +36,16 @@ export class LoginComponent implements OnInit {
     private myUserService: UsersService,
     private router: Router,
     private favoritesService: FavoritesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private googleAuthService: GoogleAuthService
   ) {}
+
+  ngAfterViewInit(): void {
+    this.googleAuthService.initializeGoogleButton(
+      'google-login-button',
+      (response: any) => this.handleGoogleSignIn(response)
+    );
+  }
 
   ngOnInit(): void {
     // If already authenticated, sync favorites and redirect
@@ -44,6 +54,19 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/profile']);
       return;
     }
+  }
+
+  handleGoogleSignIn(response: any) {
+    this.authService.googleAuth(response.credential).subscribe({
+      next: (authResponse) => {
+        this.authService.setCurrentUserId(authResponse.user.id);
+        this.favoritesService.initialize();
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => {
+        console.error('Google login failed:', err);
+      },
+    });
   }
 
   get email() {

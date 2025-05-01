@@ -106,6 +106,10 @@ export class AuthService {
     });
   }
 
+  googleAuth(credential: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/google`, { credential });
+  }
+
   resetPassword(data: {
     token: string;
     email: string;
@@ -121,10 +125,8 @@ export class AuthService {
     const decoded: any = jwtDecode(token);
     return decoded.role; // Ensure your JWT contains 'role'
   }
-  
+
   isAdmin(): boolean {
     return this.getUserRole() === 'admin';
   }
-
-
 }

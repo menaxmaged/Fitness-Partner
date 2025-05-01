@@ -12,6 +12,7 @@ import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../shared/utils/user';
 import { AuthService } from '../../services/auth.service';
+import { GoogleAuthService } from '../../services/google-auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +31,8 @@ export class SignupComponent implements OnInit {
     private myUserService: UsersService,
     private router: Router,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private googleAuthService: GoogleAuthService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,26 @@ export class SignupComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+      },
+    });
+
+    // Initialize Google button
+    setTimeout(() => {
+      this.googleAuthService.initializeGoogleButton(
+        'google-signup-button',
+        (response: any) => this.handleGoogleSignUp(response)
+      );
+    }, 100);
+  }
+
+  handleGoogleSignUp(response: any) {
+    this.authService.googleAuth(response.credential).subscribe({
+      next: (authResponse) => {
+        this.authService.setCurrentUserId(authResponse.user.id);
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => {
+        console.error('Google signup failed:', err);
       },
     });
   }

@@ -16,9 +16,11 @@ import { Otp, OtpDocument } from './schemas/otp.schema';
 import { EmailService } from '../email/email.service';
 import { MailService } from './mail/mail.service';
 import { Token } from './entities/token.entity';
+import { OAuth2Client } from 'google-auth-library';
 
 @Injectable()
 export class AuthService {
+  private googleClient: OAuth2Client;
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Token.name) private tokenModel: Model<Token>,
@@ -27,7 +29,71 @@ export class AuthService {
     private jwtService: JwtService,
     @InjectModel(Otp.name) private otpModel: Model<OtpDocument>,
     private emailService: EmailService,
-  ) {}
+  ) {
+    this.googleClient = new OAuth2Client({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    });
+  }
+
+  async authenticateGoogleUser(credential: string): Promise<any> {
+    try {
+      const ticket = await this.googleClient.verifyIdToken({
+        idToken: credential,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+
+      const payload = ticket.getPayload();
+      if (!payload?.email || !payload.name) {
+        throw new BadRequestException('Invalid Google token');
+      }
+
+      // Check if user exists
+      let user = await this.usersService.findByEmail(payload.email);
+
+      if (!user) {
+        // Create new user
+        const names = payload.name.split(' ');
+        const fName = names[0] || '';
+        const lName = names.length > 1 ? names.slice(1).join(' ') : '';
+
+        user = await this.usersService.create({
+          email: payload.email,
+          fName,
+          lName,
+          password: crypto.randomBytes(16).toString('hex'), // Random password
+          isVerified: true, // Google emails are verified
+          avatar: payload.picture,
+        });
+      }
+
+      // Generate JWT token
+      const tokenPayload = {
+        email: user.email,
+        sub: user.id,
+        role: user.role,
+      };
+      const access_token = this.jwtService.sign(tokenPayload, {
+        expiresIn: '1h',
+      });
+
+      return {
+        access_token,
+        user: {
+          id: user.id,
+          email: user.email,
+          fName: user.fName,
+          lName: user.fName,
+          isVerified: user.isVerified,
+          role: user.role,
+          avatar: user.avatar,
+        },
+      };
+    } catch (error) {
+      console.error('Google authentication error:', error);
+      throw new BadRequestException('Invalid Google token');
+    }
+  }
 
   async forgotPassword(email: string): Promise<{ message: string }> {
     try {
