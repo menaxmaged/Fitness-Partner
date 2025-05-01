@@ -3,15 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event, RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-exercises',
-  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent,RouterLink,TranslateModule],
   templateUrl: './exercises.component.html',
   styles: ``
 })
 export class ExercisesComponent implements OnInit {
   isLoading =false;
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute , private translate: TranslateService
+    ) {
+      this.translate.setDefaultLang('en');
     this.router.events.subscribe((event:Event) => {
       if (event instanceof NavigationStart) {
         this.isLoading = true;
@@ -35,5 +38,5 @@ export class ExercisesComponent implements OnInit {
   navigateTo(type: string) {
     this.router.navigate([`/exercises/${type}`]);
   }
-  
+
 }

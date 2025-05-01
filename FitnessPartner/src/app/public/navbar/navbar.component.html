@@ -5,7 +5,7 @@
       class="navbar-brand fs-3 ms-0 text-white"
       routerLink="/home"
       routerLinkActive="active"
-      >Fitness Partner</a
+      >{{ "navbar.link1" | translate }}</a
     >
     <button
       class="navbar-toggler"
@@ -29,7 +29,7 @@
             aria-current="page"
             routerLink="/home"
             routerLinkActive="active"
-            >HOME</a
+            >{{ "navbar.link2" | translate }}</a
           >
         </li>
         <li class="nav-item tab">
@@ -38,7 +38,7 @@
             aria-current="page"
             routerLink="/products"
             routerLinkActive="active"
-            >SHOP</a
+            >{{ "navbar.link3" | translate }}</a
           >
         </li>
         <li class="nav-item tab">
@@ -47,7 +47,7 @@
             aria-current="page"
             routerLink="/trainers"
             routerLinkActive="active"
-            >TRAINERS</a
+            >{{ "navbar.link4" | translate }}</a
           >
         </li>
         <li class="nav-item tab">
@@ -57,7 +57,7 @@
             routerLink="/exercises"
             fragment="workout"
             routerLinkActive="active"
-            >EXERCISES HUB</a
+            >{{ "navbar.link5" | translate }}</a
           >
         </li>
         <li class="nav-item tab">
@@ -66,7 +66,7 @@
             aria-current="page"
             routerLink="/nutrition"
             routerLinkActive="active"
-            >NUTRITION</a
+            >{{ "navbar.link6" | translate }}</a
           >
         </li>
         <li class="nav-item tab">
@@ -74,7 +74,7 @@
             class="nav-link text-white tab"
             routerLink="/about"
             routerLinkActive="active"
-            >ABOUT</a
+            >{{ "navbar.link7" | translate }}</a
           >
         </li>
         <li class="nav-item tab">
@@ -82,7 +82,7 @@
             class="nav-link text-white tab"
             routerLink="/contactus"
             routerLinkActive="active"
-            >CONTACT US</a
+            >{{ "navbar.link8" | translate }}</a
           >
         </li>
       </ul>
@@ -174,7 +174,7 @@
 
         <!-- Cart Icon  -->
         <span
-          class="ms-1 position-relative"
+          class="ms-3 position-relative"
           style="cursor: pointer"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasRight"

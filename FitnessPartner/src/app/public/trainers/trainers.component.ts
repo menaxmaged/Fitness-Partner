@@ -1,25 +1,40 @@
-import { Component ,OnInit} from '@angular/core';
-import {TrainersDataService} from '../../services/trainers-data.service';
+import { Component, OnInit } from '@angular/core';
+import { TrainersDataService } from '../../services/trainers-data.service';
 import { ITrainer } from '../../models/i-trainer';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-trainers',
-  imports: [RouterLink, CommonModule, RouterModule, LoadingSpinnerComponent],
+  imports: [
+    RouterLink,
+    CommonModule,
+    RouterModule,
+    LoadingSpinnerComponent,
+    TranslateModule,
+  ],
   templateUrl: './trainers.component.html',
-  styleUrl:'./trainers.component.css'
+  styleUrl: './trainers.component.css',
 })
 export class TrainersComponent implements OnInit {
-
   trainers: ITrainer[] = [];
   isLoading = true;
-  constructor(private _trainersDataService: TrainersDataService, private router: Router) {}
+  constructor(
+    private _trainersDataService: TrainersDataService,
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
   ngOnInit(): void {
     this._trainersDataService.getAllTrainers().subscribe({
-      next: data =>this.trainers = data,
-      error: err => this.handleLoadError(err),
-      complete: ()=> {this.isLoading = false;}
+      next: (data) => (this.trainers = data),
+      error: (err) => this.handleLoadError(err),
+      complete: () => {
+        this.isLoading = false;
+      },
     });
   }
 

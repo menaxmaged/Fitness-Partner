@@ -1,156 +1,239 @@
-<app-loading-spinner *ngIf="isLoading" [message]="'Loading Products...'"></app-loading-spinner>
+<app-loading-spinner
+  *ngIf="isLoading"
+  [message]="'shop.loadingMsg' | translate"
+></app-loading-spinner>
 
-<h2 class="page-title my-5">All Products</h2>
+<h2 class="page-title my-5">{{ "shop.h2" | translate }}</h2>
 
-  <div class="container product-container">
-    <!-- Breadcrumb Navigation -->
+<div class="container product-container">
+  <!-- Breadcrumb Navigation -->
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Products</li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']">{{ "shop.Breadcrumb.li1" | translate }}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {{ "shop.Breadcrumb.li2" | translate }}
+      </li>
     </ol>
   </nav>
-    <!-- Filters and Display Options Row -->
-    <div class="filters-row mb-4">
-      <div class="filters">
-        <button class="btn-filter" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
-          <i class="fas fa-filter"></i> Filters
-        </button>
 
-        <!-- Filter Collapse Panel -->
-        <div class="collapse mt-3" id="filterCollapse">
-          <div class="card card-body">
-            <div class="row">
-              <div class="col-md-4">
-                <h5>Category</h5>
-                <select class="form-select" [(ngModel)]="selectedCategory" (change)="applyFilters()">
-                  <option value="">All Categories</option>
-                  <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-                </select>
-              </div>
+  <!-- Filters and Display Options Row -->
+  <div class="filters-row mb-4">
+    <div class="filters">
+      <button
+        class="btn-filter"
+        data-bs-toggle="collapse"
+        data-bs-target="#filterCollapse"
+      >
+        <i class="fas fa-filter"></i>Filters
+      </button>
 
-              <div class="col-md-4">
-                <h5>Brand</h5>
-                <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
-                  <option value="">All Brands</option>
-                  <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
-                </select>
-              </div>
-
-              <div class="col-md-4">
-                <h5>Price Range: {{priceRange.min}} - {{priceRange.max}} EGP</h5>
-                <div class="d-flex align-items-center">
-                  <input type="range" class="form-range" min="0" [max]="priceRange.max"
-                         [(ngModel)]="priceRange.min" (change)="applyFilters()" style="width: 45%">
-                  <span class="mx-2">to</span>
-                  <input type="range" class="form-range" [min]="priceRange.min" [max]="priceRange.max"
-                         [(ngModel)]="priceRange.max" (change)="applyFilters()" style="width: 45%">
-                </div>
-              </div>
+      <!-- Filter Collapse Panel -->
+      <div class="collapse mt-3" id="filterCollapse">
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h5>Categories</h5>
+              <select
+                class="form-select"
+                [(ngModel)]="selectedCategory"
+                (change)="applyFilters()"
+              >
+                <option value="">All</option>
+                <option *ngFor="let category of categories" [value]="category">
+                  {{ category }}
+                </option>
+              </select>
             </div>
 
-            <div class="mt-3">
-              <button class="btn btn-sm btn-outline-light orange-btn" (click)="resetFilters()">
-                Reset Filters
-              </button>
+            <div class="col-md-4">
+              <h5>Brand</h5>
+              <select
+                class="form-select"
+                [(ngModel)]="selectedBrand"
+                (change)="applyFilters()"
+              >
+                <option value="">All Brands</option>
+                <option *ngFor="let brand of brands" [value]="brand">
+                  {{ brand }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <h5>
+                Price Range: {{ priceRange.min }} - {{ priceRange.max }}.00 EGP
+              </h5>
+              <div class="d-flex align-items-center">
+                <input
+                  type="range"
+                  class="form-range"
+                  min="0"
+                  [max]="priceRange.max"
+                  [(ngModel)]="priceRange.min"
+                  (change)="applyFilters()"
+                  style="width: 45%"
+                />
+                <span class="mx-2">to</span>
+                <input
+                  type="range"
+                  class="form-range"
+                  [min]="priceRange.min"
+                  [max]="priceRange.max"
+                  [(ngModel)]="priceRange.max"
+                  (change)="applyFilters()"
+                  style="width: 45%"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="display-options">
-        <div class="show-items">
-          Show:
-          <span *ngFor="let count of itemsPerPageOptions"
-                [class.active]="itemsPerPage === count"
-                (click)="changeItemsPerPage(count)">
-            {{count}}
-          </span>
-        </div>
-
-        <div class="sort-options">
-          <select class="form-select" [(ngModel)]="selectedSort" (change)="applyFilters()">
-            <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
-          </select>
+          <div class="mt-3">
+            <button
+              class="btn btn-sm btn-outline-light orange-btn"
+              (click)="resetFilters()"
+            >
+              Reset Filters
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
+    <div class="display-options">
+      <div class="show-items">
+        Show:
+        <span
+          *ngFor="let count of itemsPerPageOptions"
+          [class.active]="itemsPerPage === count"
+          (click)="changeItemsPerPage(count)"
+        >
+          {{ count }}
+        </span>
+      </div>
+
+      <div class="sort-options">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedSort"
+          (change)="applyFilters()"
+        >
+          <option *ngFor="let option of sortOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
 
   <!-- Products Grid -->
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let product of paginatedProducts">
-        <div class="product-card">
-          <!-- Product Badges -->
-          <div class="product-badges">
-            <span class="badge discount-badge" *ngIf="product.discount">-{{product.discount}}%</span>
-            <span class="badge new-badge" *ngIf="product.isNew">NEW</span>
-            <span class="badge hot-badge" *ngIf="product.isHot">HOT</span>
+    <div
+      class="col-12 col-md-6 col-lg-4 mb-4"
+      *ngFor="let product of paginatedProducts"
+    >
+      <div class="product-card">
+        <!-- Product Badges -->
+        <div class="product-badges">
+          <span class="badge discount-badge" *ngIf="product.discount"
+            >-{{ product.discount }}%</span
+          >
+          <span class="badge new-badge" *ngIf="product.isNew">NEW</span>
+          <span class="badge hot-badge" *ngIf="product.isHot">HOT</span>
+        </div>
+
+        <!-- Product Image -->
+        <div class="product-image">
+          <img [src]="product.image" alt="{{ product.name }}" />
+
+          <!-- Hover Buttons -->
+          <div class="hover-buttons">
+            <button
+              class="btn-wishlist"
+              (click)="toggleFavorite(product, $event)"
+              [class.in-favorites]="favoritesService.isFavorite(product.id)"
+            >
+              <i
+                [class]="
+                  favoritesService.isFavorite(product.id)
+                    ? 'fas fa-heart'
+                    : 'far fa-heart'
+                "
+              ></i>
+            </button>
+            <button
+              class="btn-quick-view"
+              (click)="openQuickView(product, $event)"
+            >
+              <i class="far fa-eye"></i>
+            </button>
+            <button
+              class="btn btn-outline-light orange-btn border-0"
+              [routerLink]="['/products', product.id]"
+            >
+              {{ "shop.product.btn1" | translate }}
+            </button>
           </div>
+        </div>
 
-          <!-- Product Image -->
-          <div class="product-image">
-            <img [src]="product.image" alt="{{ product.name }}">
-
-            <!-- Hover Buttons -->
-            <div class="hover-buttons">
-              <button class="btn-wishlist" (click)="toggleFavorite(product, $event)"
-                     [class.in-favorites]="favoritesService.isFavorite(product.id)">
-                <i [class]="favoritesService.isFavorite(product.id) ? 'fas fa-heart' : 'far fa-heart'"></i>
-              </button>
-              <button class="btn-quick-view" (click)="openQuickView(product, $event)">
-                <i class="far fa-eye"></i>
-              </button>
-              <button class="btn btn-outline-light orange-btn border-0 " [routerLink]="['/products', product.id]">
-                View Product
-              </button>
-            </div>
+        <!-- Product Info -->
+        <div class="product-info">
+          <div class="product-categories">
+            <span>{{ product.category }}</span>
           </div>
-
-          <!-- Product Info -->
-          <div class="product-info">
-            <div class="product-categories">
-              <span>{{ product.category }}</span>
-            </div>
-            <div class="product-brand">{{ product.brand }}</div>
-            <h3 class="product-name">{{ product.name }}</h3>
-            <div class="product-price">
-              <span class="price">{{ product.price }}.00 EGP</span>
-            </div>
-            <div class="product-expiry">
-              <span class="expiry-date">Expires: {{ formatDate(product.expiration_date) }}</span>
-            </div>
+          <div class="product-brand">{{ product.brand }}</div>
+          <h3 class="product-name">{{ product.name }}</h3>
+          <div class="product-price">
+            <span class="price">{{ product.price }}.00 EGP</span>
+          </div>
+          <div class="product-expiry">
+            <span class="expiry-date"
+              >{{ "shop.product.date" | translate }}
+              {{ formatDate(product.expiration_date) }}</span
+            >
           </div>
         </div>
       </div>
     </div>
- <!-- Pagination -->
-<div class="row mt-4">
-  <div class="col-12">
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center modern-pagination">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="pageChanged(currentPage - 1)" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
+  </div>
+  <!-- Pagination -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center modern-pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a
+              class="page-link"
+              (click)="pageChanged(currentPage - 1)"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
 
-        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
-            [class.active]="currentPage === i + 1">
-          <a class="page-link" (click)="pageChanged(i + 1)">{{i + 1}}</a>
-        </li>
+          <li
+            class="page-item"
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            [class.active]="currentPage === i + 1"
+          >
+            <a class="page-link" (click)="pageChanged(i + 1)">{{ i + 1 }}</a>
+          </li>
 
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="pageChanged(currentPage + 1)" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a
+              class="page-link"
+              (click)="pageChanged(currentPage + 1)"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
-
-  </div>
 
 <!-- Quick View Modal -->
 <div class="quick-view-modal" [class.active]="selectedProduct">
@@ -163,9 +246,16 @@
         <!-- Product Image -->
         <div class="col-md-5">
           <div class="product-image">
-            <img [src]="selectedProduct.image" alt="{{ selectedProduct.name }}">
-            <button class="btn-view-details" [routerLink]="['/products', selectedProduct.id]" (click)="closeQuickView()">
-              View Details
+            <img
+              [src]="selectedProduct.image"
+              alt="{{ selectedProduct.name }}"
+            />
+            <button
+              class="btn-view-details"
+              [routerLink]="['/products', selectedProduct.id]"
+              (click)="closeQuickView()"
+            >
+              {{ "shop.product.btn1" | translate }}
             </button>
           </div>
         </div>
@@ -173,7 +263,7 @@
         <!-- Product Details -->
         <div class="col-md-7">
           <div class="product-price mb-3">
-            <span class="price">{{ selectedProduct.price }}.00 EGP</span>
+            <span class="price">{{ selectedProduct.price }}EGP</span>
           </div>
 
           <h2 class="product-title mb-3">{{ selectedProduct.name }}</h2>
@@ -192,52 +282,83 @@
           </div>
 
           <div class="product-form">
-            <div class="flavor-select mb-3" *ngIf="(selectedProduct?.available_flavors ?? []).length > 1">
-              <label>Flavor:</label>
-              <select class="form-control" [(ngModel)]="selectedFlavor" (change)="onFlavorSelect(selectedFlavor)">
-                <option *ngIf="!selectedFlavor" disabled selected>Choose an option</option>
-                <option *ngFor="let flavor of selectedProduct.available_flavors" [value]="flavor">
+            <div
+              class="flavor-select mb-3"
+              *ngIf="(selectedProduct?.available_flavors ?? []).length > 1"
+            >
+              <label> {{ "shop.product.flavor" | translate }} </label>
+              <select
+                class="form-control"
+                [(ngModel)]="selectedFlavor"
+                (change)="onFlavorSelect(selectedFlavor)"
+              >
+                <option *ngIf="!selectedFlavor" disabled selected>
+                  {{ "shop.product.selectLabel" | translate }}
+                </option>
+                <option
+                  *ngFor="let flavor of selectedProduct.available_flavors"
+                  [value]="flavor"
+                >
                   {{ flavor }}
                 </option>
               </select>
             </div>
-          
+
             <!-- Optional: Show selected flavor if only 1 -->
-            <div class="selected-flavor mb-3" *ngIf="selectedProduct?.available_flavors?.length === 1">
-              <label>Flavor:</label>
+            <div
+              class="selected-flavor mb-3"
+              *ngIf="selectedProduct?.available_flavors?.length === 1"
+            >
+              <label>{{ "shop.product.flavor" | translate }}</label>
               <p class="form-control-static">{{ selectedFlavor }}</p>
             </div>
-          
-          
 
             <div class="quantity-selector mb-3">
               <div class="quantity-controls">
                 <button class="btn-quantity" (click)="decreaseQuantity()">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+                    />
                   </svg>
                 </button>
-                <input type="text" [value]="quantity" readonly>
+                <input type="text" [value]="quantity" readonly />
                 <button class="btn-quantity" (click)="increaseQuantity()">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                    />
                   </svg>
                 </button>
               </div>
 
-              <button class="btn-add-to-cart" (click)="addToCart(selectedProduct, [quantity.toString()])">
-                ADD TO CART
+              <button
+                class="btn-add-to-cart"
+                (click)="addToCart(selectedProduct, [quantity.toString()])"
+              >
+                {{ "shop.product.btn2" | translate }}
               </button>
 
               <!-- Pop-up message -->
               <div *ngIf="showPopUpMessage" class="pop-up-message">
-                Item added to cart!
+                {{ "shop.product.popMsg" | translate }}
               </div>
             </div>
 
-
             <div class="share-product">
-              <strong>Share:</strong>
+              <strong>{{ "shop.product.share" | translate }} </strong>
               <div class="social-icons">
                 <i class="fab fa-facebook-f"></i>
                 <i class="fab fa-twitter"></i>

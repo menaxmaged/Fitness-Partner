@@ -1,16 +1,14 @@
 <!-- not-found.component.html -->
 <div class="not-found-container">
-  <div class="content">
-    <div class="error-code">404</div>
-    <h1 class="title">Page Not Found</h1>
+  <div class="content mt-5">
+    <div class="error-code">{{'notFound.div' |translate}}</div>
+    <h1 class="title">{{'notFound.h1' |translate}}</h1>
     <p class="message">
-      The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+      {{'notFound.p' |translate}}
     </p>
-    <button class="home-button" (click)="goHome()">
-      <span>Back to Homepage</span>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <button class="home-button text-white" (click)="goHome()">
+      <span>{{'notFound.link' |translate}}</span>
+      <i class="fa fa-home"></i>
     </button>
   </div>
 </div>
