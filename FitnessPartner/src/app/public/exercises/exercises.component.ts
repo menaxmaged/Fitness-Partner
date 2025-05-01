@@ -7,7 +7,7 @@ import { IdentifyMachineComponent } from "../../identify-machine/identify-machin
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-exercises',
-  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, IdentifyMachineComponent],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, TranslateModule,IdentifyMachineComponent],
   templateUrl: './exercises.component.html',
   styles: ``
 })
