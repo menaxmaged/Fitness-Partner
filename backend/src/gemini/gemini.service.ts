@@ -20,7 +20,7 @@ export class GeminiService {
 
   async identifyGymMachine(
     imageBuffer: Buffer,
-    prompt: string = 'What is this gym machine? Respond only with the equipment name with the exercise can be played with description, no formatting, no extra words.',
+    prompt: string = 'What is this gym machine? Respond only with the equipment name with the exercise can be played with description, no formatting like **, no extra words.',
     mimeType: string = 'image/jpeg'
   ): Promise<string> {
     try {

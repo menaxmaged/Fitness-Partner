@@ -222,6 +222,16 @@
     "link": "Browse Products",
     "btn": "View Product"
   },
+  "cart": {
+    "h2": "Your Shopping Cart",
+    "btn": "CHECKOUT",
+    "link": "Continue Shopping",
+    "cartItems": {
+      "span1": "YOUR GYM BAG IS EMPTY",
+      "span2": "It looks like you haven't made your choice yet...",
+      "btn": "SHOP NOW"
+    }
+  },
   "notFound": {
     "div": "404",
     "h1": "Page Not Found",

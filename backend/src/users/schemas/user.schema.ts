@@ -44,12 +44,6 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ default: null })
-  googleId: string;
-
-  @Prop({ default: 'local', enum: ['local', 'google', 'both'] })
-  authProvider: string;
-
   @Prop({ type: [Object], default: [] })
   orders: [
     {

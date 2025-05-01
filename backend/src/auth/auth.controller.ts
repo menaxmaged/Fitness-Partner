@@ -16,6 +16,22 @@ import { GoogleAuthDto } from './dto/google-auth.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Post('google')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Login or register with Google' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful Google authentication',
+    type: Object,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid Google token',
+  })
+  async googleAuth(@Body() googleAuthDto: GoogleAuthDto) {
+    return this.authService.authenticateGoogleUser(googleAuthDto.credential);
+  }
+
   @Post('forgot-password')
   @HttpCode(200)
   @ApiOperation({ summary: 'Request password reset' })
@@ -53,12 +69,6 @@ export class AuthController {
     );
 
     return { message: 'Password successfully reset' };
-  }
-
-  @Post('google')
-  @HttpCode(HttpStatus.OK)
-  async googleAuth(@Body() googleAuthDto: GoogleAuthDto) {
-    return this.authService.googleAuth(googleAuthDto);
   }
 
   @Post('register')

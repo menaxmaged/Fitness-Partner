@@ -92,7 +92,13 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterModule, CartItemsComponent, CommonModule, RouterLink,TranslateModule],
+  imports: [
+    RouterModule,
+    CartItemsComponent,
+    CommonModule,
+    RouterLink,
+    TranslateModule,
+  ],
   templateUrl: './navbar.component.html',
 })
 export class NavBarComponent implements OnInit, OnDestroy {
@@ -160,13 +166,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
   }
 
-  OnLogout() {
-    const confirmed = window.confirm('Are you sure you want to logout?');
-    if (confirmed) {
-      this.authService.logout();
-      this.favoritesService.clearUserData();
-      this.router.navigate(['/login']);
-    }
+  confirmLogout() {
+    this.authService.logout();
+    this.favoritesService.clearUserData();
+    this.router.navigate(['/login']);
   }
 
   // Method to manually refresh favorites count
@@ -178,7 +181,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
   // switch language
   changeLang(lang: string) {
-    this.translate.use(lang) ;
+    this.translate.use(lang);
     const dir = lang === 'ar' ? 'rtl' : 'ltr';
     this.document.documentElement.dir = dir;
     this.document.documentElement.lang = lang;
