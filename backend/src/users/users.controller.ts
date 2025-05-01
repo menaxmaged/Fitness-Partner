@@ -116,6 +116,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
+  
   // ✅ Admin: Delete a user
   @Delete('admin/:id')
   @Roles('admin')
@@ -154,5 +155,16 @@ export class UsersController {
   @Post(':id/orders')
 async addOrder(@Param('id') id: string, @Body() order: any) {
   return this.usersService.addOrder(id, order);
+}
+
+//////
+
+@Put('admin/:id/role')
+@Roles('admin')
+async updateUserRoleByAdmin(
+  @Param('id') id: string,
+  @Body() dto: { role: 'user' | 'admin' | 'moderator' }
+) {
+  return this.usersService.updateRoleByAdmin(id, dto.role);
 }
 }

@@ -90,4 +90,20 @@ export class UsersService {
       { headers: this.getAuthHeaders() }
     );
   }
+  updateUserByAdmin(id: string, userData: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.put(
+      `${this.apiUrl}/users/admin/${id}`, // Admin endpoint
+      userData,
+      { headers }
+    );
+  }
+  
+  updateUserRoleByAdmin(id: string, newRole: string): Observable<any> {
+    return this.updateUserByAdmin(id, { role: newRole });
+  }
 }

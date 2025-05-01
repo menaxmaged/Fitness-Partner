@@ -1,0 +1,26 @@
+<div class="admin-header">
+    <h2>Users Management</h2>
+    <button routerLink="/admin/users/new" class="btn btn-outline-light orange-btn">Add New User</button>
+  </div>
+  
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.email }}</td>
+          <td>
+            <select [value]="user.role" (change)="onRoleChange(user.id, $event)">
+              <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

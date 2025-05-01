@@ -5,7 +5,7 @@ import { tap, catchError, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthResponse } from '../interfaces/auth-response.interface';
-
+import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
@@ -114,4 +114,17 @@ export class AuthService {
   }) {
     return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+    const decoded: any = jwtDecode(token);
+    return decoded.role; // Ensure your JWT contains 'role'
+  }
+  
+  isAdmin(): boolean {
+    return this.getUserRole() === 'admin';
+  }
+
+
 }

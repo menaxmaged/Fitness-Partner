@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event, RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 import { ActivatedRoute } from '@angular/router';
+import { IdentifyMachineComponent } from "../../identify-machine/identify-machine.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-exercises',
-  imports: [CommonModule, LoadingSpinnerComponent,RouterLink,TranslateModule],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, TranslateModule,IdentifyMachineComponent],
   templateUrl: './exercises.component.html',
   styles: ``
 })

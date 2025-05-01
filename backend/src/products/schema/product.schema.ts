@@ -40,8 +40,8 @@ export class Product {
   @Prop({ type: Map, of: Number })  // Add flavor_quantity as a map of string (flavor) to number (quantity)
   flavor_quantity: Record<string, number>;
 
-  @Prop({ type: Number })
-  quantity: number;
+  // @Prop({ type: Number })
+  // quantity: number;
 
   @Prop({ type: Boolean })
   inStock: boolean;

@@ -4,9 +4,6 @@
 ></app-loading-spinner>
 
 <div class="container my-5">
-  <h2 class="text-center mb-5" id="workout">
-    {{ "exercises.h2" | translate }}
-  </h2>
   <!-- Breadcrumb Navigation -->
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -20,6 +17,12 @@
       </li>
     </ol>
   </nav>
+
+  <app-identify-machine></app-identify-machine>
+
+  <h2 class="text-center my-4" id="workout">
+    {{ "exercises.h2" | translate }}
+  </h2>
   <div class="row gy-5 justify-content-center">
     <div class="col-12 col-md-5">
       <div class="workout-card" (click)="navigateTo('home')">

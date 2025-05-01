@@ -177,6 +177,7 @@ import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../shared/utils/user';
 import { AuthService } from '../../services/auth.service';
+import { GoogleAuthService } from '../../services/google-auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -195,7 +196,8 @@ export class SignupComponent implements OnInit {
     private myUserService: UsersService,
     private router: Router,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private googleAuthService: GoogleAuthService
   ) {}
 
   ngOnInit(): void {
@@ -213,6 +215,16 @@ export class SignupComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  // Add this method:
+  ngAfterViewInit(): void {
+    this.googleAuthService.initializeGoogleAuth('google-signup-btn', true);
+  }
+
+  // Update the existing method:
+  signInWithGoogle(): void {
+    // The button will handle the actual sign-in
   }
 
   registerForm = new FormGroup(
