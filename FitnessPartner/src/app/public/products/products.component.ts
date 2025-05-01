@@ -10,12 +10,19 @@ import { FavoritesService } from '../../services/favorites.service';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { IProducts } from '../../models/i-products';
-import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, LoadingSpinnerComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    LoadingSpinnerComponent,
+    TranslateModule,
+  ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
@@ -28,7 +35,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   isLoading = true;
   showPopUpMessage = false;
-
   // Pagination
   currentPage = 1;
   itemsPerPage = 9;
@@ -58,8 +64,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     // 1) Determine login state and load favorites if logged in
@@ -80,14 +89,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private loadProducts(): void {
     this.isLoading = true;
     this.productService.getAllProducts().subscribe({
-      next: data => this.handleProductsLoaded(data),
-      error: err => this.handleLoadError(err),
+      next: (data) => this.handleProductsLoaded(data),
+      error: (err) => this.handleLoadError(err),
       complete: () => (this.isLoading = false),
     });
   }
 
   private handleProductsLoaded(data: IProducts[]): void {
-    this.products = data.map(product => ({
+    this.products = data.map((product) => ({
       ...product,
       showFlavors: false,
       isNew: Math.random() > 0.5,
@@ -95,9 +104,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
       discount: Math.random() > 0.5 ? 10 : 0,
     }));
     this.filteredProducts = [...this.products];
-    this.categories = [...new Set(this.products.map(p => p.category))];
-    this.brands = [...new Set(this.products.map(p => p.brand))];
-    this.priceRange.max = Math.max(...this.products.map(p => p.price));
+    this.categories = [...new Set(this.products.map((p) => p.category))];
+    this.brands = [...new Set(this.products.map((p) => p.brand))];
+    this.priceRange.max = Math.max(...this.products.map((p) => p.price));
     this.applyFilters();
   }
 
@@ -108,7 +117,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   private setupQueryParams(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params['category']) {
         this.selectedCategory = params['category'];
         this.applyFilters();
@@ -144,17 +153,17 @@ export class ProductsComponent implements OnInit, OnDestroy {
   applyFilters(): void {
     let filtered = [...this.products];
     if (this.selectedCategory) {
-      filtered = filtered.filter(p =>
-        p.category.toLowerCase() === this.selectedCategory.toLowerCase()
+      filtered = filtered.filter(
+        (p) => p.category.toLowerCase() === this.selectedCategory.toLowerCase()
       );
     }
     if (this.selectedBrand) {
-      filtered = filtered.filter(p =>
-        p.brand.toLowerCase() === this.selectedBrand.toLowerCase()
+      filtered = filtered.filter(
+        (p) => p.brand.toLowerCase() === this.selectedBrand.toLowerCase()
       );
     }
     filtered = filtered.filter(
-      p => p.price >= this.priceRange.min && p.price <= this.priceRange.max
+      (p) => p.price >= this.priceRange.min && p.price <= this.priceRange.max
     );
     filtered = this.sortProducts(filtered);
     this.filteredProducts = filtered;
@@ -165,7 +174,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.selectedBrand = '';
     this.priceRange = {
       min: 0,
-      max: Math.max(...this.products.map(p => p.price)),
+      max: Math.max(...this.products.map((p) => p.price)),
     };
     this.selectedSort = 'default';
     this.applyFilters();
@@ -185,28 +194,30 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   // Cart
   addToCart(product: any, available_flavors: string[]): void {
-    const flavor = 
+    const flavor =
       this.selectedFlavor ||
       (available_flavors?.length ? available_flavors[0] : 'Unflavored');
-  
-    this.cartService.addToCart({
-      productId: product.productId || product._id || product.id,
-      name: product.name,
-      image: product.image,
-      price: Number(product.price),
-      selectedFlavor: flavor,
-      quantity: this.quantity,
-    }).subscribe({
-      next: () => {
-        this.showPopUpMessage = true;
-        setTimeout(() => (this.showPopUpMessage = false), 800);
-      },
-      error: (err) => {
-        console.error('Failed to add to cart', err);
-      }
-    });
+
+    this.cartService
+      .addToCart({
+        productId: product.productId || product._id || product.id,
+        name: product.name,
+        image: product.image,
+        price: Number(product.price),
+        selectedFlavor: flavor,
+        quantity: this.quantity,
+      })
+      .subscribe({
+        next: () => {
+          this.showPopUpMessage = true;
+          setTimeout(() => (this.showPopUpMessage = false), 800);
+        },
+        error: (err) => {
+          console.error('Failed to add to cart', err);
+        },
+      });
   }
-  
+
   increaseQuantity(): void {
     this.quantity++;
   }
@@ -227,7 +238,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
     this.favoritesService.toggleFavorite(product).subscribe();
   }
-  
 
   // Quick View
   openQuickView(product: IProducts, event: Event): void {
@@ -235,8 +245,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.selectedProduct = product;
     this.quantity = 1;
-    this.selectedFlavor =
-      product.available_flavors?.[0] ?? '';
+    this.selectedFlavor = product.available_flavors?.[0] ?? '';
     document.body.style.overflow = 'hidden';
   }
   closeQuickView(): void {

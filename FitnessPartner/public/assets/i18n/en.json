@@ -1,6 +1,16 @@
 {
+  "navbar": {
+    "link1": "Fitness Partner",
+    "link2": "HOME",
+    "link3": "SHOP",
+    "link4": "TRAINERS",
+    "link5": "EXERCISES HUB",
+    "link6": "NUTRITION",
+    "link7": "ABOUT US",
+    "link8": "CONTACT US"
+  },
   "home": {
-    "loadingMsg":"Loading Home...",
+    "loadingMsg": "Loading Home...",
     "WELCOME_MESSAGE": "Welcome to fitness partner",
     "p1": "Fuel your journey with AI-powered fitness and expert support",
     "link1": "Know more",
@@ -46,6 +56,69 @@
       "p2": " A fitness coach who helps people improve flexibility, mental health, and overall wellness.",
       "p3": "A Dance trainer and body transformation specialist."
     },
-    "link4":"Meet Our Trainers"
+    "link4": "Meet Our Trainers"
+  },
+  "shop": {
+    "loadingMsg": "Loading Shop...",
+    "h2": "All Products",
+    "Breadcrumb": {
+      "li1": "Home ",
+      "li2": "Products"
+    },
+    "product": {
+      "btn1": "View Product",
+      "price": "EGP",
+      "date": "Expiry Date:",
+      "flavor": "Flavor:",
+      "selectLabel": "Choose an option",
+      "btn2": "Add to Cart",
+      "popMsg": "Item added to cart!",
+      "share": "Share:"
+    }
+  },
+  "trainers": {
+    "loadingMsg": "Loading Trainers...",
+    "h2": "Our Professional Trainers"
+  },
+  "exercises": {
+    "loadingMsg": "Loading Exercises...",
+    "h2":"Choose Your Workout Style",
+    "option1":"At Home",
+    "option2":"At Gym",
+    "option3":"5-Mins Warm Up"
+  },
+  "about": {
+    "loadingMsg": "Loading About...",
+    "h1": "About Us",
+    "p1": "Your Fitness Journey, Smarter and Stronger with Fitness Partner",
+    "h2.1": "At Fitness Partner",
+    "p2": " We believe fitness should be simple, smart, and personal. That's why we've built a platform that does more than just offer products, We become your true partner in health and fitness.",
+    "h2.2": "Why Choose Us?",
+    "h4.1": "AI-Powered Personalization",
+    "p3": "Our smart AI system helps you find the perfect nutrition plan based on your InBody analysis, your personal goals, and your entered data. Whether you're aiming to lose weight, build muscle, or improve overall health, our AI tailors the best path for you—no guesswork, just results.",
+    "h4.2": "Top-Quality Nutritional Supplements",
+    "p4": "Fuel your body with only the best. We offer carefully selected supplements to boost your energy, recovery, and performance, so you can train harder and feel better every day.",
+    "h4.3": "Find Your Perfect Trainer",
+    "p5": "Looking for expert support? Browse and connect with certified personal trainers who understand your journey and are ready to create customized training plans just for you.",
+    "h4.4": "Effective Exercises for Every Level",
+    "p6": "From beginner to advanced, from home workouts to full gym programs—we provide a wide range of exercises to keep you moving toward your goals.",
+    "h4.5": "Smart Nutrition Advice",
+    "p7": "Eating right has never been easier. Get access to easy, practical nutrition tips and meal ideas that match your plan and fuel your progress."
+  },
+  "contact": {
+    "h2": "Contact Us",
+    "label1": "Name",
+    "label2": "Email",
+    "label3": "Message",
+    "btn": "Send Message",
+    "placeholder1": "Enter your name",
+    "placeholder2": "Enter your email",
+    "placeholder3": "Your Message"
+  },
+  "notFound": {
+    "div": "404",
+    "h1": "Page Not Found",
+    "p": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "link": "Back to Home page"
   }
 }

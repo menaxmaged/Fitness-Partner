@@ -86,12 +86,13 @@ import { CartService } from '../../services/cart.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterModule, CartItemsComponent, CommonModule, RouterLink],
+  imports: [RouterModule, CartItemsComponent, CommonModule, RouterLink,TranslateModule],
   templateUrl: './navbar.component.html',
 })
 export class NavBarComponent implements OnInit, OnDestroy {
@@ -107,7 +108,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
     private myCart: CartService,
     private router: Router,
     public translate: TranslateService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Inject(DOCUMENT) private document: Document
   ) {
     // Set default language
     this.translate.setDefaultLang('en');
@@ -176,6 +178,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
   // switch language
   changeLang(lang: string) {
-    this.translate.use(lang);
+    this.translate.use(lang) ;
+    const dir = lang === 'ar' ? 'rtl' : 'ltr';
+    this.document.documentElement.dir = dir;
+    this.document.documentElement.lang = lang;
   }
 }

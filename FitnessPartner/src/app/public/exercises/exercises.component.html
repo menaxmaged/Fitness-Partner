@@ -1,12 +1,22 @@
-<app-loading-spinner *ngIf="isLoading" [message]="'Loading Exercises...'"></app-loading-spinner>
+<app-loading-spinner
+  *ngIf="isLoading"
+  [message]="'exercises.loadingMsg' | translate"
+></app-loading-spinner>
 
 <div class="container my-5">
-
+  <h2 class="text-center mb-5" id="workout">{{ "exercises.h2" | translate }}</h2>
+ 
   <!-- Breadcrumb Navigation -->
-  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Exercises Hub</li>
+      <li
+        class="breadcrumb-item active"
+        aria-current="page"
+        style="font-size: 18px"
+      >
+        Exercises Hub
+      </li>
     </ol>
   </nav>
 
@@ -43,39 +53,38 @@
         </div>
       </div>
 
-      <div class="row gy-5 justify-content-center">
-        <div class="col-12 col-md-5">
-          <div class="workout-card" (click)="navigateTo('warm')">
-            <div class="image-container">
-              <img
-                src="https://i.ytimg.com/vi/f3zOrYCwquE/sddefault.jpg"
-                alt="At Home"
-                class="workout-img"
-              />
-              <div class="overlay">
-                <span>5-Mins Warm Up</span>
-              </div>
+    <div class="row gy-5 justify-content-center">
+      <div class="col-12 col-md-5">
+        <div class="workout-card" (click)="navigateTo('warm')">
+          <div class="image-container">
+            <img
+              src="https://i.ytimg.com/vi/f3zOrYCwquE/sddefault.jpg"
+              alt="At Home"
+              class="workout-img"
+            />
+            <div class="overlay">
+              <span>{{ "exercises.option3" | translate }}</span>
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
-  
-  
+
   <style>
     .breadcrumb-item a {
-    color: #e83f01;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  .breadcrumb-item a:hover {
-    color: #cc0000;
-  }
+      color: #e83f01;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    .breadcrumb-item a:hover {
+      color: #cc0000;
+    }
     .workout-card {
       cursor: pointer;
       text-decoration: none;
     }
-  
+
     .image-container {
       position: relative;
       overflow: hidden;
@@ -83,7 +92,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
-  
+
     .workout-img {
       width: 100%;
       height: 250px;
@@ -91,11 +100,11 @@
       transition: transform 0.3s ease;
       display: block;
     }
-  
+
     .image-container:hover .workout-img {
       transform: scale(1.05);
     }
-  
+
     .overlay {
       position: absolute;
       bottom: 0;
@@ -108,23 +117,24 @@
       font-weight: 500;
       transition: background 0.3s ease;
     }
-  
+
     .image-container:hover .overlay {
       background: rgba(0, 0, 0, 0.75);
     }
-  
+
     h2 {
       font-size: 32px;
       font-weight: 700;
     }
-  
+
     @media (max-width: 767px) {
       .workout-img {
         height: 200px;
       }
-  
+
       h2 {
         font-size: 26px;
       }
     }
-</style>
+  </style>
+</div>
