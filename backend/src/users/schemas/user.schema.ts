@@ -44,25 +44,33 @@ export class User {
   @Prop({ required: true })
   password: string;
 
+  @Prop({ default: null })
+  googleId: string;
+
+  @Prop({ default: 'local', enum: ['local', 'google', 'both'] })
+  authProvider: string;
+
   @Prop({ type: [Object], default: [] })
-  orders: [{
-    id: string;
-    transactionId: string;
-    products: Array<{
-      productId: string;
-      quantity: number;
-      flavor: string;
-    }>;
-    total: number;
-    date: Date;
-    address: {
-      street: string;
-      city: string;
-      state: string;
-      zipCode: string;
-      country: string;
-    };
-  }]
+  orders: [
+    {
+      id: string;
+      transactionId: string;
+      products: Array<{
+        productId: string;
+        quantity: number;
+        flavor: string;
+      }>;
+      total: number;
+      date: Date;
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        zipCode: string;
+        country: string;
+      };
+    },
+  ];
 
   @Prop()
   avatar: string;
@@ -76,11 +84,10 @@ export class User {
   @Prop({ type: [String], default: [] })
   favorites: string[];
 
-
-  @Prop({ 
-    type: String, 
-    enum: ['user', 'trainer', 'admin'], 
-    default: 'user' 
+  @Prop({
+    type: String,
+    enum: ['user', 'trainer', 'admin'],
+    default: 'user',
   })
   role: string;
 }
