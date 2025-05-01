@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MachineModelService } from '../services/machine-model.service';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-identify-machine',
   standalone: true,
@@ -14,8 +14,9 @@ export class IdentifyMachineComponent {
   result: string = '';
   loading = false;
   error: string = '';
-
-  constructor(private machineService: MachineModelService) {}
+  safeResult: SafeHtml = '';
+  // resultId = document.getElementById('resultId') as HTMLDivElement;
+  constructor(private machineService: MachineModelService, private sanitizer: DomSanitizer) {}
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -33,6 +34,7 @@ export class IdentifyMachineComponent {
     this.machineService.identifyMachine(this.selectedFile).subscribe({
       next: (res) => {
         this.result = res;
+        this.safeResult = this.sanitizer.bypassSecurityTrustHtml(res);
         this.loading = false;
       },
       error: (err) => {

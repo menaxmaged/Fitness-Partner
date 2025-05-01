@@ -17,6 +17,6 @@ export class UpdateFlavorQuantityDto {
   })
   @IsNotEmpty()
   @IsNumber()
-  @Min(1)
+  @Min(0)
   quantity: number;
 }

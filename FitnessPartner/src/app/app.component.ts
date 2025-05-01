@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
     FooterComponent,
     RouterModule,
     CommonModule,
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

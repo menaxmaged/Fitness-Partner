@@ -45,13 +45,26 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-    const user = await this.usersService.findById(payload.sub);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return { userId: payload.sub, email: payload.email, role: payload.role,   };
+// jwt.strategy.ts
+async validate(payload: any) {
+  const user = await this.usersService.findById(payload.sub);
+  if (!user) {
+    throw new UnauthorizedException();
   }
+  
+  // Add debug logging 🚨
+  console.log('Authenticated user:', {
+    userId: user.id,
+    role: user.role,
+    dbRole: user.role // Confirm this matches database
+  });
+
+  return { 
+    userId: user.id, 
+    email: user.email, 
+    role: user.role // Must exactly match "admin"
+  };
+}
 }
 
 

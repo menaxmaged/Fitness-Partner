@@ -1,0 +1,126 @@
+<div class="data-table-container">
+    <!-- Loading indicator -->
+    <div class="loading-overlay" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <span>Loading data...</span>
+    </div>
+  
+    <!-- Search bar -->
+    <div class="table-controls" *ngIf="showSearch">
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          class="search-input"
+          [ngModel]="searchTerm"
+          (input)="onSearch($event)">
+      </div>
+    </div>
+  
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th *ngFor="let column of columns" 
+                [ngStyle]="{'width': column.width}"
+                [class.sortable]="column.sortable"
+                (click)="sort(column)">
+              {{ column.header }}
+              <span *ngIf="column.sortable" class="sort-icon">
+                <span class="arrow" [class.active]="sortColumn === column.property && sortDirection === 'asc'">↑</span>
+                <span class="arrow" [class.active]="sortColumn === column.property && sortDirection === 'desc'">↓</span>
+              </span>
+            </th>
+            <th *ngIf="actionClick.observed" class="actions-column">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="displayData.length > 0; else noData">
+            <tr *ngFor="let row of displayData" (click)="onRowClick(row)">
+              <td *ngFor="let column of columns">
+                <ng-container [ngSwitch]="column.type">
+                  <ng-container *ngSwitchCase="'currency'">
+                    {{ row[column.property] | currency }}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'date'">
+                    {{ row[column.property] | date }}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'boolean'">
+                    {{ row[column.property] ? 'Yes' : 'No' }}
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    {{ getFormattedValue(row, column) }}
+                  </ng-container>
+                </ng-container>
+              </td>
+              <td *ngIf="actionClick.observed" class="actions-cell">
+                <ng-content select="[actions]"></ng-content>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noData>
+            <tr class="empty-row">
+              <td [attr.colspan]="columns.length + (actionClick.observed ? 1 : 0)" class="empty-message">
+                {{ emptyMessage }}
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="showPagination && totalItems > 0">
+      <div class="pagination-controls">
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage === 1" 
+          (click)="onPageChange(1)">
+          &laquo;
+        </button>
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage === 1" 
+          (click)="onPageChange(currentPage - 1)">
+          &lt;
+        </button>
+        
+        <ng-container *ngFor="let page of pageNumbers">
+          <button 
+            *ngIf="page !== -1" 
+            class="pagination-button" 
+            [class.active]="page === currentPage" 
+            (click)="onPageChange(page)">
+            {{ page }}
+          </button>
+          <span *ngIf="page === -1" class="pagination-ellipsis">...</span>
+        </ng-container>
+        
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage === totalPages" 
+          (click)="onPageChange(currentPage + 1)">
+          &gt;
+        </button>
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage === totalPages" 
+          (click)="onPageChange(totalPages)">
+          &raquo;
+        </button>
+      </div>
+      
+      <div class="page-size-selector">
+        <label for="pageSize">Items per page:</label>
+        <select 
+          id="pageSize" 
+          [ngModel]="pageSize" 
+          (change)="onPageSizeChange($event)">
+          <option *ngFor="let size of pageSizeOptions" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>

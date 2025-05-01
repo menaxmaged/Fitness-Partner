@@ -38,7 +38,7 @@ export class GeminiService {
 
       const response = await result.response;
       const text = response.text();
-      return text;
+      return this.formatResponse(text);
     } catch (error) {
         console.error('❌ Gemini API Error:', JSON.stringify(error, null, 2));
         if (error instanceof Error) {
@@ -47,7 +47,17 @@ export class GeminiService {
         throw new Error('Failed to identify gym machine');
       }
   }
+
+  private formatResponse(text:string): string {
+    return text
+        .replace(/```(\w*)([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*([^\*]+)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
 }
+}
+
 
 
 // src/gemini/gemini.service.ts

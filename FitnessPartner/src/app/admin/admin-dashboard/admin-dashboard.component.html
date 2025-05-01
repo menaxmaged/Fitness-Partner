@@ -1,0 +1,128 @@
+<div class="dashboard">
+    <!-- Loading indicator -->
+    <div class="loading-overlay" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading dashboard data...</p>
+    </div>
+  
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <h1>Dashboard Overview</h1>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="loadDashboardData()">
+          <i class="fas fa-sync-alt"></i> Refresh Data
+        </button>
+      </div>
+    </div>
+  
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats" [ngClass]="'stat-' + stat.color">
+        <div class="stat-icon">
+          <i class="fas fa-{{ stat.icon }}"></i>
+        </div>
+        <div class="stat-details">
+          <h3>{{ stat.title }}</h3>
+          <div class="stat-value">
+            <span *ngIf="stat.title === 'Revenue'">$</span>{{ stat.value | number }}
+          </div>
+          <div class="stat-change" [ngClass]="{'positive': stat.change > 0, 'negative': stat.change < 0}">
+            <i class="fas" [ngClass]="stat.change > 0 ? 'fa-arrow-up' : 'fa-arrow-down'"></i>
+            <!-- {{ Math.abs(stat.change) }}% from last month -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Quick Access Widgets -->
+    <div class="widgets-row">
+      <!-- Recent Products Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <h3>Recent Products</h3>
+          <a routerLink="/admin/products">View All</a>
+        </div>
+        <div class="widget-content">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of recentProducts">
+                <td>{{ product.name }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td>
+                  <span class="status" [ngClass]="product.inStock ? 'in-stock' : 'out-stock'">
+                    {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="!recentProducts.length">
+                <td colspan="3" class="empty-table">No products available</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+      <!-- Recent Users Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <h3>Recent Users</h3>
+          <a routerLink="/admin/users">View All</a>
+        </div>
+        <div class="widget-content">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of recentUsers">
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                  <span class="status" [ngClass]="user.active ? 'active' : 'inactive'">
+                    {{ user.active ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="!recentUsers.length">
+                <td colspan="3" class="empty-table">No users available</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="actions-grid">
+        <a routerLink="/admin/products/new" class="action-card">
+          <i class="fas fa-plus-circle"></i>
+          <span>Add Product</span>
+        </a>
+        <a routerLink="/admin/users" class="action-card">
+          <i class="fas fa-user-plus"></i>
+          <span>Manage Users</span>
+        </a>
+        <a routerLink="/admin/orders" class="action-card">
+          <i class="fas fa-clipboard-list"></i>
+          <span>View Orders</span>
+        </a>
+        <a routerLink="/admin/settings" class="action-card">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </div>
+  </div>
