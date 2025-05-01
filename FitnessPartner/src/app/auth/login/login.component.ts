@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { AuthService } from '../../services/auth.service';
+import { GoogleAuthService } from '../../services/google-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
     private myUserService: UsersService,
     private router: Router,
     private favoritesService: FavoritesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private googleAuthService: GoogleAuthService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,16 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/profile']);
       return;
     }
+  }
+
+  // Add this method:
+  ngAfterViewInit(): void {
+    this.googleAuthService.initializeGoogleAuth('google-login-btn');
+  }
+
+  // Update the existing method:
+  signInWithGoogle(): void {
+    // The button will handle the actual sign-in
   }
 
   get email() {
