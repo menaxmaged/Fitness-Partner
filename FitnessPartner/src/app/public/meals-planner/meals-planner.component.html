@@ -1,22 +1,26 @@
 <div class="container mb-4">
   <h2 class="text-center fw-bold fs-1 mb-4" style="color: #ff9933">
-    Your Personalized Meal Planner
+    {{ "nutrition.mealsPlanner.h2" | translate }}
   </h2>
 
-  <label for="goal" class="form-label fs-5">Select Your Goal:</label>
+  <label for="goal" class="form-label fs-5">
+    {{ "nutrition.mealsPlanner.label" | translate }}
+  </label>
   <select
     id="goal"
     class="form-select p-2 focus-ring focus-ring-warning border-warning border-2 fs-5"
     [(ngModel)]="selectedGoal"
     (change)="onGoalChange()"
-  >
-    <option value="" disabled selected>-- Select Goal --</option>
+   >
+    <option value="" disabled selected>
+      {{ "nutrition.mealsPlanner.option" | translate }}
+    </option>
     <option *ngFor="let g of goals" [value]="g">{{ g }}</option>
   </select>
 
   <ng-container *ngIf="plan; else noPlan">
     <h2 class="my-4">
-      Meal Plan for:
+      {{ "nutrition.mealsPlanner.target" | translate }}
       <span class="" style="color: #c93e18">{{ plan.target }}</span>
     </h2>
 
@@ -26,12 +30,24 @@
       >
         <thead>
           <tr class="text-center">
-            <th scope="col">Meal</th>
-            <th scope="col">Items</th>
-            <th scope="col">Calories</th>
-            <th scope="col">Protein (g)</th>
-            <th scope="col">Carbs (g)</th>
-            <th scope="col">Fats (g)</th>
+            <th scope="col">
+              {{ "nutrition.mealsPlanner.heads.th1" | translate }}
+            </th>
+            <th scope="col">
+              {{ "nutrition.mealsPlanner.heads.th2" | translate }}
+            </th>
+            <th scope="col">
+              {{ "nutrition.mealsPlanner.heads.th3" | translate }}
+            </th>
+            <th scope="col">
+              {{ "nutrition.mealsPlanner.heads.th4" | translate }}
+            </th>
+            <th scope="col">
+              {{ "nutrition.mealsPlanner.heads.th5" | translate }}
+            </th>
+            <th scope="col">
+              {{ "nutrition.mealsPlanner.heads.th6" | translate }}
+            </th>
           </tr>
         </thead>
         <tbody class="table-group-divider text-center">
@@ -66,7 +82,7 @@
 
   <ng-template #noPlan>
     <div class="alert alert-warning mt-4">
-      Please select a goal above to view your custom meal plan.
+      {{ "nutrition.mealsPlanner.alert" | translate }}
     </div>
   </ng-template>
 </div>
