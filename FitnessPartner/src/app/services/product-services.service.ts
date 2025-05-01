@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { IProducts } from '../models/i-products';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,15 @@ import { IProducts } from '../models/i-products';
 export class ProductServicesService {
   private productsUrl = 'http://localhost:3000/products';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  // Generate authorization headers for admin endpoints
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
   getAllProducts(category?: string): Observable<IProducts[]> {
     let params = new HttpParams();
@@ -89,5 +98,55 @@ export class ProductServicesService {
       console.error('Error in updateFlavorQuantity:', error);
       return Promise.reject(error);
     }
+  }
+
+  createProduct(product: IProducts): Observable<IProducts> {
+    return this.http.post<IProducts>(`${this.productsUrl}/admin`, product, { 
+      headers: this.getAuthHeaders() 
+    });
+  }
+  
+  updateProduct(id: string | number, product: IProducts): Observable<IProducts> {
+    return this.http.put<IProducts>(`${this.productsUrl}/admin/${id}`, product, { 
+      headers: this.getAuthHeaders() 
+    });
+  }
+  
+  deleteProduct(id: string | number): Observable<void> {
+    return this.http.delete<void>(`${this.productsUrl}/admin/${id}`, { 
+      headers: this.getAuthHeaders() 
+    });
+  }
+  
+  updateFlavorQuantityAdmin(productId: string, flavor: string, newQuantity: number): Promise<any> {
+    const body = { flavor, quantity: newQuantity };
+    const url = `${this.productsUrl}/${productId}/admin/flavors`;
+
+    const response$ = this.http.patch<any>(url, body, { 
+      headers: this.getAuthHeaders() 
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Admin update error:', error);
+        return throwError(() => new Error(error.error?.message || 'User not authorized'));
+      })
+    );
+  
+    return firstValueFrom(response$);
+  }
+  
+  // Method to delete a specific flavor from a product
+  deleteFlavorFromProduct(productId: string, flavor: string): Promise<any> {
+    const url = `${this.productsUrl}/${productId}/admin/flavor/${encodeURIComponent(flavor)}`;
+    
+    const response$ = this.http.delete<any>(url, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Failed to delete flavor:', error);
+        return throwError(() => new Error(error.error?.message || 'Failed to delete flavor'));
+      })
+    );
+    
+    return firstValueFrom(response$);
   }
 }

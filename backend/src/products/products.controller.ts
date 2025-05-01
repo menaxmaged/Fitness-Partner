@@ -65,11 +65,25 @@ export class ProductsController {
     return this.productsService.update(id, updateDto);
   }
 
-  @Delete('admin/:id')
+  @Delete(':id/admin')
   @Roles('admin')
   async delete(@Param('id') id: string) {
     return this.productsService.delete(id);
   }
+  
+  @Delete(':id/admin/flavor/:flavorName')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('admin')
+@ApiOperation({ summary: 'Admin: Delete a specific flavor from a product' })
+@ApiResponse({ status: 200, description: 'Flavor deleted successfully' })
+@ApiResponse({ status: 404, description: 'Product or flavor not found' })
+async deleteFlavorFromProduct(
+  @Param('id') id: string,
+  @Param('flavorName') flavorName: string,
+) {
+  this.logger.log(`Deleting flavor '${flavorName}' from product ${id}`);
+  return this.productsService.deleteFlavorFromProduct(id, flavorName);
+}
 
   @Patch(':id/flavors')
   @ApiOperation({ summary: 'Update the inventory quantity for a specific flavor' })
@@ -141,4 +155,25 @@ export class ProductsController {
       throw error;
     }
   }
+  
+  @Patch(':id/admin/flavors')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('admin')
+@ApiOperation({ summary: 'Admin: Directly update a flavor quantity without validation' })
+@ApiResponse({ status: 200, description: 'Flavor quantity updated by admin successfully' })
+@ApiResponse({ status: 404, description: 'Product not found' })
+@Patch(':id/admin/flavors')
+async updateFlavorQuantityAdmin(
+  @Param('id') id: string, // Accept as string first
+  @Body() updateFlavorQuantityDto: UpdateFlavorQuantityDto,
+) {
+  const numericId = parseInt(id, 10); // ✅ Convert to number
+  if (isNaN(numericId)) {
+    throw new BadRequestException('Invalid product ID');
+  }
+
+  const { flavor, quantity } = updateFlavorQuantityDto;
+  return this.productsService.updateFlavorQuantityAdmin(id, flavor, quantity);
+}
+
 }

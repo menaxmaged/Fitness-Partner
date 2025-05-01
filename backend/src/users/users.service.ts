@@ -154,4 +154,33 @@ private async enrichOrderProducts(products: any[]): Promise<any[]> {
     };
   }));
 }
+
+async updateRoleByAdmin(id: string, newRole: string): Promise<User> {
+  const updatedUser = await this.userModel.findOneAndUpdate(
+    { id },
+    { $set: { role: newRole } },
+    { new: true }
+  ).exec();
+
+  if (!updatedUser) {
+    throw new NotFoundException(`User with ID "${id}" not found`);
+  }
+
+  return updatedUser;
+}
+
+async updateByAdmin(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  // Admin can update any fields including restricted ones
+  const updatedUser = await this.userModel.findOneAndUpdate(
+    { id },
+    updateUserDto,
+    { new: true }
+  ).exec();
+
+  if (!updatedUser) {
+    throw new NotFoundException(`User with ID "${id}" not found`);
+  }
+
+  return updatedUser;
+}
 }

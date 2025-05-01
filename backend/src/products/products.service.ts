@@ -140,4 +140,67 @@ export class ProductsService {
     
     return product;
   }
+// products.service.ts
+async updateFlavorQuantityAdmin(id: string, flavor: string, quantity: number): Promise<Product> {
+  this.logger.debug(`Updating flavor quantity for product ${id}, flavor: ${flavor}, quantity: ${quantity}`);
+    
+    const product = await this.productModel.findOne({ id });
+  
+    if (!product) {
+      throw new NotFoundException(`Product with id ${id} not found`);
+    }
+  
+    // Ensure flavor_quantity is initialized as a Map
+    if (!product.flavor_quantity) {
+      product.flavor_quantity = {};
+      this.logger.warn(`Product ${id} had no flavor_quantity object, creating one`);
+    }
+  
+    // Use Map methods to check flavor existence
+    if (!(product.flavor_quantity instanceof Map)) {
+      throw new BadRequestException(`Flavor quantity is not properly initialized for product ${id}`);
+    }
+    if (!product.flavor_quantity.has(flavor)) {
+      throw new BadRequestException(`Flavor '${flavor}' does not exist for this product`);
+    }
+  
+    const currentQuantity = product.flavor_quantity.get(flavor);
+  
+    // Update quantity using Map.set()
+    product.flavor_quantity.set(flavor, quantity);
+    
+    this.logger.debug(`New quantity for product ${id}, flavor ${flavor}: ${product.flavor_quantity.get(flavor)}`);
+    
+    await product.save();
+    return product;
+}
+async deleteFlavorFromProduct(id: string, flavorName: string): Promise<{ message: string }> {
+  this.logger.debug(`Deleting flavor '${flavorName}' from product ${id}`);
+  
+  const product = await this.productModel.findOne({ id });
+  
+  if (!product) {
+    throw new NotFoundException(`Product with id ${id} not found`);
+  }
+  
+  // Check if the flavor exists
+  if (!product.available_flavors || !product.available_flavors.includes(flavorName)) {
+    throw new NotFoundException(`Flavor '${flavorName}' not found in product ${id}`);
+  }
+  
+  // Remove the flavor from available_flavors array
+  product.available_flavors = product.available_flavors.filter(f => f !== flavorName);
+  
+  // Remove the flavor from flavor_quantity object
+  if (product.flavor_quantity && flavorName in product.flavor_quantity) {
+    // Create a new object without the specified flavor
+    const updatedFlavorQuantity = { ...product.flavor_quantity };
+    delete updatedFlavorQuantity[flavorName];
+    product.flavor_quantity = updatedFlavorQuantity;
+  }
+  
+  await product.save();
+  
+  return { message: `Flavor '${flavorName}' deleted successfully from product ${id}` };
+}
 }
