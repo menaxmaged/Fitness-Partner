@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event, RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 import { ActivatedRoute } from '@angular/router';
+import { IdentifyMachineComponent } from "../../identify-machine/identify-machine.component";
 @Component({
   selector: 'app-exercises',
-  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, IdentifyMachineComponent],
   templateUrl: './exercises.component.html',
   styles: ``
 })
