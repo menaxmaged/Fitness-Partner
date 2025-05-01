@@ -32,9 +32,5 @@ export class CreateUserDto {
   @IsBoolean()
   isVerified?: boolean;
 
-  @IsOptional()
-  @IsString()
-  authProvider?: string;
-
   // role?: 'user' | 'trainer' | 'admin';
 }

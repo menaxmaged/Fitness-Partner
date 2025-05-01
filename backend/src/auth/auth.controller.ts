@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { GoogleAuthDto } from './dto/google-auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -53,12 +52,6 @@ export class AuthController {
     );
 
     return { message: 'Password successfully reset' };
-  }
-
-  @Post('google')
-  @HttpCode(HttpStatus.OK)
-  async googleAuth(@Body() googleAuthDto: GoogleAuthDto) {
-    return this.authService.googleAuth(googleAuthDto);
   }
 
   @Post('register')
