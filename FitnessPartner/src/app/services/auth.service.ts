@@ -87,7 +87,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('token');
   }
 
   isLoggedIn(): boolean {
