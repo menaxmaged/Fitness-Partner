@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     // If already authenticated, sync favorites and redirect
     if (this.authService.isAuthenticated()) {
       this.favoritesService.initialize();
-      this.router.navigate(['/profile']);
+      // this.router.navigate(['/profile']);
       return;
     }
   }
