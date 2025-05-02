@@ -137,4 +137,45 @@ async sendOrderConfirmationEmail(userEmail: string, order: any): Promise<void> {
     html,
   });
 }
+async sendOrderCancellation(to: string,id:string): Promise<void> {
+  const mailOptions = {
+    from: 'Fitness Partner <noreply@fitnesspartner.com>', // replace with your email
+    to,
+    subject: 'Order Cancelation',
+    html: `<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e0e0e0;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="color: #2c3e50; margin-bottom: 5px;">Fitness Partner</h1>
+    <p style="color: #888;">Your fitness journy partner !</p>
+  </div>
+
+  <div style="border-top: 2px solid #e74c3c; padding-top: 20px;">
+    <h2 style="color: #e74c3c; text-align: center;">Order Cancellation Notice</h2>
+    <p style="font-size: 16px; color: #444; line-height: 1.5;">
+      We regret to inform you that your order <strong style="color: #c0392b;">#${id}</strong> has been <strong>cancelled</strong>.
+    </p>
+    <p style="font-size: 15px; color: #666;">
+      If you believe this was a mistake or have any questions, please contact our support team for further assistance.
+    </p>
+  </div>
+
+  <div style="margin-top: 40px; text-align: center;">
+    <a href="mailto:support@fitnesspartner.com" style="display: inline-block; padding: 10px 20px; background-color: #3498db; color: #fff; text-decoration: none; border-radius: 4px; font-size: 14px;">
+      Contact Support
+    </a>
+  </div>
+
+  <div style="margin-top: 50px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+    &copy; ${new Date().getFullYear()} Fitness Partner. All rights reserved.
+  </div>
+</div>
+`,
+  };
+
+  try {
+    await this.transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error('Error sending email:', error.message, error.stack);
+    throw new Error('Failed to send email: ' + error.message);
+  }
+}
 }
