@@ -107,7 +107,7 @@ export class AuthService {
   }
 
   googleAuth(credential: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/google`, { credential });
+    return this.http.post(`${this.apiUrl}/google`, { credential });
   }
 
   resetPassword(data: {
