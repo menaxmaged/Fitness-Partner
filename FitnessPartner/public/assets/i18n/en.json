@@ -82,7 +82,12 @@
   },
   "exercises": {
     "loadingMsg": "Loading Exercises...",
-    "h2": "Choose Your Workout Style",
+    "h2.1":"Train Smarter,",
+    "h2.2": "Move Stronger",
+    "p1":"At Fitness Partner, we make it easy to stay active no matter where you are or what equipment you have. From quick warm-ups to full gym sessions, we’ve got expert-approved exercises tailored for your goals — and some ",
+    "p2":"AI magic",
+    "p3":" to guide you even further!",
+    "h2.3": "Choose Your Workout Style",
     "option1": "At Home",
     "option2": "At Gym",
     "option3": "5-Mins Warm Up"

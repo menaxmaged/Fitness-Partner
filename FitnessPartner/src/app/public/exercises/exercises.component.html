@@ -10,12 +10,9 @@
       <img src="assets/exercises-imgs/fit5.png" alt="" class="img-fluid">
     </div>
     <div class="col-md-5 " data-aos="fade-left" data-aos-duration="1000">
-      <h2 class=" fw-bold text-white" style="font-size:4.3rem;"><i>Train Smarter,</i></h2>
-      <h2 class=" fw-bold ps-5" style="font-size:4.3rem;"><i> Move Stronger</i></h2>
-      <p class="fs-5"><i>At Fitness Partner, we make it easy to stay active
-        no matter where you are or what equipment you have. From quick warm-ups 
-        to full gym sessions, we’ve got expert-approved exercises tailored for 
-        your goals — and some <span class="text-white fw-bold">AI magic</span> to guide you even further!</i></p>
+      <h2 class=" fw-bold text-white" style="font-size:4.3rem;"><i>{{ "exercises.h2.1" | translate }}</i></h2>
+      <h2 class=" fw-bold ps-5" style="font-size:4.3rem;"><i> {{ "exercises.h2.2" | translate }}</i></h2>
+      <p class="fs-5"><i>{{ "exercises.p1" | translate }}<span class="text-white fw-bold">{{ "exercises.p2" | translate }}</span>{{ "exercises.p3" | translate }}</i></p>
     </div>
   </div>
 </div>
@@ -53,7 +50,7 @@
   <app-identify-machine></app-identify-machine>
 <hr>
 <!-- Exercises -->
-  <h2 class="text-center my-5 " data-aos="zoom-in" data-aos-duration="1000">{{ "exercises.h2" | translate }}</h2>
+  <h2 class="text-center my-5 " data-aos="zoom-in" data-aos-duration="1000">{{ "exercises.h2.3" | translate }}</h2>
   <div class="row gy-5 justify-content-center">
     <div class="col-12 col-md-4" data-aos="zoom-in" data-aos-duration="1000">
       <div class="workout-card" (click)="navigateTo('home')">
