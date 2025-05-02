@@ -1,4 +1,3 @@
-// admin-users.component.ts
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { catchError, tap } from 'rxjs/operators';
@@ -6,14 +5,17 @@ import { throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [CommonModule],
   selector: 'app-admin-users',
-  templateUrl: `admin-users.component.html`,
-  styleUrl: `admin-users.component.css`
+  templateUrl: './admin-users.component.html',
+  styleUrls: ['./admin-users.component.css'],
+  standalone: true, // Add standalone: true
+  imports: [CommonModule]
 })
 export class AdminUsersComponent implements OnInit {
-  users: any[] = []; // Initialize with empty array
+  users: any[] = [];
   roles = ['user', 'admin', 'moderator'];
+  loading = false;
+  error: string | null = null;
 
   constructor(private usersService: UsersService) {}
 
@@ -22,24 +24,47 @@ export class AdminUsersComponent implements OnInit {
   }
 
   loadUsers() {
-    this.usersService.getAllUsers().subscribe({
-      next: (users) => this.users = users,
-      error: (err) => console.error('Failed to load users:', err)
+    this.loading = true;
+    this.error = null;
+    
+    console.log('Fetching all users...');
+    
+    this.usersService.getAllUsers().pipe(
+      tap(users => {
+        console.log('Users data received:', users);
+      }),
+      catchError(err => {
+        this.error = `Error loading users: ${err.message || 'Unknown error'}`;
+        console.error('Failed to load users:', err);
+        return throwError(() => err);
+      })
+    ).subscribe({
+      next: (users) => {
+        this.users = users;
+        this.loading = false;
+        console.log('Users loaded successfully, count:', users.length);
+      },
+      error: () => {
+        this.loading = false;
+      }
     });
   }
 
   onRoleChange(userId: string, event: Event): void {
-    const target = event.target as HTMLSelectElement;  // Cast the event target to HTMLSelectElement
-    const selectedRole = target.value;  // Get the selected value
-    this.updateUserRole(userId, selectedRole);  // Call your method to update the user role
+    const target = event.target as HTMLSelectElement;
+    const selectedRole = target.value;
+    this.updateUserRole(userId, selectedRole);
   }
   
   updateUserRole(userId: string, selectedRole: string) {
-    console.log('User ID:', userId);
+    console.log('Updating user role - User ID:', userId);
     console.log('Selected Role:', selectedRole);
     
     this.usersService.updateUserRoleByAdmin(userId, selectedRole).pipe(
-      tap(() => this.loadUsers()),
+      tap(() => {
+        console.log('User role updated successfully');
+        this.loadUsers();
+      }),
       catchError(err => {
         console.error('Role update failed:', err);
         return throwError(() => err);

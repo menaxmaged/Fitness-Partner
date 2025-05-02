@@ -1,29 +1,103 @@
-// src/users/schemas/user.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document, FlattenMaps } from 'mongoose';
 
-export class Order {
+@Schema({ _id: false })
+export class OrderProduct {
+  @Prop({ required: true })
+  productId: string;
+
+  @Prop({ 
+    required: true,
+    type: Number,
+    min: 0,
+    default: 0,
+    set: (v: any) => {
+      const value = Number(v);
+      return !isNaN(value) && isFinite(value) ? value : 0;
+    }
+  })
+  quantity: number;
+
   @Prop()
-  id: string;
+  flavor: string;
 
-  @Prop()
-  transactionId: string;
+  @Prop({ 
+    required: true,
+    type: Number,
+    min: 0,
+    default: 0,
+    set: (v: any) => {
+      const value = Number(v);
+      return !isNaN(value) && isFinite(value) ? value : 0;
+    }
+  })
+  price: number;
 
-  @Prop([String])
-  productId: string[];
-
-  @Prop()
-  total: number;
-
-  @Prop({ type: Date })
-  date: Date;
+  @Prop({ required: true })
+  name: string;
 }
 
-export type UserDocument = User & Document;
+@Schema({ _id: false })
+export class Order {
+  @Prop({
+    type: Number,
+    required: true,
+    min: 0,
+    default: 0,
+    set: (v: any) => {
+      const value = Number(v);
+      return !isNaN(value) && isFinite(value) ? value : 0;
+    }
+  })
+  total: number;
+
+  @Prop({ required: true })
+  id: string;
+
+  @Prop({ required: true })
+  transactionId: string;
+
+  @Prop({ type: [OrderProduct], required: true })
+  products: OrderProduct[];
+
+  @Prop({ type: Date, required: true })
+  date: Date;
+
+  @Prop({
+    type: {
+      street: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      zipCode: { type: String, required: true },
+      country: { type: String, required: true }
+    },
+    required: true
+  })
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+
+  @Prop({ 
+    type: String,
+    enum: ['processing', 'shipped', 'delivered', 'cancelled'],
+    default: 'processing'
+  })
+  status: string;
+
+  @Prop({ required: true })
+  userId: string;
+
+  @Prop({ required: true })
+  userEmail: string;
+}
 
 @Schema()
 export class User {
-  @Prop()
+  @Prop({ required: true })
   id: string;
 
   @Prop()
@@ -44,27 +118,8 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ type: [Object], default: [] })
-  orders: [
-    {
-      id: string;
-      transactionId: string;
-      products: Array<{
-        productId: string;
-        quantity: number;
-        flavor: string;
-      }>;
-      total: number;
-      date: Date;
-      address: {
-        street: string;
-        city: string;
-        state: string;
-        zipCode: string;
-        country: string;
-      };
-    },
-  ];
+  @Prop({ type: [Order], default: [] })
+  orders: Order[];
 
   @Prop()
   avatar: string;
@@ -86,4 +141,6 @@ export class User {
   role: string;
 }
 
+export type LeanOrder = FlattenMaps<Order & Document>;
 export const UserSchema = SchemaFactory.createForClass(User);
+export type UserDocument = User & Document;

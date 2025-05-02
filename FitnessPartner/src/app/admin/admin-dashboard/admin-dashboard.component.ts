@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductServicesService } from '../../services/product-services.service';
 import { UsersService } from '../../services/users.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, catchError, of } from 'rxjs';
 
 interface DashboardStat {
   title: string;
@@ -18,7 +18,7 @@ interface DashboardStat {
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
   stats: DashboardStat[] = [];
@@ -48,27 +48,55 @@ export class AdminDashboardComponent implements OnInit {
 
     // Use forkJoin to load multiple data sources simultaneously
     forkJoin({
-      products: this.productService.getAllProducts(),
-      users: this.usersService.getAllUsers()
-      // Add more API calls as needed (orders, etc.)
+      products: this.productService.getAllProducts().pipe(catchError(err => {
+        console.error('Error fetching products:', err);
+        return of([]);
+      })),
+      users: this.usersService.getAllUsers().pipe(catchError(err => {
+        console.error('Error fetching users:', err);
+        return of([]);
+      })),
+      orderStats: this.usersService.getOrderStats().pipe(catchError(err => {
+        console.error('Error fetching order stats:', err);
+        return of({ totalOrders: 0, totalRevenue: 0 });
+      }))
     }).subscribe({
       next: (data) => {
-        // Update stats with actual values
-        this.stats[0].value = data.products.length;
-        this.stats[1].value = data.users.length;
-        // For demo purposes - in real app, get from actual services
-        this.stats[2].value = Math.floor(Math.random() * 50) + 10; // Random orders count
-        this.stats[3].value = Math.floor(Math.random() * 10000) + 1000; // Random revenue
+        console.log('Dashboard data loaded:', data); // Debug logging
         
-        // Get recent products (last 5)
-        this.recentProducts = data.products
-          .sort((a: any, b: any) => new Date(b.dateAdded || 0).getTime() - new Date(a.dateAdded || 0).getTime())
-          .slice(0, 5);
-          
-        // Get recent users (last 5)
-        this.recentUsers = data.users
-          .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
-          .slice(0, 5);
+        // Update stats with actual values
+        this.stats[0].value = data.products.length || 0;
+        this.stats[1].value = data.users.length || 0;
+        
+        // Update with actual order stats from backend
+        if (data.orderStats) {
+          this.stats[2].value = data.orderStats.totalOrders || 0;
+          this.stats[3].value = data.orderStats.totalRevenue || 0;
+        }
+        
+        // Process products data
+        if (data.products && data.products.length > 0) {
+          this.recentProducts = data.products
+            .sort((a: any, b: any) => new Date(b.dateAdded || Date.now()).getTime() - 
+                                      new Date(a.dateAdded || Date.now()).getTime())
+            .slice(0, 5)
+            .map((product: any) => ({
+              ...product,
+              inStock: product.inStock !== undefined ? product.inStock : true
+            }));
+        }
+        
+        // Process users data
+        if (data.users && data.users.length > 0) {
+          this.recentUsers = data.users
+            .sort((a: any, b: any) => new Date(b.createdAt || Date.now()).getTime() - 
+                                      new Date(a.createdAt || Date.now()).getTime())
+            .slice(0, 5)
+            .map((user: any) => ({
+              ...user,
+              active: user.isVerified !== undefined ? user.isVerified : true
+            }));
+        }
           
         this.isLoading = false;
       },

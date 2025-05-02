@@ -167,4 +167,35 @@ async updateUserRoleByAdmin(
 ) {
   return this.usersService.updateRoleByAdmin(id, dto.role);
 }
+
+@Get('admin/order-stats')
+@Roles('admin')
+getOrderStats() {
+  return this.usersService.getOrderStats();
+}
+
+@Get('admin/orders')
+@Roles('admin')
+getAllOrders() {
+  return this.usersService.getAllOrders();
+}
+
+@Delete('admin/orders/:userId/:orderId')
+@Roles('admin')
+async cancelOrder(
+  @Param('userId') userId: string,
+  @Param('orderId') orderId: string
+) {
+  return this.usersService.cancelOrder(userId, orderId);
+}
+
+@Put('admin/orders/:userId/:orderId')
+@Roles('admin')
+async updateOrder(
+  @Param('userId') userId: string,
+  @Param('orderId') orderId: string,
+  @Body() updateOrderDto: any
+) {
+  return this.usersService.updateOrder(userId, orderId, updateOrderDto);
+}
 }

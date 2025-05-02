@@ -151,6 +151,8 @@ import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.componen
 // import { AdminDashboardComponent } from './admin/dashboard/admin-dashboard.component';
 import { AdminProductsComponent } from './admin/products/admin-products.component';
 import { AdminUsersComponent } from './admin/users/admin-users.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -189,11 +191,11 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     canActivate: [AuthGuard, AdminGuard],
     children: [
-      // { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'products', component: AdminProductsComponent },
       { path: 'users', component: AdminUsersComponent },
       // Add other admin routes as needed
-      // { path: 'orders', component: AdminOrdersComponent },
+      { path: 'orders', component: AdminOrdersComponent},
       // { path: 'trainers', component: AdminTrainersComponent },
       // { path: 'nutrition', component: AdminNutritionComponent },
       // { path: 'settings', component: AdminSettingsComponent },
