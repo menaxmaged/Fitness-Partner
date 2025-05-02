@@ -1,6 +1,8 @@
-<h2 class="text-center">🏋️ <strong>Not sure about a machine? </strong></h2>
-<p class="text-center text-secondary">Don't worry! Upload a photo of it and we will identify it for you!</p>
-<div class="identify-machine my-4 p-3 border rounded bg-light mx-auto" style="max-width: 1000px; margin: 0 auto;">
+<div class="container mb-5">
+<h2 class="text-center" data-aos="fade-down" data-aos-duration="1000">🏋️ <strong>Not sure about a machine? </strong></h2>
+<p class="text-center text-secondary fs-5" data-aos="fade-Down" data-aos-duration="1000">Don't worry! Upload a photo of it and we will identify it for you!</p>
+<div class="row d-flex justify-content-center">
+<div class="col-md-6 identify-machine my-4 p-3 border rounded bg-light shadow" data-aos="fade-right" data-aos-duration="1000">
     <h5 class="my-2">📸 Identify Gym Machine</h5>
   
     <input type="file" accept="image/*" (change)="onFileSelected($event)" class="form-control mb-2" />
@@ -10,10 +12,14 @@
       {{ loading ? 'Identifying...' : 'Identify Machine' }}
     </button>
   
-    <div class="mt-3" *ngIf="result">
+    <div class="mt-3 p-3 rounded bg-success-subtle" *ngIf="result" style="font-size: 18px;">
       <strong>Machine Name:</strong> <span [innerHTML]="safeResult"></span>
     </div>
   
     <div class="text-danger mt-2" *ngIf="error">{{ error }}</div>
   </div>
-  
+  <div class="col-9 col-md-5 mx-auto" data-aos="fade-left" data-aos-duration="1000">
+    <img src="assets/exercises-imgs/fit8.png" alt="" class="img-fluid ps-md-5">
+  </div>
+</div>
+</div>
