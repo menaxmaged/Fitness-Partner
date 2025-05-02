@@ -4,9 +4,8 @@
 ></app-loading-spinner>
 
 <div class="container my-5">
- 
   <!-- Breadcrumb Navigation -->
-   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+  <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
       <li
@@ -21,36 +20,38 @@
 
   <app-identify-machine></app-identify-machine>
 
-  <h2 class="text-center my-4" id="workout">{{ "exercises.h2" | translate }}</h2>
-    <div class="row gy-5 justify-content-center">
-      <div class="col-12 col-md-5">
-        <div class="workout-card" (click)="navigateTo('home')">
-          <div class="image-container">
-            <img
-              src="https://hips.hearstapps.com/hmg-prod/images/core-workouts-at-home-1666192539.png?crop=1.00xw:0.753xh;0,0.0743xh&resize=1200:*"
-              alt="At Home"
-              class="workout-img"
-            />
-            <div class="overlay">
-              <span>At Home</span>
-            </div>
+  <h2 class="text-center my-4" id="workout">
+    {{ "exercises.h2" | translate }}
+  </h2>
+  <div class="row gy-5 justify-content-center">
+    <div class="col-12 col-md-5">
+      <div class="workout-card" (click)="navigateTo('home')">
+        <div class="image-container">
+          <img
+            src="https://hips.hearstapps.com/hmg-prod/images/core-workouts-at-home-1666192539.png?crop=1.00xw:0.753xh;0,0.0743xh&resize=1200:*"
+            alt="At Home"
+            class="workout-img"
+          />
+          <div class="overlay">
+            <span>{{ "exercises.option1" | translate }}</span>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-5">
-        <div class="workout-card" (click)="navigateTo('gym')">
-          <div class="image-container">
-            <img
-              src="https://explosivewhey.com/cdn/shop/articles/best-workout-routine-for-gym-beginners-135325.png?v=1738755379&width=2048"
-              alt="At Gym"
-              class="workout-img"
-            />
-            <div class="overlay">
-              <span>At Gym</span>
-            </div>
+    </div>
+    <div class="col-12 col-md-5">
+      <div class="workout-card" (click)="navigateTo('gym')">
+        <div class="image-container">
+          <img
+            src="https://explosivewhey.com/cdn/shop/articles/best-workout-routine-for-gym-beginners-135325.png?v=1738755379&width=2048"
+            alt="At Gym"
+            class="workout-img"
+          />
+          <div class="overlay">
+            <span>{{ "exercises.option2" | translate }}</span>
           </div>
         </div>
       </div>
+    </div>
 
     <div class="row gy-5 justify-content-center">
       <div class="col-12 col-md-5">

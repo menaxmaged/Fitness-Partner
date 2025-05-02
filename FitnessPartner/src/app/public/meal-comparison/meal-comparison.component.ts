@@ -1,6 +1,7 @@
 // meal-comparison.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface MealPlan {
   type: string;
@@ -13,7 +14,7 @@ interface MealPlan {
 
 @Component({
   selector: 'app-meal-comparison',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './meal-comparison.component.html',
   styleUrls: ['./meal-comparison.component.css'],
 })
@@ -44,4 +45,7 @@ export class MealComparisonComponent {
       imageUrl: 'assets/intenseMeal.jpg',
     },
   ];
+  constructor(private translate: TranslateService) {
+    this.translate.setDefaultLang('en');
+  }
 }

@@ -82,10 +82,110 @@
   },
   "exercises": {
     "loadingMsg": "Loading Exercises...",
-    "h2":"Choose Your Workout Style",
-    "option1":"At Home",
-    "option2":"At Gym",
-    "option3":"5-Mins Warm Up"
+    "h2": "Choose Your Workout Style",
+    "option1": "At Home",
+    "option2": "At Gym",
+    "option3": "5-Mins Warm Up"
+  },
+  "machine": {
+    "h2": "Not sure about a machine? ",
+    "p1": "Don't worry! Upload a photo of it and we will identify it for you!",
+    "h5": "Identify Gym Machine",
+    "chooseFile": "Upload Photo",
+    "p2": "Upload a jpg photo of the gym machine to identify it.",
+    "loadingBtn": {
+      "txt1": "Identifying...",
+      "txt2": "Identify Machine"
+    },
+    "result": {
+      "txt": "Machine Name:",
+      "error": "Failed to identify image."
+    }
+  },
+  "nutrition": {
+    "h2": "Smart Nutrition for a Stronger You",
+    "choose": {
+      "p1": "At Fitness Partner, we believe that good nutrition is the foundation of real progress. That's why we offer smart, easy-to-use tools to help you understand your body, choose the right foods, and plan your meals like a pro — with a little help from AI magic",
+      "p2": "Here's how we support your journey:"
+    },
+    "cards": {
+      "card1": {
+        "h4": "Body Fat Calculator",
+        "p": "Understand where you stand and where you're headed. Use our Body Fat Calculator to get a clear picture of your current body composition — and track your progress over time",
+        "link": "Calculate Now"
+      },
+      "card2": {
+        "h4": "Know Your Food",
+        "p": "Curious about the calories, fats, proteins, and nutrients in your favorite foods? With Know Your Food, just search any item — like apples,chicken, or oats — and instantly see detailed nutrition facts to make smarter choices.",
+        "link": "Search Food Info"
+      },
+      "card3": {
+        "h4": "Meal Planner",
+        "p": "Take the stress out of eating right. Choose from carefully designed meal plans — whether your goal is fat loss, muscle gain, or better health — or let our AI build a customized meal plan based on your personal data, InBody results, and goals",
+        "link": "Choose Your Meal Plan"
+      }
+    },
+    "fatCalculator": {
+      "h2": "Body Fat Calculator",
+      "label1": "Age",
+      "invalid1": "Age is required and must be a valid number",
+      "label2": "Weight (kg)",
+      "invalid2": "Weight is required and must be a valid number",
+      "label3": "Height (cm)",
+      "invalid3": "Height is required and must be a valid number",
+      "label4": "Neck (cm)",
+      "invalid4": "Neck is required and must be a valid number",
+      "label5": "Waist (cm)",
+      "invalid5": "Waist is required and must be a valid number",
+      "label6": "Hip (cm)",
+      "invalid6": "Hip is required and must be a valid number",
+      "label7": "Gender",
+      "select": "Select Gender",
+      "male": "Male",
+      "female": "Female",
+      "invalid8": "Gender is required",
+      "btn": "Calculate",
+      "result": {
+        "h5": "Result:",
+        "p1": "Body Fat (U.S. Navy Method):",
+        "p2": "Category:"
+      }
+    },
+    "food": {
+      "h2": "Know Your Food",
+      "p1": "Track your calories, protein, fat, and carbs easily!",
+      "placeholder": "Search for food...",
+      "li1": "Calories:",
+      "li2": "Protein",
+      "li3": "Carbs:",
+      "li4": "Fat:",
+      "unit1": "kcal",
+      "unit2": "g",
+      "msg": "No matching food found"
+    },
+    "mealsPlanner": {
+      "h2": "Your Personalized Meal Planner",
+      "label": "Select Your Goal:",
+      "option": "-- Select Goal --",
+      "target": "Meal Plan for:",
+      "heads": {
+        "th1": "Meal",
+        "th2": "Items",
+        "th3": "Calories",
+        "th4": "Protein (g)",
+        "th5": "Carbs (g)",
+        "th6": "Fats (g)"
+      },
+      "alert": "Please select a goal above to view your custom meal plan."
+    },
+    "meal-comparison": {
+      "h1": "CALORIE COUNT COMPARISON",
+      "p1": "CALORIES",
+      "p2": "Carbohydrate:",
+      "p3": "Protein:",
+      "p4": "Fat:",
+      "unit": "g"
+    }
   },
   "about": {
     "loadingMsg": "Loading About...",
@@ -115,10 +215,51 @@
     "placeholder2": "Enter your email",
     "placeholder3": "Your Message"
   },
+  "favs": {
+    "h2": "My Favorites",
+    "h3": "Your favorites are empty",
+    "p": "Save your favorite products to see them here!",
+    "link": "Browse Products",
+    "btn": "View Product"
+  },
+  "cart": {
+    "h2": "Your Shopping Cart",
+    "btn": "CHECKOUT",
+    "link": "Continue Shopping",
+    "cartItems": {
+      "span1": "YOUR GYM BAG IS EMPTY",
+      "span2": "It looks like you haven't made your choice yet...",
+      "btn": "SHOP NOW"
+    }
+  },
   "notFound": {
     "div": "404",
     "h1": "Page Not Found",
     "p": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
     "link": "Back to Home page"
+  },
+  "footer": {
+    "info": {
+      "h5": "Fitness Partner",
+      "p": "Building strength, health, and a better you. Join our fitness community today!"
+    },
+    "links": {
+      "h5": "Quick Links",
+      "link1": "Home",
+      "link2": "Products",
+      "link3": "Exercises",
+      "link4": "Trainers",
+      "link5": "Nutrition"
+    },
+    "contact": {
+      "h5": "Contact Us",
+      "p1": "Cairo, NY 10012, Egypt",
+      "p2": "+02 01012347581",
+      "p3": "+02 01102356987"
+    },
+    "SocialMedia": {
+      "h5": "Follow Us"
+    },
+    "p": "© 2025 Fitness Partner. All rights reserved."
   }
 }

@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-body-fat-calculator',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule],
   templateUrl: './body-fat-calculator.component.html',
   styleUrls: ['./body-fat-calculator.component.css'],
 })
@@ -24,7 +25,9 @@ export class BodyFatCalculatorComponent {
 
   result: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private translate: TranslateService) {
+    this.translate.setDefaultLang('en');
+  }
 
   calculateFat(fatForm: NgForm) {
     if (fatForm.invalid) {

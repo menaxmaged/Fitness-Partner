@@ -14,6 +14,7 @@ import { TrainerModule } from './trainers/trainers.module';
 import { MailModule } from './auth/mail/mail.module';
 import { GymMachineController } from './gym-machine/gym-machine.controller';
 import { GymMachineModule } from './gym-machine/gym-machine.module';
+import { DietGeminiModule } from './diet-ai/diet-ai.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { GymMachineModule } from './gym-machine/gym-machine.module';
     FavoritesModule,
     MailModule,
     TrainerModule,
-  GymMachineModule
+  GymMachineModule,
+  DietGeminiModule
   ],
   controllers: [AppController],
   providers: [AppService],

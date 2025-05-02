@@ -1,6 +1,6 @@
 <div class="container-fluid my-5">
   <h2 class="text-center fw-bold fs-1 mb-4" style="color: #ff9933">
-    Body Fat Calculator
+    {{ "nutrition.fatCalculator.h2" | translate }}
   </h2>
   <div class="row">
     <div class="col-md-7" data-aos="fade-right" data-aos-duration="1000">
@@ -11,7 +11,9 @@
       >
         <div class="row g-3">
           <div class="col-md-4">
-            <label for="age" class="form-label">Age</label>
+            <label for="age" class="form-label">
+              {{ "nutrition.fatCalculator.label1" | translate }}
+            </label>
             <input
               id="age"
               class="form-control"
@@ -24,11 +26,13 @@
               *ngIf="fatForm.submitted && fatForm.controls['age'].invalid"
               class="text-danger"
             >
-              Age is required and must be a valid number.
+              {{ "nutrition.fatCalculator.invalid1" | translate }}
             </div>
           </div>
           <div class="col-md-4">
-            <label for="weight" class="form-label">Weight (kg)</label>
+            <label for="weight" class="form-label">
+              {{ "nutrition.fatCalculator.label2" | translate }}
+            </label>
             <input
               id="weight"
               class="form-control"
@@ -41,11 +45,13 @@
               *ngIf="fatForm.submitted && fatForm.controls['weight'].invalid"
               class="text-danger"
             >
-              Weight is required and must be a valid number.
+              {{ "nutrition.fatCalculator.invalid2" | translate }}
             </div>
           </div>
           <div class="col-md-4">
-            <label for="height" class="form-label">Height (cm)</label>
+            <label for="height" class="form-label">
+              {{ "nutrition.fatCalculator.label3" | translate }}
+            </label>
             <input
               id="height"
               class="form-control"
@@ -58,11 +64,13 @@
               *ngIf="fatForm.submitted && fatForm.controls['height'].invalid"
               class="text-danger"
             >
-              Height is required and must be a valid number.
+              {{ "nutrition.fatCalculator.invalid3" | translate }}
             </div>
           </div>
           <div class="col-md-4">
-            <label for="neck" class="form-label">Neck (cm)</label>
+            <label for="neck" class="form-label">
+              {{ "nutrition.fatCalculator.label4" | translate }}
+            </label>
             <input
               id="neck"
               class="form-control"
@@ -75,11 +83,13 @@
               *ngIf="fatForm.submitted && fatForm.controls['neck'].invalid"
               class="text-danger"
             >
-              Neck is required and must be a valid number.
+              {{ "nutrition.fatCalculator.invalid4" | translate }}
             </div>
           </div>
           <div class="col-md-4">
-            <label for="waist" class="form-label">Waist (cm)</label>
+            <label for="waist" class="form-label">
+              {{ "nutrition.fatCalculator.label5" | translate }}
+            </label>
             <input
               id="waist"
               class="form-control"
@@ -92,11 +102,13 @@
               *ngIf="fatForm.submitted && fatForm.controls['waist'].invalid"
               class="text-danger"
             >
-              Waist is required and must be a valid number.
+              {{ "nutrition.fatCalculator.invalid5" | translate }}
             </div>
           </div>
           <div class="col-md-4" *ngIf="formData.gender === 'female'">
-            <label for="hip" class="form-label">Hip (cm)</label>
+            <label for="hip" class="form-label">
+              {{ "nutrition.fatCalculator.label6" | translate }}
+            </label>
             <input
               id="hip"
               class="form-control"
@@ -109,11 +121,13 @@
               *ngIf="fatForm.submitted && fatForm.controls['hip'].invalid"
               class="text-danger"
             >
-              Hip is required and must be a valid number.
+              {{ "nutrition.fatCalculator.invalid6" | translate }}
             </div>
           </div>
           <div class="col-md-6">
-            <label for="gender" class="form-label">Gender</label>
+            <label for="gender" class="form-label">
+              {{ "nutrition.fatCalculator.label7" | translate }}
+            </label>
             <select
               id="gender"
               class="form-select"
@@ -121,25 +135,30 @@
               name="gender"
               [(ngModel)]="formData.gender"
             >
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="">
+                {{ "nutrition.fatCalculator.select" | translate }}
+              </option>
+              <option value="male">
+                {{ "nutrition.fatCalculator.male" | translate }}
+              </option>
+              <option value="female">
+                {{ "nutrition.fatCalculator.female" | translate }}
+              </option>
             </select>
             <div
               *ngIf="fatForm.submitted && fatForm.controls['gender'].invalid"
               class="text-danger"
             >
-              Gender is required.
+              {{ "nutrition.fatCalculator.invalid8" | translate }}
             </div>
           </div>
           <div class="col-12">
             <button class="btn btn-primary mt-3" type="submit">
-              Calculate
+              {{ "nutrition.fatCalculator.btn" | translate }}
             </button>
           </div>
         </div>
       </form>
-   
     </div>
     <div class="col-md-5" data-aos="fade-left" data-aos-duration="1000">
       <img
@@ -149,10 +168,18 @@
       />
     </div>
 
-     <div *ngIf="result" class="alert alert-warning mt-5 shadow-sm rounded">
-      <h5 class="mb-3">Result:</h5>
-      <p><strong>Body Fat (U.S. Navy Method):</strong> {{ result.bodyFat }}%</p>
-      <p><strong>Category:</strong> {{ result.status }}</p>
+    <div *ngIf="result" class="alert alert-warning mt-5 shadow-sm rounded">
+      <h5 class="mb-3">
+        {{ "nutrition.fatCalculator.result.h5" | translate }}
+      </h5>
+      <p>
+        <strong> {{ "nutrition.fatCalculator.result.p1" | translate }} </strong>
+        {{ result.bodyFat }}%
+      </p>
+      <p><strong>
+        {{ "nutrition.fatCalculator.result.p2" | translate }}
+
+      </strong> {{ result.status }}</p>
     </div>
   </div>
   <style>

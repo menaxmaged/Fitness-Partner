@@ -153,6 +153,7 @@ import { AdminProductsComponent } from './admin/products/admin-products.componen
 import { AdminUsersComponent } from './admin/users/admin-users.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import { DietFormComponent } from './diet-form/diet-form.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -175,6 +176,8 @@ export const routes: Routes = [
     path: 'exercises/:type/:muscle/:exercise',
     component: ExerciseDetailComponent,
   },
+
+  { path: 'diet', component: DietFormComponent },  // diet form route
 
   { path: 'nutrition', component: NutritionComponent },
   { path: 'mealsPlanner', component: MealsPlannerComponent },

@@ -5,10 +5,11 @@ import {
   FoodNutritionService,
   FoodItem,
 } from '../../services/food-nutrition.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-food-nutrition',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './food-nutrition.component.html',
   styleUrl: './food-nutrition.component.css',
 })
@@ -16,7 +17,12 @@ export class FoodNutritionComponent implements OnInit {
   foodList: FoodItem[] = [];
   searchTerm: string = '';
 
-  constructor(private nutritionService: FoodNutritionService) {}
+  constructor(
+    private nutritionService: FoodNutritionService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     this.nutritionService.getAllFoods().subscribe((data) => {
