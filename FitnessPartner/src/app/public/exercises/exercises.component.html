@@ -3,6 +3,38 @@
   [message]="'exercises.loadingMsg' | translate"
 ></app-loading-spinner>
 
+
+<div class="container-fluid pt-5 pb-2" style="background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%);">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-5 text-center" data-aos="fade-right" data-aos-duration="1000">
+      <img src="assets/exercises-imgs/fit5.png" alt="" class="img-fluid">
+    </div>
+    <div class="col-md-5 " data-aos="fade-left" data-aos-duration="1000">
+      <h2 class=" fw-bold text-white" style="font-size:4.3rem;"><i>Train Smarter,</i></h2>
+      <h2 class=" fw-bold ps-5" style="font-size:4.3rem;"><i> Move Stronger</i></h2>
+      <p class="fs-5"><i>At Fitness Partner, we make it easy to stay active
+        no matter where you are or what equipment you have. From quick warm-ups 
+        to full gym sessions, we’ve got expert-approved exercises tailored for 
+        your goals — and some <span class="text-white fw-bold">AI magic</span> to guide you even further!</i></p>
+    </div>
+  </div>
+</div>
+
+<!-- the wave -->
+<div class="wave-container">
+  <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+      <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+      <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
+      <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+      <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+      <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+    </g>
+  </svg>
+</div>
+
 <div class="container my-5">
   <!-- Breadcrumb Navigation -->
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
@@ -17,67 +49,121 @@
       </li>
     </ol>
   </nav>
-
+  <!-- the AI machine identifyer -->
   <app-identify-machine></app-identify-machine>
-
-  <h2 class="text-center my-4" id="workout">
-    {{ "exercises.h2" | translate }}
-  </h2>
+<hr>
+<!-- Exercises -->
+  <h2 class="text-center my-5 " data-aos="zoom-in" data-aos-duration="1000">{{ "exercises.h2" | translate }}</h2>
   <div class="row gy-5 justify-content-center">
-    <div class="col-12 col-md-5">
+    <div class="col-12 col-md-4" data-aos="zoom-in" data-aos-duration="1000">
       <div class="workout-card" (click)="navigateTo('home')">
-        <div class="image-container">
-          <img
-            src="https://hips.hearstapps.com/hmg-prod/images/core-workouts-at-home-1666192539.png?crop=1.00xw:0.753xh;0,0.0743xh&resize=1200:*"
-            alt="At Home"
-            class="workout-img"
-          />
-          <div class="overlay">
-            <span>{{ "exercises.option1" | translate }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-5">
-      <div class="workout-card" (click)="navigateTo('gym')">
-        <div class="image-container">
-          <img
-            src="https://explosivewhey.com/cdn/shop/articles/best-workout-routine-for-gym-beginners-135325.png?v=1738755379&width=2048"
-            alt="At Gym"
-            class="workout-img"
-          />
-          <div class="overlay">
-            <span>{{ "exercises.option2" | translate }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row gy-5 justify-content-center">
-      <div class="col-12 col-md-5">
-        <div class="workout-card" (click)="navigateTo('warm')">
           <div class="image-container">
             <img
-              src="https://i.ytimg.com/vi/f3zOrYCwquE/sddefault.jpg"
+              src="https://hips.hearstapps.com/hmg-prod/images/core-workouts-at-home-1666192539.png?crop=1.00xw:0.753xh;0,0.0743xh&resize=1200:*"
               alt="At Home"
               class="workout-img"
             />
             <div class="overlay">
-              <span>{{ "exercises.option3" | translate }}</span>
+              <span>{{ "exercises.option1" | translate }}</span>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-12 col-md-4" data-aos="zoom-in" data-aos-duration="1000">
+        <div class="workout-card" (click)="navigateTo('gym')">
+          <div class="image-container">
+            <img
+            src="https://explosivewhey.com/cdn/shop/articles/best-workout-routine-for-gym-beginners-135325.png?v=1738755379&width=2048"
+            alt="At Gym"
+            class="workout-img"
+            />
+            <div class="overlay">
+              <span>{{ "exercises.option2" | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- <div class="row gy-5 justify-content-center"> -->
+        <div class="col-12 col-md-4" data-aos="zoom-in" data-aos-duration="1000">
+          <div class="workout-card" (click)="navigateTo('warm')">
+            <div class="image-container">
+              <img
+              src="https://i.ytimg.com/vi/f3zOrYCwquE/sddefault.jpg"
+              alt="At Home"
+              class="workout-img"
+              />
+              <div class="overlay">
+                <span>{{ "exercises.option3" | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+      
     </div>
-  </div>
+    
+<style>
+  .wave-container {
+  position: relative;
+  background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%);
+  height: 100px;
+  margin-top: -5px;
+}
 
-  <style>
-    .breadcrumb-item a {
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  min-height: 120px;
+  max-height: 150px;
+}
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px,0,0);
+  }
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
+}
+
+@media (max-width: 768px) {
+  .wave-container {
+    height: 100px;
+  }
+  .waves {
+    height: 40px;
+    min-height: 40px;
+  }
+}
+.breadcrumb-item a {
       color: #e83f01;
       text-decoration: none;
       font-size: 18px;
     }
-    .breadcrumb-item a:hover {
+.breadcrumb-item a:hover {
       color: #cc0000;
     }
     .workout-card {
