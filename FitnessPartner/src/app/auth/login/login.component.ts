@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       next: (authResponse) => {
         this.authService.setCurrentUserId(authResponse.user.id);
         this.favoritesService.initialize();
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Google login failed:', err);
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
           // Sync favorites for this user
           this.favoritesService.initialize();
           // Navigate to profile
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/home']);
         } else if (response.requiresVerification) {
           // Handle email verification flow
           this.router.navigate(['/verify-email'], {
