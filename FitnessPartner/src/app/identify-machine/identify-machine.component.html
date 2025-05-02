@@ -18,7 +18,7 @@
         }}
         </button>
       
-        <div class="mt-3" *ngIf="result">
+        <div class="mt-3 p-2 border shadow-sm" *ngIf="result" style="background-color: white;" >
           <strong>{{ "machine.result.txt" | translate }}</strong> <span [innerHTML]="safeResult"></span>
         </div>
       
