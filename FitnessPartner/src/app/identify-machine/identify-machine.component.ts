@@ -2,12 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MachineModelService } from '../services/machine-model.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-identify-machine',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FormsModule],
   templateUrl: './identify-machine.component.html',
-  styleUrls: ['./identify-machine.component.css']
+  styleUrls: ['./identify-machine.component.css'],
 })
 export class IdentifyMachineComponent {
   selectedFile: File | null = null;
@@ -16,7 +19,13 @@ export class IdentifyMachineComponent {
   error: string = '';
   safeResult: SafeHtml = '';
   // resultId = document.getElementById('resultId') as HTMLDivElement;
-  constructor(private machineService: MachineModelService, private sanitizer: DomSanitizer) {}
+  constructor(
+    private machineService: MachineModelService,
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -40,7 +49,7 @@ export class IdentifyMachineComponent {
       error: (err) => {
         this.error = 'Failed to identify image.';
         this.loading = false;
-      }
+      },
     });
   }
 }

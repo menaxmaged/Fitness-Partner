@@ -29,26 +29,23 @@
 //       this.exercise = muscleGroup?.exercises.find((e: any) =>
 //         e.name.toLowerCase() == this.exerciseName
 //       );
-      
+
 //     });
 //   }
-  
+
 // }
-
-
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../services/exercise.service';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
-
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-exercise-detail',
-  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink],
   templateUrl: './exercise-detail.component.html',
-  styleUrl: './exercise-detail.component.css'
+  styleUrl: './exercise-detail.component.css',
 })
 export class ExerciseDetailComponent implements OnInit {
   exercise: any = {};
@@ -67,8 +64,15 @@ export class ExerciseDetailComponent implements OnInit {
     const type = this.route.snapshot.paramMap.get('type');
     const muscleParam = this.route.snapshot.paramMap.get('muscle');
     const exerciseParam = this.route.snapshot.paramMap.get('exercise');
-  console.log('type:', type, 'muscle:', muscleParam, 'exercise:', exerciseParam);
-  
+    console.log(
+      'type:',
+      type,
+      'muscle:',
+      muscleParam,
+      'exercise:',
+      exerciseParam
+    );
+
     if (type && muscleParam && exerciseParam) {
       // const muscle = this.capitalizeFirstLetter(muscleParam);
       const muscle = this.capitalizeWords(muscleParam);
@@ -76,14 +80,20 @@ export class ExerciseDetailComponent implements OnInit {
       const exerciseName = this.formatExerciseName(exerciseParam);
       this.type = type;
       this.muscle = muscle;
-      
-      this.exerciseService.getExerciseDetails(type, muscle, exerciseName).subscribe({
-        next: data=> {this.exercise = data;
-        this.muscle = muscle;
-        this.type = type;},
-        error: err=>this.handleLoadError(err),
-        complete: ()=>{this.isLoading = false;}
-      });
+
+      this.exerciseService
+        .getExerciseDetails(type, muscle, exerciseName)
+        .subscribe({
+          next: (data) => {
+            this.exercise = data;
+            this.muscle = muscle;
+            this.type = type;
+          },
+          error: (err) => this.handleLoadError(err),
+          complete: () => {
+            this.isLoading = false;
+          },
+        });
 
       // this.exerciseService.getExerciseDetails(type, muscle, exerciseName).subscribe({
       //   next: (data) => {
@@ -103,7 +113,7 @@ export class ExerciseDetailComponent implements OnInit {
       // });
     }
   }
-  
+
   private handleLoadError(err: any): void {
     console.error('Error loading Exercise:', err);
     this.isLoading = false;
@@ -113,25 +123,25 @@ export class ExerciseDetailComponent implements OnInit {
   //   if (!text) return '';
   //   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   // }
-  
+
   capitalizeWords(text: string): string {
     if (!text) return '';
     return text
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
   }
-  
+
   formatExerciseName(slug: string): string {
     if (!slug) return '';
 
     let formatted = decodeURIComponent(slug);
     formatted = formatted.replace(/-/g, ' ');
-    formatted = formatted.split(' ').map(word => this.capitalizeWords(word)).join(' ');
-  
+    formatted = formatted
+      .split(' ')
+      .map((word) => this.capitalizeWords(word))
+      .join(' ');
+
     return formatted.trim();
   }
-  
-  
-  
 }

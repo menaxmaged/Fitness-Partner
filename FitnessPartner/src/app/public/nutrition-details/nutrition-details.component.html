@@ -8,7 +8,7 @@
         <img [src]=" card.image" alt="{{ card.title }}" class="img-fluid main-image mb-3" />
 
         <div *ngIf="card.items && card.items.length > 0" class="items mt-3">
-          <h3 class="text-center mb-3">Examples:</h3>
+          <h3 class="text-center mb-3">Examples</h3>
           <div class="d-flex flex-wrap justify-content-center gap-4">
             <div *ngFor="let item of card.items" class="text-center">
               <img [src]="item.image" alt="{{ item.name }}" class="item-image mb-2" />

@@ -5,7 +5,7 @@
     data-aos="fade-down"
     data-aos-duration="1000"
   >
-    Smart Nutrition for a Stronger You
+    {{ "nutrition.h2" | translate }}
   </h2>
   <!-- Food Mode Section -->
   <div class="row justify-content-center">
@@ -38,12 +38,9 @@
   <div class="row">
     <div class="col-12" data-aos="fade-right" data-aos-duration="1000">
       <p class="fs-4 mt-md-5">
-        At Fitness Partner, we believe that good nutrition is the foundation of
-        real progress. That’s why we offer smart, easy-to-use tools to help you
-        understand your body, choose the right foods, and plan your meals like a
-        pro — with a little help from AI magic.
+        {{ "nutrition.choose.p1" | translate }}
       </p>
-      <p class="fs-4 mb-md-5">Here’s how we support your journey:</p>
+      <p class="fs-4 mb-md-5">{{ "nutrition.choose.p2" | translate }}</p>
     </div>
     <!--Cards-->
     <div
@@ -54,19 +51,20 @@
     >
       <!-- icon -->
       <i class="fa-solid fa-child-reaching second-icon mt-4"></i>
-      <h4 class="text-center fw-bold my-3">Body Fat Calculator</h4>
+      <h4 class="text-center fw-bold my-3">
+        {{ "nutrition.cards.card1.h4" | translate }}
+      </h4>
       <p class="px-5 fs-5 fw-medium">
-        Understand where you stand and where you’re headed. Use our Body Fat
-        Calculator to get a clear picture of your current body composition — and
-        track your progress over time.
+        {{ "nutrition.cards.card1.p" | translate }}
       </p>
       <a
         [routerLink]="['/nutrition']"
         fragment="fat-calculator"
         class="btn button-design"
         style="margin-top: 4.6rem"
-        >Calculate Now</a
       >
+        {{ "nutrition.cards.card1.link" | translate }}
+      </a>
     </div>
     <div
       class="col-md-4 d-flex flex-column align-items-center"
@@ -76,20 +74,19 @@
     >
       <!-- icon -->
       <i class="fa-solid fa-carrot second-icon mt-4"></i>
-      <h4 class="text-center fw-bold my-3">Know Your Food</h4>
+      <h4 class="text-center fw-bold my-3">
+        {{ "nutrition.cards.card2.h4" | translate }}
+      </h4>
       <p class="px-5 fs-5 fw-medium">
-        Curious about the calories, fats, proteins, and nutrients in your
-        favorite foods? With Know Your Food, just search any item — like apples,
-        chicken, or oats — and instantly see detailed nutrition facts to make
-        smarter choices.
+        {{ "nutrition.cards.card2.p" | translate }}
       </p>
       <a
         [routerLink]="['/nutrition']"
         fragment="know-food"
         class="btn button-design"
-        style="margin-top: 2.7rem"
-        >Search Food Info</a
-      >
+       >
+        {{ "nutrition.cards.card2.link" | translate }}
+      </a>
     </div>
     <div
       class="col-md-4 d-flex flex-column align-items-center"
@@ -99,20 +96,19 @@
     >
       <!-- icon -->
       <i class="fa-solid fa-utensils second-icon mt-4"></i>
-      <h4 class="text-center fw-bold my-3">Meal Planner</h4>
+      <h4 class="text-center fw-bold my-3">
+        {{ "nutrition.cards.card3.h4" | translate }}
+      </h4>
       <p class="px-5 fs-5 fw-medium">
-        Take the stress out of eating right. Choose from carefully designed meal
-        plans — whether your goal is fat loss, muscle gain, or better health —
-        or let our <span style="font-size: 28px; color: #cc0000">AI</span> build
-        a customized meal plan based on your personal data, InBody results, and
-        goals.
+        {{ "nutrition.cards.card3.p" | translate }}
       </p>
       <a
         [routerLink]="['/nutrition']"
         fragment="meal-planner"
         class="btn button-design mb-3"
-        >Choose Your Meal Plan</a
       >
+        {{ "nutrition.cards.card3.link" | translate }}
+      </a>
     </div>
   </div>
 </div>

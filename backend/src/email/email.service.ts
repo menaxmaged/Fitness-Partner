@@ -48,4 +48,28 @@ export class EmailService {
       throw new Error('Failed to send email: ' + error.message);
     }
   }
+  async sendOrderCancellation(to: string, otp: string): Promise<void> {
+    const mailOptions = {
+      from: 'Fitness Partner', // replace with your email
+      to,
+      subject: 'Order Cancelation',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
+          <h2 style="color: #333; text-align: center;">Email Verification</h2>
+          <p>We are sorry to tell you that your order has been cancelled</p>
+          <p>Please contact us if you have any questions.</p>
+          <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">
+            &copy; ${new Date().getFullYear()} Fitness Partner. All rights reserved.
+          </p>
+        </div>
+      `,
+    };
+
+    try {
+      await this.transporter.sendMail(mailOptions);
+    } catch (error) {
+      console.error('Error sending email:', error.message, error.stack);
+      throw new Error('Failed to send email: ' + error.message);
+    }
+  }
 }

@@ -190,7 +190,7 @@ export class SignupComponent implements OnInit {
           console.error('Invalid response from server:', response);
         }
       },
-      error: (err) => {
+      error: (err:any) => {
         console.error('OTP verification failed:', err);
         this.otpError = 'Invalid OTP code. Please try again.';
         this.otpForm.controls['otp'].setErrors({ invalid: true });
@@ -206,7 +206,7 @@ export class SignupComponent implements OnInit {
           this.otpResent = false;
         }, 3000);
       },
-      error: (err) => {
+      error: (err:any) => {
         console.error('Failed to resend OTP:', err);
       },
     });
