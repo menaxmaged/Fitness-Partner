@@ -8,7 +8,7 @@ async function bootstrap() {
   // Configure environment variables
   const envPath = path.resolve(__dirname, '../.env');
   const envResult = dotenv.config({ path: envPath });
-  
+
   const logger = new Logger('Bootstrap');
 
   // Environment configuration diagnostics
@@ -17,7 +17,10 @@ async function bootstrap() {
   } else {
     logger.log(`Environment loaded from ${envPath}`);
     logger.debug('PORT:', process.env.PORT);
-    logger.debug('MONGODB_URI:', process.env.MONGODB_URI?.substring(0, 25) + '...');
+    logger.debug(
+      'MONGODB_URI:',
+      process.env.MONGODB_URI?.substring(0, 25) + '...',
+    );
   }
 
   // Create NestJS application
@@ -26,17 +29,17 @@ async function bootstrap() {
   });
 
   // Global validation setup
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-      exceptionFactory: (errors) => {
-        console.error('Validation Errors:', JSON.stringify(errors, null, 2));
-        return new BadRequestException(errors);
-      }
-    })
-  );
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     whitelist: true,
+  //     forbidNonWhitelisted: true,
+  //     transform: true,
+  //     exceptionFactory: (errors) => {
+  //       console.error('Validation Errors:', JSON.stringify(errors, null, 2));
+  //       return new BadRequestException(errors);
+  //     },
+  //   }),
+  // );
 
   // CORS configuration
   app.enableCors({
