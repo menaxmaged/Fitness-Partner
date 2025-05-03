@@ -1,4 +1,62 @@
 {
+  "login": {
+    "h2": "Welcome Back",
+    "p1": "Please sign in to your account",
+    "label1": "Email Address",
+    "placeholder1": "Enter your Email",
+    "invalid1": "Email address is required",
+    "error1": "Email not found or incorrect credentials",
+    "hint1": "Please add a valid email address",
+    "label2": "Password",
+    "placeholder2": "Enter your Password",
+    "invalid2": "Incorrect password. Please try again",
+    "error2": "Forgot Password?",
+    "btn": " Log In",
+    "p2": "Don't have an account?",
+    "link": "Sign up",
+    "span": "or"
+  },
+  "signUp": {
+    "h2": "Sign up",
+    "label1": "First Name",
+    "placeholder1": "Enter your First Name",
+    "invalid1": "First name is required",
+    "label2": "Last Name",
+    "placeholder2": "Enter your Last Name",
+    "invalid2": "Last name is required",
+    "label3": "Email Address",
+    "placeholder3": "Enter your Email Address",
+    "invalid3": "Email Address is required",
+    "errors": {
+      "error1": "Email already in use, please sign in",
+      "error2": "Please add a valid email address"
+    },
+    "label4": "Password",
+    "placeholder4": "Enter your Password",
+    "invalid4": "Password is required",
+    "hint": "Password must be at least 8 characters",
+    "error": "Password must contain at least one uppercase letter, one number, and one special character",
+    "confirm": "Confirm Password",
+    "placeholder5": "Re-enter password",
+    "diffPassword": "Passwords don't match",
+    "p": " Already have an account?",
+    "btn1": "Log In",
+    "btn2": "Sign up",
+    "span": "or"
+  },
+  "OTP": {
+    "h4": "Verify Your Email",
+    "p1": "We've sent a verification code to",
+    "label1": "Enter Verification Code",
+    "invalid1": "Verification code is required",
+    "error1": "Code must be 6 digits",
+    "error2": "Code must contain only numbers",
+    "p2": "Didn't receive the code?",
+    "btn1": "Resend Code",
+    "p3": "Verification code resent!",
+    "btn2": "Back to Sign up",
+    "btn3":"Verify & Complete Registration"
+  },
   "navbar": {
     "link1": "Fitness Partner",
     "link2": "HOME",
@@ -36,6 +94,15 @@
     "exercises": {
       "h5": "Exercises",
       "p": "Access effective exercises for every level—from beginner to beast mode"
+    },
+    "ai": {
+      "h2.1": "Smarter Fitness with AI",
+      "h2.2": "AI Meal Planner",
+      "p1": "Get a personalized nutrition plan created just for you — based on your Body data, fitness goals, and dietary preferences. No more guesswork.Let AI do the thinking, so you can focus on results.",
+      "link1": "Create Your Plan",
+      "h2.3": "AI Machine Helper",
+      "p2": "Confused at the gym? Just upload a photo of any machine, and our AI will tell you what it is, what it works, and how to use it safely and effectively.",
+      "link2": "Try It Now"
     },
     "personalTrainer": {
       "h5": "Personal Trainers",

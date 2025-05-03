@@ -110,7 +110,8 @@
     <div
       class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
       style="width: 18rem"
-      data-aos="zoom-in" data-aos-duration="1000"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
     >
       <img src="assets/home-imgs/products.jpg" class="card-img-top" alt="..." />
       <div class="card-body">
@@ -125,7 +126,8 @@
     <div
       class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
       style="width: 18rem"
-      data-aos="zoom-in" data-aos-duration="1000"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
     >
       <img
         src="assets/home-imgs/exercises2.webp"
@@ -144,7 +146,8 @@
     <div
       class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
       style="width: 18rem"
-      data-aos="zoom-in" data-aos-duration="1000"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
     >
       <img src="assets/home-imgs/trainer.jpg" class="card-img-top" alt="..." />
       <div class="card-body">
@@ -159,7 +162,8 @@
     <div
       class="card col-sm-12 col-md-6 col-lg-3 p-0 my-2 mx-3 shadow"
       style="width: 18rem"
-      data-aos="zoom-in" data-aos-duration="1000"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
     >
       <img
         src="assets/home-imgs/sports-nutrition.jpg"
@@ -180,31 +184,59 @@
 <!-- about us section end-->
 
 <!--Our AI section-->
-<div class="container-fluid my-5" style="background-color: rgb(250, 242, 233);">
+<div class="container-fluid my-5" style="background-color: rgb(250, 242, 233)">
   <div class="row">
-    <h2 class="text-center mt-4 mb-md-5" data-aos="zoom-in" data-aos-duration="1000">Smarter Fitness with AI</h2>
+    <h2
+      class="text-center mt-4 mb-md-5"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
+    >
+      {{ "home.ai.h2.1" | translate }}
+    </h2>
   </div>
   <div class="row d-flex justify-content-evenly align-items-center">
     <div class="col-md-5 my-5" data-aos="fade-right" data-aos-duration="1000">
-      <h2>AI Meal Planner</h2>
-      <p class="fs-5">Get a personalized nutrition plan created just for you — based on your Body data, fitness goals, and dietary preferences. No more guesswork. Let AI do the thinking, so you can focus on results.</p>
-      <a class="btn button-design" routerLink="/trainers" fragment="AiDiet" routerLinkActive="active">
-        Create Your Plan
+      <h2>{{ "home.ai.h2.2" | translate }}</h2>
+      <p class="fs-5">
+        {{ "home.ai.p1" | translate }}
+      </p>
+      <a
+        class="btn button-design"
+        routerLink="/trainers"
+        fragment="AiDiet"
+        routerLinkActive="active"
+      >
+        {{ "home.ai.link1" | translate }}
       </a>
     </div>
     <div class="col-md-4" data-aos="fade-left" data-aos-duration="1000">
-      <img src="assets/home-imgs/nutration.webp" alt="AI Meal Planner" class="img-fluid rounded" />
+      <img
+        src="assets/home-imgs/nutration.webp"
+        alt="AI Meal Planner"
+        class="img-fluid rounded"
+      />
     </div>
   </div>
   <div class="row my-5 d-flex justify-content-evenly align-items-center">
     <div class="col-md-4 my-5" data-aos="fade-right" data-aos-duration="1000">
-      <img src="assets/home-imgs/Machine.webp" alt="AI machine detecter" class="img-fluid rounded" />
+      <img
+        src="assets/home-imgs/Machine.webp"
+        alt="AI machine detecter"
+        class="img-fluid rounded"
+      />
     </div>
-    <div class="col-md-5 " data-aos="fade-left" data-aos-duration="1000">
-      <h2>AI Machine Helper</h2>
-      <p class="fs-5">Confused at the gym? Just upload a photo of any machine, and our AI will tell you what it is, what it works, and how to use it safely and effectively.</p>
-      <a class="btn button-design" routerLink="/exercises" fragment="machineIdentify"  routerLinkActive="active">
-        Try It Now
+    <div class="col-md-5" data-aos="fade-left" data-aos-duration="1000">
+      <h2>{{ "home.ai.h2.3" | translate }}</h2>
+      <p class="fs-5">
+        {{ "home.ai.p2" | translate }}
+      </p>
+      <a
+        class="btn button-design"
+        routerLink="/exercises"
+        fragment="machineIdentify"
+        routerLinkActive="active"
+      >
+        {{ "home.ai.link2" | translate }}
       </a>
     </div>
   </div>
@@ -218,7 +250,9 @@
       <img src="assets/home-imgs/supplements-1.jpg" alt="" class="img-fluid" />
     </div>
     <div
-      class="col-sm-12 col-md-6 col-lg-7 my-4 d-flex flex-column justify-content-center align-items-center" data-aos="zoom-in" data-aos-duration="1000"
+      class="col-sm-12 col-md-6 col-lg-7 my-4 d-flex flex-column justify-content-center align-items-center"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
     >
       <h2 class="mb-3">{{ "home.products.h2" | translate }}</h2>
       <p class="px-5 fs-5 text-center">
@@ -252,17 +286,17 @@
           </p>
           <div class="trainer-social">
             <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-twitter"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-youtube"></i
-          ></a>
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-youtube"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -278,17 +312,17 @@
           </p>
           <div class="trainer-social">
             <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-twitter"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-youtube"></i
-          ></a>
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-youtube"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -302,29 +336,31 @@
           <p>{{ "home.trainers.p3" | translate }}</p>
           <div class="trainer-social">
             <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-twitter"></i
-          ></a>
-          <a href="#" class="btn btn-outline-light btn-floating"
-            ><i class="fab fa-youtube"></i
-          ></a>
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="btn btn-outline-light btn-floating"
+              ><i class="fab fa-youtube"></i
+            ></a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="row d-flex justify-content-center">
+    <a
+      class="btn button-design my-5 w-25"
+      routerLink="/trainers"
+      routerLinkActive="active"
+    >
+      {{ "home.link4" | translate }}
+    </a>
+  </div>
 </div>
-<a
-  class="btn button-design my-5"
-  routerLink="/trainers"
-  routerLinkActive="active"
-  style="margin-left: 40%"
->
-  {{ "home.link4" | translate }}</a
->
+
 <!-- trainers section end -->

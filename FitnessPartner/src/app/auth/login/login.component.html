@@ -1,73 +1,121 @@
 <div class="container d-flex justify-content-center align-items-center mt-5">
-  <div class="card shadow-lg p-4 rounded-4 bg-light border-0" style="max-width: 500px; width: 90%;">
-    <h2 class="fw-bold text-center text-primary mb-2">Welcome Back</h2>
-    <p class="text-center text-muted mb-4">Please sign in to your account</p>
+  <div
+    class="card shadow-lg p-4 rounded-4 bg-light border-0"
+    style="max-width: 500px; width: 90%"
+  >
+    <h2 class="fw-bold text-center text-primary mb-2">
+      {{ "login.h2" | translate }}
+    </h2>
+    <p class="text-center text-muted mb-4">{{ "login.p1" | translate }}</p>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
       <!-- Email -->
       <div class="mb-3">
-        <label for="inputEmail" class="form-label fw-semibold">Email Address</label>
+        <label for="inputEmail" class="form-label fw-semibold">
+          {{ "login.label1" | translate }}
+        </label>
+
         <div class="input-group">
-          <span class="input-group-text bg-white border-end-0"><i class="fas fa-envelope text-secondary"></i></span>
-          <input type="email" class="form-control border-start-0" id="inputEmail" formControlName="email"
-            placeholder="Enter your email">
+          <span class="input-group-text bg-white border-end-0"
+            ><i class="fas fa-envelope text-secondary"></i
+          ></span>
+          <input
+            type="email"
+            class="form-control border-start-0"
+            id="inputEmail"
+            formControlName="email"
+            placeholder="{{ 'login.placeholder1' | translate }}"
+          />
         </div>
-        <div *ngIf="email?.invalid && email?.touched" class="text-danger mt-1 small">
-          <div *ngIf="email?.errors?.['required']">Email address is required</div>
-          <div *ngIf="email?.errors?.['notFound']">Email not found or incorrect credentials</div>
-          <div *ngIf="!email?.errors?.['required'] && !email?.errors?.['notFound'] && email?.errors?.['email']">Please
-            add a valid email address
+        <div
+          *ngIf="email?.invalid && email?.touched"
+          class="text-danger mt-1 small"
+        >
+          <div *ngIf="email?.errors?.['required']">
+            {{ "login.invalid1" | translate }}
+          </div>
+          <div *ngIf="email?.errors?.['notFound']">
+            {{ "login.error1" | translate }}
+          </div>
+          <div
+            *ngIf="!email?.errors?.['required'] && !email?.errors?.['notFound'] && email?.errors?.['email']"
+          >
+            {{ "login.hint1" | translate }}
           </div>
         </div>
       </div>
 
       <!-- Password -->
       <div class="mb-3">
-        <label for="inputPassword" class="form-label fw-semibold">Password</label>
+        <label for="inputPassword" class="form-label fw-semibold">
+          {{ "login.label2" | translate }}
+        </label>
         <div class="input-group">
-          <span class="input-group-text bg-white border-end-0"><i class="fas fa-lock text-secondary"></i></span>
-          <input type="password" class="form-control border-start-0" id="inputPassword" formControlName="password"
-            placeholder="Enter your password">
+          <span class="input-group-text bg-white border-end-0"
+            ><i class="fas fa-lock text-secondary"></i
+          ></span>
+          <input
+            type="password"
+            class="form-control border-start-0"
+            id="inputPassword"
+            formControlName="password"
+            placeholder="{{ 'login.placeholder2' | translate }}"
+          />
         </div>
-        <div *ngIf="password?.errors?.['incorrectPassword'] && password?.touched" class="text-danger mt-1 small">
-          Incorrect password. Please try again
+        <div
+          *ngIf="password?.errors?.['incorrectPassword'] && password?.touched"
+          class="text-danger mt-1 small"
+        >
+          {{ "login.invalid2" | translate }}
         </div>
       </div>
 
       <!-- Forgot password -->
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <a routerLink="/forgotPassword" class="text-decoration-none small text-primary">Forgot Password?</a>
+        <a
+          routerLink="/forgotPassword"
+          class="text-decoration-none small text-primary"
+        >
+          {{ "login.error2" | translate }}
+        </a>
       </div>
 
       <!-- Submit button -->
       <div class="col-12 mb-3">
-        <button type="submit"
+        <button
+          type="submit"
           class="btn btn-outline-light orange-btn fw-semibold fw-bold w-100 py-2 text-white border-0"
-          [disabled]="loginForm.invalid">
-          Log In
+          [disabled]="loginForm.invalid"
+        >
+          {{ "login.btn" | translate }}
         </button>
       </div>
 
       <!-- Sign up link -->
       <div class="text-center">
         <p class="small text-muted">
-          Don't have an account?
-          <a routerLink="/signup" class="text-decoration-none fw-bold text-primary">Sign up</a>
+          {{ "login.p2" | translate }}
+          <a
+            routerLink="/signup"
+            class="text-decoration-none fw-bold text-primary"
+          >
+            {{ "login.link" | translate }}
+          </a>
         </p>
       </div>
 
       <div class="d-flex align-items-center my-3">
-        <hr class="flex-grow-1">
-        <span class="mx-2 text-muted small">or</span>
-        <hr class="flex-grow-1">
+        <hr class="flex-grow-1" />
+        <span class="mx-2 text-muted small">
+          {{ "login.span" | translate }}
+        </span>
+        <hr class="flex-grow-1" />
       </div>
 
       <!-- Add this after the form closing tag -->
       <div class="d-flex justify-content-center mb-3">
         <div id="google-login-button"></div>
       </div>
-
     </form>
   </div>
 </div>

@@ -13,11 +13,12 @@ import { FavoritesService } from '../../services/favorites.service';
 import { AuthService } from '../../services/auth.service';
 import { GoogleAuthService } from '../../services/google-auth.service';
 import { AfterViewInit } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule, TranslateModule],
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
@@ -37,8 +38,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private favoritesService: FavoritesService,
     private authService: AuthService,
-    private googleAuthService: GoogleAuthService
-  ) {}
+    private googleAuthService: GoogleAuthService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngAfterViewInit(): void {
     this.googleAuthService.initializeGoogleButton(

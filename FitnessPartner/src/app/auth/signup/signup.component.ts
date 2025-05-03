@@ -13,11 +13,12 @@ import { CommonModule } from '@angular/common';
 import { User } from '../../shared/utils/user';
 import { AuthService } from '../../services/auth.service';
 import { GoogleAuthService } from '../../services/google-auth.service';
+import { TranslateModule,TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule,TranslateModule],
   templateUrl: './signup.component.html',
 })
 export class SignupComponent implements OnInit {
@@ -32,8 +33,11 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private fb: FormBuilder,
-    private googleAuthService: GoogleAuthService
-  ) {}
+    private googleAuthService: GoogleAuthService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     // Check if already logged in
