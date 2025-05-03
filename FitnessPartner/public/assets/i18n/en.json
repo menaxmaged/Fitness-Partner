@@ -55,7 +55,7 @@
     "btn1": "Resend Code",
     "p3": "Verification code resent!",
     "btn2": "Back to Sign up",
-    "btn3":"Verify & Complete Registration"
+    "btn3": "Verify & Complete Registration"
   },
   "navbar": {
     "link1": "Fitness Partner",
@@ -65,7 +65,22 @@
     "link5": "EXERCISES HUB",
     "link6": "NUTRITION",
     "link7": "ABOUT US",
-    "link8": "CONTACT US"
+    "link8": "CONTACT US",
+    "logOut": {
+      "h5": "Confirm Logout",
+      "div": "Are you sure you want to logout?",
+      "btn1": "Cancel",
+      "btn2": "Logout"
+    },
+    "offcanvas": {
+      "span1": "Cart details",
+      "Breadcrumb": {
+        "li1": "Home ",
+        "li2": "Cart"
+      },
+      "span2": "items in cart",
+      "btn": "CHECKOUT"
+    }
   },
   "home": {
     "loadingMsg": "Loading Home...",
@@ -231,6 +246,13 @@
         "li3": " Warm-up"
       },
       "span": "exercises"
+    },
+    "muscle":{
+      "Breadcrumb": {
+        "li1": "Home ",
+        "li2": "Exercises",
+        "li3": "exercises"
+      }
     }
   },
   "machine": {

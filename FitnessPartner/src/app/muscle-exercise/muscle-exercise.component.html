@@ -1,26 +1,49 @@
-<app-loading-spinner *ngIf="isLoading" [message]="'Loading Muscles Exercises...'"></app-loading-spinner>
+<app-loading-spinner
+  *ngIf="isLoading"
+  [message]="'exercises.loadingMsg' | translate"
+></app-loading-spinner>
 
 <div class="container my-5">
-  <h2 class="text-center mb-5">{{ muscleName }} Exercises</h2>
-   <!-- Breadcrumb Navigation -->
-   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <h2 class="text-center mb-5">
+    {{ muscleName }} {{ "exercises.muscle.Breadcrumb.li2" | translate }}
+  </h2>
+  <!-- Breadcrumb Navigation -->
+  <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/exercises']">Exercises</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/exercises/',type]">{{type}} exercises</a></li>
-      <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">{{muscleName}} exercises</li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']">{{
+          "exercises.muscle.Breadcrumb.li1" | translate
+        }}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/exercises']">{{
+          "exercises.muscle.Breadcrumb.li2" | translate
+        }}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/exercises/', type]"
+          >{{ type }} {{ "exercises.muscle.Breadcrumb.li3" | translate }}</a
+        >
+      </li>
+      <li
+        class="breadcrumb-item active"
+        aria-current="page"
+        style="font-size: 18px"
+      >
+        {{ muscleName }} {{ "exercises.muscle.Breadcrumb.li3" | translate }}
+      </li>
     </ol>
   </nav>
 
   <div class="row gy-5">
-    <div class="col-12 col-md-6" *ngFor="let ex of exercises" (click)="goToExercise(ex.name)">
+    <div
+      class="col-12 col-md-6"
+      *ngFor="let ex of exercises"
+      (click)="goToExercise(ex.name)"
+    >
       <div class="exercise-card">
         <div class="image-container">
-          <img
-            [src]="ex.imageUrl"
-            alt="{{ ex.name }}"
-            class="exercise-img"
-          />
+          <img [src]="ex.imageUrl" alt="{{ ex.name }}" class="exercise-img" />
           <div class="overlay">
             <span>{{ ex.name }}</span>
           </div>

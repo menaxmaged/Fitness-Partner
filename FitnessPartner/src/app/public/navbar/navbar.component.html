@@ -212,7 +212,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="logoutConfirmationModalLabel">
-                  Confirm Logout
+                  {{ "navbar.logOut.h5" | translate }}
                 </h5>
                 <button
                   type="button"
@@ -221,14 +221,16 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">Are you sure you want to logout?</div>
+              <div class="modal-body">
+                {{ "navbar.logOut.div" | translate }}
+              </div>
               <div class="modal-footer">
                 <button
                   type="button"
                   class="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
-                  Cancel
+                  {{ "navbar.logOut.btn1" | translate }}
                 </button>
                 <button
                   type="button"
@@ -236,7 +238,7 @@
                   (click)="confirmLogout()"
                   data-bs-dismiss="modal"
                 >
-                  Logout
+                  {{ "navbar.logOut.btn2" | translate }}
                 </button>
               </div>
             </div>
@@ -300,7 +302,7 @@
       >
         <!--********MINI CART  ICON HERE ****-->
         <span class="d-block text-dark"
-          >Cart details
+          >{{ "navbar.offcanvas.span1" | translate }}
           <span class="position-relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -320,7 +322,9 @@
               style="font-size: 0.65rem; padding: 0.25rem 0.4rem"
             >
               {{ cart.length }}
-              <span class="visually-hidden">items in cart</span>
+              <span class="visually-hidden"
+                >{{ "navbar.offcanvas.span2" | translate }}
+              </span>
             </span>
           </span>
         </span>
@@ -344,10 +348,13 @@
           class="text-decoration-none text-secondary fs-6"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
-          >HOME
+        >
+          >{{ "navbar.offcanvas.Breadcrumb.li1" | translate }}
         </a>
         <span class="text-secondary"> / </span>
-        <span class="text-dark"> CART </span>
+        <span class="text-dark">
+          >{{ "navbar.offcanvas.Breadcrumb.li2" | translate }}
+        </span>
       </span>
     </div>
 
@@ -366,7 +373,7 @@
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           >
-            CHECKOUT
+            >{{ "navbar.offcanvas.btn" | translate }}
           </button>
         </a>
       </div>

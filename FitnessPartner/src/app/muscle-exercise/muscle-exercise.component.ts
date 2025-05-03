@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ExerciseService } from '../services/exercise.service';
-import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { TranslateModule,TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-muscle-exercise',
-  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink,TranslateModule],
   templateUrl: './muscle-exercise.component.html',
-  styleUrls: ['./muscle-exercise.component.css']
+  styleUrls: ['./muscle-exercise.component.css'],
 })
 export class MuscleExerciseComponent implements OnInit {
   type!: string;
@@ -22,25 +23,33 @@ export class MuscleExerciseComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private exerciseService: ExerciseService,
-    private sanitizer: DomSanitizer
-  ) {}
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     this.type = this.route.snapshot.paramMap.get('type')!;
     this.muscleName = this.route.snapshot.paramMap.get('muscle')!;
-    
-    this.exerciseService.getExercisesByTypeAndMuscle(this.type, this.muscleName)
+
+    this.exerciseService
+      .getExercisesByTypeAndMuscle(this.type, this.muscleName)
       .subscribe({
         next: (exercises) => {
-          this.exercises = exercises.map(exercise => ({
+          this.exercises = exercises.map((exercise) => ({
             ...exercise,
-            safeVideoUrl: exercise.videoUrl 
+            safeVideoUrl: exercise.videoUrl
               ? this.sanitizer.bypassSecurityTrustResourceUrl(exercise.videoUrl)
-              : null
+              : null,
           }));
         },
-        error: (err) => {this.handleLoadError(err);},
-        complete:()=>{ this.isLoading =false;}
+        error: (err) => {
+          this.handleLoadError(err);
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
       });
   }
   private handleLoadError(err: any): void {
@@ -51,10 +60,10 @@ export class MuscleExerciseComponent implements OnInit {
 
   goToExercise(exerciseName: string) {
     this.router.navigate([
-      'exercises', 
-      this.type, 
-      this.muscleName, 
-      exerciseName.toLowerCase().replace(/\s+/g, '-')
+      'exercises',
+      this.type,
+      this.muscleName,
+      exerciseName.toLowerCase().replace(/\s+/g, '-'),
     ]);
   }
 }
@@ -98,11 +107,11 @@ export class MuscleExerciseComponent implements OnInit {
 //   goToExercise(exerciseName: string) {
 //     console.log('switching to exercise:', exerciseName);
 //     this.router.navigate([
-//       'exercises', 
-//       this.type, 
-//       this.muscleName, 
+//       'exercises',
+//       this.type,
+//       this.muscleName,
 //       exerciseName.toLowerCase().replace(/\s+/g, '-')
 //     ]);
 //   }
-  
+
 // }
