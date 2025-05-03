@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietAiService } from '../services/diet-ai.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-diet-form',
@@ -10,7 +11,7 @@ import { DietAiService } from '../services/diet-ai.service';
   templateUrl: './diet-form.component.html',
   styleUrls: ['./diet-form.component.css']
 })
-export class DietFormComponent {
+export class DietFormComponent implements OnInit{
   formData = {
     age: null,
     weight: null,
@@ -25,7 +26,18 @@ export class DietFormComponent {
   loading = false;
   error = '';
 
-  constructor(private dietService: DietAiService) {}
+  constructor(private dietService: DietAiService , private route:ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        const el = document.getElementById(fragment);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  }
 
   submit() {
     this.loading = true;

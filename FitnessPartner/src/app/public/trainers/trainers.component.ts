@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainersDataService } from '../../services/trainers-data.service';
 import { ITrainer } from '../../models/i-trainer';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { DietFormComponent } from "../../diet-form/diet-form.component";
   templateUrl: './trainers.component.html',
   styleUrl: './trainers.component.css',
 })
-export class TrainersComponent implements OnInit {
+export class TrainersComponent{
   trainers: ITrainer[] = [];
   isLoading = true;
   constructor(
@@ -38,6 +38,15 @@ export class TrainersComponent implements OnInit {
         this.isLoading = false;
       },
     });
+
+      // this.route.fragment.subscribe(fragment => {
+      //   if (fragment) {
+      //     const el = document.getElementById(fragment);
+      //     if (el) {
+      //       el.scrollIntoView({ behavior: 'smooth' });
+      //     }
+      //   }
+      // });
   }
 
   private handleLoadError(err: any): void {

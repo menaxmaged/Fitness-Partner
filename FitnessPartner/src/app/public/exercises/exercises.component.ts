@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event, RouterLink } from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event, RouterLink, ActivatedRoute } from '@angular/router';
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 import { IdentifyMachineComponent } from "../../identify-machine/identify-machine.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -10,10 +10,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './exercises.component.html',
   styles: ``
 })
-export class ExercisesComponent {
+export class ExercisesComponent{
   isLoading =false;
-  constructor(private router: Router, private translate: TranslateService
-    ) {
+  constructor(private router: Router, private translate: TranslateService) {
       this.translate.setDefaultLang('en');
     this.router.events.subscribe((event:Event) => {
       if (event instanceof NavigationStart) {
