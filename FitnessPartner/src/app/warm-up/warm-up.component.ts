@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface MuscleGroup {
   muscle: string;
@@ -17,9 +18,9 @@ interface MuscleGroup {
 
 @Component({
   selector: 'app-warm-up',
-  imports: [CommonModule, LoadingSpinnerComponent,RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, TranslateModule],
   templateUrl: './warm-up.component.html',
-  styleUrls: ['./warm-up.component.css']
+  styleUrls: ['./warm-up.component.css'],
 })
 export class WarmUpComponent {
   muscles: MuscleGroup[] = [];
@@ -28,8 +29,11 @@ export class WarmUpComponent {
 
   constructor(
     private exerciseService: ExerciseService, // Inject ExerciseService
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     this.fetchWarmUpExercises();
@@ -42,10 +46,12 @@ export class WarmUpComponent {
       },
       error: (err) => {
         console.error('Error fetching warm-up exercises:', err);
-        this.error = 'Failed to load warm-up exercises. Please try again later.';
-        
+        this.error =
+          'Failed to load warm-up exercises. Please try again later.';
       },
-      complete: ()=>{this.isLoading = false;}
+      complete: () => {
+        this.isLoading = false;
+      },
     });
   }
 
@@ -59,9 +65,9 @@ export class WarmUpComponent {
       grouped[exercise.muscle].push(exercise);
     }
 
-    return Object.keys(grouped).map(muscle => ({
+    return Object.keys(grouped).map((muscle) => ({
       muscle,
-      exercises: grouped[muscle]
+      exercises: grouped[muscle],
     }));
   }
 

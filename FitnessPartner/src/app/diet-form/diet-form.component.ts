@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietAiService } from '../services/diet-ai.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-diet-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './diet-form.component.html',
-  styleUrls: ['./diet-form.component.css']
+  styleUrls: ['./diet-form.component.css'],
 })
 export class DietFormComponent {
   formData = {
@@ -18,14 +19,19 @@ export class DietFormComponent {
     waist: null,
     neck: null,
     gender: '',
-    goal: ''
+    goal: '',
   };
 
   result: string = '';
   loading = false;
   error = '';
 
-  constructor(private dietService: DietAiService) {}
+  constructor(
+    private dietService: DietAiService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   submit() {
     this.loading = true;
@@ -40,7 +46,7 @@ export class DietFormComponent {
       error: (err) => {
         this.error = 'Failed to generate diet plan. Try again later.';
         this.loading = false;
-      }
+      },
     });
   }
 }

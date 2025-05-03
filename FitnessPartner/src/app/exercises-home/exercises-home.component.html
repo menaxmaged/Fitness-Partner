@@ -1,99 +1,116 @@
-<app-loading-spinner *ngIf="isLoading" [message]="'Loading Exercises...'"></app-loading-spinner>
+<app-loading-spinner
+  *ngIf="isLoading"
+  [message]="'exercises.loadingMsg' | translate"
+></app-loading-spinner>
 
 <div class="container my-5">
-    <h2 class="text-center mb-5">Home Exercises</h2>
-    <!-- Breadcrumb Navigation -->
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/exercises']">Exercises</a></li>
-        <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Home exercises</li>
-      </ol>
-    </nav>
+  <h2 class="text-center mb-5">{{ "exercises.home.h2" | translate }}</h2>
+  <!-- Breadcrumb Navigation -->
+  <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']">{{
+          "exercises.home.Breadcrumb.li1" | translate
+        }}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/exercises']">{{
+          "exercises.home.Breadcrumb.li2" | translate
+        }}</a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+        aria-current="page"
+        style="font-size: 18px"
+      >
+        {{ "exercises.home.Breadcrumb.li3" | translate }}
+      </li>
+    </ol>
+  </nav>
 
-    <div class="row gy-5">
-      <div class="col-12 col-md-6" *ngFor="let group of muscles">
-        <div class="muscle-card" (click)="goToMuscle(group.muscle)">
-          <div class="image-container">
-            <img
-              [src]="'assets/muscles/' + group.muscle.toLowerCase() + '.jpg'"
-              [alt]="group.muscle"
-              class="muscle-img"
-            />
-            <div class="overlay">
-              <span>{{ group.muscle }}</span>
-            </div>
+  <div class="row gy-5">
+    <div class="col-12 col-md-6" *ngFor="let group of muscles">
+      <div class="muscle-card" (click)="goToMuscle(group.muscle)">
+        <div class="image-container">
+          <img
+            [src]="'assets/muscles/' + group.muscle.toLowerCase() + '.jpg'"
+            [alt]="group.muscle"
+            class="muscle-img"
+          />
+          <div class="overlay">
+            <span>{{ group.muscle }}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <style>
-    .breadcrumb-item a {
+</div>
+
+<style>
+  .breadcrumb-item a {
     color: #e83f01;
     text-decoration: none;
     font-size: 18px;
   }
-  
+
   .breadcrumb-item a:hover {
     color: #cc0000;
   }
 
-    .muscle-card {
-      cursor: pointer;
-      text-decoration: none;
-    }
-  
-    .image-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
-  
+  .muscle-card {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .muscle-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+
+  .image-container:hover .muscle-img {
+    transform: scale(1.05);
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+
+  .image-container:hover .overlay {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 767px) {
     .muscle-img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-      display: block;
+      height: 200px;
     }
-  
-    .image-container:hover .muscle-img {
-      transform: scale(1.05);
-    }
-  
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      width: 100%;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      font-size: 18px;
-      font-weight: 500;
-      transition: background 0.3s ease;
-    }
-  
-    .image-container:hover .overlay {
-      background: rgba(0, 0, 0, 0.75);
-    }
-  
+
     h2 {
-      font-size: 32px;
-      font-weight: 700;
+      font-size: 26px;
     }
-  
-    @media (max-width: 767px) {
-      .muscle-img {
-        height: 200px;
-      }
-  
-      h2 {
-        font-size: 26px;
-      }
-    }
-  </style>
+  }
+</style>

@@ -40,10 +40,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../services/exercise.service';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { TranslateModule,TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-exercise-detail',
-  imports: [CommonModule, LoadingSpinnerComponent, RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink,TranslateModule],
   templateUrl: './exercise-detail.component.html',
   styleUrl: './exercise-detail.component.css',
 })
@@ -57,8 +58,11 @@ export class ExerciseDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private exerciseService: ExerciseService
-  ) {}
+    private exerciseService: ExerciseService,
+    private translate: TranslateService
+    ) {
+      this.translate.setDefaultLang('en');
+    }
 
   ngOnInit(): void {
     const type = this.route.snapshot.paramMap.get('type');

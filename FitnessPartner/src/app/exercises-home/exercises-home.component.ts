@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
+import { TranslateModule ,TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-exercises-home',
-  imports: [CommonModule, LoadingSpinnerComponent, RouterLink],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink,TranslateModule],
   templateUrl: './exercises-home.component.html',
   styleUrl: './exercises-home.component.css'
 })
@@ -17,8 +18,11 @@ export class ExercisesHomeComponent implements OnInit {
   isLoading:boolean = true;
   constructor(
     private exerciseService: ExerciseService,
-    private router: Router
-  ) {}
+    private router: Router,
+     private translate: TranslateService
+    ) {
+      this.translate.setDefaultLang('en');
+    }
 
   // constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,7 +32,7 @@ export class ExercisesHomeComponent implements OnInit {
   //   });
   // }
   ngOnInit(): void {
-    
+
     this.exerciseService.getHomeExercises().subscribe({
       next: data=>{this.muscles = this.groupExercisesByMuscle(data);},
       error: err=> {this.handleLoadError(err);},
@@ -62,5 +66,5 @@ export class ExercisesHomeComponent implements OnInit {
     console.log('switching to muscle:', muscle);
     this.router.navigate(['/exercises/home', muscle.toLowerCase()]);
   }
-  
+
 }

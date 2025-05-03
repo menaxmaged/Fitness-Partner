@@ -1,60 +1,121 @@
-<div class="container my-3 p-4 border rounded bg-light" style="max-width: 600px;">
-    <h4 class="text-center mb-4">📝 Generate Your Custom Diet Plan</h4>
-  
-    <form (ngSubmit)="submit()" #dietForm="ngForm">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label>Age</label>
-          <input type="number" [(ngModel)]="formData.age" name="age" class="form-control" required min="1" max="105"/>
-        </div>
-        <div class="col-md-6">
-          <label>Gender</label>
-          <select [(ngModel)]="formData.gender" name="gender" class="form-select" required>
-            <option value="" disabled selected>Select...</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label>Weight (kg)</label>
-          <input type="number" [(ngModel)]="formData.weight" name="weight" class="form-control" required min="3" />
-        </div>
-        <div class="col-md-6">
-          <label>Height (cm)</label>
-          <input type="number" [(ngModel)]="formData.height" name="height" class="form-control" required min="50" />
-        </div>
-        <div class="col-md-6">
-          <label>Waist (cm)</label>
-          <input type="number" [(ngModel)]="formData.waist" name="waist" class="form-control" required min="30" />
-        </div>
-        <div class="col-md-6">
-          <label>Neck (cm)</label>
-          <input type="number" [(ngModel)]="formData.neck" name="neck" class="form-control" required min="20" />
-        </div>
-        <div class="col-12">
-          <label>Your Goal</label>
-          <select [(ngModel)]="formData.goal" name="goal" class="form-select" required>
-            <option value="" disabled selected>Select your goal</option>
-            <option>Lose fat</option>
-            <option>Gain muscle</option>
-            <option>Lose fat and gain muscle</option>
-            <option>Maintain current weight</option>
-            <option>Improve energy and health</option>
-            <option>Support athletic performance</option>
-          </select>
-                  </div>
+<div
+  class="container my-3 p-4 border rounded bg-light"
+  style="max-width: 600px"
+>
+  <h4 class="text-center mb-4">📝 {{ "trainers.dietForm.h4" | translate }}</h4>
+
+  <form (ngSubmit)="submit()" #dietForm="ngForm">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label>{{ "trainers.dietForm.label1" | translate }}</label>
+        <input
+          type="number"
+          [(ngModel)]="formData.age"
+          name="age"
+          class="form-control"
+          required
+          min="1"
+          max="105"
+        />
       </div>
-  
-      <button class="btn btn-success mt-4 w-100" [disabled]="loading || !dietForm.form.valid">
-        {{ loading ? 'Generating Plan...' : 'Generate Diet Plan' }}
-      </button>
-    </form>
-  
-    <div *ngIf="result" class="mt-4">
-      <h5>✅ Your Diet Plan:</h5>
-      <pre class="bg-white p-3 border rounded" style="white-space: pre-wrap;">{{ result }}</pre>
+      <div class="col-md-6">
+        <label>{{ "trainers.dietForm.label2" | translate }}</label>
+        <select
+          [(ngModel)]="formData.gender"
+          name="gender"
+          class="form-select"
+          required
+        >
+          <option value="" disabled selected>
+            {{ "trainers.dietForm.select" | translate }}
+          </option>
+          <option>{{ "trainers.dietForm.option1" | translate }}</option>
+          <option>{{ "trainers.dietForm.option2" | translate }}</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label>{{ "trainers.dietForm.label3" | translate }}</label>
+        <input
+          type="number"
+          [(ngModel)]="formData.weight"
+          name="weight"
+          class="form-control"
+          required
+          min="3"
+        />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "trainers.dietForm.label4" | translate }}</label>
+        <input
+          type="number"
+          [(ngModel)]="formData.height"
+          name="height"
+          class="form-control"
+          required
+          min="50"
+        />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "trainers.dietForm.label5" | translate }}</label>
+        <input
+          type="number"
+          [(ngModel)]="formData.waist"
+          name="waist"
+          class="form-control"
+          required
+          min="30"
+        />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "trainers.dietForm.label6" | translate }}</label>
+        <input
+          type="number"
+          [(ngModel)]="formData.neck"
+          name="neck"
+          class="form-control"
+          required
+          min="20"
+        />
+      </div>
+      <div class="col-12">
+        <label>{{ "trainers.dietForm.goal" | translate }}</label>
+        <select
+          [(ngModel)]="formData.goal"
+          name="goal"
+          class="form-select"
+          required
+        >
+          <option value="" disabled selected>
+            {{ "trainers.dietForm.selectGoal" | translate }}
+          </option>
+          <option>{{ "trainers.dietForm.g1" | translate }}</option>
+          <option>{{ "trainers.dietForm.g2" | translate }}</option>
+          <option>{{ "trainers.dietForm.g3" | translate }}</option>
+          <option>{{ "trainers.dietForm.g4" | translate }}</option>
+          <option>{{ "trainers.dietForm.g5" | translate }}</option>
+          <option>{{ "trainers.dietForm.g6" | translate }}</option>
+        </select>
+      </div>
     </div>
-  
-    <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+
+    <button
+      class="btn btn-success mt-4 w-100"
+      [disabled]="loading || !dietForm.form.valid"
+    >
+      {{
+        loading
+          ? ("trainers.dietForm.loadRslt1" | translate)
+          : ("trainers.dietForm.loadRslt2" | translate)
+      }}
+    </button>
+  </form>
+
+  <div *ngIf="result" class="mt-4">
+    <h5>✅ {{ "trainers.dietForm.plan" | translate }}</h5>
+    <pre class="bg-white p-3 border rounded" style="white-space: pre-wrap">{{
+      result
+    }}</pre>
   </div>
-  
+
+  <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+</div>

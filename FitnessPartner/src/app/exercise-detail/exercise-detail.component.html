@@ -21,23 +21,33 @@
 <!-- </style> -->
 <app-loading-spinner
   *ngIf="isLoading"
-  [message]="'Loading Exercise Details...'"
+  [message]="'exercises.exerciseDetails.loadingMsg' | translate"
 ></app-loading-spinner>
 
 <div class="container exercise-detail-container">
   <!-- Breadcrumb Navigation -->
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
       <li class="breadcrumb-item">
-        <a [routerLink]="['/exercises']">Exercises</a>
+        <a [routerLink]="['/']">{{
+          "exercises.exerciseDetails.Breadcrumb.li1" | translate
+        }}</a>
       </li>
       <li class="breadcrumb-item">
-        <a [routerLink]="['/exercises/', type]">{{ type }} exercises</a>
+        <a [routerLink]="['/exercises']">{{
+          "exercises.exerciseDetails.Breadcrumb.li2" | translate
+        }}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/exercises/', type]"
+          >{{ type }}
+          {{ "exercises.exerciseDetails.Breadcrumb.li3" | translate }}</a
+        >
       </li>
       <li class="breadcrumb-item">
         <a [routerLink]="['/exercises/', type, muscle]"
-          >{{ muscle }} exercises</a
+          >{{ muscle }}
+          {{ "exercises.exerciseDetails.Breadcrumb.li4" | translate }}</a
         >
       </li>
       <li
@@ -86,10 +96,15 @@
         <!-- Details Column -->
         <div class="col-12 col-md-5">
           <div class="exercise-details-card">
-            <h3 class="details-title">Exercise Details</h3>
+            <h3 class="details-title">
+              {{ "exercises.exerciseDetails.h3.1" | translate }}
+            </h3>
 
             <div class="detail-item">
-              <h4><i class="fas fa-info-circle me-2"></i>Description</h4>
+              <h4>
+                <i class="fas fa-info-circle me-2"></i>
+                {{ "exercises.exerciseDetails.h4" | translate }}
+              </h4>
               <p>{{ exercise.description || "No description provided." }}</p>
             </div>
             <span *ngIf="type === 'home'" class="badge bg-secondary">{{
@@ -117,7 +132,9 @@
       <!-- Variations Section -->
       <div class="row mt-5" *ngIf="exercise.variations">
         <div class="col-12">
-          <h3 class="section-title">Variations</h3>
+          <h3 class="section-title">
+            {{ "exercises.exerciseDetails.h3.2" | translate }}
+          </h3>
           <div class="variations-grid">
             <div
               class="variation-card"

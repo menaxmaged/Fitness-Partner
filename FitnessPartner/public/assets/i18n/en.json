@@ -77,20 +77,94 @@
     }
   },
   "trainers": {
+    "Breadcrumb": {
+      "li1": "Home ",
+      "li2": "Trainers",
+      "li3": "Trainer details"
+    },
     "loadingMsg": "Loading Trainers...",
-    "h2": "Our Professional Trainers"
+    "h2": "Our Professional Trainers",
+    "ai": {
+      "span": "or use",
+      "h2": "Our Best Ai trainer",
+      "p": "you can have your customized diet with AI now!"
+    },
+    "dietForm": {
+      "h4": "Generate Your Custom Diet Plan",
+      "label1": "Age",
+      "label2": "Gender",
+      "select": "Select...",
+      "option1": "Male",
+      "option2": "Female",
+      "label3": "Weight (kg)",
+      "label4": "Height (cm)",
+      "label5": "Waist (cm)",
+      "label6": "Neck (cm)",
+      "goal": "Your Goal",
+      "selectGoal": "Select your goal",
+      "g1": "Lose fat",
+      "g2": "Gain muscle",
+      "g3": "Lose fat and gain muscle",
+      "g4": "Maintain current weight",
+      "g5": "Improve energy and health",
+      "g6": "Support athletic performance",
+      "loadRslt1": "Generating Plan...",
+      "loadRslt2": "Generate Diet Plan",
+      "plan": "Your Diet Plan:"
+    }
   },
   "exercises": {
     "loadingMsg": "Loading Exercises...",
-    "h2.1":"Train Smarter,",
+    "Breadcrumb": {
+      "li1": "Home ",
+      "li2": "Exercises Hub"
+    },
+    "h2.1": "Train Smarter,",
     "h2.2": "Move Stronger",
-    "p1":"At Fitness Partner, we make it easy to stay active no matter where you are or what equipment you have. From quick warm-ups to full gym sessions, we’ve got expert-approved exercises tailored for your goals — and some ",
-    "p2":"AI magic",
-    "p3":" to guide you even further!",
+    "p1": "At Fitness Partner, we make it easy to stay active no matter where you are or what equipment you have. From quick warm-ups to full gym sessions, we’ve got expert-approved exercises tailored for your goals — and some ",
+    "p2": "AI magic",
+    "p3": " to guide you even further!",
     "h2.3": "Choose Your Workout Style",
     "option1": "At Home",
     "option2": "At Gym",
-    "option3": "5-Mins Warm Up"
+    "option3": "5-Mins Warm Up",
+    "exerciseDetails": {
+      "loadingMsg": "Loading Exercise Details...",
+      "Breadcrumb": {
+        "li1": "Home",
+        "li2": "Exercises",
+        "li3": "exercises",
+        "li4": "exercises"
+      },
+      "h3.1": "Exercise Details",
+      "h4": "Description",
+      "h3.2": "Variations"
+    },
+    "gym": {
+      "h2": "Gym Exercises",
+      "Breadcrumb": {
+        "li1": "Home ",
+        "li2": "Exercises",
+        "li3": "Gym exercises"
+      }
+    },
+    "home": {
+      "h2": "Home Exercises",
+      "Breadcrumb": {
+        "li1": "Home ",
+        "li2": "Exercises",
+        "li3": "Home exercises"
+      }
+    },
+    "warmUp": {
+      "h2": "Let's start Warming Up",
+      "Breadcrumb": {
+        "li1": "Home ",
+        "li2": "Exercises",
+        "li3": " Warm-up"
+      },
+      "span": "exercises"
+    }
   },
   "machine": {
     "h2": "Not sure about a machine? ",
@@ -234,7 +308,11 @@
     "cartItems": {
       "span1": "YOUR GYM BAG IS EMPTY",
       "span2": "It looks like you haven't made your choice yet...",
-      "btn": "SHOP NOW"
+      "btn": "SHOP NOW",
+      "span3": "Product",
+      "span4": "Price",
+      "span5": "Quantity",
+      "span6": "Total"
     }
   },
   "notFound": {

@@ -88,11 +88,25 @@
 <div class="trainer-details-wrapper" *ngIf="trainer">
   <div class="trainer-details-content">
     <!-- Breadcrumb Navigation -->
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/trainers']">Trainers</a></li>
-        <li class="breadcrumb-item active" aria-current="page" style="font-size: 18px;">Trainer details</li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/']">{{
+            "trainers.Breadcrumb.li1" | translate
+          }}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/trainers']">{{
+            "trainers.Breadcrumb.li2" | translate
+          }}</a>
+        </li>
+        <li
+          class="breadcrumb-item active"
+          aria-current="page"
+          style="font-size: 18px"
+        >
+          {{ "trainers.Breadcrumb.li3" | translate }}
+        </li>
       </ol>
     </nav>
     <!-- Main Content Grid -->
@@ -100,11 +114,17 @@
       <!-- Trainer Profile Card -->
       <div class="trainer-profile-card">
         <div class="trainer-header text-center">
-          <img [src]="trainer.image" alt="{{ trainer.name }}" class="trainer-img" />
+          <img
+            [src]="trainer.image"
+            alt="{{ trainer.name }}"
+            class="trainer-img"
+          />
           <h2 class="trainer-name">{{ trainer.name }}</h2>
           <p class="trainer-bio">{{ trainer.bio }}</p>
           <div class="social-icons">
-            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
             <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
             <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -129,7 +149,10 @@
   </div>
 </div>
 
-<app-loading-spinner *ngIf="!trainer" [message]="'Loading trainer details...'"></app-loading-spinner>
+<app-loading-spinner
+  *ngIf="!trainer"
+  [message]="'Loading trainer details...'"
+></app-loading-spinner>
 
 <style>
   .breadcrumb-item a {
@@ -140,7 +163,7 @@
   .breadcrumb-item a:hover {
     color: #cc0000;
   }
-  
+
   .trainer-details-wrapper {
     padding: 20px;
     background: #f8f9fa;
