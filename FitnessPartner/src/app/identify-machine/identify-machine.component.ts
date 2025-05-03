@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MachineModelService } from '../services/machine-model.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-identify-machine',
@@ -12,7 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './identify-machine.component.html',
   styleUrls: ['./identify-machine.component.css'],
 })
-export class IdentifyMachineComponent {
+export class IdentifyMachineComponent implements OnInit{
   selectedFile: File | null = null;
   result: string = '';
   loading = false;
@@ -22,9 +23,20 @@ export class IdentifyMachineComponent {
   constructor(
     private machineService: MachineModelService,
     private sanitizer: DomSanitizer,
-    private translate: TranslateService
+    private translate: TranslateService, private route: ActivatedRoute
   ) {
     this.translate.setDefaultLang('en');
+  }
+
+  ngOnInit() {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        const el = document.getElementById(fragment);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
   }
 
   onFileSelected(event: Event) {

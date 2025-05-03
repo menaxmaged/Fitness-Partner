@@ -260,9 +260,9 @@
 }
 .single-trainer-item .trainer-text .trainer-social a {
 	display: inline-block;
-	font-size: 17px;
+	font-size: 18px;
 	color: #111111;
-	margin-right: 25px;
+	margin-right: 5px;
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
