@@ -19,29 +19,30 @@ import { Express } from 'express';
 import { IsArray, IsNumber, IsString,ValidateNested,IsNotEmpty } from 'class-validator'; 
 import { Type } from 'class-transformer';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('trainers')
 export class TrainerController {
   constructor(private readonly trainerService: TrainerService) {}
+  
+  @Get()
+  async getAllTrainers() {
+    return this.trainerService.findAll();
+  }
 
-  // @Get()
-  // @Roles('admin')
-  // async getAllTrainers() {
-  //   return this.trainerService.findAll();
-  // }
-
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   @Roles('admin')
   async getTrainerById(@Param('id') id: string) {
     return this.trainerService.findById(id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   @Roles('admin')
   async deleteTrainer(@Param('id') id: string) {
     return this.trainerService.remove(id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
   @Roles('admin')
   @UseInterceptors(FileInterceptor('image'))
@@ -52,12 +53,7 @@ export class TrainerController {
   return this.trainerService.create(createTrainerDto, image);
   }
 
-  @Get()
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('admin')
-async getAllTrainers() {
-  return this.trainerService.findAll();
-}
+ 
 
 @IsNotEmpty()
 @IsString()

@@ -28,8 +28,9 @@
       <div class="stat-details">
         <h3>{{ stat.title }}</h3>
         <div class="stat-value">
-          <span *ngIf="stat.title === 'Revenue'"></span
-          >{{ stat.value | number }}
+          <!-- Apply currency formatting for revenue stats -->
+          <span *ngIf="stat.title.includes('Revenue')">{{ stat.value | currency }}</span>
+          <span *ngIf="!stat.title.includes('Revenue')">{{ stat.value | number }}</span>
         </div>
         <div
           class="stat-change"
@@ -39,11 +40,20 @@
             class="fas"
             [ngClass]="stat.change > 0 ? 'fa-arrow-up' : 'fa-arrow-down'"
           ></i>
-          <!-- {{ Math.abs(stat.change) }}% from last month -->
+          {{ stat.change }}% from last month
+          
+          <!-- Add a note for active revenue -->
+          <small *ngIf="stat.title === 'Active Revenue'" class="revenue-note">
+            (Excluding cancelled orders)
+          </small>
         </div>
       </div>
     </div>
-  </div>
+
+  
+  <!-- Add a more detailed revenue breakdown section if needed -->
+ 
+      </div>
 
   <!-- Quick Access Widgets -->
   <div class="widgets-row">

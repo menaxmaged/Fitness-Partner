@@ -6,6 +6,7 @@ import { throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ITrainer } from '../../models/i-trainer';
 
 @Component({
   imports: [CommonModule, FormsModule],
@@ -14,19 +15,25 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./admin-trainers.component.css']
 })
 export class AdminTrainersComponent implements OnInit {
-  trainers: any[] = [];
+  trainers: ITrainer[] = [];
   loading = false;
   error: string | null = null;
-  selectedTrainer: any = null;
+  selectedTrainer: ITrainer | null = null;
   showAddModal = false;
   newTrainer: any = {
-    fName: '',
-    lName: '',
+    name: '',
+    email: '',
+    mobile: '',
+    password: '',
     gender: 'male',
+    specialty: '',
+    bio: '',
     image: null
   };
   selectedFile: File | null = null;
+
   constructor(private trainersService: TrainersDataService, private router: Router) {}
+
   ngOnInit() {
     if (!localStorage.getItem('access_token')) {
       // Redirect to login if not authenticated
@@ -41,6 +48,7 @@ export class AdminTrainersComponent implements OnInit {
     this.error = null;
     
     this.trainersService.getAllTrainers().pipe(
+      tap(trainers => console.log('Raw trainers data:', trainers)), // Log the raw data for debugging
       catchError(err => {
         this.error = `Error loading trainers: ${err.message}`;
         console.error('Failed to load trainers:', err);
@@ -82,7 +90,7 @@ export class AdminTrainersComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'Failed to delete trainer',
+              text: 'Failed to delete trainer: ' + (err.message || 'Unknown error'),
             });
           }
         });
@@ -90,9 +98,9 @@ export class AdminTrainersComponent implements OnInit {
     });
   }
 
-  openTrainerDetails(trainer: any): void {
+  openTrainerDetails(trainer: ITrainer): void {
+    console.log('Opening details for trainer:', trainer); // Debug log
     this.selectedTrainer = trainer;
-    // Add detailed fetch if needed
   }
 
   closeTrainerDetails(): void {
@@ -114,12 +122,13 @@ export class AdminTrainersComponent implements OnInit {
 
   resetNewTrainer() {
     this.newTrainer = {
-      fName: '',
-      lName: '',
+      name: '',
       email: '',
       mobile: '',
       password: '',
       gender: 'male',
+      specialty: '',
+      bio: '',
       image: null
     };
     this.selectedFile = null;
@@ -128,20 +137,21 @@ export class AdminTrainersComponent implements OnInit {
   onSubmitNewTrainer() {
     const formData = new FormData();
     
-    // Append form fields
-    formData.append('fName', this.newTrainer.fName);
-    formData.append('lName', this.newTrainer.lName);
+    // Append form fields according to the expected backend format
+    formData.append('name', this.newTrainer.name);
     formData.append('email', this.newTrainer.email);
-    formData.append('mobile', this.newTrainer.mobile);
+    formData.append('mobile', this.newTrainer.mobile || '');
     formData.append('password', this.newTrainer.password);
     formData.append('gender', this.newTrainer.gender);
+    formData.append('specialty', this.newTrainer.specialty || '');
+    formData.append('bio', this.newTrainer.bio || '');
     
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
 
     this.trainersService.addTrainer(formData).subscribe({
-      next: () => {
+      next: (response) => {
         Swal.fire({
           icon: 'success',
           title: 'Success!',
@@ -151,14 +161,13 @@ export class AdminTrainersComponent implements OnInit {
         this.loadTrainers();
         this.closeAddTrainerModal();
       },
-      error: (err:any) => {
+      error: (err) => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Failed to add trainer: ' + err.message
+          text: 'Failed to add trainer: ' + (err.message || 'Unknown error')
         });
       }
     });
   }
-
 }

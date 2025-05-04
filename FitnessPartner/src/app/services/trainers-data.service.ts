@@ -22,10 +22,22 @@ export class TrainersDataService {
     });
   }
 
-  getAllTrainers(): Observable<ITrainer[]> {
+  getAllTrainersByAdmin(): Observable<ITrainer[]> {
     return this.http.get<ITrainer[]>(this.apiUrl, { 
       headers: this.getAuthHeaders() 
     }).pipe(
+      catchError(error => {
+        console.error('Error loading trainers:', error);
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getAllTrainers(): Observable<ITrainer[]> {
+    return this.http.get<ITrainer[]>(this.apiUrl).pipe(
       catchError(error => {
         console.error('Error loading trainers:', error);
         return throwError(() => error);

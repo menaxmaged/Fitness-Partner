@@ -273,25 +273,22 @@
           </div>
 
           <div class="product-meta mb-4">
-            <!-- <div class="sku mb-2">
-              <strong>SKU:</strong> {{ selectedProduct.id }}
-            </div> -->
             <div class="categories mb-2">
               <strong>Categories:</strong> {{ selectedProduct.category }}
             </div>
           </div>
 
           <div class="product-form">
+            <!-- Flavor Selector -->
             <div
               class="flavor-select mb-3"
               *ngIf="(selectedProduct?.available_flavors ?? []).length > 1"
             >
               <label> {{ "shop.product.flavor" | translate }} </label>
               <select
-                class="form-control"
-                [(ngModel)]="selectedFlavor"
-                (change)="onFlavorSelect(selectedFlavor)"
-              >
+              class="form-control"
+            [(ngModel)]="selectedFlavor"
+            (change)="onFlavorSelect(selectedFlavor); checkFlavorStock()">  
                 <option *ngIf="!selectedFlavor" disabled selected>
                   {{ "shop.product.selectLabel" | translate }}
                 </option>
@@ -304,7 +301,7 @@
               </select>
             </div>
 
-            <!-- Optional: Show selected flavor if only 1 -->
+            <!-- Show single flavor if only 1 -->
             <div
               class="selected-flavor mb-3"
               *ngIf="selectedProduct?.available_flavors?.length === 1"
@@ -313,6 +310,7 @@
               <p class="form-control-static">{{ selectedFlavor }}</p>
             </div>
 
+            <!-- Quantity and Add to Cart -->
             <div class="quantity-selector mb-3">
               <div class="quantity-controls">
                 <button class="btn-quantity" (click)="decreaseQuantity()">
@@ -344,28 +342,30 @@
                 </button>
               </div>
 
+           
+
+              <!-- Add to Cart Button -->
               <button
-                class="btn-add-to-cart"
-                (click)="addToCart(selectedProduct, [quantity.toString()])"
-              >
-                {{ "shop.product.btn2" | translate }}
+                       class="btn-add-to-cart"
+                       (click)="addToCart(selectedProduct)"
+                      [disabled]="isFlavorOutOfStock">
+                       {{"shop.product.btn2" | translate }}
               </button>
 
               <!-- Pop-up message -->
-              <div *ngIf="showPopUpMessage" class="pop-up-message">
+          <div *ngIf="showPopUpMessage" class="pop-up-message">
                 {{ "shop.product.popMsg" | translate }}
-              </div>
+              </div> 
             </div>
 
+              <!-- Flavor out of stock message -->
+              <div class=" mt-3 py-1 text-danger" *ngIf="isFlavorOutOfStock">
+                This flavor is currently out of stock.
+                </div>
+
             <div class="share-product">
-              <strong>{{ "shop.product.share" | translate }} </strong>
-              <div class="social-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-pinterest"></i>
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-telegram"></i>
-              </div>
+              <strong>{{ "shop.product.share" | translate }}</strong>
+              <!-- Social buttons here -->
             </div>
           </div>
         </div>

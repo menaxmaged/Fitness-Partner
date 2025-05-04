@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-users',
@@ -20,10 +21,27 @@ export class AdminUsersComponent implements OnInit {
   selectedUser: any = null;
   userDetails: any = null;
 
-  constructor(private usersService: UsersService) {}
+  constructor(  private usersService: UsersService,
+    private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.loadUsers();
+    this.route.queryParams.subscribe(params => {
+      const searchType = params['type'];
+      const searchQuery = params['query'];
+      
+      this.loading = true;
+      this.usersService.getUsers(searchType, searchQuery).subscribe({
+        next: (data) => {
+          this.users = data;
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error fetching users:', error);
+          this.loading = false;
+        }
+      });
+    });
   }
 
   loadUsers() {
