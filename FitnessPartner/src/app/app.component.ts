@@ -37,6 +37,13 @@ export class AppComponent {
       '/signup',
       '/forgotPassword',
       '/resetPassword',
+      '/admin/dashboard',
+      '/admin/products',
+      '/admin/users',
+      '/admin/orders',
+      '/admin/trainers',
+      '/admin/nutrition',
+      '/admin/settings',
     ];
     return hiddenRoutes.includes(this.router.url);
   }

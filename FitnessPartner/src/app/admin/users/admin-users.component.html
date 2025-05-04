@@ -1,26 +1,120 @@
 <div class="admin-header">
-    <h2>Users Management</h2>
-    <button routerLink="/admin/users/new" class="btn btn-outline-light orange-btn">Add New User</button>
+  <h2>Users Management</h2>
+  <button routerLink="/admin/users/new" class="btn btn-outline-light orange-btn">Add New User</button>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (click)="openUserDetails(user)">
+        <td>{{ user.email }}</td>
+        <td>
+          <div *ngFor="let role of roles" class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              [name]="'role_' + user.id"
+              [value]="role"
+              [checked]="user.role === role"
+              (change)="onRoleChange(user.id, role); $event.stopPropagation()"
+              id="{{ 'role_' + user.id + '_' + role }}"
+            />
+            <label class="form-check-label" [for]="'role_' + user.id + '_' + role">
+              {{ role }}
+            </label>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-info" 
+                  (click)="openUserDetails(user); $event.stopPropagation()">
+            View Details
+          </button>
+          <button class="btn btn-sm btn-danger ms-2" 
+                  (click)="deleteUser(user.id); $event.stopPropagation()">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- User Details Modal -->
+<div class="modal" [class.show]="selectedUser" [style.display]="selectedUser ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">User Details</h5>
+        <button type="button" class="close" (click)="closeUserDetails()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="selectedUser">
+        <div class="user-details">
+          <div class="user-header">
+            <div class="avatar">
+              <img [src]="selectedUser.avatar || 'assets/default-avatar.png'" alt="User Avatar">
+            </div>
+            <h3>{{ selectedUser.fName }} {{ selectedUser.lName }}</h3>
+          </div>
+          
+          <div class="user-info">
+            <div class="info-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ selectedUser.email }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Role:</span>
+              <span class="value">{{ selectedUser.role }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Mobile:</span>
+              <span class="value">{{ selectedUser.mobile || 'Not provided' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Gender:</span>
+              <span class="value">{{ selectedUser.gender || 'Not specified' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Joined:</span>
+              <span class="value">{{ selectedUser.createdAt | date }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Verified:</span>
+              <span class="value">{{ selectedUser.isVerified ? 'Yes' : 'No' }}</span>
+            </div>
+          </div>
+
+          <div class="user-orders" *ngIf="selectedUser.orders && selectedUser.orders.length > 0">
+            <h4>Orders ({{ selectedUser.orders.length }})</h4>
+            <div class="order-list">
+              <div class="order-item" *ngFor="let order of selectedUser.orders">
+                <div class="order-header">
+                  <span class="order-id">Order #{{ order.id }}</span>
+                  <span class="order-date">{{ order.date | date }}</span>
+                  <span class="order-status" [class]="order.status">{{ order.status }}</span>
+                </div>
+                <div class="order-total">Total: {{ order.total | currency }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="no-orders" *ngIf="!selectedUser.orders || selectedUser.orders.length === 0">
+            <p>No orders found for this user.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeUserDetails()">Close</button>
+      </div>
+    </div>
   </div>
-  
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.email }}</td>
-          <td>
-            <select [value]="user.role" (change)="onRoleChange(user.id, $event)">
-              <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-            </select>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+</div>
+<!-- Modal backdrop -->
+<div class="modal-backdrop fade show" *ngIf="selectedUser"></div>

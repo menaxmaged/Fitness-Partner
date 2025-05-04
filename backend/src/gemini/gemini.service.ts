@@ -20,7 +20,9 @@ export class GeminiService {
 
   async identifyGymMachine(
     imageBuffer: Buffer,
-    prompt: string = 'What is this gym machine? Respond only with the equipment name with the exercise can be played with description, no formatting like **, no extra words.',
+    // prompt: string = 'What is this gym machine? Respond only with the equipment name with the exercise can be played with description, no formatting like **, no extra words.',
+     prompt = `What is this gym machine? Respond only with the equipment name in the first with no Introductions, the exercise that can be performed, and a short description. End the sentence with the primary muscle group in lowercase between parentheses. The muscle group must be one of the following: chest, leg, shoulders, abs, back, arms. No formatting like asterisks or bold text. No extra commentary.`,
+
     mimeType: string = 'image/jpeg'
   ): Promise<string> {
     try {

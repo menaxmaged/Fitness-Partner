@@ -1,0 +1,145 @@
+<div class="admin-header">
+    <h2>Trainers Management</h2>
+    <button class="btn btn-outline-light orange-btn" (click)="openAddTrainerModal()">
+      Add New Trainer
+    </button>
+  </div>
+  
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trainer of trainers" (click)="openTrainerDetails(trainer)">
+          <td>{{ trainer.fName }} {{ trainer.lName }}</td>
+          <td>{{ trainer.email }}</td>
+          <td>{{ trainer.mobile || 'N/A' }}</td>
+          <td>
+            <button class="btn btn-sm btn-info" 
+                    (click)="openTrainerDetails(trainer); $event.stopPropagation()">
+              View Details
+            </button>
+            <button class="btn btn-sm btn-danger ms-2" 
+                    (click)="deleteTrainer(trainer.id); $event.stopPropagation()">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Trainer Details Modal -->
+  <div class="modal" [class.show]="selectedTrainer" [style.display]="selectedTrainer ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Trainer Details</h5>
+          <button type="button" class="close" (click)="closeTrainerDetails()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedTrainer">
+          <div class="trainer-details">
+            <div class="trainer-header">
+              <h3>{{ selectedTrainer.fName }} {{ selectedTrainer.lName }}</h3>
+            </div>
+            
+            <div class="trainer-info">
+              <div class="info-item">
+                <span class="label">Email:</span>
+                <span class="value">{{ selectedTrainer.email }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Mobile:</span>
+                <span class="value">{{ selectedTrainer.mobile || 'Not provided' }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Gender:</span>
+                <span class="value">{{ selectedTrainer.gender || 'Not specified' }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Joined:</span>
+                <span class="value">{{ selectedTrainer.createdAt | date }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Verified:</span>
+                <span class="value">{{ selectedTrainer.isVerified ? 'Yes' : 'No' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeTrainerDetails()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade show" *ngIf="selectedTrainer"></div>
+
+  <div class="modal" [class.show]="showAddModal" [style.display]="showAddModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Trainer</h5>
+          <button type="button" class="close" (click)="closeAddTrainerModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmitNewTrainer()" #trainerForm="ngForm">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" class="form-control" [(ngModel)]="newTrainer.fName" name="fName" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" class="form-control" [(ngModel)]="newTrainer.lName" name="lName" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" [(ngModel)]="newTrainer.email" name="email" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Mobile</label>
+              <input type="tel" class="form-control" [(ngModel)]="newTrainer.mobile" name="mobile">
+            </div>
+  
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" [(ngModel)]="newTrainer.password" name="password" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Gender</label>
+              <select class="form-control" [(ngModel)]="newTrainer.gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+  
+            <div class="form-group">
+              <label>Profile Image</label>
+              <input type="file" class="form-control" (change)="onFileSelected($event)" name="image">
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeAddTrainerModal()">Cancel</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!trainerForm.valid">Save Trainer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade show" *ngIf="showAddModal"></div>

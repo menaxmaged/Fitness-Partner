@@ -1,5 +1,5 @@
 export interface IProducts {
-    _id: number;
+    _id?: number;
     id: number;                          // Unique ID of the product
     name: string;                        // Name of the product
     image: string;                       // Main image URL of the product
