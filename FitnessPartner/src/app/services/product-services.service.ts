@@ -149,4 +149,36 @@ export class ProductServicesService {
     
     return firstValueFrom(response$);
   }
+
+
+  addFlavorToProduct(productId: string, flavorName: string, quantity: number, imageUrl: string): Promise<any> {
+    // First get the current product to ensure we have the latest data
+    return firstValueFrom(this.getProductById(productId))
+      .then(product => {
+        // Update the product with the new flavor
+        if (!product.available_flavors) {
+          product.available_flavors = [];
+        }
+        if (!product.flavor_quantity) {
+          product.flavor_quantity = {};
+        }
+        if (!product.product_images) {
+          product.product_images = {};
+        }
+        
+        // Add the new flavor data
+        if (!product.available_flavors.includes(flavorName)) {
+          product.available_flavors.push(flavorName);
+        }
+        product.flavor_quantity[flavorName] = quantity;
+        product.product_images[flavorName] = imageUrl;
+        
+        // Save the updated product
+        return firstValueFrom(this.updateProduct(productId, product));
+      })
+      .catch(error => {
+        console.error('Error adding flavor to product:', error);
+        return Promise.reject(error);
+      });
+  }
 }

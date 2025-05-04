@@ -297,4 +297,15 @@ export class UsersService {
       { headers: this.getAuthHeaders() }
     );
   }
+
+  deleteUser(id: string): Observable<any> {
+    console.log('Calling API: DELETE', `${this.apiUrl}/users/admin/${id}`);
+    return this.http.delete(
+      `${this.apiUrl}/users/admin/${id}`,
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      tap(data => console.log('API Response:', data)),
+      catchError(this.handleError)
+    );
+  }
 }

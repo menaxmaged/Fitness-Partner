@@ -3,12 +3,13 @@ import { UsersService } from '../../services/users.service';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.css'],
-  standalone: true, // Add standalone: true
+  standalone: true,
   imports: [CommonModule]
 })
 export class AdminUsersComponent implements OnInit {
@@ -16,6 +17,8 @@ export class AdminUsersComponent implements OnInit {
   roles = ['user', 'admin', 'moderator'];
   loading = false;
   error: string | null = null;
+  selectedUser: any = null;
+  userDetails: any = null;
 
   constructor(private usersService: UsersService) {}
 
@@ -50,25 +53,115 @@ export class AdminUsersComponent implements OnInit {
     });
   }
 
-  onRoleChange(userId: string, event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const selectedRole = target.value;
-    this.updateUserRole(userId, selectedRole);
+  onRoleChange(userId: string, selectedRole: string): void {
+    Swal.fire({
+      title: 'Change Role?',
+      text: `Are you sure you want to change this user's role to "${selectedRole}"?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, change it',
+      cancelButtonText: 'No, cancel',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.updateUserRole(userId, selectedRole);
+      } else {
+        this.loadUsers(); // Optional: revert UI selection
+      }
+    });
   }
   
-  updateUserRole(userId: string, selectedRole: string) {
-    console.log('Updating user role - User ID:', userId);
-    console.log('Selected Role:', selectedRole);
-    
+  updateUserRole(userId: string, selectedRole: string): void {
     this.usersService.updateUserRoleByAdmin(userId, selectedRole).pipe(
-      tap(() => {
-        console.log('User role updated successfully');
-        this.loadUsers();
+      tap((updatedUser) => {
+        const user = this.users.find(u => u.id === userId);
+        if (user) {
+          user.role = updatedUser.role;
+        }
+        Swal.fire({
+          icon: 'success',
+          title: 'Role updated',
+          text: `User role has been changed to "${updatedUser.role}".`,
+          timer: 2000,
+          showConfirmButton: false
+        });
       }),
       catchError(err => {
-        console.error('Role update failed:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update user role.',
+        });
         return throwError(() => err);
       })
     ).subscribe();
   }
+
+  openUserDetails(user: any): void {
+    // First, set the selected user to show the modal
+    this.selectedUser = user;
+    
+    // Then, fetch detailed user information
+    this.loading = true;
+    this.usersService.getUserById(user.id).pipe(
+      tap(userDetails => {
+        console.log('User details received:', userDetails);
+        this.selectedUser = userDetails;
+      }),
+      catchError(err => {
+        console.error('Failed to load user details:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load user details.',
+        });
+        return throwError(() => err);
+      })
+    ).subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  closeUserDetails(): void {
+    this.selectedUser = null;
+  }
+  deleteUser(userId: string): void {
+    Swal.fire({
+      title: 'Delete User?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usersService.deleteUser(userId).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted!',
+              text: 'User has been deleted.',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            this.loadUsers(); // Refresh the list
+          },
+          error: (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Failed to delete user.',
+            });
+          }
+        });
+      }
+    });
+  }
+  
 }

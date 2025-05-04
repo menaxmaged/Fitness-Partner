@@ -1,13 +1,13 @@
 <div class="admin-header">
   <h2>Products Management</h2>
-  <button routerLink="/admin/products/new">Add New Product</button>
+  <button (click)="addNewProduct()" >Add New Product</button>
 </div>
 
 <div class="product-card" *ngFor="let product of products">
   <div class="product-header">
-    <img [src]="product.image" alt="{{ product.name }}" (click)="navigateToProduct(product.id)"/>
+    <img [src]="product.image" alt="{{ product.name }}" (click)="navigateToProduct(product.id)" />
     <div class="product-info">
-      <h3 (click)="navigateToProduct(product.id)">{{ product.name }}</h3>
+      <h3 (click)="navigateToProduct(product.id)" class="text-decoration-underline">{{ product.name }}</h3>
       <p><strong>ID:</strong> {{ product.id }}</p>
       <p><strong>Price:</strong> {{ product.price | currency }}</p>
       <p><strong>Brand:</strong> {{ product.brand }}</p>
@@ -16,7 +16,7 @@
     <div class="product-actions" (click)="$event.stopPropagation()">
       <button class="edit-btn btn btn-outline-light orange-btn" (click)="openEditProductModal(product)">Edit</button>
       <i class="bi bi-trash trashIcon border-0 fs-4 ms-4" (click)="deleteProduct(product.id.toString())"></i>
-    </div>    
+    </div>
   </div>
 
   <div class="flavors">
@@ -65,5 +65,40 @@
       <button (click)="saveProductChanges()">Save</button>
       <button (click)="closeProductModal()">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- Add Product Form -->
+<div *ngIf="showAddProductForm" class="">
+  <div class="">
+    <h3 (click)="addNewProduct()">Add New Product</h3>
+    <label class="">Product Name:</label>
+    <input type="text" [(ngModel)]="newProduct.name" />
+    <label>Price:</label>
+    <input type="number" [(ngModel)]="newProduct.price" min="0" />
+
+    <label>Image URL:</label>
+    <input type="text" [(ngModel)]="newProduct.image" />
+
+    <label>Brand:</label>
+    <input type="text" [(ngModel)]="newProduct.brand" />
+
+    <label>Description:</label>
+    <input type="text" [(ngModel)]="newProduct.description" />
+
+    <label>Expiration Date:</label>
+    <input type="date" [(ngModel)]="newProduct.expiration_date" />
+
+    <label>Available Size:</label>
+    <input type="text" [(ngModel)]="newProduct.available_size" />
+
+    <label>Category:</label>
+    <input type="text" [(ngModel)]="newProduct.category" />
+
+    <label>Stock Quantity:</label>
+    <input type="number" [(ngModel)]="newProduct.quantity" min="0" />
+
+    <button (click)="addNewProduct()">Add Product</button>
+    <button (click)="toggleAddProductForm()">Cancel</button>
   </div>
 </div>
