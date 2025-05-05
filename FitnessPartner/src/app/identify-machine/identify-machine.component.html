@@ -1,73 +1,85 @@
 <!-- <div class="container mb-5" id="machineIdentify"> -->
-  <!-- <h2 class="text-center" data-aos="fade-down" data-aos-duration="1000">🏋️ <strong>{{ "machine.h2" | translate }} </strong></h2> -->
-  <!-- <p class="text-center text-secondary fs-5" data-aos="fade-Down" data-aos-duration="1000">{{ "machine.p1" | translate }}</p> -->
-  <!-- <div class="row d-flex justify-content-center"> -->
-    <!-- <div class="col-md-6 identify-machine my-4 p-3 border rounded bg-light shadow" data-aos="fade-right" data-aos-duration="1000"> -->
-        <!-- <h5 class="my-2">📸 {{ "machine.h5" | translate }}</h5> -->
-      
-        <!-- <label for="file-upload" class="btn btn-outline-dark my-3"> -->
-          <!-- {{ "machine.chooseFile" | translate }} -->
-        <!-- </label> -->
-        <!-- <input type="file" id="file-upload" accept="image/*" (change)="onFileSelected($event)" class="form-control mb-2" /> -->
-        <!-- <p class="text-muted">{{ "machine.p2" | translate }}</p> -->
+<!-- <h2 class="text-center" data-aos="fade-down" data-aos-duration="1000">🏋️ <strong>{{ "machine.h2" | translate }} </strong></h2> -->
+<!-- <p class="text-center text-secondary fs-5" data-aos="fade-Down" data-aos-duration="1000">{{ "machine.p1" | translate }}</p> -->
+<!-- <div class="row d-flex justify-content-center"> -->
+<!-- <div class="col-md-6 identify-machine my-4 p-3 border rounded bg-light shadow" data-aos="fade-right" data-aos-duration="1000"> -->
+<!-- <h5 class="my-2">📸 {{ "machine.h5" | translate }}</h5> -->
 
-        <!-- <button class="btn btn-primary" (click)="identify()" [disabled]="!selectedFile || loading"> -->
-          <!-- {{ loading -->
-            <!-- ? ("machine.loadingBtn.txt1" | translate) -->
-            <!-- : ("machine.loadingBtn.txt2" | translate) -->
-        <!-- }} -->
-        <!-- </button> -->
-      
-        <!-- <div class="mt-3 p-2 border shadow-sm" *ngIf="result" style="background-color: white;" > -->
-          <!-- <strong>{{ "machine.result.txt" | translate }}</strong> <span [innerHTML]="safeResult"></span> -->
-        <!-- </div> -->
-      
-        <!-- <div class="text-danger mt-2" *ngIf="error">{{ "machine.result.error" | translate }}</div> -->
+<!-- <label for="file-upload" class="btn btn-outline-dark my-3"> -->
+<!-- {{ "machine.chooseFile" | translate }} -->
+<!-- </label> -->
+<!-- <input type="file" id="file-upload" accept="image/*" (change)="onFileSelected($event)" class="form-control mb-2" /> -->
+<!-- <p class="text-muted">{{ "machine.p2" | translate }}</p> -->
 
-      <!-- </div> -->
-      <!-- <div class="col-8 col-md-5 my-4" data-aos="fade-left" data-aos-duration="1000"> -->
-        <!-- <img src="assets/exercises-imgs/fit8.png" class="img-fluid ps-md-5"> -->
-      <!-- </div> -->
-    <!-- </div> -->
+<!-- <button class="btn btn-primary" (click)="identify()" [disabled]="!selectedFile || loading"> -->
+<!-- {{ loading -->
+<!-- ? ("machine.loadingBtn.txt1" | translate) -->
+<!-- : ("machine.loadingBtn.txt2" | translate) -->
+<!-- }} -->
+<!-- </button> -->
+
+<!-- <div class="mt-3 p-2 border shadow-sm" *ngIf="result" style="background-color: white;" > -->
+<!-- <strong>{{ "machine.result.txt" | translate }}</strong> <span [innerHTML]="safeResult"></span> -->
+<!-- </div> -->
+
+<!-- <div class="text-danger mt-2" *ngIf="error">{{ "machine.result.error" | translate }}</div> -->
+
+<!-- </div> -->
+<!-- <div class="col-8 col-md-5 my-4" data-aos="fade-left" data-aos-duration="1000"> -->
+<!-- <img src="assets/exercises-imgs/fit8.png" class="img-fluid ps-md-5"> -->
+<!-- </div> -->
+<!-- </div> -->
 
 <!-- </div> -->
 
 <div class="container mb-5" id="machineIdentify">
-    <h2 class="text-center" data-aos="fade-down" data-aos-duration="1000">🏋️ <strong>{{ "machine.h2" | translate }} </strong></h2>
-    <p class="text-center text-secondary fs-5" data-aos="fade-Down" data-aos-duration="1000">{{ "machine.p1" | translate }}</p>
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-6 identify-machine my-4 p-3 border rounded bg-light shadow" data-aos="fade-right" data-aos-duration="1000">
-          <h5 class="my-2">📸 {{ "machine.h5" | translate }}</h5>
-        
-          <label for="file-upload" class="btn btn-outline-dark my-3">
-            {{ "machine.chooseFile" | translate }}
-          </label>
-          <input type="file" id="file-upload" accept="image/*" (change)="onFileSelected($event)" class="form-control mb-2" />
-          <p class="text-muted">{{ "machine.p2" | translate }}</p>
-  
-          <button class="btn btn-primary" (click)="identify()" [disabled]="!selectedFile || loading">
-            {{ loading
-              ? ("machine.loadingBtn.txt1" | translate)
-              : ("machine.loadingBtn.txt2" | translate)
-            }}
-          </button>
-        
-          <div class="mt-3 p-2 border shadow-sm" *ngIf="result" style="background-color: white;">
-            <strong>{{ "machine.result.txt" | translate }}</strong> <span [innerHTML]="safeResult"></span>
+  <h2 class="text-center" data-aos="fade-down" data-aos-duration="1000">🏋️ <strong>{{ "machine.h2" | translate }}
+    </strong></h2>
+  <p class="text-center text-secondary fs-5" data-aos="fade-Down" data-aos-duration="1000">{{ "machine.p1" | translate
+    }}</p>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 identify-machine my-4 p-3 border rounded bg-light shadow" data-aos="fade-right"
+      data-aos-duration="1000">
+      <h5 class="my-2">📸 {{ "machine.h5" | translate }}</h5>
+
+      <label for="file-upload" class="btn btn-outline-dark my-3">
+        {{ "machine.chooseFile" | translate }}
+      </label>
+      <input type="file" id="file-upload" accept="image/*" (change)="onFileSelected($event)"
+        class="form-control mb-2" />
+      <p class="text-muted">{{ "machine.p2" | translate }}</p>
+
+      <button class="btn btn-primary" (click)="identify()" [disabled]="!selectedFile || loading">
+        {{ loading
+        ? ("machine.loadingBtn.txt1" | translate)
+        : ("machine.loadingBtn.txt2" | translate)
+        }}
+      </button>
+
+      <div *ngIf="result" class="mt-4">
+        <div class="p-0 rounded-4 shadow-lg" style="overflow: hidden;">
+          <div class="bg-gradient bg-primary bg-opacity-75 text-white px-4 py-3">
+            <h5 class="mb-0 d-flex align-items-center">
+              <i class="bi bi-lightbulb-fill me-2 fs-4"></i>
+              {{ "machine.result.txt" | translate }}
+            </h5>
           </div>
-        
-          <div class="text-danger mt-2" *ngIf="error">{{ "machine.result.error" | translate }}</div>
-          
-          <!-- nav button -->
-          <button *ngIf="result" 
-                  class="btn btn-success mt-3"
-                  (click)="navigateToExercises()">
-            {{ "go to exercises" | translate }}
-          </button>
-  
-        </div>
-        <div class="col-8 col-md-5 my-4" data-aos="fade-left" data-aos-duration="1000">
-          <img src="assets/exercises-imgs/fit8.png" class="img-fluid ps-md-5">
+          <div class="bg-white p-4" style="font-family: 'Segoe UI', sans-serif; font-size: 1.05rem; line-height: 1.8;">
+            <div [innerHTML]="safeResult"></div>
+          </div>
         </div>
       </div>
+
+      <div class="text-danger mt-2" *ngIf="error">{{ "machine.result.error" | translate }}</div>
+        
+      <!-- nav button -->
+      <button *ngIf="result" class="btn btn-success mt-3" (click)="navigateToExercises()">
+        {{ "go to exercises" | translate }}
+      </button>
+
+    </div>
+    <div class="col-8 col-md-5 my-4" data-aos="fade-left" data-aos-duration="1000">
+      <img src="assets/exercises-imgs/fit8.png" class="img-fluid ps-md-5">
+    </div>
   </div>
+</div>

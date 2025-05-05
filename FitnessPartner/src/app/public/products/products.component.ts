@@ -1,8 +1,10 @@
 // src/app/components/products/products.component.ts
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { Subscription } from 'rxjs';
 
 import { ProductServicesService } from '../../services/product-services.service';
@@ -10,8 +12,6 @@ import { FavoritesService } from '../../services/favorites.service';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { IProducts } from '../../models/i-products';
-import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-products',
@@ -35,6 +35,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   isLoading = true;
   showPopUpMessage = false;
+  isFlavorOutOfStock = false;
+
   // Pagination
   currentPage = 1;
   itemsPerPage = 9;
@@ -71,13 +73,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // 1) Determine login state and load favorites if logged in
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {
       this.favoritesService.initialize();
     }
 
-    // 2) Load products and apply filters/pagination
     this.loadProducts();
     this.setupQueryParams();
   }
@@ -129,9 +129,35 @@ export class ProductsComponent implements OnInit, OnDestroy {
   onFlavorSelect(flavor: string): void {
     if (flavor && flavor !== 'Choose an option') {
       this.selectedFlavor = flavor;
+      this.checkFlavorStock();
     }
   }
 
+
+  getSelectedFlavorQuantity(): number {
+    if (!this.selectedProduct || !this.selectedFlavor) return -1;
+  
+    const flavorIndex = this.selectedProduct.available_flavors?.findIndex(
+      (f: string) => f === this.selectedFlavor
+    );
+  
+    if (flavorIndex === undefined || flavorIndex === -1) return -1;
+  
+    return this.selectedProduct.flavor_quantity?.[flavorIndex] ?? -1;
+  }
+  
+
+
+  checkFlavorStock(): void {
+    if (!this.selectedProduct || !this.selectedFlavor) {
+      this.isFlavorOutOfStock = false;
+      return;
+    }
+  
+    // Access quantity directly using the flavor name as the key
+    const quantity = this.selectedProduct.flavor_quantity?.[this.selectedFlavor] ?? 0;
+    this.isFlavorOutOfStock = quantity <= 0;
+  }
   // Pagination
   changeItemsPerPage(count: number): void {
     this.itemsPerPage = count;
@@ -193,29 +219,32 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   // Cart
-  addToCart(product: any, available_flavors: string[]): void {
-    const flavor =
-      this.selectedFlavor ||
-      (available_flavors?.length ? available_flavors[0] : 'Unflavored');
-
-    this.cartService
-      .addToCart({
-        productId: product.productId || product._id || product.id,
-        name: product.name,
-        image: product.image,
-        price: Number(product.price),
-        selectedFlavor: flavor,
-        quantity: this.quantity,
-      })
-      .subscribe({
-        next: () => {
-          this.showPopUpMessage = true;
-          setTimeout(() => (this.showPopUpMessage = false), 800);
-        },
-        error: (err) => {
-          console.error('Failed to add to cart', err);
-        },
-      });
+  addToCart(product: IProducts): void {
+    const flavor = this.selectedFlavor || 
+                  (product.available_flavors?.[0] ?? 'Unflavored');
+    
+    // Check stock using the flavor name as the key
+    const quantity = product.flavor_quantity?.[flavor] ?? 0;
+  
+    if (quantity <= 0) {
+      this.isFlavorOutOfStock = true;
+      return;
+    }
+  
+    this.cartService.addToCart({
+      productId: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      selectedFlavor: flavor,
+      quantity: this.quantity,
+    }).subscribe({
+      next: () => {
+        this.showPopUpMessage = true;
+        setTimeout(() => this.showPopUpMessage = false, 800);
+      },
+      error: (err) => console.error('Failed to add to cart', err)
+    });
   }
 
   increaseQuantity(): void {
@@ -246,10 +275,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.selectedProduct = product;
     this.quantity = 1;
     this.selectedFlavor = product.available_flavors?.[0] ?? '';
+    this.checkFlavorStock();
     document.body.style.overflow = 'hidden';
   }
   closeQuickView(): void {
     this.selectedProduct = null;
+    this.isFlavorOutOfStock = false;
     document.body.style.overflow = '';
   }
 

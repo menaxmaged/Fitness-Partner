@@ -1,140 +1,182 @@
 <!-- admin-orders.component.html -->
 <div class="container mt-5">
-    <h2>All Orders</h2>
-  
-    <div *ngIf="isLoading" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+  <h2>All Orders</h2>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-  
-    <div *ngIf="!isLoading">
-      <div *ngIf="orders.length === 0" class="alert alert-info">
-        No orders found
+  </div>
+
+  <div *ngIf="!isLoading">
+    <!-- Revenue Summary Card -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Revenue Dashboard</h5>
       </div>
-  
-      <table *ngIf="orders.length > 0" class="table table-striped">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Status</th>
-            <th>User</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Products</th>
-            <th>Address</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let order of orders">
-            <td>{{ order.id }}</td>
-            <td [class.text-danger]="order.status === 'cancelled'">
-              {{ order.status | titlecase }}
-            </td>
-            <td>
-              {{ order.userEmail }}<br>
-              <small>(User ID: {{ order.userId }})</small>
-            </td>
-            <td>{{ order.date | date:'medium' }}</td>
-            <td>{{ order.total | currency }}</td>
-            <td>
-              <div *ngFor="let product of order.products">
-                {{ product.name }} ({{ product.quantity }})
-                <span *ngIf="product.flavor">- {{ product.flavor }}</span>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <h6 class="card-title">Active Revenue</h6>
+                <h3 class="text-success">{{ calculateTotalRevenue() | currency }}</h3>
+                <small class="text-muted">Excluding cancelled orders</small>
               </div>
-            </td>
-            <td>
-              {{ order.address.street }}<br>
-              {{ order.address.city }}, {{ order.address.state }} {{ order.address.zipCode }}<br>
-              {{ order.address.country }}
-            </td>
-            <td>
-              <button class="btn btn-sm btn-warning me-2" (click)="onEditOrder(order)">
-                Edit
-              </button>
-              <button class="btn btn-sm btn-danger" (click)="onCancelOrder(order)"
-                      *ngIf="order.status !== 'cancelled'">
-                Cancel
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Edit Modal -->
-    <div class="modal fade" [class.show]="!!selectedOrder" [style.display]="selectedOrder ? 'block' : 'none'">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Edit Order #{{ selectedOrder?.id }}</h5>
-            <button type="button" class="btn-close" (click)="selectedOrder = null"></button>
+            </div>
           </div>
-          <form *ngIf="selectedOrder" [formGroup]="editForm" (ngSubmit)="onSubmit()">
-            <div class="modal-body">
-              <!-- Products -->
-              <div formArrayName="products">
-                <div *ngFor="let productControl of productsArray.controls; let i = index" [formGroupName]="i">
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <h5>{{ productControl.value.name }}</h5>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <label>Quantity</label>
-                          <input type="number" class="form-control" 
-                                 formControlName="quantity" min="1">
-                        </div>
-                        <div class="col-md-8">
-                          <label>Flavor</label>
-                          <input type="text" class="form-control" 
-                                 formControlName="flavor">
-                        </div>
+          <div class="col-md-4">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <h6 class="card-title">Total Orders Value</h6>
+                <h3>{{ calculateTotalOrdersValue() | currency }}</h3>
+                <small class="text-muted">Including all orders</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <h6 class="card-title">Cancelled Orders</h6>
+                <h3 class="text-danger">{{ getCancelledOrdersValue() | currency }}</h3>
+                <small class="text-muted">Lost revenue</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="orders.length === 0" class="alert alert-info">
+      No orders found
+    </div>
+
+    <table *ngIf="orders.length > 0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>User</th>
+          <th>Date</th>
+          <th>Total</th>
+          <th>Products</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders" [class.table-danger]="order.status === 'cancelled'">
+          <td>{{ order.id }}</td>
+          <td [class.text-danger]="order.status === 'cancelled'">
+            {{ order.status | titlecase }}
+          </td>
+          <td>
+            {{ order.userEmail }}<br>
+            <small>(User ID: {{ order.userId }})</small>
+          </td>
+          <td>{{ order.date | date:'medium' }}</td>
+          <td>
+            <span [class.text-decoration-line-through]="order.status === 'cancelled'">
+              {{ order.total | currency }}
+            </span>
+          </td>
+          <td>
+            <div *ngFor="let product of order.products">
+              {{ product.name }} ({{ product.quantity }})
+              <span *ngIf="product.flavor">- {{ product.flavor }}</span>
+            </div>
+          </td>
+          <td>
+            {{ order.address.street }}<br>
+            {{ order.address.city }}, {{ order.address.state }} {{ order.address.zipCode }}<br>
+            {{ order.address.country }}
+          </td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" (click)="onEditOrder(order)">
+              Edit
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="onCancelOrder(order)"
+                    *ngIf="order.status !== 'cancelled'">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" [class.show]="!!selectedOrder" [style.display]="selectedOrder ? 'block' : 'none'">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Order #{{ selectedOrder?.id }}</h5>
+          <button type="button" class="btn-close" (click)="selectedOrder = null"></button>
+        </div>
+        <form *ngIf="selectedOrder" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <div class="modal-body">
+            <!-- Products -->
+            <div formArrayName="products">
+              <div *ngFor="let productControl of productsArray.controls; let i = index" [formGroupName]="i">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h5>{{ productControl.value.name }}</h5>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" 
+                               formControlName="quantity" min="1">
+                      </div>
+                      <div class="col-md-8">
+                        <label>Flavor</label>
+                        <input type="text" class="form-control" 
+                               formControlName="flavor">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-  
-              <!-- Address -->
-              <div class="mb-3" formGroupName="address">
-                <h5>Shipping Address</h5>
-                <div class="row g-2">
-                  <div class="col-md-6">
-                    <input class="form-control" placeholder="Street" formControlName="street">
-                  </div>
-                  <div class="col-md-6">
-                    <input class="form-control" placeholder="City" formControlName="city">
-                  </div>
-                  <div class="col-md-4">
-                    <input class="form-control" placeholder="State" formControlName="state">
-                  </div>
-                  <div class="col-md-4">
-                    <input class="form-control" placeholder="Zip Code" formControlName="zipCode">
-                  </div>
-                  <div class="col-md-4">
-                    <input class="form-control" placeholder="Country" formControlName="country">
-                  </div>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3" formGroupName="address">
+              <h5>Shipping Address</h5>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <input class="form-control" placeholder="Street" formControlName="street">
+                </div>
+                <div class="col-md-6">
+                  <input class="form-control" placeholder="City" formControlName="city">
+                </div>
+                <div class="col-md-4">
+                  <input class="form-control" placeholder="State" formControlName="state">
+                </div>
+                <div class="col-md-4">
+                  <input class="form-control" placeholder="Zip Code" formControlName="zipCode">
+                </div>
+                <div class="col-md-4">
+                  <input class="form-control" placeholder="Country" formControlName="country">
                 </div>
               </div>
-  
-              <!-- Status -->
-              <div class="mb-3">
-                <label>Order Status</label>
-                <select class="form-select" formControlName="status">
-                  <option value="processing">Processing</option>
-                  <option value="shipped">Shipped</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="selectedOrder = null">Close</button>
-              <button type="submit" class="btn btn-primary">Save Changes</button>
+
+            <!-- Status -->
+            <div class="mb-3">
+              <label>Order Status</label>
+              <select class="form-select" formControlName="status">
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
             </div>
-          </form>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="selectedOrder = null">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

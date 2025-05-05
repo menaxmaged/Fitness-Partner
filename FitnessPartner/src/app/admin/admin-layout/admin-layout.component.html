@@ -1,79 +1,92 @@
 <div class="admin-dashboard">
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h3>Admin Dashboard</h3>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Admin Dashboard</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a routerLink="/admin/dashboard" routerLinkActive="active">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/products" routerLinkActive="active">
+            <i class="fas fa-box-open"></i> Products
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/users" routerLinkActive="active">
+            <i class="fas fa-users"></i> Users
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/orders" routerLinkActive="active">
+            <i class="fas fa-shopping-cart"></i> Orders
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/trainers" routerLinkActive="active">
+            <i class="fas fa-dumbbell"></i> Trainers
+          </a>
+        </li>
+        <!-- <li>
+          <a routerLink="/admin/nutrition" routerLinkActive="active">
+            <i class="fas fa-apple-alt"></i> Nutrition
+          </a>
+        </li> -->
+        <li>
+          <a routerLink="/admin/settings" routerLinkActive="active">
+            <i class="fas fa-cog"></i> Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <!-- Top Header Bar -->
+    <header class="content-header">
+      <div class="breadcrumb">
+        <span>Admin</span>
+        <span> / </span>
+        <span>{{ activeSectionTitle }}</span>
       </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li>
-            <a routerLink="/admin/dashboard" routerLinkActive="active">
-              <i class="fas fa-tachometer-alt"></i> Dashboard
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/products" routerLinkActive="active">
-              <i class="fas fa-box-open"></i> Products
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/users" routerLinkActive="active">
-              <i class="fas fa-users"></i> Users
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/orders" routerLinkActive="active">
-              <i class="fas fa-shopping-cart"></i> Orders
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/trainers" routerLinkActive="active">
-              <i class="fas fa-dumbbell"></i> Trainers
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/nutrition" routerLinkActive="active">
-              <i class="fas fa-apple-alt"></i> Nutrition
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/settings" routerLinkActive="active">
-              <i class="fas fa-cog"></i> Settings
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-  
-    <!-- Main Content Area -->
-    <main class="content">
-      <!-- Top Header Bar -->
-      <header class="content-header">
-        <div class="breadcrumb">
-          <span>Admin</span>
-          <span> / </span>
-          <span>{{ activeSectionTitle }}</span>
-        </div>
-        <div class="header-actions">
+      <div class="header-actions">
+        <!-- <div class="search-container">
+          <div class="search-type-selector">
+            <button [class.active]="searchType === 'email'" (click)="setSearchType('email')">Email</button>
+            <button [class.active]="searchType === 'id'" (click)="setSearchType('id')">ID</button>
+          </div>
           <div class="search-bar">
-            <input type="text" placeholder="Search..." (input)="onSearch($event)">
+            <input 
+              type="text" 
+              [(ngModel)]="searchQuery" 
+              [placeholder]="'Search by ' + searchType + '...'" 
+              (input)="onSearch($event)">
             <i class="fas fa-search"></i>
+            <button class="clear-search" *ngIf="searchQuery" (click)="clearSearch()">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
-          <div class="admin-profile" (click)="toggleProfileMenu()">
-            <img src="assets/admin-avatar.png" alt="Admin">
-            <span>Admin</span>
-            <i class="fas fa-chevron-down"></i>
-            <div class="profile-dropdown" *ngIf="showProfileMenu">
-              <a routerLink="/profile/settings">My Profile</a>
-              <a (click)="logout()">Logout</a>
-            </div>
+        </div> -->
+        <div class="admin-profile" (click)="toggleProfileMenu()">
+          <img src="assets/admin-avatar.png" alt="Admin">
+          <span>Admin</span>
+          <i class="fas fa-chevron-down"></i>
+          <div class="profile-dropdown" *ngIf="showProfileMenu">
+            <a routerLink="/profile/settings">My Profile</a>
+            <a (click)="logout()">Logout</a>
           </div>
         </div>
-      </header>
-  
-      <!-- Dynamic Content Container -->
-      <div class="content-body">
-        <router-outlet></router-outlet>
       </div>
-    </main>
-  </div>
+    </header>
+
+    <!-- Dynamic Content Container -->
+    <div class="content-body">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

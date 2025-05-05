@@ -87,6 +87,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     if (this.isFlavorOutOfStock) {
       console.warn('Selected flavor is out of stock');
     }
+    if (this.isFlavorOutOfStock) {
+      this.quantity = 1;
+    }
   }
 
   updateCurrentImage(): void {

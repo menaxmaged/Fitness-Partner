@@ -57,4 +57,186 @@ table {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
   }
-  
+  /* Table styling */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+thead {
+  background-color: #f6f6f6;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.orange-btn {
+  background-color: #ff8800;
+  border-color: #ff8800;
+  color: white;
+}
+
+.orange-btn:hover {
+  background-color: #e67a00;
+  border-color: #e67a00;
+}
+
+/* Modal styling */
+.modal-backdrop {
+  opacity: 0.5;
+}
+
+.user-details {
+  padding: 10px;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 2px solid #f0f0f0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-info {
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.label {
+  font-weight: bold;
+  width: 100px;
+  color: #666;
+}
+
+.value {
+  flex: 1;
+}
+
+.user-orders {
+  margin-top: 20px;
+}
+
+.order-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.order-item {
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.order-id {
+  font-weight: bold;
+}
+
+.order-status {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.order-status.processing {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.order-status.shipped {
+  background-color: #e1f5fe;
+  color: #0288d1;
+}
+
+.order-status.delivered {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.order-status.cancelled {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.no-orders {
+  padding: 20px;
+  text-align: center;
+  color: #777;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.form-check-inline {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.form-check-input {
+  margin-right: 5px;
+}
+
+/* Ensure modal appears on top */
+.modal {
+  z-index: 1050;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+}

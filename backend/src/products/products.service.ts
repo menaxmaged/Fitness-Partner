@@ -44,18 +44,41 @@ export class ProductsService {
   }
 
   async create(dto: CreateProductDto): Promise<ProductDto> {
-    const lastProduct = await this.productModel.findOne()
-    .sort({ $natural: -1 })
-    .limit(1)
-    .exec();
-
-    const newId = lastProduct ? Number(lastProduct.id) + 1 : 1;
-
+    // Find the highest ID in the database
+    const highestProduct = await this.productModel.findOne()
+      .sort({ id: -1 }) // Sort by ID in descending order
+      .limit(1)
+      .exec();
+  
+    const newId = highestProduct ? Number(highestProduct.id) + 1 : 1;
+  
+    // Double-check if the ID already exists
     const exists = await this.productModel.findOne({ id: newId.toString() });
     if (exists) {
-      throw new ConflictException(`Product with id "${newId}" already exists`);
+      // If the ID exists, try to find the next available ID
+      let nextId = newId + 1;
+      let nextExists = true;
+      
+      while (nextExists) {
+        const checkExists = await this.productModel.findOne({ id: nextId.toString() });
+        if (!checkExists) {
+          nextExists = false;
+        } else {
+          nextId++;
+        }
+      }
+      
+      // Create the product with the next available ID, but WITHOUT _id field
+      const product = new this.productModel({
+        ...dto,
+        id: nextId.toString(),
+      });
+      
+      const saved = await product.save();
+      return this.toProductDto(saved);
     }
-
+  
+    // Create the product with the new ID, but WITHOUT _id field
     const product = new this.productModel({
       ...dto,
       id: newId.toString(),

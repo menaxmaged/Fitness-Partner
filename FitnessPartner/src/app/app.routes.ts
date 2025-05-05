@@ -154,6 +154,7 @@ import { AdminUsersComponent } from './admin/users/admin-users.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { DietFormComponent } from './diet-form/diet-form.component';
+import { AdminTrainersComponent } from './admin/admin-trainers/admin-trainers.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -199,7 +200,7 @@ export const routes: Routes = [
       { path: 'users', component: AdminUsersComponent },
       // Add other admin routes as needed
       { path: 'orders', component: AdminOrdersComponent},
-      // { path: 'trainers', component: AdminTrainersComponent },
+      { path: 'trainers', component: AdminTrainersComponent },
       // { path: 'nutrition', component: AdminNutritionComponent },
       // { path: 'settings', component: AdminSettingsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }

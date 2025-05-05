@@ -1,0 +1,194 @@
+<div class="admin-header">
+  <h2>Trainers Management</h2>
+  <button class="btn btn-outline-light orange-btn" (click)="openAddTrainerModal()">
+    Add New Trainer
+  </button>
+</div>
+
+<div *ngIf="loading" class="loading-indicator">
+  Loading trainers...
+</div>
+
+<div *ngIf="error" class="error-message alert alert-danger">
+  {{ error }}
+</div>
+
+<div *ngIf="!loading && !error && trainers.length === 0" class="no-data-message">
+  No trainers found. Add your first trainer by clicking the button above.
+</div>
+
+<div class="table-container" *ngIf="!loading && trainers.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let trainer of trainers" (click)="openTrainerDetails(trainer)">
+        <td>{{ trainer.name || 'N/A' }}</td>
+        <td>{{ trainer.email || 'N/A' }}</td>
+        <td>{{ trainer.mobile || 'N/A' }}</td>
+        <td>
+          <button class="btn btn-sm btn-info" 
+                  (click)="openTrainerDetails(trainer); $event.stopPropagation()">
+            View Details
+          </button>
+          <button class="btn btn-sm btn-danger ms-2" 
+                  (click)="deleteTrainer(trainer.id); $event.stopPropagation()">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Trainer Details Modal -->
+<div class="modal" [class.show]="selectedTrainer" [style.display]="selectedTrainer ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Trainer Details</h5>
+        <button type="button" class="close" (click)="closeTrainerDetails()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="selectedTrainer">
+        <div class="trainer-details">
+          <div class="trainer-header">
+            <h3>{{ selectedTrainer.name }}</h3>
+            <div *ngIf="selectedTrainer.image" class="trainer-image">
+              <img [src]="selectedTrainer.image" alt="{{ selectedTrainer.name }}" class="img-fluid rounded">
+            </div>
+          </div>
+          
+          <div class="trainer-info">
+            <div class="info-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ selectedTrainer.email || 'Not provided' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Mobile:</span>
+              <span class="value">{{ selectedTrainer.mobile || 'Not provided' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Gender:</span>
+              <span class="value">{{ selectedTrainer.gender || 'Not specified' }}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedTrainer.bio">
+              <span class="label">Bio:</span>
+              <p class="value">{{ selectedTrainer.bio }}</p>
+            </div>
+            <div class="info-item" *ngIf="selectedTrainer.specialty">
+              <span class="label">Specialty:</span>
+              <span class="value">{{ selectedTrainer.specialty }}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedTrainer.rating !== undefined">
+              <span class="label">Rating:</span>
+              <span class="value">{{ selectedTrainer.rating }}/5</span>
+            </div>
+            
+            <!-- FAQ section -->
+            <div class="faq-section mt-3" *ngIf="selectedTrainer.faq && selectedTrainer.faq.length > 0">
+              <h4>Frequently Asked Questions</h4>
+              <div class="accordion" id="trainerFaqAccordion">
+                <div class="card" *ngFor="let faq of selectedTrainer.faq; let i = index">
+                  <div class="card-header" [id]="'faqHeading' + i">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" 
+                              [attr.data-target]="'#faqCollapse' + i" 
+                              aria-expanded="false" [attr.aria-controls]="'faqCollapse' + i">
+                        {{ faq.question }}
+                      </button>
+                    </h5>
+                  </div>
+                  <div [id]="'faqCollapse' + i" class="collapse" 
+                       [attr.aria-labelledby]="'faqHeading' + i" data-parent="#trainerFaqAccordion">
+                    <div class="card-body">
+                      {{ faq.answer }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeTrainerDetails()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="selectedTrainer"></div>
+
+<!-- Add Trainer Modal -->
+<div class="modal" [class.show]="showAddModal" [style.display]="showAddModal ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Trainer</h5>
+        <button type="button" class="close" (click)="closeAddTrainerModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmitNewTrainer()" #trainerForm="ngForm">
+          <div class="form-group mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" [(ngModel)]="newTrainer.name" name="name" required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="newTrainer.email" name="email" required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Mobile</label>
+            <input type="tel" class="form-control" [(ngModel)]="newTrainer.mobile" name="mobile">
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" [(ngModel)]="newTrainer.password" name="password" required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Gender</label>
+            <select class="form-control" [(ngModel)]="newTrainer.gender" name="gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Specialty</label>
+            <input type="text" class="form-control" [(ngModel)]="newTrainer.specialty" name="specialty">
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Bio</label>
+            <textarea class="form-control" [(ngModel)]="newTrainer.bio" name="bio" rows="3"></textarea>
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Profile Image</label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" name="image">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeAddTrainerModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!trainerForm.valid">Save Trainer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showAddModal"></div>
