@@ -7,7 +7,7 @@
           <p class="order-id">Shipping Address: {{ order.address.street }}, {{order.address.city}}, {{order.address.state}}</p>
           <!-- Add Order Status here with appropriate styling based on status -->
           <p class="order-status">
-            Status: <span class="status-badge status-{{ order.status }}">{{ order.status | titlecase }}</span>
+            Status: <span class="status-badge fw-bold status-{{ order.status }}">{{ order.status | titlecase }}</span>
           </p>
         </div>
         <button class="btn btn-outline-light orange-btn border-0" (click)="toggleDetails(order)">

@@ -28,9 +28,7 @@ export class TrainerController {
     return this.trainerService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
-  @Roles('admin')
   async getTrainerById(@Param('id') id: string) {
     return this.trainerService.findById(id);
   }

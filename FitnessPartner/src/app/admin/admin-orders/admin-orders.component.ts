@@ -47,7 +47,7 @@ export class AdminOrdersComponent implements OnInit {
   isSaving = false;
   errorMessage = '';
   successMessage = '';
-  statusOptions = ['processing', 'shipped', 'delivered', 'cancelled'];
+  statusOptions = ['confirmed', 'shipped', 'delivered', 'cancelled'];
   filteredOrders: Order[] = [];
   searchTerm = '';
   sortBy = 'date';
