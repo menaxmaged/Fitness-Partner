@@ -1,31 +1,15 @@
-<div
-  class="container my-3 p-4 border rounded bg-light"
-  style="max-width: 600px"
->
+<div class="container my-3 p-4 border rounded bg-light" style="max-width: 600px">
   <h4 class="text-center mb-4">📝 {{ "trainers.dietForm.h4" | translate }}</h4>
 
   <form (ngSubmit)="submit()" #dietForm="ngForm">
     <div class="row g-3">
       <div class="col-md-6">
         <label>{{ "trainers.dietForm.label1" | translate }}</label>
-        <input
-          type="number"
-          [(ngModel)]="formData.age"
-          name="age"
-          class="form-control"
-          required
-          min="1"
-          max="105"
-        />
+        <input type="number" [(ngModel)]="formData.age" name="age" class="form-control" required min="1" max="105" />
       </div>
       <div class="col-md-6">
         <label>{{ "trainers.dietForm.label2" | translate }}</label>
-        <select
-          [(ngModel)]="formData.gender"
-          name="gender"
-          class="form-select"
-          required
-        >
+        <select [(ngModel)]="formData.gender" name="gender" class="form-select" required>
           <option value="" disabled selected>
             {{ "trainers.dietForm.select" | translate }}
           </option>
@@ -35,56 +19,23 @@
       </div>
       <div class="col-md-6">
         <label>{{ "trainers.dietForm.label3" | translate }}</label>
-        <input
-          type="number"
-          [(ngModel)]="formData.weight"
-          name="weight"
-          class="form-control"
-          required
-          min="3"
-        />
+        <input type="number" [(ngModel)]="formData.weight" name="weight" class="form-control" required min="3" />
       </div>
       <div class="col-md-6">
         <label>{{ "trainers.dietForm.label4" | translate }}</label>
-        <input
-          type="number"
-          [(ngModel)]="formData.height"
-          name="height"
-          class="form-control"
-          required
-          min="50"
-        />
+        <input type="number" [(ngModel)]="formData.height" name="height" class="form-control" required min="50" />
       </div>
       <div class="col-md-6">
         <label>{{ "trainers.dietForm.label5" | translate }}</label>
-        <input
-          type="number"
-          [(ngModel)]="formData.waist"
-          name="waist"
-          class="form-control"
-          required
-          min="30"
-        />
+        <input type="number" [(ngModel)]="formData.waist" name="waist" class="form-control" required min="30" />
       </div>
       <div class="col-md-6">
         <label>{{ "trainers.dietForm.label6" | translate }}</label>
-        <input
-          type="number"
-          [(ngModel)]="formData.neck"
-          name="neck"
-          class="form-control"
-          required
-          min="20"
-        />
+        <input type="number" [(ngModel)]="formData.neck" name="neck" class="form-control" required min="20" />
       </div>
       <div class="col-12">
         <label>{{ "trainers.dietForm.goal" | translate }}</label>
-        <select
-          [(ngModel)]="formData.goal"
-          name="goal"
-          class="form-select"
-          required
-        >
+        <select [(ngModel)]="formData.goal" name="goal" class="form-select" required>
           <option value="" disabled selected>
             {{ "trainers.dietForm.selectGoal" | translate }}
           </option>
@@ -98,23 +49,38 @@
       </div>
     </div>
 
-    <button
-      class="btn btn-success mt-4 w-100"
-      [disabled]="loading || !dietForm.form.valid"
-    >
+    <button class="btn btn-success mt-4 w-100" [disabled]="loading || !dietForm.form.valid">
       {{
-        loading
-          ? ("trainers.dietForm.loadRslt1" | translate)
-          : ("trainers.dietForm.loadRslt2" | translate)
+      loading
+      ? ("trainers.dietForm.loadRslt1" | translate)
+      : ("trainers.dietForm.loadRslt2" | translate)
       }}
     </button>
   </form>
 
   <div *ngIf="result" class="mt-4">
-    <h5>✅ {{ "trainers.dietForm.plan" | translate }}</h5>
-    <pre class="bg-white p-3 border rounded" style="white-space: pre-wrap">{{
-      result
-    }}</pre>
+    <div class="card shadow border-0">
+      <div class="card-header bg-success text-white">
+        <h5 class="mb-0 d-flex align-items-center">
+          <i class="bi bi-list-check me-2"></i>
+          {{ "trainers.dietForm.plan" | translate }}
+        </h5>
+      </div>
+      <div class="card-body bg-light">
+        <div class="p-3 bg-white rounded border"
+          style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 1rem; line-height: 1.8;">
+          <div *ngFor="let line of result.split('\n')" class="py-2 border-bottom"
+            [ngClass]="{'border-0': line === result.split('\n')[result.split('\n').length - 1]}">
+            {{ line }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="loading" class="spinner-border text-success mt-3" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
 
   <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
