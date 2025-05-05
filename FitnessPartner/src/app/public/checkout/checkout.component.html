@@ -1,51 +1,145 @@
 <div class="ms-4 mt-lg-3">
-  <div
-    class="ms-3 my-3 col-11 d-flex flex-wrap justify-content-sm-center justify-content-lg-between my-sm-3"
-  >
+  <div class="ms-3 my-3 col-11 d-flex flex-wrap justify-content-sm-center justify-content-lg-between my-sm-3">
     <div class="col-12 col-lg-4 p-4">
-      <!-- Shopping cart image-->
-      <img
-        class="w-100 ms-3 ms-md-0"
-        src="cartBags.png"
-        alt="cart full of Shopping bags"
-      />
+      <img class="w-100 ms-3 ms-md-0" src="cartBags.png" alt="cart full of Shopping bags" />
     </div>
 
     <form class="col-12 col-lg-8">
       <div class="p-4">
         <div class="col-10 mt-3 mx-auto mx-lg-0">
-          <!--Your order -->
-          <div>
-            <h1 class="mb-4">Your Order</h1>
-            <table class="table text-start col-4">
-              <thead>
-                <tr>
-                  <th scope="col">Products</th>
-                  <th scope="col">Product name (flavor)</th>
-                  <th scope="col">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (item of cart; track $index) {
-                <tr>
-                  <td scope="row">
-                    <img height="40px" width="40px" [src]="item.image" alt="" />
-                    x <span>{{item.quantity}}</span>
-                  </td>
-                  <td>{{item.name}} ({{item.selectedFlavor}})</td>
-
-                  <td>{{ item.total }} EGP</td>
-                </tr>
-                }
-                <tr>
-                  <td colspan="2" class="fw-bold text-end">TOTAL</td>
-                  <td>{{ total }} EGP</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="col-12 col-md-12 mx-auto mt-5">
-              <div #paymentRef class="col-6 col-md-5 mx-auto"></div>
+          <h1 class="mb-4">Your Order</h1>
+          
+          <!-- Payment Method Selection -->
+          <div class="mb-4">
+            <h3>Payment Method</h3>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="paypal" 
+                     [(ngModel)]="paymentMethod" value="paypal" name="paymentMethod"
+                     (change)="onPaymentMethodChange()">
+              <label class="form-check-label" for="paypal">PayPal</label>
             </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="cod" 
+                     [(ngModel)]="paymentMethod" value="cod" name="paymentMethod"
+                     (change)="onPaymentMethodChange()">
+              <label class="form-check-label" for="cod">Cash on Delivery</label>
+            </div>
+          </div>
+
+          <!-- Address Section -->
+          <div *ngIf="paymentMethod === 'cod'" class="mb-4">
+            <h3>Shipping Address</h3>
+            
+            <!-- Address Type Selection -->
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="existingAddress" 
+                       [(ngModel)]="addressType" value="existing" name="addressType"
+                       (change)="onAddressTypeChange()" [disabled]="!userHasAddress">
+                <label class="form-check-label" for="existingAddress">Use Existing Address</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="newAddress" 
+                       [(ngModel)]="addressType" value="new" name="addressType"
+                       (change)="onAddressTypeChange()">
+                <label class="form-check-label" for="newAddress">Use New Address</label>
+              </div>
+            </div>
+
+            <!-- Existing Address Selection -->
+            <select *ngIf="addressType === 'existing' && userHasAddress" class="form-select mb-3"
+                    [(ngModel)]="selectedAddressId" name="selectedAddress">
+              <option *ngFor="let address of savedAddresses" [value]="address.street">
+                 {{ address.street }}, {{ address.city }}
+              </option>
+            </select>
+
+            <!-- New Address Form -->
+            <div *ngIf="addressType === 'new'" class="row g-3">
+              <!-- <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Full Name" 
+                       [(ngModel)]="newAddress.fullName" name="fullName" required>
+              </div> -->
+              <div class="col-12">
+                <input type="text" class="form-control" placeholder="Street Address" 
+                       [(ngModel)]="newAddress.street" name="street" required>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="City" 
+                       [(ngModel)]="newAddress.city" name="city" required>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="State" 
+                       [(ngModel)]="newAddress.state" name="state" required>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Zip Code" 
+                       [(ngModel)]="newAddress.zipCode" name="zipCode" required>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Country" 
+                       [(ngModel)]="newAddress.country" name="country" required>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="saveAddress" 
+                         [(ngModel)]="saveNewAddress" name="saveAddress">
+                  <label class="form-check-label" for="saveAddress">Save this address</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="defaultAddress" 
+                         [(ngModel)]="makeDefaultAddress" name="defaultAddress">
+                  <label class="form-check-label" for="defaultAddress">Set as default address</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary Table -->
+          <table class="table text-start col-4">
+            <thead>
+              <tr>
+                <th scope="col">Products</th>
+                <th scope="col">Product name (flavor)</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of cart; track $index) {
+              <tr>
+                <td scope="row">
+                  <img height="40px" width="40px" [src]="item.image" alt="" />
+                  x <span>{{item.quantity}}</span>
+                </td>
+                <td>{{item.name}} ({{item.selectedFlavor}})</td>
+                <td>{{ item.total }} EGP</td>
+              </tr>
+              }
+              <tr>
+                <td colspan="2" class="fw-bold text-end">TOTAL</td>
+                <td>{{ total }} EGP</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Payment Section -->
+          <div class="col-12 col-md-12 mx-auto mt-5">
+            <div *ngIf="paymentMethod === 'paypal'" #paymentRef class="col-6 col-md-5 mx-auto"></div>
+            
+            <!-- COD Order Button -->
+            <div *ngIf="paymentMethod === 'cod'" class="d-grid gap-2">
+              <button class="btn btn-dark" 
+                      (click)="placeOrderCOD()"
+                      [disabled]="!isAddressValid() || processingOrder">
+                <span *ngIf="processingOrder" class="spinner-border spinner-border-sm" role="status"></span>
+                {{ processingOrder ? 'Processing...' : 'Place Order' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Error Messages -->
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+            {{ errorMessage }}
           </div>
         </div>
       </div>
@@ -53,24 +147,13 @@
   </div>
 
   <div class="d-flex justify-content-end fixed-bottom">
-    <a
-      routerLinkActive="active"
-      routerLink="/products"
-      class="text-black fs-6 fw-semibold me-5"
-      ><svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-bag-heart mb-2"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"
-        />
+    <a routerLinkActive="active" routerLink="/products" class="text-black fs-6 fw-semibold me-5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+           class="bi bi-bag-heart mb-2" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" 
+              d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
       </svg>
-      Continue Shopping</a
-    >
+      Continue Shopping
+    </a>
   </div>
 </div>

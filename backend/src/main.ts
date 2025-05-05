@@ -49,6 +49,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type,Authorization',
   });
 
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   // Start application
   const port = process.env.PORT || 3000;
   await app.listen(port);

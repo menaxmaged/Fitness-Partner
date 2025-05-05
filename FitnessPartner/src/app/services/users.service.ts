@@ -203,4 +203,67 @@ export class UsersService {
       catchError(this.handleError)
     );
   }
+
+   // Save a new address
+   saveUserAddress(userId: string, addressData: any): Observable<any> {
+    // Ensure all required fields are present and properly formatted
+    const payload = {
+      street: addressData.street,
+      city: addressData.city,
+      state: addressData.state,
+      zipCode: addressData.zipCode.toString(), // Ensure string format
+      country: addressData.country,
+      isDefault: !!addressData.isDefault // Ensure boolean
+    };
+  
+    // Log the payload for debugging
+    console.log(`Sending address payload to API:`, payload);
+    
+    return this.http.post(
+      `${this.apiUrl}/users/${userId}/addresses`,
+      payload,
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      tap(response => console.log('Address save response:', response)),
+      catchError(error => {
+        console.error('Error saving address:', error);
+        // Add additional error context
+        const errorMessage = error.error?.message || error.message || 'Unknown error';
+        return throwError(() => new Error(`Failed to save address: ${errorMessage}`));
+      })
+    );
+  }
+  
+  // Get all user addresses with better error handling
+  getUserAddresses(userId: string): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/users/${userId}/addresses`,
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      tap(addresses => console.log('Retrieved addresses:', addresses)),
+      catchError(error => {
+        console.error('Error getting addresses:', error);
+        return throwError(() => new Error('Failed to retrieve addresses'));
+      })
+    );
+  }
+  
+  // Set an address as default with better error handling
+  setDefaultAddress(userId: string, addressId: string): Observable<any> {
+    if (!addressId) {
+      return throwError(() => new Error('Address ID is required to set as default'));
+    }
+    
+    return this.http.put(
+      `${this.apiUrl}/users/${userId}/addresses/${addressId}/default`,
+      {},  // Empty body since the addressId is in the URL
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      tap(response => console.log('Default address set:', response)),
+      catchError(error => {
+        console.error('Error setting default address:', error);
+        return throwError(() => new Error('Failed to set address as default'));
+      })
+    );
+  }
 }

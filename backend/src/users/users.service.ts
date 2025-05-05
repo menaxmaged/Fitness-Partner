@@ -1,18 +1,18 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User, UserDocument } from './schemas/user.schema';
+import { Model, Types } from 'mongoose';
+import { AddressDto, User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { MailService } from 'src/auth/mail/mail.service';
 import { Product, ProductDocument } from 'src/products/schema/product.schema';
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -168,7 +168,7 @@ export class UsersService {
         ...orderData,
         products: validatedProducts,
         total: total,
-        status: 'processing'
+        status: 'confirmed'
       };
 
       const updatedUser = await this.userModel.findOneAndUpdate(
@@ -529,4 +529,185 @@ export class UsersService {
       throw error;
     }
   }
+
+    // Address related methods
+    async saveUserAddress(userId: string, addressData: AddressDto): Promise<any> {
+      try {
+        // Find user using both possible ID fields
+        const user = await this.userModel.findOne({
+          $or: [
+            { uuid: userId },
+            { id: userId }
+          ]
+        });
+        
+        if (!user) {
+          throw new NotFoundException(`User with ID ${userId} not found`);
+        }
+    
+        // Fix validation issues with existing orders
+        if (user.orders && user.orders.length > 0) {
+          // Ensure all orders have required userId and userEmail fields
+          user.orders = user.orders.map(order => {
+            // Use markModified if you're using mongoose and updating nested properties
+            if (!order.userId) {
+              order.userId = userId;
+            }
+            if (!order.userEmail) {
+              order.userEmail = user.email; // Assuming user object has email
+            }
+            return order;
+          });
+          
+          // Mark the orders array as modified to ensure Mongoose detects the changes
+          user.markModified('orders');
+        }
+    
+        // Create address with a unique ID
+        const addressId = uuidv4();
+        const newAddress = {
+          id: addressId,
+          street: addressData.street,
+          city: addressData.city,
+          state: addressData.state,
+          zipCode: addressData.zipCode,
+          country: addressData.country,
+          isDefault: addressData.isDefault || false
+        };
+    
+        // Handle default address logic
+        if (addressData.isDefault === true || !user.addresses || user.addresses.length === 0) {
+          if (user.addresses && user.addresses.length > 0) {
+            user.addresses = user.addresses.map(addr => ({
+              ...addr,
+              isDefault: false
+            }));
+          }
+          newAddress.isDefault = true;
+        }
+    
+        // Add the new address to the user's addresses array
+        if (!user.addresses) {
+          user.addresses = [];
+        }
+        user.addresses.push(newAddress);
+        user.markModified('addresses');
+    
+        // Save the updated user document
+        await user.save();
+        
+        return newAddress;
+      } catch (error) {
+        console.error('Error in saveUserAddress service method:', error);
+        throw new Error(error.message || 'Failed to save address');
+      }
+    }
+    
+    // 2. Alternative approach: Create a fix-user-orders utility function
+    async fixUserOrders(userId: string): Promise<boolean> {
+      try {
+        // Find the user first
+        const user = await this.userModel.findOne({ id: userId });
+        if (!user) {
+          throw new Error(`User with ID ${userId} not found`);
+        }
+    
+        // Skip if no orders or already valid
+        if (!user.orders || user.orders.length === 0) {
+          return true;
+        }
+    
+        // Check if we need to update any orders
+        let needsUpdate = false;
+        user.orders.forEach(order => {
+          if (!order.userId || !order.userEmail) {
+            needsUpdate = true;
+            order.userId = order.userId || userId;
+            order.userEmail = order.userEmail || user.email;
+          }
+        });
+    
+        // Save only if updates were needed
+        if (needsUpdate) {
+          user.markModified('orders');
+          await user.save();
+          console.log(`Fixed orders for user ${userId}`);
+        }
+    
+        return true;
+      } catch (error) {
+        console.error('Error fixing user orders:', error);
+        throw error;
+      }
+    }
+
+
+
+    async getUserAddresses(userId: string) {
+      const user = await this.userModel.findOne({
+        $or: [
+          { uuid: userId },
+          { id: userId }
+        ]
+      }).exec();
+      
+      if (!user) {
+        throw new NotFoundException(`User with ID ${userId} not found`);
+      }
+      return user.addresses || [];
+    }
+    
+    // 4. And fix the setDefaultAddress method
+    async setDefaultAddress(userId: string, addressId: string) {
+      try {
+        const user = await this.userModel.findOne({
+          $or: [
+            { uuid: userId },
+            { id: userId }
+          ]
+        }).exec();
+        
+        if (!user) {
+          throw new NotFoundException(`User with ID ${userId} not found`);
+        }
+    
+        const addressIndex = user.addresses.findIndex(addr => addr.id === addressId);
+        if (addressIndex === -1) {
+          throw new NotFoundException(`Address with ID ${addressId} not found`);
+        }
+    
+        user.addresses.forEach(addr => addr.isDefault = false);
+        user.addresses[addressIndex].isDefault = true;
+        
+        await user.save();
+        
+        return { 
+          message: 'Default address updated successfully',
+          address: user.addresses[addressIndex]
+        };
+      } catch (error) {
+        console.error('Error setting default address:', error);
+        throw error;
+      }
+    }
+    
+    async getUserByUuid(uuid: string): Promise<any> {
+      try {
+        // Check both uuid and id fields to handle any inconsistencies
+        const user = await this.userModel.findOne({ 
+          $or: [
+            { uuid: uuid },
+            { id: uuid }
+          ] 
+        }).exec();
+        
+        if (!user) {
+          throw new NotFoundException(`User with UUID ${uuid} not found`);
+        }
+        return user;
+      } catch (error) {
+        console.error('Error in getUserByUuid:', error);
+        throw error;
+      }
+    }
 }

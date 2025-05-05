@@ -5,7 +5,7 @@
           <h3 class="order-date">Order Date: {{ order.formattedDate }}</h3>
           <p class="order-id">Order ID: {{ order.id }}</p>
           <p class="order-id">Shipping Address: {{ order.address.street }}, {{order.address.city}}, {{order.address.state}}</p>
-          <!-- Add Order Status here with appropriate styling based on status -->
+          <!-- Order Status -->
           <p class="order-status">
             Status: <span class="status-badge fw-bold status-{{ order.status }}">{{ order.status | titlecase }}</span>
           </p>

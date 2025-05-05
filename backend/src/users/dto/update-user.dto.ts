@@ -1,52 +1,5 @@
-// export class UpdateUserDto {
-//   readonly fName?: string;
-//   readonly lName?: string;
-//   readonly mobile?: string;
-//   readonly gender?: string;
-//   readonly email?: string;
-//   readonly password?: string;
-//   isVerified?: boolean;
-// }
-
-
-
-
-
-// import { IsString, IsEmail, IsOptional, IsBoolean } from 'class-validator';
-
-// export class UpdateUserDto {
-//   @IsOptional()
-//   @IsString()
-//   fName?: string;
-
-//   @IsOptional()
-//   @IsString()
-//   lName?: string;
-
-//   @IsOptional()
-//   @IsString()
-//   mobile?: string;
-
-//   @IsOptional()
-//   @IsString()
-//   gender?: string;
-
-//   @IsOptional()
-//   @IsEmail()
-//   email?: string;
-
-//   @IsOptional()
-//   @IsString()
-//   password?: string;
-
-//   @IsOptional()
-//   @IsBoolean()
-//   isVerified?: boolean;
-// }
-
-// src/users/dto/update-user.dto.ts
-
-import { IsString, IsEmail, IsOptional, IsBoolean, IsIn } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsString, IsEmail, IsOptional, IsBoolean, IsIn, IsArray, ValidateNested } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -82,4 +35,30 @@ export class UpdateUserDto {
     message: 'Role must be either user, trainer, or admin',
   })
   role?: 'user' | 'trainer' | 'admin';
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AddressDto)
+  addresses?: AddressDto[];
+}
+export class AddressDto {
+  @IsString({ message: 'Street must be a string' })
+  street: string;
+
+  @IsString({ message: 'City must be a string' })
+  city: string;
+
+  @IsString({ message: 'State must be a string' })
+  state: string;
+
+  @IsString({ message: 'Zip code must be a string' })
+  zipCode: string;
+
+  @IsString({ message: 'Country must be a string' })
+  country: string;
+
+  @IsBoolean()
+  @IsOptional()
+  isDefault?: boolean;
 }
