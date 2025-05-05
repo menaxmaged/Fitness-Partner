@@ -72,4 +72,30 @@ export class EmailService {
       throw new Error('Failed to send email: ' + error.message);
     }
   }
+
+  async sendContactEmail(name: string, email: string, message: string): Promise<void> {
+    const mailOptions = {
+      from: `"${name}" <${email}>`, // use user's name and email as the "from"
+      to: 'tadros.work@gmail.com',
+      subject: 'New Contact Us Message',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd;">
+          <h2 style="text-align: center;">Contact Us Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Message:</strong></p>
+          <p style="white-space: pre-wrap;">${message}</p>
+        </div>
+      `,
+      replyTo: email, // ensures replies go to the user
+    };
+  
+    try {
+      await this.transporter.sendMail(mailOptions);
+    } catch (error) {
+      console.error('Error sending contact email:', error.message, error.stack);
+      throw new Error('Failed to send contact email: ' + error.message);
+    }
+  }
+  
 }

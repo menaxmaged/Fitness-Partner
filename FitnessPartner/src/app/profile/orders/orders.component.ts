@@ -230,6 +230,7 @@ export class OrdersComponent implements OnInit {
   
   // Function to get a human-readable status label
   getStatusLabel(status: string): string {
+    console.log('Status:', status);
     switch (status) {
       case 'confirmed':
         return 'Confirmed';
