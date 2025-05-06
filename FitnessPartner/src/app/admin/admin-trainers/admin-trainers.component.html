@@ -22,16 +22,14 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Email</th>
-        <th>Mobile</th>
-        <th>Actions</th>
+        <th class="ms-md-5">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let trainer of trainers" (click)="openTrainerDetails(trainer)">
         <td>{{ trainer.name || 'N/A' }}</td>
-        <td>{{ trainer.email || 'N/A' }}</td>
-        <td>{{ trainer.mobile || 'N/A' }}</td>
+        <!-- <td>{{ trainer.email || 'N/A' }}</td>
+        <td>{{ trainer.mobile || 'N/A' }}</td> -->
         <td>
           <button class="btn btn-sm btn-info" 
                   (click)="openTrainerDetails(trainer); $event.stopPropagation()">
@@ -68,14 +66,6 @@
           
           <div class="trainer-info">
             <div class="info-item">
-              <span class="label">Email:</span>
-              <span class="value">{{ selectedTrainer.email || 'Not provided' }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Mobile:</span>
-              <span class="value">{{ selectedTrainer.mobile || 'Not provided' }}</span>
-            </div>
-            <div class="info-item">
               <span class="label">Gender:</span>
               <span class="value">{{ selectedTrainer.gender || 'Not specified' }}</span>
             </div>
@@ -93,28 +83,7 @@
             </div>
             
             <!-- FAQ section -->
-            <div class="faq-section mt-3" *ngIf="selectedTrainer.faq && selectedTrainer.faq.length > 0">
-              <h4>Frequently Asked Questions</h4>
-              <div class="accordion" id="trainerFaqAccordion">
-                <div class="card" *ngFor="let faq of selectedTrainer.faq; let i = index">
-                  <div class="card-header" [id]="'faqHeading' + i">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" 
-                              [attr.data-target]="'#faqCollapse' + i" 
-                              aria-expanded="false" [attr.aria-controls]="'faqCollapse' + i">
-                        {{ faq.question }}
-                      </button>
-                    </h5>
-                  </div>
-                  <div [id]="'faqCollapse' + i" class="collapse" 
-                       [attr.aria-labelledby]="'faqHeading' + i" data-parent="#trainerFaqAccordion">
-                    <div class="card-body">
-                      {{ faq.answer }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+         
           </div>
         </div>
       </div>

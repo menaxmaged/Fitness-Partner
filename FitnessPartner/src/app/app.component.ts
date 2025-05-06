@@ -6,6 +6,7 @@ import { FooterComponent } from './public/footer/footer.component';
 import * as AOS from 'aos';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { UpperLowerSplitComponent } from './workout-list/upper-lower/upper-lower.component';
 
 @Component({
   selector: 'app-root',

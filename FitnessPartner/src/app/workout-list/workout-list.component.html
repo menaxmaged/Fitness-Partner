@@ -1,0 +1,47 @@
+<div class="container">
+    <h2 class="mb-4">Workout Programs</h2>
+    
+    <!-- Plan Type Selection -->
+    <div class="plan-selector mb-4">
+      <div class="btn-group">
+        <button 
+          class="btn" 
+          [class.btn-primary]="selectedPlanType === 'push-pull-legs'"
+          [class.btn-outline-primary]="selectedPlanType !== 'push-pull-legs'"
+          (click)="filterByPlanType('push-pull-legs')">
+          Push Pull Legs
+        </button>
+        <button 
+          class="btn" 
+          [class.btn-primary]="selectedPlanType === 'bro-split'"
+          [class.btn-outline-primary]="selectedPlanType !== 'bro-split'"
+          (click)="filterByPlanType('bro-split')">
+          Bro Split
+        </button>
+        <button 
+          class="btn" 
+          [class.btn-primary]="selectedPlanType === 'upper-lower'"
+          [class.btn-outline-primary]="selectedPlanType !== 'upper-lower'"
+          (click)="filterByPlanType('upper-lower')">
+          Upper Lower
+        </button>
+      </div>
+    </div>
+  
+    <!-- Day Type Filter (Only show if a plan is selected) -->
+    <div class="day-selector mb-4" *ngIf="selectedPlanType">
+      <div class="btn-group">
+        <ng-container *ngIf="selectedPlanType === 'push-pull-legs'">
+            <app-push-pull-legs></app-push-pull-legs>
+        </ng-container>
+        
+        <ng-container *ngIf="selectedPlanType === 'bro-split'">
+            <app-bro-split> </app-bro-split>
+        </ng-container>
+        
+        <ng-container *ngIf="selectedPlanType === 'upper-lower'">
+          <app-upper-lower-split></app-upper-lower-split>
+        </ng-container>
+              </div>
+    </div>
+  </div>
