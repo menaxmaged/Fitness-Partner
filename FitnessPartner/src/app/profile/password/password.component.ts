@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { AuthService } from '../../services/auth.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-password',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, TranslateModule],
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
 })
@@ -26,8 +27,11 @@ export class PasswordComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     const userId = this.authService.getCurrentUserId();

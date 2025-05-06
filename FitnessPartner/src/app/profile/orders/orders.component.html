@@ -1,60 +1,82 @@
 <div class="orders">
-    <div class="order-card" *ngFor="let order of processedOrders">
-      <div class="order-header">
-        <div class="order-info">
-          <h3 class="order-date">Order Date: {{ order.formattedDate }}</h3>
-          <p class="order-id">Order ID: {{ order.id }}</p>
-          <p class="order-id">Shipping Address: {{ order.address.street }}, {{order.address.city}}, {{order.address.state}}</p>
-          <!-- Order Status -->
-          <p class="order-status">
-            Status: <span class="status-badge fw-bold status-{{ order.status }}">{{ order.status | titlecase }}</span>
-          </p>
-        </div>
-        <button class="btn btn-outline-light orange-btn border-0" (click)="toggleDetails(order)">
-          {{ order.showDetails ? 'Hide Details' : 'Show Details' }}
-        </button>
+  <div class="order-card" *ngFor="let order of processedOrders">
+    <div class="order-header">
+      <div class="order-info">
+        <h3 class="order-date">
+          {{ "profile.order.date" | translate }}{{ order.formattedDate }}
+        </h3>
+        <p class="order-id">
+          {{ "profile.order.id" | translate }} {{ order.id }}
+        </p>
+        <p class="order-id">
+          {{ "profile.order.address" | translate }} {{ order.address.street }},
+          {{ order.address.city }}, {{ order.address.state }}
+        </p>
+        <!-- Order Status -->
+        <p class="order-status">
+          {{ "profile.order.status" | translate }}
+          <span class="status-badge fw-bold status-{{ order.status }}">{{
+            order.status | titlecase
+          }}</span>
+        </p>
       </div>
-      
-      <!-- Product List -->
-      <div class="product-list" [class.hidden]="!order.showDetails">
-        <div class="product-item" *ngFor="let item of order.items">
-          <a [routerLink]="['/products', item.id]" class="product-link">
-            <img 
-              [src]="item.image" 
-              [alt]="item.name" 
-              class="product-image" 
-              onerror="this.src='/assets/placeholder-image.png'; this.onerror='';"
-            />
-            <div class="product-details">
-              <h4 class="product-name">{{ item.name }}</h4>
-              <p class="product-brand" *ngIf="item.brand">{{ item.brand }}</p>
-              <p class="product-brand">{{ item.selectedFlavor }}</p>
-            </div>
-            <div class="product-quantity">
-              <span class="quantity-label">Qty:</span>
-              <span class="quantity-value">
-                {{ getProductQuantity(order, item.id, item.selectedFlavor) }}
-              </span>
-            </div>
-            <div class="product-price">{{ item.total }} EGP</div>
-          </a>
-        </div>
+      <button
+        class="btn btn-outline-light orange-btn border-0"
+        (click)="toggleDetails(order)"
+      >
+        {{ order.showDetails ? "Hide Details" : "Show Details" }}
+      </button>
+    </div>
+
+    <!-- Product List -->
+    <div class="product-list" [class.hidden]="!order.showDetails">
+      <div class="product-item" *ngFor="let item of order.items">
+        <a [routerLink]="['/products', item.id]" class="product-link">
+          <img
+            [src]="item.image"
+            [alt]="item.name"
+            class="product-image"
+            onerror="this.src='/assets/placeholder-image.png'; this.onerror='';"
+          />
+          <div class="product-details">
+            <h4 class="product-name">{{ item.name }}</h4>
+            <p class="product-brand" *ngIf="item.brand">{{ item.brand }}</p>
+            <p class="product-brand">{{ item.selectedFlavor }}</p>
+          </div>
+          <div class="product-quantity">
+            <span class="quantity-label">{{
+              "profile.order.quantity" | translate
+            }}</span>
+            <span class="quantity-value">
+              {{ getProductQuantity(order, item.id, item.selectedFlavor) }}
+            </span>
+          </div>
+          <div class="product-price">
+            {{ item.total }} {{ "profile.order.egp" | translate }}
+          </div>
+        </a>
       </div>
-      
-      <!-- Order Footer with Total -->
-      <div class="order-footer">
-        <div class="order-summary">
-          <span>{{ getTotalItemCount(order) }} items</span>
-        </div>
-        <div class="order-total">
-          <span class="total-label">Total:</span>
-          <span class="total-price">{{ order.total }} EGP</span>
-        </div>
+    </div>
+
+    <!-- Order Footer with Total -->
+    <div class="order-footer">
+      <div class="order-summary">
+        <span
+          >{{ getTotalItemCount(order) }}
+          {{ "profile.order.items" | translate }}</span
+        >
+      </div>
+      <div class="order-total">
+        <span class="total-label">{{ "profile.order.total" | translate }}</span>
+        <span class="total-price"
+          >{{ order.total }} {{ "profile.order.egp" | translate }}</span
+        >
       </div>
     </div>
   </div>
-  
-  <!-- Show message when no orders exist -->
-  <div class="no-orders" *ngIf="processedOrders.length === 0">
-    <p>You don't have any orders yet.</p>
-  </div>
+</div>
+
+<!-- Show message when no orders exist -->
+<div class="no-orders" *ngIf="processedOrders.length === 0">
+  <p>{{ "profile.order.p" | translate }}</p>
+</div>

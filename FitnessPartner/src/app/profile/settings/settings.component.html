@@ -5,50 +5,95 @@
   <form #form="ngForm" (ngSubmit)="saveChanges()" novalidate>
     <div class="form-row">
       <div class="form-group">
-        <label>First Name *</label>
-        <input type="text" [(ngModel)]="user.fName" name="firstName" class="form-control" [readonly]="!isEditing"
-          required />
+        <label> {{ "profile.setting.label1" | translate }} </label>
+        <input
+          type="text"
+          [(ngModel)]="user.fName"
+          name="firstName"
+          class="form-control"
+          [readonly]="!isEditing"
+          required
+        />
       </div>
       <div class="form-group">
-        <label>Last Name *</label>
-        <input type="text" [(ngModel)]="user.lName" name="lastName" class="form-control" [readonly]="!isEditing"
-          required />
+        <label>{{ "profile.setting.label2" | translate }}</label>
+        <input
+          type="text"
+          [(ngModel)]="user.lName"
+          name="lastName"
+          class="form-control"
+          [readonly]="!isEditing"
+          required
+        />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="user.email" name="email" class="form-control" [readonly]="!isEditing" />
+        <label>{{ "profile.setting.label3" | translate }}</label>
+        <input
+          type="email"
+          [(ngModel)]="user.email"
+          name="email"
+          class="form-control"
+          [readonly]="!isEditing"
+        />
       </div>
       <div class="form-group">
-        <label>Mobile Number *</label>
-        <input type="tel" [(ngModel)]="user.mobile" name="mobile" class="form-control" [readonly]="!isEditing"
-          required />
+        <label>{{ "profile.setting.label4" | translate }}</label>
+        <input
+          type="tel"
+          [(ngModel)]="user.mobile"
+          name="mobile"
+          class="form-control"
+          [readonly]="!isEditing"
+          required
+        />
       </div>
     </div>
 
     <div class="form-group">
-      <label>Gender</label>
+      <label>{{ "profile.setting.label5" | translate }}</label>
       <div class="gender-options">
         <label>
-          <input type="radio" name="gender" value="Male" [(ngModel)]="user.gender" [disabled]="!isEditing" /> Male
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            [(ngModel)]="user.gender"
+            [disabled]="!isEditing"
+          />
+          {{ "profile.setting.male" | translate }}
         </label>
         <label>
-          <input type="radio" name="gender" value="Female" [(ngModel)]="user.gender" [disabled]="!isEditing" /> Female
+          <input
+            type="radio"
+            name="gender"
+            value="Female"
+            [(ngModel)]="user.gender"
+            [disabled]="!isEditing"
+          />
+          {{ "profile.setting.female" | translate }}
         </label>
       </div>
     </div>
 
     <div class="btn-container">
-      <button type="button" (click)="toggleEdit()" class="btn btn-outline-light orange-btn fw-semibold">
-        {{ isEditing ? 'Cancel' : 'Edit Info' }}
+      <button
+        type="button"
+        (click)="toggleEdit()"
+        class="btn btn-outline-light orange-btn fw-semibold"
+      >
+        {{ isEditing ? "Cancel" : "Edit Info" }}
       </button>
 
-      <button type="submit" class="btn btn-outline-light orange-btn fw-semibold" *ngIf="isEditing">
-        Save Changes
+      <button
+        type="submit"
+        class="btn btn-outline-light orange-btn fw-semibold"
+        *ngIf="isEditing"
+      >
+      {{ "profile.setting.btn" | translate }}
       </button>
-
     </div>
   </form>
 </main>

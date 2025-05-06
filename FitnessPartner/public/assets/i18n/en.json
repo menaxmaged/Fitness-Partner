@@ -57,6 +57,44 @@
     "btn2": "Back to Sign up",
     "btn3": "Verify & Complete Registration"
   },
+  "profile": {
+    "links": {
+      "link1": "Profile Settings",
+      "link2": "Password",
+      "link3": "Orders"
+    },
+    "order": {
+      "date": "Order Date:",
+      "id": "Order ID:",
+      "address": " Shipping Address:",
+      "status": "Status:",
+      "quantity": "Quantity:",
+      "egp": "EGP",
+      "items": "items",
+      "total": "Total:",
+      "p": "You don't have any orders yet."
+    },
+    "password": {
+      "label1": "Full Name",
+      "label2": "Password",
+      "label3": "Current Password",
+      "label4": "New Password",
+      "label5": "Confirm New Password",
+      "btn1": "Change Password",
+      "btn2": "Save",
+      "btn3": "Cancel"
+    },
+    "setting": {
+      "label1": "First Name *",
+      "label2": "Last Name *",
+      "label3": "Email",
+      "label4": "Mobile Number *",
+      "label5": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "btn": "Save Changes"
+    }
+  },
   "navbar": {
     "link1": "Fitness Partner",
     "link2": "HOME",
@@ -247,7 +285,7 @@
       },
       "span": "exercises"
     },
-    "muscle":{
+    "muscle": {
       "Breadcrumb": {
         "li1": "Home ",
         "li2": "Exercises",
