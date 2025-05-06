@@ -1,22 +1,37 @@
 <div class="container-fluid py-4">
   <div class="row">
-
     <aside class="col-lg-3 col-md-4 mb-4 mb-md-0">
       <div class="bg-light rounded-3 shadow-sm p-3 h-100 d-flex flex-column">
-        <ul class="nav flex-column mb-auto"> <!-- Added mb-auto to push logout down -->
+        <ul class="nav flex-column mb-auto">
+          <!-- Added mb-auto to push logout down -->
           <li class="nav-item mb-2">
-            <a routerLink="settings" routerLinkActive="active" class="nav-link px-3 py-2 rounded sidebar-link">
-              <i class="bi bi-person-circle me-2"></i> Profile Settings
+            <a
+              routerLink="settings"
+              routerLinkActive="active"
+              class="nav-link px-3 py-2 rounded sidebar-link"
+            >
+              <i class="bi bi-person-circle me-2"></i>
+              {{ "profile.links.link1" | translate }}
             </a>
           </li>
           <li class="nav-item mb-2">
-            <a routerLink="passwords" routerLinkActive="active" class="nav-link px-3 py-2 rounded sidebar-link">
-              <i class="bi bi-key me-2"></i> Password
+            <a
+              routerLink="passwords"
+              routerLinkActive="active"
+              class="nav-link px-3 py-2 rounded sidebar-link"
+            >
+              <i class="bi bi-key me-2"></i>
+              {{ "profile.links.link2" | translate }}
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="orders" routerLinkActive="active" class="nav-link px-3 py-2 rounded sidebar-link">
-              <i class="bi bi-bag-check me-2"></i> Orders
+            <a
+              routerLink="orders"
+              routerLinkActive="active"
+              class="nav-link px-3 py-2 rounded sidebar-link"
+            >
+              <i class="bi bi-bag-check me-2"></i>
+              {{ "profile.links.link3" | translate }}
             </a>
           </li>
         </ul>
@@ -24,10 +39,12 @@
     </aside>
 
     <main class="col-lg-9 col-md-8">
-      <div class="bg-white rounded-3 shadow-sm p-3" style="height: 650px; overflow-y: auto;">
+      <div
+        class="bg-white rounded-3 shadow-sm p-3"
+        style="height: 650px; overflow-y: auto"
+      >
         <router-outlet></router-outlet>
       </div>
     </main>
-
   </div>
 </div>

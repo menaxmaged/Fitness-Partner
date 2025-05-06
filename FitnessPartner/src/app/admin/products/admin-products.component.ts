@@ -10,7 +10,7 @@ import {
   state,
   style,
   transition,
-  animate
+  animate,
 } from '@angular/animations';
 
 @Component({
@@ -21,28 +21,31 @@ import {
   styleUrls: ['./admin-products.component.css'],
   animations: [
     trigger('expandCollapse', [
-      state('collapsed', style({
-        height: '0px',
-        opacity: 0,
-        overflow: 'hidden',
-        padding: '0 0',
-        margin: '0 0'
-      })),
-      state('expanded', style({
-        height: '*',
-        opacity: 1,
-        overflow: 'visible'
-      })),
-      transition('collapsed <=> expanded', [
-        animate('300ms ease-in-out')
-      ])
-    ])
-  ]
+      state(
+        'collapsed',
+        style({
+          height: '0px',
+          opacity: 0,
+          overflow: 'hidden',
+          padding: '0 0',
+          margin: '0 0',
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          opacity: 1,
+          overflow: 'visible',
+        })
+      ),
+      transition('collapsed <=> expanded', [animate('300ms ease-in-out')]),
+    ]),
+  ],
 })
 export class AdminProductsComponent implements OnInit {
   products: IProducts[] = [];
   newProduct: IProducts = {
-
     id: 0,
     name: '',
     image: '',
@@ -56,7 +59,7 @@ export class AdminProductsComponent implements OnInit {
     category: '',
     quantity: 0,
     inStock: true,
-    flavor_quantity: {}
+    flavor_quantity: {},
   };
   // Flavor edit modal state
   showFlavorModal = false;
@@ -87,17 +90,17 @@ export class AdminProductsComponent implements OnInit {
   // }
 
   toggleAddProductForm() {
-    this.showAddProductForm = !this.showAddProductForm;  // Toggle form visibility
+    this.showAddProductForm = !this.showAddProductForm; // Toggle form visibility
   }
 
- addNewProduct() {
+  addNewProduct() {
     Swal.fire({
       title: 'Add New Product',
       html: `
         <form id="productForm" style="font-size: 0.875rem;">
           <label for="name" style="font-size: 0.875rem; margin-bottom: 0.25rem; display: block;">Product Name:</label>
           <input type="text" id="name" class="swal2-input" style="font-size: 0.875rem; padding: 0.25rem 0.5rem;" required />
-          
+
           <label for="description" style="font-size: 0.875rem; margin-bottom: 0.25rem; display: block;">Description:</label>
           <textarea id="description" class="swal2-input" style="font-size: 0.875rem; padding: 0.25rem 0.5rem; height: 80px;" required></textarea>
 
@@ -125,19 +128,40 @@ export class AdminProductsComponent implements OnInit {
       customClass: {
         confirmButton: 'swal2-btn-sm',
         cancelButton: 'swal2-btn-sm',
-        popup: 'swal2-popup-sm'
+        popup: 'swal2-popup-sm',
       },
       preConfirm: () => {
-        const name = (document.getElementById('name') as HTMLInputElement).value;
-        const description = (document.getElementById('description') as HTMLTextAreaElement).value;
-        const price = parseFloat((document.getElementById('price') as HTMLInputElement).value);
-        const image = (document.getElementById('image') as HTMLInputElement).value;
-        const category = (document.getElementById('category') as HTMLInputElement).value;
-        const availableSize = (document.getElementById('available_size') as HTMLInputElement).value;
-        const quantity = parseInt((document.getElementById('quantity') as HTMLInputElement).value);
-        const inStock = (document.getElementById('inStock') as HTMLInputElement).checked;
+        const name = (document.getElementById('name') as HTMLInputElement)
+          .value;
+        const description = (
+          document.getElementById('description') as HTMLTextAreaElement
+        ).value;
+        const price = parseFloat(
+          (document.getElementById('price') as HTMLInputElement).value
+        );
+        const image = (document.getElementById('image') as HTMLInputElement)
+          .value;
+        const category = (
+          document.getElementById('category') as HTMLInputElement
+        ).value;
+        const availableSize = (
+          document.getElementById('available_size') as HTMLInputElement
+        ).value;
+        const quantity = parseInt(
+          (document.getElementById('quantity') as HTMLInputElement).value
+        );
+        const inStock = (document.getElementById('inStock') as HTMLInputElement)
+          .checked;
 
-        if (!name || !description || !price || !image || !category || !availableSize || !quantity) {
+        if (
+          !name ||
+          !description ||
+          !price ||
+          !image ||
+          !category ||
+          !availableSize ||
+          !quantity
+        ) {
           Swal.showValidationMessage('All fields are required');
           return;
         }
@@ -151,34 +175,36 @@ export class AdminProductsComponent implements OnInit {
           category,
           available_size: availableSize,
           quantity,
-          inStock
+          inStock,
         };
-        
+
         // Proceed to add the product
         return this.productService.createProduct(this.newProduct).toPromise();
       },
       showCancelButton: true,
       confirmButtonText: 'Add Product',
       cancelButtonText: 'Cancel',
-      focusCancel: true
-    }).then(result => {
-      if (result.isConfirmed) {
+      focusCancel: true,
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product Added',
+            text: `Product ${this.newProduct.name} has been successfully added!`,
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          this.loadProducts(); // Reload the products list
+        }
+      })
+      .catch((error) => {
         Swal.fire({
-          icon: 'success',
-          title: 'Product Added',
-          text: `Product ${this.newProduct.name} has been successfully added!`,
-          timer: 2000,
-          showConfirmButton: false
+          icon: 'error',
+          title: 'Failed to Add Product',
+          text: 'There was an issue adding the product. Please try again.',
         });
-        this.loadProducts();  // Reload the products list
-      }
-    }).catch(error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed to Add Product',
-        text: 'There was an issue adding the product. Please try again.'
       });
-    });
   }
 
   navigateToProduct(id: number) {
@@ -187,11 +213,13 @@ export class AdminProductsComponent implements OnInit {
 
   getFlavors(product: IProducts): string[] {
     // Return only flavors that have a quantity greater than 0
-    return Object.keys(product.flavor_quantity).filter(flavor => product.flavor_quantity[flavor] > 0);
+    return Object.keys(product.flavor_quantity).filter(
+      (flavor) => product.flavor_quantity[flavor] > 0
+    );
   }
 
   editFlavor(productId: number, flavor: string) {
-    const product = this.products.find(p => p.id === productId);
+    const product = this.products.find((p) => p.id === productId);
     if (product) {
       this.currentProductId = productId;
       this.currentFlavor = flavor;
@@ -208,7 +236,7 @@ export class AdminProductsComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it',
       cancelButtonText: 'Cancel',
-      reverseButtons: true
+      reverseButtons: true,
     });
 
     if (!result.isConfirmed) return;
@@ -217,11 +245,13 @@ export class AdminProductsComponent implements OnInit {
       await this.productService.deleteFlavorFromProduct(productId, flavorName);
 
       // ✅ Remove flavor from local product object
-      const product = this.products.find(p => p.id.toString() === productId);
+      const product = this.products.find((p) => p.id.toString() === productId);
       if (product) {
         delete product.flavor_quantity[flavorName];
         delete product.product_images[flavorName];
-        product.available_flavors = product.available_flavors.filter(f => f !== flavorName);
+        product.available_flavors = product.available_flavors.filter(
+          (f) => f !== flavorName
+        );
       }
 
       Swal.fire({
@@ -229,14 +259,14 @@ export class AdminProductsComponent implements OnInit {
         title: 'Deleted!',
         text: `Flavor "${flavorName}" has been removed.`,
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
     } catch (error) {
       console.error('Error deleting flavor:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Failed to delete the flavor. Please try again later.'
+        text: 'Failed to delete the flavor. Please try again later.',
       });
     }
   }
@@ -268,122 +298,124 @@ export class AdminProductsComponent implements OnInit {
     this.editingProduct = null;
   }
 
-// Updated addFlavorToProduct method using the new service method
+  // Updated addFlavorToProduct method using the new service method
 
-async addFlavorToProduct() {
-  if (
-    this.editingProduct &&
-    this.newFlavorName &&
-    this.newFlavorQuantity !== null &&
-    this.newFlavorImage
-  ) {
-    const productId = this.editingProduct.id.toString();
-    const { newFlavorName, newFlavorQuantity, newFlavorImage } = this;
-    
+  async addFlavorToProduct() {
+    if (
+      this.editingProduct &&
+      this.newFlavorName &&
+      this.newFlavorQuantity !== null &&
+      this.newFlavorImage
+    ) {
+      const productId = this.editingProduct.id.toString();
+      const { newFlavorName, newFlavorQuantity, newFlavorImage } = this;
+
+      try {
+        // Use the new dedicated service method to add the flavor
+        await this.productService.addFlavorToProduct(
+          productId,
+          newFlavorName,
+          newFlavorQuantity,
+          newFlavorImage
+        );
+
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Flavor Added',
+          text: `"${newFlavorName}" flavor has been added to the product.`,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        // Reset input fields
+        this.newFlavorName = '';
+        this.newFlavorQuantity = null;
+        this.newFlavorImage = '';
+
+        // Reload products to get fresh data
+        await new Promise<void>((resolve) => {
+          this.productService.getAllProducts().subscribe((products) => {
+            this.products = products;
+            resolve();
+          });
+        });
+
+        // Update the editing product with fresh data
+        const updatedProduct = this.products.find(
+          (p) => p.id.toString() === productId
+        );
+        if (updatedProduct) {
+          this.editingProduct = { ...updatedProduct };
+        }
+      } catch (error) {
+        console.error('Error adding flavor:', error);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add the flavor. Please try again.',
+        });
+      }
+    } else {
+      // Show validation error if fields are missing
+      Swal.fire({
+        icon: 'warning',
+        title: 'Incomplete Information',
+        text: 'Please provide flavor name, quantity, and image URL.',
+      });
+    }
+  }
+  // 2. Next, improve the saveProductChanges() method to handle errors better
+
+  async saveProductChanges() {
+    if (!this.editingProduct) return;
+
     try {
-      // Use the new dedicated service method to add the flavor
-      await this.productService.addFlavorToProduct(
-        productId,
-        newFlavorName,
-        newFlavorQuantity,
-        newFlavorImage
+      await this.productService.updateProduct(
+        this.editingProduct.id.toString(),
+        this.editingProduct
       );
-      
-      // Show success message
+
       Swal.fire({
         icon: 'success',
-        title: 'Flavor Added',
-        text: `"${newFlavorName}" flavor has been added to the product.`,
+        title: 'Changes Saved',
+        text: 'Product changes have been saved successfully.',
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
-      
-      // Reset input fields
-      this.newFlavorName = '';
-      this.newFlavorQuantity = null;
-      this.newFlavorImage = '';
-      
-      // Reload products to get fresh data
-      await new Promise<void>((resolve) => {
-        this.productService.getAllProducts().subscribe(products => {
-          this.products = products;
-          resolve();
-        });
-      });
-      
-      // Update the editing product with fresh data
-      const updatedProduct = this.products.find(p => p.id.toString() === productId);
-      if (updatedProduct) {
-        this.editingProduct = { ...updatedProduct };
-      }
+
+      this.closeProductModal();
+      this.loadProducts();
     } catch (error) {
-      console.error('Error adding flavor:', error);
-      
+      console.error('Error saving product changes:', error);
+
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Failed to add the flavor. Please try again.'
+        text: 'Failed to save product changes. Please try again.',
       });
     }
-  } else {
-    // Show validation error if fields are missing
-    Swal.fire({
-      icon: 'warning',
-      title: 'Incomplete Information',
-      text: 'Please provide flavor name, quantity, and image URL.'
-    });
   }
-}
-// 2. Next, improve the saveProductChanges() method to handle errors better
 
-async saveProductChanges() {
-  if (!this.editingProduct) return;
-  
-  try {
-    await this.productService.updateProduct(
-      this.editingProduct.id.toString(), 
-      this.editingProduct
+  // 3. Make sure loadProducts() method is properly handling async/await
+
+  loadProducts() {
+    this.productService.getAllProducts().subscribe(
+      (products) => {
+        this.products = products;
+        console.log('Products loaded:', this.products);
+      },
+      (error) => {
+        console.error('Error loading products:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load products. Please try again.',
+        });
+      }
     );
-    
-    Swal.fire({
-      icon: 'success',
-      title: 'Changes Saved',
-      text: 'Product changes have been saved successfully.',
-      timer: 2000,
-      showConfirmButton: false
-    });
-    
-    this.closeProductModal();
-    this.loadProducts();
-  } catch (error) {
-    console.error('Error saving product changes:', error);
-    
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'Failed to save product changes. Please try again.'
-    });
   }
-}
-
-// 3. Make sure loadProducts() method is properly handling async/await
-
-loadProducts() {
-  this.productService.getAllProducts().subscribe(
-    products => {
-      this.products = products;
-      console.log('Products loaded:', this.products);
-    },
-    error => {
-      console.error('Error loading products:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to load products. Please try again.'
-      });
-    }
-  );
-}
 
   async deleteProduct(productId: string) {
     const result = await Swal.fire({
@@ -393,7 +425,7 @@ loadProducts() {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it',
       cancelButtonText: 'Cancel',
-      reverseButtons: true
+      reverseButtons: true,
     });
 
     if (!result.isConfirmed) return;
@@ -402,21 +434,23 @@ loadProducts() {
       await this.productService.deleteProduct(productId);
 
       // ✅ Remove the product from the local array immediately
-      this.products = this.products.filter(product => product.id.toString() !== productId);
+      this.products = this.products.filter(
+        (product) => product.id.toString() !== productId
+      );
 
       Swal.fire({
         icon: 'success',
         title: 'Deleted!',
         text: 'The product has been successfully deleted.',
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
     } catch (error) {
       console.error('Error deleting product:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Failed to delete the product. Please try again later.'
+        text: 'Failed to delete the product. Please try again later.',
       });
     }
   }

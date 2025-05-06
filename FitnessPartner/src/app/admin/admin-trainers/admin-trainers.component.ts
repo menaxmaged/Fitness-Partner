@@ -46,7 +46,7 @@ export class AdminTrainersComponent implements OnInit {
   loadTrainers() {
     this.loading = true;
     this.error = null;
-    
+
     this.trainersService.getAllTrainers().pipe(
       tap(trainers => console.log('Raw trainers data:', trainers)), // Log the raw data for debugging
       catchError(err => {
@@ -74,7 +74,7 @@ export class AdminTrainersComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel',
       reverseButtons: true,
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         this.trainersService.deleteTrainer(trainerId).subscribe({
           next: () => {
@@ -136,7 +136,7 @@ export class AdminTrainersComponent implements OnInit {
 
   onSubmitNewTrainer() {
     const formData = new FormData();
-    
+
     // Append form fields according to the expected backend format
     formData.append('name', this.newTrainer.name);
     formData.append('email', this.newTrainer.email);
@@ -145,7 +145,7 @@ export class AdminTrainersComponent implements OnInit {
     formData.append('gender', this.newTrainer.gender);
     formData.append('specialty', this.newTrainer.specialty || '');
     formData.append('bio', this.newTrainer.bio || '');
-    
+
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }

@@ -29,7 +29,7 @@ export class AdminUsersComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const searchType = params['type'];
       const searchQuery = params['query'];
-      
+
       this.loading = true;
       this.usersService.getUsers(searchType, searchQuery).subscribe({
         next: (data) => {
@@ -47,9 +47,9 @@ export class AdminUsersComponent implements OnInit {
   loadUsers() {
     this.loading = true;
     this.error = null;
-    
+
     console.log('Fetching all users...');
-    
+
     this.usersService.getAllUsers().pipe(
       tap(users => {
         console.log('Users data received:', users);
@@ -80,7 +80,7 @@ export class AdminUsersComponent implements OnInit {
       confirmButtonText: 'Yes, change it',
       cancelButtonText: 'No, cancel',
       reverseButtons: true,
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         this.updateUserRole(userId, selectedRole);
       } else {
@@ -88,7 +88,7 @@ export class AdminUsersComponent implements OnInit {
       }
     });
   }
-  
+
   updateUserRole(userId: string, selectedRole: string): void {
     this.usersService.updateUserRoleByAdmin(userId, selectedRole).pipe(
       tap((updatedUser) => {
@@ -118,7 +118,7 @@ export class AdminUsersComponent implements OnInit {
   openUserDetails(user: any): void {
     // First, set the selected user to show the modal
     this.selectedUser = user;
-    
+
     // Then, fetch detailed user information
     this.loading = true;
     this.usersService.getUserById(user.id).pipe(
@@ -157,7 +157,7 @@ export class AdminUsersComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel',
       reverseButtons: true,
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         this.usersService.deleteUser(userId).subscribe({
           next: () => {
@@ -181,5 +181,5 @@ export class AdminUsersComponent implements OnInit {
       }
     });
   }
-  
+
 }
