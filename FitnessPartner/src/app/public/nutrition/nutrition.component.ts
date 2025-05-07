@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { BodyFatCalculatorComponent } from '../body-fat-calculator/body-fat-calculator.component';
+// import { BodyFatCalculatorComponent } from '../body-fat-calculator/body-fat-calculator.component';
 import { Nutrient } from '../../models/nutrient.model';
 import { CommonModule } from '@angular/common';
 import { FoodNutritionComponent } from '../food-nutrition/food-nutrition.component';
 import { MealComparisonComponent } from '../meal-comparison/meal-comparison.component';
 import { MealsPlannerComponent } from '../meals-planner/meals-planner.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DietFormComponent } from "../../diet-form/diet-form.component";
 
 @Component({
   selector: 'app-nutrition',
   imports: [
     TranslateModule,
-    BodyFatCalculatorComponent,
+    // BodyFatCalculatorComponent,
     CommonModule,
     MealComparisonComponent,
     FoodNutritionComponent,
     MealsPlannerComponent,
     RouterModule,
-  ],
+    DietFormComponent
+],
   templateUrl: './nutrition.component.html',
   styleUrl: './nutrition.component.css',
 })

@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DietFormComponent } from "../../diet-form/diet-form.component";
-import { WorkoutsComponent } from "../../workout-list/workout-list.component";
 import { UpperLowerSplitComponent } from "../../workout-list/upper-lower/upper-lower.component";
 
 @Component({
@@ -18,7 +17,6 @@ import { UpperLowerSplitComponent } from "../../workout-list/upper-lower/upper-l
     LoadingSpinnerComponent,
     TranslateModule,
     DietFormComponent,
-    WorkoutsComponent,
   ],
   templateUrl: './trainers.component.html',
   styleUrl: './trainers.component.css',
