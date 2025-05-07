@@ -49,9 +49,9 @@ const UPPER_LOWER_WORKOUTS = [
     exercises: [
       {mg:'chest' ,name: 'Bench Press', sets: 4, reps: '8-10', notes: 'Barbell or dumbbell' },
       {mg:'back' ,name: 'Pull-Ups', sets: 4, reps: '6-8' },
-      {mg:'arms' ,name: 'Overhead Press', sets: 3, reps: '8-10' },
+      {mg:'shoulders' ,name: 'Dumbbell Shoulder Press', sets: 3, reps: '8-10' },
       {mg:'back' ,name: 'Barbell Row', sets: 3, reps: '8-10' },
-      {mg:'shoulder' ,name: 'Dumbbell Flyes', sets: 3, reps: '12-15' }
+      {mg:'chest' ,name: 'Dumbbell Flyes', sets: 3, reps: '12-15' }
     ]
   },
   {
@@ -59,10 +59,10 @@ const UPPER_LOWER_WORKOUTS = [
     muscleGroup: 'Legs, Core',
     exercises: [
       {mg:'legs' ,name: 'Squats', sets: 4, reps: '8-10' },
-      {mg:'legs' ,name: 'Romanian Deadlifts', sets: 3, reps: '8-10' },
+      {mg:'legs' ,name: 'Leg Extension', sets: 3, reps: '8-10' },
       {mg:'legs' ,name: 'Leg Press', sets: 3, reps: '10-12' },
-      {mg:'legs' ,name: 'Leg Curls', sets: 3, reps: '12-15' },
-      {mg:'abs' ,name: 'Plank', sets: 3, reps: '60s' }
+      {mg:'legs' ,name: 'Hamestring Curls', sets: 3, reps: '12-15' },
+      {mg:'abs' ,name: 'Russian Twists', sets: 3, reps: '60s' }
     ]
   },
   {
@@ -72,7 +72,7 @@ const UPPER_LOWER_WORKOUTS = [
       {mg:'chest' ,name: 'Incline Bench Press', sets: 4, reps: '8-10' },
       {mg:'back' ,name: 'Lat Pulldown', sets: 4, reps: '8-10' },
       {mg:'shoulders' ,name: 'Dumbbell Shoulder Press', sets: 3, reps: '10-12' },
-      {mg:'back' ,name: 'Cable Rows', sets: 3, reps: '10-12' },
+      {mg:'back' ,name: 'Seated Row', sets: 3, reps: '10-12' },
       {mg:'shoulders' ,name: 'Lateral Raises', sets: 3, reps: '15-20' }
     ]
   },
@@ -80,9 +80,9 @@ const UPPER_LOWER_WORKOUTS = [
     day: 'lower-b',
     muscleGroup: 'Legs, Glutes',
     exercises: [
-      {mg:'legs' ,name: 'Deadlifts', sets: 4, reps: '6-8' },
-      {mg:'legs' ,name: 'Front Squats', sets: 3, reps: '8-10' },
-      {mg:'legs' ,name: 'Bulgarian Split Squats', sets: 3, reps: '10-12' },
+      {mg:'legs' ,name: 'Squats', sets: 4, reps: '6-8' },
+      {mg:'legs' ,name: 'Lunges with Dumbbells', sets: 3, reps: '10-12' },
+      {mg:'legs' ,name: 'Leg Extension', sets: 3, reps: '8-10' },
       {mg:'legs' ,name: 'Hip Thrusts', sets: 3, reps: '12-15' },
       {mg:'legs' ,name: 'Calf Raises', sets: 4, reps: '15-20' }
     ]

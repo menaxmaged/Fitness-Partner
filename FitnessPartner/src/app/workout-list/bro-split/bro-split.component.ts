@@ -49,8 +49,8 @@ const BRO_WORKOUTS = [
     exercises: [
       { name: 'Bench Press', sets: 4, reps: '8-10', notes: 'Barbell or dumbbell' },
       { name: 'Incline Bench Press', sets: 3, reps: '10-12' },
-      { name: 'Chest Dips', sets: 3, reps: '10-15' },
-      { name: 'Cable Flyes', sets: 3, reps: '12-15' }
+      { name: 'Chest Dip', sets: 3, reps: '10-15' },
+      { name: 'Cable Fly', sets: 3, reps: '12-15' }
     ]
   },
   {
@@ -59,18 +59,18 @@ const BRO_WORKOUTS = [
     exercises: [
       { name: 'Deadlifts', sets: 4, reps: '6-8' },
       { name: 'Pull-Ups', sets: 3, reps: '8-10' },
-      { name: 'Bent-Over Rows', sets: 3, reps: '8-10' },
-      { name: 'Lat Pulldowns', sets: 3, reps: '10-12' }
+      { name: 'Barbell Row', sets: 3, reps: '8-10' },
+      { name: 'Lat Pulldown', sets: 3, reps: '10-12' }
     ]
   },
   {
     day: 'shoulders',
     muscleGroup: 'Shoulders',
     exercises: [
-      { name: 'Overhead Press', sets: 4, reps: '8-10' },
+      { name: 'Dumbbell Shoulder Press', sets: 4, reps: '8-10' },
       { name: 'Lateral Raises', sets: 3, reps: '12-15' },
       { name: 'Front Raises', sets: 3, reps: '12-15' },
-      { name: 'Rear Delt Flyes', sets: 3, reps: '12-15' }
+      { name: 'Reverse machine flyes', sets: 3, reps: '12-15' }
     ]
   },
   {
@@ -89,7 +89,7 @@ const BRO_WORKOUTS = [
     exercises: [
       { name: 'Squats', sets: 4, reps: '8-10' },
       { name: 'Leg Press', sets: 3, reps: '10-12' },
-      { name: 'Romanian Deadlifts', sets: 3, reps: '8-10' },
+      { name: 'Hamstring Curls', sets: 3, reps: '8-10' },
       { name: 'Calf Raises', sets: 4, reps: '15-20' }
     ]
   }

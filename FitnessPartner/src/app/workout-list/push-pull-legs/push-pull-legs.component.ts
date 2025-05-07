@@ -56,10 +56,10 @@ const WORKOUTS = [
     muscleGroup: 'Chest, Shoulders, Triceps',
     exercises: [
       {mg:'chest' , name: 'Bench Press', sets: 4, reps: '8-10', notes: 'Focus on chest contraction' },
-      {mg:'shoulders' , name: 'Overhead Press', sets: 3, reps: '8-10', notes: 'Keep core tight' },
-      {mg:'chest' , name: 'Incline Dumbbell Press', sets: 3, reps: '10-12', notes: null },
+      {mg:'shoulders' , name: 'Dumbbell Shoulder Press', sets: 3, reps: '8-10', notes: 'Keep core tight' },
+      {mg:'chest' , name: 'Incline Bench Press', sets: 3, reps: '10-12', notes: null },
       {mg:'shoulders', name: 'Lateral Raises', sets: 3, reps: '12-15', notes: 'Controlled movement' },
-      {mg:'arms', name: 'Tricep Pushdowns', sets: 3, reps: '10-12', notes: null },
+      {mg:'arms', name: 'Triceps Pushdown', sets: 3, reps: '10-12', notes: null },
       {mg:'arms', name: 'Overhead Tricep Extension', sets: 3, reps: '10-12', notes: null }
     ]
   },
@@ -68,10 +68,10 @@ const WORKOUTS = [
     muscleGroup: 'Back, Biceps, Rear Delts',
     exercises: [
       {mg:'back', name: 'Deadlifts', sets: 4, reps: '6-8', notes: 'Focus on form' },
-      {mg:'back', name: 'Pull-Ups/Lat Pulldowns', sets: 3, reps: '8-10', notes: null },
-      {mg:'shoulders', name: 'Barbell Rows', sets: 3, reps: '8-10', notes: 'Keep back straight' },
-      {mg:'shoulders', name: 'Face Pulls', sets: 3, reps: '12-15', notes: 'For rear delts and rotator cuff' },
-      {mg:'arms', name: 'Bicep Curls', sets: 3, reps: '10-12', notes: null },
+      {mg:'back', name: 'Lat Pulldown', sets: 3, reps: '8-10', notes: null },
+      {mg:'back', name: 'Barbell Row', sets: 3, reps: '8-10', notes: 'Keep back straight' },
+      {mg:'shoulders', name: 'Face Pull', sets: 3, reps: '12-15', notes: 'For rear delts and rotator cuff' },
+      {mg:'arms', name: 'Cable Bicep Curls', sets: 3, reps: '10-12', notes: null },
       {mg:'arms', name: 'Hammer Curls', sets: 3, reps: '10-12', notes: 'Works brachialis and forearms' }
     ]
   },
@@ -80,11 +80,11 @@ const WORKOUTS = [
     muscleGroup: 'Quads, Hamstrings, Calves, Core',
     exercises: [
       {mg:'legs', name: 'Squats', sets: 4, reps: '8-10', notes: 'Focus on depth and form' },
-      {mg:'legs', name: 'Romanian Deadlifts', sets: 3, reps: '8-10', notes: 'Focus on hamstrings' },
+      {mg:'legs', name: 'Leg Extension', sets: 3, reps: '10-12', notes: null },
+      {mg:'legs', name: 'Hamstring Curls', sets: 3, reps: '8-10', notes: 'Focus on hamstrings' },
       {mg:'legs', name: 'Leg Press', sets: 3, reps: '10-12', notes: null },
-      {mg:'legs', name: 'Walking Lunges', sets: 3, reps: '10-12 each leg', notes: null },
       {mg:'legs', name: 'Calf Raises', sets: 4, reps: '15-20', notes: null },
-      {mg:'legs', name: 'Hanging Leg Raises', sets: 3, reps: '12-15', notes: 'For core' }
+      {mg:'abs', name: 'Cable Crunch', sets: 3, reps: '12-15', notes: 'For core' }
     ]
   }
 ];
