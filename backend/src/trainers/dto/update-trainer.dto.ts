@@ -10,18 +10,18 @@ class FaqDto {
 }
 
 class ProductDto {
-  @IsString() // Changed from IsNumber to IsString for flexibility
+  @IsString() // Using IsString to allow string or number IDs
   id: number | string;
 }
 
-export class CreateTrainerDto {
-  @IsNotEmpty()
+export class UpdateTrainerDto {
+  @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  bio: string;
+  bio?: string;
 
   @IsOptional()
   @IsArray()
