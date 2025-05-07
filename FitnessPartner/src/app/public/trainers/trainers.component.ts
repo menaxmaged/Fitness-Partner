@@ -17,7 +17,7 @@ import { WorkoutsComponent } from "../../workout-list/workout-list.component";
     RouterModule,
     LoadingSpinnerComponent,
     TranslateModule,
-    DietFormComponent,
+    // DietFormComponent,
     WorkoutsComponent
 ],
   templateUrl: './trainers.component.html',
