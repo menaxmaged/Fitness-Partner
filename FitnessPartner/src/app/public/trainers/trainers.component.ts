@@ -86,6 +86,7 @@ export class TrainersComponent implements OnInit {
   constructor(
     private _trainersDataService: TrainersDataService,
     private router: Router,
+    private activRoute:ActivatedRoute,
     private translate: TranslateService
   ) {
     this.translate.setDefaultLang('en');
@@ -103,6 +104,15 @@ export class TrainersComponent implements OnInit {
       complete: () => {
         this.isLoading = false;
       },
+    });
+
+    this.activRoute.fragment.subscribe((fragment) => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     });
   }
 

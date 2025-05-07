@@ -3,6 +3,87 @@
   [message]="'trainers.loadingMsg' | translate"
 ></app-loading-spinner>
 
+<div
+  class="container-fluid pt-5 pb-2"
+  style="background: linear-gradient(90deg, #cc0000 0%, #ff9933 100%)"
+>
+  <div class="row justify-content-center align-items-center">
+    <div
+      class="col-md-5 text-center"
+    >
+      <img src="assets/trainers-imgs/trainer.png" alt="" class="img-fluid" />
+    </div>
+    <div class="col-md-5">
+      <h2 class="fw-bold text-white" style="font-size: 4.3rem">
+        <i>Find Your Perfect</i>
+      </h2>
+      <h2 class="fw-bold ps-5" style="font-size: 4.3rem">
+        <i> Training Partner</i>
+      </h2>
+      <p class="fs-5">
+        <i>Whether you're looking for a certified personal trainer or prefer to follow expert-created training plans on your own, we've got you covered.
+          Explore top trainers, discover workout programs, and take the next step toward your fitness goals your way.</i>
+      </p>
+      <a
+        class="btn button-design"
+        routerLink="/trainers"
+        fragment="trainer"
+        routerLinkActive="active"
+      >
+      Meet Our Trainers
+      </a>
+      <a
+        class="btn button-design ms-3 mt-md-2 mt-lg-0"
+        routerLink="/trainers"
+        fragment="selfTraining"
+        routerLinkActive="active"
+      >
+      Train Yourself
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- the wave -->
+<div class="wave-container">
+  <svg
+    class="waves"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28"
+    preserveAspectRatio="none"
+    shape-rendering="auto"
+  >
+    <defs>
+      <path
+        id="gentle-wave"
+        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+      />
+    </defs>
+    <g class="parallax">
+      <use
+        xlink:href="#gentle-wave"
+        x="48"
+        y="0"
+        fill="rgba(255,255,255,0.7)"
+      />
+      <use
+        xlink:href="#gentle-wave"
+        x="48"
+        y="3"
+        fill="rgba(255,255,255,0.5)"
+      />
+      <use
+        xlink:href="#gentle-wave"
+        x="48"
+        y="5"
+        fill="rgba(255,255,255,0.3)"
+      />
+      <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+    </g>
+  </svg>
+</div>
+
 <div class="container my-3">
   <h2 class="text-center mb-5">{{ "trainers.h2" | translate }}</h2>
   <!-- Breadcrumb Navigation -->
@@ -21,7 +102,7 @@
     </ol>
   </nav>
 
-  <div class="row gy-5">
+  <div class="row gy-5" id="trainer">
     <!-- Using paginatedTrainers instead of trainers -->
     <div *ngFor="let trainer of paginatedTrainers" class="col-12 col-md-4 d-flex justify-content-center">
       <a [routerLink]="['/trainers', trainer.id]" class="trainer-card">
@@ -62,5 +143,5 @@
     </div>
     
   </div>
-  <app-workouts></app-workouts>
+  <app-workouts id="selfTraining"></app-workouts>
 </div>
