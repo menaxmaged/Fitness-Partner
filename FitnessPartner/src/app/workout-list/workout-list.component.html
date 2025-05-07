@@ -25,6 +25,13 @@
           (click)="filterByPlanType('upper-lower')">
           Upper Lower
         </button>
+        <button 
+          class="btn" 
+          [class.btn-dark]="selectedPlanType === 'Home workouts'"
+          [class.btn-outline-]="selectedPlanType !== 'Home workouts'"
+          (click)="filterByPlanType('Home workouts')">
+          Home Workouts
+        </button>
       </div>
     </div>
 
@@ -55,5 +62,11 @@
       <app-upper-lower-split class="col-12"
       *ngIf="selectedPlanType === 'upper-lower'"
       ></app-upper-lower-split>
+
+      <app-home-workout
+      *ngIf="selectedPlanType === 'Home workouts'" class="col-12" 
+      >
+      </app-home-workout>
+
     </div>
 </div>
