@@ -4,10 +4,9 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 import { IdentifyMachineComponent } from "../../identify-machine/identify-machine.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { WorkoutsComponent } from "../../workout-list/workout-list.component";
 @Component({
   selector: 'app-exercises',
-  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, TranslateModule, IdentifyMachineComponent, WorkoutsComponent],
+  imports: [CommonModule, LoadingSpinnerComponent, RouterLink, TranslateModule, IdentifyMachineComponent],
   templateUrl: './exercises.component.html',
   styles: ``
 })
