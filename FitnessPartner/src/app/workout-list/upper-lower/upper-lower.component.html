@@ -258,6 +258,69 @@
           </div>
         </div>
         
+
+        <!-- Workout Details Section -->
+<div class="row mt-4">
+  <div class="col-12">
+    <h3 class="text-primary mb-4">Workout Details</h3>
+    
+    <div *ngIf="filteredWorkouts.length === 0" class="col-12 text-center my-5">
+      <p>No workouts found. Please select a different plan</p>
+    </div>
+    
+    <div *ngFor="let workout of filteredWorkouts" class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-header" 
+             [ngClass]="{
+                'bg-primary text-white': workout.day.includes('upper'),
+                'bg-success text-white': workout.day.includes('lower')
+              }"
+             style="cursor: pointer;"
+             (click)="toggleWorkout(workout.day)">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <h5 class="mb-0">{{workout.day | titlecase}} Day</h5>
+              <span class="badge bg-light text-dark ms-2">{{workout.muscleGroup}}</span>
+            </div>
+            <i class="bi" [ngClass]="isWorkoutExpanded(workout.day) ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+          </div>
+        </div>
+        
+        <div *ngIf="isWorkoutExpanded(workout.day)" class="card-body">
+          <h6>Exercises:</h6>
+          <ul class="list-group">
+            <li *ngFor="let exercise of workout.exercises" class="list-group-item">
+              <strong class="clickable" (click)="navigateToExercises(exercise.name.toLowerCase())">
+                {{exercise.name}}
+              </strong>
+              <div>{{exercise.sets}} sets × {{exercise.reps}} reps</div>
+              <small *ngIf="exercise.notes" class="text-muted">{{exercise.notes}}</small>
+            </li>
+          </ul>
+          
+          <div class="d-flex justify-content-between mt-3">
+            <span class="badge" 
+                  [ngClass]="{
+                    'bg-primary bg-opacity-25 text-primary': workout.day.includes('upper'),
+                    'bg-success bg-opacity-25 text-success': workout.day.includes('lower')
+                  }">
+              Duration: {{workout.day.includes('lower') ? '60-75' : '45-60'}} minutes
+            </span>
+            <span class="badge"
+                  [ngClass]="{
+                    'bg-primary bg-opacity-25 text-primary': workout.day.includes('upper'),
+                    'bg-success bg-opacity-25 text-success': workout.day.includes('lower')
+                  }">
+              {{workout.exercises.length}} exercises
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
         <div class="mt-4 pt-3 border-top text-center">
           <p class="text-muted small">
             Note: This is a general program template. Individual workouts with specific exercises, sets, and reps are available when viewing the workout details.

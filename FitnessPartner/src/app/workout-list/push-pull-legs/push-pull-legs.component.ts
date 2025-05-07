@@ -16,9 +16,6 @@ export class PushPullLegsComponent implements OnInit {
   
   ngOnInit(): void {
     // Initially expand all workouts
-    this.filteredWorkouts.forEach(workout => {
-      this.expandedWorkouts.push(workout.day);
-    });
   }
   
   toggleSection(section: string): void {

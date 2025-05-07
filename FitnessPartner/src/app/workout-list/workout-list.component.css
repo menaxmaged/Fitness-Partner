@@ -1,0 +1,9 @@
+.program-container {
+    position: relative;
+    min-height: 500px; /* Adjust based on your content */
+  }
+  
+  /* Add smooth transition effect */
+  .program-container > * {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }

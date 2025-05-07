@@ -308,6 +308,76 @@
           </div>
         </div>
         
+        <!-- Workout Details Section -->
+<div class="row mt-4">
+  <div class="col-12">
+    <h3 class="text-danger mb-4">Workout Details</h3>
+    
+    <div *ngIf="filteredWorkouts.length === 0" class="col-12 text-center my-5">
+      <p>No workouts found. Please select a different plan</p>
+    </div>
+    
+    <div *ngFor="let workout of filteredWorkouts" class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-header" 
+             [ngClass]="{
+                'bg-danger text-white': workout.day === 'chest',
+                'bg-warning text-white': workout.day === 'back',
+                'bg-info text-white': workout.day === 'shoulders',
+                'bg-primary text-white': workout.day === 'arms',
+                'bg-success text-white': workout.day === 'legs'
+              }"
+             style="cursor: pointer;"
+             (click)="toggleWorkout(workout.day)">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <h5 class="mb-0">{{workout.day | titlecase}} Day</h5>
+              <span class="badge bg-light text-dark ms-2">{{workout.muscleGroup}}</span>
+            </div>
+            <i class="bi" [ngClass]="isWorkoutExpanded(workout.day) ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+          </div>
+        </div>
+        
+        <div *ngIf="isWorkoutExpanded(workout.day)" class="card-body">
+          <h6>Exercises:</h6>
+          <ul class="list-group">
+            <li *ngFor="let exercise of workout.exercises" class="list-group-item">
+              <strong class="clickable" (click)="navigateToExercises(exercise.name.toLowerCase())">
+                {{exercise.name}}
+              </strong>
+              <div>{{exercise.sets}} sets × {{exercise.reps}} reps</div>
+              <small *ngIf="exercise.notes" class="text-muted">{{exercise.notes}}</small>
+            </li>
+          </ul>
+          
+          <div class="d-flex justify-content-between mt-3">
+            <span class="badge" 
+                  [ngClass]="{
+                    'bg-danger bg-opacity-25 text-danger': workout.day === 'chest',
+                    'bg-warning bg-opacity-25 text-warning': workout.day === 'back',
+                    'bg-info bg-opacity-25 text-info': workout.day === 'shoulders',
+                    'bg-primary bg-opacity-25 text-primary': workout.day === 'arms',
+                    'bg-success bg-opacity-25 text-success': workout.day === 'legs'
+                  }">
+              Duration: {{workout.day === 'legs' ? '60-75' : '45-60'}} minutes
+            </span>
+            <span class="badge"
+                  [ngClass]="{
+                    'bg-danger bg-opacity-25 text-danger': workout.day === 'chest',
+                    'bg-warning bg-opacity-25 text-warning': workout.day === 'back',
+                    'bg-info bg-opacity-25 text-info': workout.day === 'shoulders',
+                    'bg-primary bg-opacity-25 text-primary': workout.day === 'arms',
+                    'bg-success bg-opacity-25 text-success': workout.day === 'legs'
+                  }">
+              {{workout.exercises.length}} exercises
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
         <div class="mt-4 pt-3 border-top text-center">
           <p class="text-muted small">
             Note: This program emphasizes muscle isolation. Adjust weights and rest periods based on your recovery capacity.

@@ -85,17 +85,5 @@ export class WorkoutsComponent implements OnInit {
     }
   }
 
-  editWorkout(workout: Workout): void {
-    // Implement edit functionality (e.g., navigate to edit page or open modal)
-    console.log('Edit workout:', workout);
-    // You could navigate to an edit page:
-    // this.router.navigate(['/workouts/edit', workout._id]);
-  }
 
-  openAddWorkoutModal(): void {
-    // Implement functionality to open modal or navigate to add page
-    console.log('Open modal to add workout');
-    // You could navigate to an add page:
-    // this.router.navigate(['/workouts/add']);
-  }
 }
