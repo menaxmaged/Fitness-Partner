@@ -45,11 +45,11 @@ export class TrainerDetailsComponent implements OnInit {
   }
 
   getTrainerDetails() {
-    this.trainerService.getTrainerById(this.trainerId).subscribe((data) => {
+    this.trainerService.getTrainerById(this.trainerId.toString()).subscribe((data) => {
       console.log('Trainer Data:', data);
       this.trainer = data;
 
-      if (this.trainer.products && this.trainer.products.length > 0) {
+      if (this.trainer?.products && this.trainer.products.length > 0) {
         for (let productRef of this.trainer.products) {
           this.productService
             .getProductById(productRef.id)

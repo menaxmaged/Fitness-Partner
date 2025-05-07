@@ -4,10 +4,13 @@ import {
   Param, 
   Delete, 
   Post, 
+  Put,
   UseInterceptors, 
   UploadedFile, 
   Body, 
-  UseGuards
+  UseGuards,
+  Req,
+  Logger
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { TrainerService } from './trainers.service';
@@ -15,12 +18,13 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/roles.guard';
 import { Roles } from '../common/roles.decorator';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
+import { UpdateTrainerDto } from './dto/update-trainer.dto';
 import { Express } from 'express';
-import { IsArray, IsNumber, IsString,ValidateNested,IsNotEmpty } from 'class-validator'; 
-import { Type } from 'class-transformer';
 
 @Controller('trainers')
 export class TrainerController {
+  private readonly logger = new Logger(TrainerController.name);
+  
   constructor(private readonly trainerService: TrainerService) {}
   
   @Get()
@@ -36,7 +40,8 @@ export class TrainerController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   @Roles('admin')
-  async deleteTrainer(@Param('id') id: string) {
+  async deleteTrainer(@Param('id') id: string, @Req() req) {
+    this.logger.log(`User ${req.user?.username} is deleting trainer with ID: ${id}`);
     return this.trainerService.remove(id);
   }
 
@@ -45,42 +50,43 @@ export class TrainerController {
   @Roles('admin')
   @UseInterceptors(FileInterceptor('image'))
   async createTrainer(
-  @Body() createTrainerDto: CreateTrainerDto,
-  @UploadedFile() image: Express.Multer.File
+    @Body() createTrainerDto: CreateTrainerDto,
+    @UploadedFile() image: Express.Multer.File,
+    @Req() req
   ) {
-  return this.trainerService.create(createTrainerDto, image);
+    this.logger.log(`User ${req.user?.username} is creating a new trainer`);
+    return this.trainerService.create(createTrainerDto, image);
   }
 
- 
-
-@IsNotEmpty()
-@IsString()
-bio: string;
-
-Valid
-
-@IsArray()
-@ValidateNested({ each: true })
-@Type(() => FaqDto)
-faq: FaqDto[];
-
-
-@IsArray()
-@ValidateNested({ each: true })
-@Type(() => ProductDto)
-products: ProductDto[];
-}
-
-class FaqDto {
-@IsString()
-question: string;
-
-@IsString()
-answer: string;
-}
-
-class ProductDto {
-@IsNumber()
-id: number;
-
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Put(':id')
+  @Roles('admin')
+  @UseInterceptors(FileInterceptor('image'))
+  async updateTrainer(
+    @Param('id') id: string,
+    @Body() updateData: any,
+    @UploadedFile() image: Express.Multer.File,
+    @Req() req
+  ) {
+    this.logger.log(`User ${req.user?.username} is updating trainer with ID: ${id}`);
+    
+    // Parse faq and products if they're strings (from FormData)
+    if (updateData.faq && typeof updateData.faq === 'string') {
+      try {
+        updateData.faq = JSON.parse(updateData.faq);
+      } catch (e) {
+        this.logger.error(`Error parsing FAQ data: ${e.message}`);
+      }
+    }
+    
+    if (updateData.products && typeof updateData.products === 'string') {
+      try {
+        updateData.products = JSON.parse(updateData.products);
+      } catch (e) {
+        this.logger.error(`Error parsing products data: ${e.message}`);
+      }
+    }
+    
+    return this.trainerService.update(id, updateData, image);
+  }
 }
