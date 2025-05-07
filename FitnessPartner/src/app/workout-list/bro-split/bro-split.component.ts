@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './bro-split.component.css'
 })
 export class BroSplitComponent {
-  expandedSection: string = 'overview';
+  expandedSection: string = '';
   expandedWorkouts: string[] = [];
   filteredWorkouts = BRO_WORKOUTS;
 

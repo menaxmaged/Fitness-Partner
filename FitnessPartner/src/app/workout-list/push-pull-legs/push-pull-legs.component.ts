@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./push-pull-legs.component.css']
 })
 export class PushPullLegsComponent implements OnInit {
-  expandedSection: string | null = 'overview';
+  expandedSection: string | null = '';
   expandedWorkouts: string[] = []; // Track expanded workout days
   filteredWorkouts = WORKOUTS;
   

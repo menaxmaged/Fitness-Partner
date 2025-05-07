@@ -17,7 +17,7 @@ import { HomeWorkoutComponent } from "./home-workout/home-workout.component";
 export class WorkoutsComponent implements OnInit {
   workouts: Workout[] = [];
   filteredWorkouts: Workout[] = [];
-  selectedPlanType: string = '';
+  selectedPlanType: string = 'push-pull-legs';
   selectedDay: string = '';
 
   constructor(@Inject(WorkoutService) private workoutService: WorkoutService) {}

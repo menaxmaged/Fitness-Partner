@@ -9,7 +9,7 @@ templateUrl: './home-workout.component.html',
 styleUrls: ['./home-workout.component.css']
 })
 export class HomeWorkoutComponent implements OnInit {
-expandedSection: string | null = 'overview';
+expandedSection: string | null = '';
 expandedWorkouts: string[] = [];
 filteredWorkouts = HOME_WORKOUTS;
 
