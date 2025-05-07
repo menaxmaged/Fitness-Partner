@@ -68,6 +68,10 @@ import { WorkoutsComponent } from "../../workout-list/workout-list.component";
     RouterModule,
     LoadingSpinnerComponent,
     TranslateModule,
+<<<<<<< HEAD
+=======
+    // DietFormComponent,
+>>>>>>> 4a000054b42ce6b361cabfaea2479e5ce77a1265
     WorkoutsComponent
   ],
   templateUrl: './trainers.component.html',
