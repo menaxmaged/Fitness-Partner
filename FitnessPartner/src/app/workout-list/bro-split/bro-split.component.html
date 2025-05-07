@@ -342,7 +342,7 @@
           <h6>Exercises:</h6>
           <ul class="list-group">
             <li *ngFor="let exercise of workout.exercises" class="list-group-item">
-              <strong class="clickable" (click)="navigateToExercises(exercise.name.toLowerCase())">
+              <strong class="clickable" (click)="navigateToExercises(workout.day , exercise.name.toLowerCase())">
                 {{exercise.name}}
               </strong>
               <div>{{exercise.sets}} sets × {{exercise.reps}} reps</div>

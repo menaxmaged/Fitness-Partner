@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   imports:[CommonModule],
@@ -12,7 +13,7 @@ export class PushPullLegsComponent implements OnInit {
   expandedWorkouts: string[] = []; // Track expanded workout days
   filteredWorkouts = WORKOUTS;
   
-  constructor() { }
+  constructor(private router: Router) { }
   
   ngOnInit(): void {
     // Initially expand all workouts
@@ -38,6 +39,14 @@ export class PushPullLegsComponent implements OnInit {
   isWorkoutExpanded(day: string): boolean {
     return this.expandedWorkouts.includes(day);
   }
+
+  navigateToExercises(mg: string, muscle: string): void { 
+    console.log(muscle, 'clicked');
+    if (mg && muscle) {
+      console.log(`/exercises/gym/${mg}/${muscle}`);
+      this.router.navigate([`/exercises/gym/${mg}/${muscle}`]); 
+    }
+  }
 }
 
 // Sample workout data
@@ -46,36 +55,36 @@ const WORKOUTS = [
     day: 'push',
     muscleGroup: 'Chest, Shoulders, Triceps',
     exercises: [
-      { name: 'Bench Press', sets: 4, reps: '8-10', notes: 'Focus on chest contraction' },
-      { name: 'Overhead Press', sets: 3, reps: '8-10', notes: 'Keep core tight' },
-      { name: 'Incline Dumbbell Press', sets: 3, reps: '10-12', notes: null },
-      { name: 'Lateral Raises', sets: 3, reps: '12-15', notes: 'Controlled movement' },
-      { name: 'Tricep Pushdowns', sets: 3, reps: '10-12', notes: null },
-      { name: 'Overhead Tricep Extension', sets: 3, reps: '10-12', notes: null }
+      {mg:'chest' , name: 'Bench Press', sets: 4, reps: '8-10', notes: 'Focus on chest contraction' },
+      {mg:'shoulders' , name: 'Overhead Press', sets: 3, reps: '8-10', notes: 'Keep core tight' },
+      {mg:'chest' , name: 'Incline Dumbbell Press', sets: 3, reps: '10-12', notes: null },
+      {mg:'shoulders', name: 'Lateral Raises', sets: 3, reps: '12-15', notes: 'Controlled movement' },
+      {mg:'arms', name: 'Tricep Pushdowns', sets: 3, reps: '10-12', notes: null },
+      {mg:'arms', name: 'Overhead Tricep Extension', sets: 3, reps: '10-12', notes: null }
     ]
   },
   {
     day: 'pull',
     muscleGroup: 'Back, Biceps, Rear Delts',
     exercises: [
-      { name: 'Deadlifts', sets: 4, reps: '6-8', notes: 'Focus on form' },
-      { name: 'Pull-Ups/Lat Pulldowns', sets: 3, reps: '8-10', notes: null },
-      { name: 'Barbell Rows', sets: 3, reps: '8-10', notes: 'Keep back straight' },
-      { name: 'Face Pulls', sets: 3, reps: '12-15', notes: 'For rear delts and rotator cuff' },
-      { name: 'Bicep Curls', sets: 3, reps: '10-12', notes: null },
-      { name: 'Hammer Curls', sets: 3, reps: '10-12', notes: 'Works brachialis and forearms' }
+      {mg:'back', name: 'Deadlifts', sets: 4, reps: '6-8', notes: 'Focus on form' },
+      {mg:'back', name: 'Pull-Ups/Lat Pulldowns', sets: 3, reps: '8-10', notes: null },
+      {mg:'shoulders', name: 'Barbell Rows', sets: 3, reps: '8-10', notes: 'Keep back straight' },
+      {mg:'shoulders', name: 'Face Pulls', sets: 3, reps: '12-15', notes: 'For rear delts and rotator cuff' },
+      {mg:'arms', name: 'Bicep Curls', sets: 3, reps: '10-12', notes: null },
+      {mg:'arms', name: 'Hammer Curls', sets: 3, reps: '10-12', notes: 'Works brachialis and forearms' }
     ]
   },
   {
     day: 'legs',
     muscleGroup: 'Quads, Hamstrings, Calves, Core',
     exercises: [
-      { name: 'Squats', sets: 4, reps: '8-10', notes: 'Focus on depth and form' },
-      { name: 'Romanian Deadlifts', sets: 3, reps: '8-10', notes: 'Focus on hamstrings' },
-      { name: 'Leg Press', sets: 3, reps: '10-12', notes: null },
-      { name: 'Walking Lunges', sets: 3, reps: '10-12 each leg', notes: null },
-      { name: 'Calf Raises', sets: 4, reps: '15-20', notes: null },
-      { name: 'Hanging Leg Raises', sets: 3, reps: '12-15', notes: 'For core' }
+      {mg:'legs', name: 'Squats', sets: 4, reps: '8-10', notes: 'Focus on depth and form' },
+      {mg:'legs', name: 'Romanian Deadlifts', sets: 3, reps: '8-10', notes: 'Focus on hamstrings' },
+      {mg:'legs', name: 'Leg Press', sets: 3, reps: '10-12', notes: null },
+      {mg:'legs', name: 'Walking Lunges', sets: 3, reps: '10-12 each leg', notes: null },
+      {mg:'legs', name: 'Calf Raises', sets: 4, reps: '15-20', notes: null },
+      {mg:'legs', name: 'Hanging Leg Raises', sets: 3, reps: '12-15', notes: 'For core' }
     ]
   }
 ];

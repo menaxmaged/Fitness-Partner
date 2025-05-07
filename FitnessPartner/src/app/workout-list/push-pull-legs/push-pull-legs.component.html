@@ -3,8 +3,8 @@
       <div class="card-body">
         <!-- Header Section -->
         <div class="d-flex align-items-center justify-content-between mb-4">
-          <h2 class="fw-bold text-primary">Push/Pull/Legs Split Program</h2>
-          <div class="badge rounded-pill bg-primary px-3 py-2">
+          <h2 class="fw-bold text-danger">Push/Pull/Legs Split Program</h2>
+          <div class="badge rounded-pill bg-danger px-3 py-2">
             6 days per week
           </div>
         </div>
@@ -300,7 +300,7 @@
                 <h6>Exercises:</h6>
                 <ul class="list-group">
                   <li *ngFor="let exercise of workout.exercises" class="list-group-item">
-                    <strong>{{exercise.name}}</strong>
+                    <strong class="clickable"  (click)="navigateToExercises(exercise.mg, exercise.name.toLowerCase())" >{{exercise.name}}</strong>
                     <div>{{exercise.sets}} sets × {{exercise.reps}} reps</div>
                     <small *ngIf="exercise.notes" class="text-muted">{{exercise.notes}}</small>
                   </li>

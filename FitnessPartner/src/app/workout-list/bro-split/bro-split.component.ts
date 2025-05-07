@@ -31,12 +31,15 @@ export class BroSplitComponent {
   isWorkoutExpanded(day: string): boolean {
     return this.expandedWorkouts.includes(day);
   }
-
-  navigateToExercises(muscle: string): void {
-    if (muscle) {
-      this.router.navigate([`/exercises/gym/${muscle}`]);
+  
+  navigateToExercises(mg: string, muscle: string): void { 
+    console.log(muscle, 'clicked');
+    if (mg && muscle) {
+      console.log(`/exercises/gym/${mg}/${muscle}`);
+      this.router.navigate([`/exercises/gym/${mg}/${muscle}`]); 
     }
   }
+
 }
 
 const BRO_WORKOUTS = [
@@ -44,8 +47,8 @@ const BRO_WORKOUTS = [
     day: 'chest',
     muscleGroup: 'Chest',
     exercises: [
-      { name: 'Flat Bench Press', sets: 4, reps: '8-10', notes: 'Barbell or dumbbell' },
-      { name: 'Incline Dumbbell Press', sets: 3, reps: '10-12' },
+      { name: 'Bench Press', sets: 4, reps: '8-10', notes: 'Barbell or dumbbell' },
+      { name: 'Incline Bench Press', sets: 3, reps: '10-12' },
       { name: 'Chest Dips', sets: 3, reps: '10-15' },
       { name: 'Cable Flyes', sets: 3, reps: '12-15' }
     ]

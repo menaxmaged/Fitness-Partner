@@ -3,8 +3,8 @@
       <div class="card-body">
         <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="text-primary fw-bold mb-0">Upper/Lower Split Program</h2>
-          <span class="badge bg-primary rounded-pill px-3 py-2">4 days per week</span>
+          <h2 class="text-danger fw-bold mb-0">Upper/Lower Split Program</h2>
+          <span class="badge bg-danger rounded-pill px-3 py-2">4 days per week</span>
         </div>
         
         <!-- Overview Section -->
@@ -290,7 +290,7 @@
           <h6>Exercises:</h6>
           <ul class="list-group">
             <li *ngFor="let exercise of workout.exercises" class="list-group-item">
-              <strong class="clickable" (click)="navigateToExercises(exercise.name.toLowerCase())">
+              <strong class="clickable" (click)="navigateToExercises(exercise.mg, exercise.name.toLowerCase())">
                 {{exercise.name}}
               </strong>
               <div>{{exercise.sets}} sets × {{exercise.reps}} reps</div>
@@ -299,14 +299,14 @@
           </ul>
           
           <div class="d-flex justify-content-between mt-3">
-            <span class="badge" 
+            <span class="badge text-light" 
                   [ngClass]="{
                     'bg-primary bg-opacity-25 text-primary': workout.day.includes('upper'),
                     'bg-success bg-opacity-25 text-success': workout.day.includes('lower')
                   }">
               Duration: {{workout.day.includes('lower') ? '60-75' : '45-60'}} minutes
             </span>
-            <span class="badge"
+            <span class="badge text-light"
                   [ngClass]="{
                     'bg-primary bg-opacity-25 text-primary': workout.day.includes('upper'),
                     'bg-success bg-opacity-25 text-success': workout.day.includes('lower')

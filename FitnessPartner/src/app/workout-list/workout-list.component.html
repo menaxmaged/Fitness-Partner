@@ -6,22 +6,22 @@
       <div class="btn-group">
         <button 
           class="btn" 
-          [class.btn-primary]="selectedPlanType === 'push-pull-legs'"
-          [class.btn-outline-primary]="selectedPlanType !== 'push-pull-legs'"
+          [class.btn-dark]="selectedPlanType === 'push-pull-legs'"
+          [class.btn-outline-dark]="selectedPlanType !== 'push-pull-legs'"
           (click)="filterByPlanType('push-pull-legs')">
           Push Pull Legs
         </button>
         <button 
           class="btn" 
-          [class.btn-primary]="selectedPlanType === 'bro-split'"
-          [class.btn-outline-primary]="selectedPlanType !== 'bro-split'"
+          [class.btn-dark]="selectedPlanType === 'bro-split'"
+          [class.btn-outline-dark]="selectedPlanType !== 'bro-split'"
           (click)="filterByPlanType('bro-split')">
           Bro Split
         </button>
         <button 
           class="btn" 
-          [class.btn-primary]="selectedPlanType === 'upper-lower'"
-          [class.btn-outline-primary]="selectedPlanType !== 'upper-lower'"
+          [class.btn-dark]="selectedPlanType === 'upper-lower'"
+          [class.btn-outline-dark]="selectedPlanType !== 'upper-lower'"
           (click)="filterByPlanType('upper-lower')">
           Upper Lower
         </button>
