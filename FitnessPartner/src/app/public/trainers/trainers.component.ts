@@ -7,6 +7,7 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DietFormComponent } from "../../diet-form/diet-form.component";
 import { UpperLowerSplitComponent } from "../../workout-list/upper-lower/upper-lower.component";
+import { WorkoutsComponent } from "../../workout-list/workout-list.component";
 
 @Component({
   selector: 'app-trainers',
@@ -17,7 +18,8 @@ import { UpperLowerSplitComponent } from "../../workout-list/upper-lower/upper-l
     LoadingSpinnerComponent,
     TranslateModule,
     DietFormComponent,
-  ],
+    WorkoutsComponent
+],
   templateUrl: './trainers.component.html',
   styleUrl: './trainers.component.css',
 })
