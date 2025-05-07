@@ -351,7 +351,7 @@
           </ul>
           
           <div class="d-flex justify-content-between mt-3">
-            <span class="badge" 
+            <span class="badge text-light" 
                   [ngClass]="{
                     'bg-danger bg-opacity-25 text-danger': workout.day === 'chest',
                     'bg-warning bg-opacity-25 text-warning': workout.day === 'back',
@@ -361,7 +361,7 @@
                   }">
               Duration: {{workout.day === 'legs' ? '60-75' : '45-60'}} minutes
             </span>
-            <span class="badge"
+            <span class="badge text-light"
                   [ngClass]="{
                     'bg-danger bg-opacity-25 text-danger': workout.day === 'chest',
                     'bg-warning bg-opacity-25 text-warning': workout.day === 'back',

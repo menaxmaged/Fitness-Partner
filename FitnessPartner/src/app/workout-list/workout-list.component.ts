@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { UpperLowerSplitComponent } from "./upper-lower/upper-lower.component";
 import { PushPullLegsComponent } from "./push-pull-legs/push-pull-legs.component";
 import { BroSplitComponent } from './bro-split/bro-split.component';
+import { HomeWorkoutComponent } from "./home-workout/home-workout.component";
 // import { PplComponent } from "./ppl/ppl.component";
 
 @Component({
-  imports: [CommonModule, UpperLowerSplitComponent, PushPullLegsComponent,BroSplitComponent],
+  imports: [CommonModule, UpperLowerSplitComponent, PushPullLegsComponent, BroSplitComponent, HomeWorkoutComponent],
   selector: 'app-workouts',
   templateUrl: './workout-list.component.html',
   standalone: true
