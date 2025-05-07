@@ -1,7 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css");
 .cursor-pointer { cursor: pointer !important; }
-/* Import Bootstrap icons if not already available in your project */
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css");
 
 /* Custom styling to enhance Bootstrap */
 .cursor-pointer {
