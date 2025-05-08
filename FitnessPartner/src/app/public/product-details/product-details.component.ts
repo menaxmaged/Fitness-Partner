@@ -113,11 +113,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   addToCart(prod: IProducts): void {
     const flavor = this.selectedFlavor || '';
+    const discountedPrice = this.getDiscountedPrice(prod.price, this.discountPercentage);
+  
     this.cartService.addToCart({
       productId: prod.id,
       name: prod.name,
       image: this.currentImage,
-      price: prod.price,
+      price: discountedPrice,
       selectedFlavor: this.selectedFlavor,
       quantity: this.quantity
     }).subscribe({
@@ -149,5 +151,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     if (this.product) {
       this.isFavorite = this.favoritesService.isFavorite(this.product.id);
     }
+  }
+
+  getDiscountedPrice(price: number, discount: number): number {
+    return Math.round(price - (price * (discount / 100)));
   }
 }

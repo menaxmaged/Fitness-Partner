@@ -6,6 +6,7 @@ import { ProductDto } from './dto/product.dto';
 import { Product, ProductDocument } from './schema/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { AddFlavorDto } from './dto/add-flavor.dto';
 
 
 @Injectable()
@@ -68,26 +69,49 @@ export class ProductsService {
         }
       }
       
-      // Create the product with the next available ID, but WITHOUT _id field
+      // Initialize flavor_quantity object for each available flavor
+      const flavor_quantity = {};
+      if (dto.available_flavors && dto.available_flavors.length > 0) {
+        dto.available_flavors.forEach(flavor => {
+          // Use provided quantity if available, otherwise default to 0
+          flavor_quantity[flavor] = dto.flavor_quantity?.[flavor] || 0;
+        });
+      }
+      
+      // Create the product with the next available ID
       const product = new this.productModel({
         ...dto,
         id: nextId.toString(),
+        flavor_quantity: flavor_quantity,
+        inStock: dto.inStock !== undefined ? dto.inStock : true // Default to true if not provided
       });
       
       const saved = await product.save();
       return this.toProductDto(saved);
     }
   
-    // Create the product with the new ID, but WITHOUT _id field
+    // Initialize flavor_quantity object for each available flavor
+    const flavor_quantity = {};
+    if (dto.available_flavors && dto.available_flavors.length > 0) {
+      dto.available_flavors.forEach(flavor => {
+        // Use provided quantity if available, otherwise default to 0
+        flavor_quantity[flavor] = dto.flavor_quantity?.[flavor] || 0;
+      });
+    }
+    
+    // Create the product with the new ID
     const product = new this.productModel({
       ...dto,
       id: newId.toString(),
+      flavor_quantity: flavor_quantity,
+      inStock: dto.inStock !== undefined ? dto.inStock : true // Default to true if not provided
     });
   
     const saved = await product.save();
     return this.toProductDto(saved);
   }
-  
+
+
   async update(id: string, dto: UpdateProductDto): Promise<ProductDto> {
     const updated = await this.productModel
       .findOneAndUpdate({ id }, dto, { new: true })
@@ -101,11 +125,16 @@ export class ProductsService {
   }
   
   async delete(id: string): Promise<{ message: string }> {
+    this.logger.log(`Attempting to delete product with ID: ${id}`);
+    
     const deleted = await this.productModel.findOneAndDelete({ id }).exec();
+    
     if (!deleted) {
+      this.logger.error(`Product with ID ${id} not found`);
       throw new NotFoundException(`Product with id ${id} not found`);
     }
   
+    this.logger.log(`Product deleted: ${JSON.stringify(deleted)}`);
     return { message: 'Product deleted successfully' };
   }
 
@@ -226,4 +255,43 @@ async deleteFlavorFromProduct(id: string, flavorName: string): Promise<{ message
   
   return { message: `Flavor '${flavorName}' deleted successfully from product ${id}` };
 }
+
+
+// In products.service.ts, add this method
+async addFlavorToProduct(id: string, dto: AddFlavorDto): Promise<Product> {
+  this.logger.debug(`Adding flavor '${dto.flavorName}' to product ${id}`);
+
+  const product = await this.productModel.findOne({ id });
+
+  if (!product) {
+    throw new NotFoundException(`Product with id ${id} not found`);
+  }
+
+  // Check for existing flavor
+  if (product.available_flavors?.includes(dto.flavorName)) {
+    throw new ConflictException(`Flavor '${dto.flavorName}' already exists`);
+  }
+
+  // Initialize structures if needed
+  product.available_flavors ??= [];
+  product.flavor_quantity ??= {};
+  product.product_images ??= {};
+
+  // Update fields
+  product.available_flavors.push(dto.flavorName);
+  product.flavor_quantity[dto.flavorName] = dto.quantity;
+  product.product_images[dto.flavorName] = dto.imageUrl;
+
+  // Force Mongoose to detect changes
+  product.markModified('flavor_quantity');
+  product.markModified('product_images');
+
+  await product.save();
+
+  this.logger.log(`Flavor '${dto.flavorName}' added successfully to product ${id}`);
+  return product;
+}
+
+
+
 }

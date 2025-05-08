@@ -562,3 +562,13 @@ input[type="range"].form-range {
   .breadcrumb-item a:hover {
     color: #cc0000;
   }
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 10px;
+  }
+  
+  .price {
+    font-size: 1.25rem;
+    color: #fb0800; /* You can change this color to fit your theme */
+  }

@@ -23,6 +23,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UpdateFlavorQuantityDto } from './dto/UpdateFlavorQuantityDto.dto';
+import { AddFlavorDto } from './dto/add-flavor.dto';
 
 @ApiTags('Products')
 @Controller('products')
@@ -174,6 +175,20 @@ async updateFlavorQuantityAdmin(
 
   const { flavor, quantity } = updateFlavorQuantityDto;
   return this.productsService.updateFlavorQuantityAdmin(id, flavor, quantity);
+}
+
+@Post(':id/admin/flavor')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('admin')
+@ApiOperation({ summary: 'Admin: Add a new flavor to a product' })
+@ApiResponse({ status: 200, description: 'Flavor added successfully' })
+@ApiResponse({ status: 404, description: 'Product not found' })
+async addFlavorToProduct(
+  @Param('id') id: string,
+  @Body() addFlavorDto: AddFlavorDto,
+) {
+  this.logger.log(`Adding flavor '${addFlavorDto.flavorName}' to product ${id}`);
+  return this.productsService.addFlavorToProduct(id, addFlavorDto);
 }
 
 }

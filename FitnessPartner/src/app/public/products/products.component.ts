@@ -99,9 +99,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.products = data.map((product) => ({
       ...product,
       showFlavors: false,
-      isNew: Math.random() > 0.5,
-      isHot: Math.random() > 0.7,
-      discount: Math.random() > 0.5 ? 10 : 0,
+      isNew: product.isNew,
+      isHot: product.isHot,
+      discount: product.discount,
     }));
     this.filteredProducts = [...this.products];
     this.categories = [...new Set(this.products.map((p) => p.category))];
@@ -218,34 +218,40 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Cart
-  addToCart(product: IProducts): void {
-    const flavor = this.selectedFlavor || 
-                  (product.available_flavors?.[0] ?? 'Unflavored');
-    
-    // Check stock using the flavor name as the key
-    const quantity = product.flavor_quantity?.[flavor] ?? 0;
+ // Cart
+addToCart(product: IProducts): void {
+  const flavor = this.selectedFlavor || 
+                (product.available_flavors?.[0] ?? 'Unflavored');
   
-    if (quantity <= 0) {
-      this.isFlavorOutOfStock = true;
-      return;
-    }
-  
-    this.cartService.addToCart({
-      productId: product.id,
-      name: product.name,
-      image: product.image,
-      price: product.price,
-      selectedFlavor: flavor,
-      quantity: this.quantity,
-    }).subscribe({
-      next: () => {
-        this.showPopUpMessage = true;
-        setTimeout(() => this.showPopUpMessage = false, 800);
-      },
-      error: (err) => console.error('Failed to add to cart', err)
-    });
+  // Check stock using the flavor name as the key
+  const quantity = product.flavor_quantity?.[flavor] ?? 0;
+
+  if (quantity <= 0) {
+    this.isFlavorOutOfStock = true;
+    return;
   }
+
+  // Calculate discounted price if applicable
+  const price = product.discount 
+                ? product.price - (product.price * product.discount / 100)
+                : product.price;
+
+  this.cartService.addToCart({
+    productId: product.id,
+    name: product.name,
+    image: product.image,
+    price: price,  // Send the discounted price
+    selectedFlavor: flavor,
+    quantity: this.quantity,
+  }).subscribe({
+    next: () => {
+      this.showPopUpMessage = true;
+      setTimeout(() => this.showPopUpMessage = false, 800);
+    },
+    error: (err) => console.error('Failed to add to cart', err)
+  });
+}
+
 
   increaseQuantity(): void {
     this.quantity++;

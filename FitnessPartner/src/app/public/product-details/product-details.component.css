@@ -681,3 +681,22 @@
 .breadcrumb-item a:hover {
   color: #cc0000;
 }
+.product-price {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.original-price {
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.current-price {
+  color: #ff0000; /* Same as your orange button */
+  font-weight: 700;
+  font-size: 1.5rem;
+}
