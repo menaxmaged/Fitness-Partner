@@ -1,22 +1,20 @@
 {
   "version": 2,
   "public": true,
-  "framework": "angular",
-  "redirects": [
-    { "source": "/api/(.*)", "destination": "https://fitness-partner-no76.vercel.app/api/$1" }
+  "builds": [
+    { "src": "dist/fitness-partner/**/*", "use": "@vercel/static" }
   ],
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/assets/(.*)", "dest": "/dist/fitness-partner/assets/$1" },
+    { "src": "/favicon.ico", "dest": "/dist/fitness-partner/favicon.ico" },
+    { "src": "/icon2.png", "dest": "/dist/fitness-partner/icon2.png" },
+    { "src": "/runtime-env.js", "dest": "/dist/fitness-partner/runtime-env.js" },
+    { "src": "/(.*\\.js)", "dest": "/dist/fitness-partner/$1" },
+    { "src": "/(.*\\.css)", "dest": "/dist/fitness-partner/$1" },
+    { "src": "/(.*\\.svg)", "dest": "/dist/fitness-partner/$1" },
+    { "src": "/(.*\\.png)", "dest": "/dist/fitness-partner/$1" },
+    { "src": "/(.*\\.jpg)", "dest": "/dist/fitness-partner/$1" },
+    { "src": "/(.*\\.json)", "dest": "/dist/fitness-partner/$1" },
+    { "src": "/(.*)", "dest": "/dist/fitness-partner/index.html" }
   ]
 }
