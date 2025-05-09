@@ -52,8 +52,21 @@
             </span>
           </div>
           <div class="product-price">
-            {{ item.total }} {{ "profile.order.egp" | translate }}
+            <ng-container *ngIf="item.discountedPrice < item.originalPrice; else noDiscount">
+              <span class="text-danger fw-bold">
+                {{ item.discountedPrice.toFixed(2) }} {{ "profile.order.egp" | translate }}
+              </span>
+              <span class="text-muted text-decoration-line-through ms-2">
+                {{ item.originalPrice.toFixed(2) }} {{ "profile.order.egp" | translate }}
+              </span>
+            </ng-container>
+            <ng-template #noDiscount>
+              <span>
+                {{ item.discountedPrice.toFixed(2) }} {{ "profile.order.egp" | translate }}
+              </span>
+            </ng-template>
           </div>
+          
         </a>
       </div>
     </div>
@@ -80,3 +93,27 @@
 <div class="no-orders" *ngIf="processedOrders.length === 0">
   <p>{{ "profile.order.p" | translate }}</p>
 </div>
+<style>
+  /* Highlight the discounted price */
+.product-price .text-danger {
+  color: #e63946; /* rich red */
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Strike-through original price */
+.product-price .text-decoration-line-through {
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+  color: #888;
+}
+
+/* Optional: layout improvement for price block */
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+</style>

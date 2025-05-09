@@ -26,27 +26,37 @@ export class ProductServicesService {
     if (category) {
       params = params.set('category', category);
     }
-    return this.http.get<IProducts[]>(this.productsUrl, { params });
+    return this.http.get<IProducts[]>(this.productsUrl, { params }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getProductById(id: string | number): Observable<IProducts> {
     return this.http.get<IProducts>(`${this.productsUrl}/${id}`).pipe(
       map(product => {
         // Ensure product_images is properly parsed as an object
-        if (product.product_images && typeof product.product_images === 'object' && !Array.isArray(product.product_images)) {
-          // It's already a plain object
-        } else {
-          // If it's not an object, transform it (this shouldn't happen with a correct schema)
+        if (!product.product_images) {
           product.product_images = {};
         }
+        // Ensure flavor_quantity is properly parsed as an object
+        if (!product.flavor_quantity) {
+          product.flavor_quantity = {};
+        }
+        // Ensure available_flavors is properly parsed as an array
+        if (!product.available_flavors) {
+          product.available_flavors = [];
+        }
         return product;
-      })
+      }),
+      catchError(this.handleError)
     );
   }
 
   getProductsByCategory(category: string): Observable<IProducts[]> {
     const params = new HttpParams().set('category', category);
-    return this.http.get<IProducts[]>(this.productsUrl, { params });
+    return this.http.get<IProducts[]>(this.productsUrl, { params }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   async updateFlavorQuantity(id: string, flavor: string, quantity: number): Promise<any> {
@@ -70,7 +80,7 @@ export class ProductServicesService {
         return Promise.reject(new Error(`Flavor '${flavor}' does not exist for this product`));
       }
       
-      // Check if the flavor exists in the flavor_quantity object - using string index now
+      // Check if the flavor exists in the flavor_quantity object
       if (!product.flavor_quantity || product.flavor_quantity[exactFlavorName] === undefined) {
         console.error(`Flavor '${exactFlavorName}' exists but has no quantity set for product ${id}`);
         return Promise.reject(new Error(`Flavor '${exactFlavorName}' has no quantity set for this product`));
@@ -101,21 +111,36 @@ export class ProductServicesService {
   }
 
   createProduct(product: IProducts): Observable<IProducts> {
-    return this.http.post<IProducts>(`${this.productsUrl}/admin`, product, { 
+    // Ensure product has proper structure before sending to server
+    const preparedProduct = {
+      ...product,
+      available_flavors: product.available_flavors || [],
+      product_images: product.product_images || {},
+      flavor_quantity: product.flavor_quantity || {}
+    };
+    
+    return this.http.post<IProducts>(`${this.productsUrl}/admin`, preparedProduct, { 
       headers: this.getAuthHeaders() 
-    });
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
   
   updateProduct(id: string | number, product: IProducts): Observable<IProducts> {
     return this.http.put<IProducts>(`${this.productsUrl}/admin/${id}`, product, { 
       headers: this.getAuthHeaders() 
-    });
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
   
   deleteProduct(id: string | number): Observable<void> {
-    return this.http.delete<void>(`${this.productsUrl}/admin/${id}`, { 
+    console.log('deleting product with id: ',id);
+    return this.http.delete<void>(`${this.productsUrl}/${id}/admin`, { 
       headers: this.getAuthHeaders() 
-    });
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
   
   updateFlavorQuantityAdmin(productId: string, flavor: string, newQuantity: number): Promise<any> {
@@ -150,35 +175,41 @@ export class ProductServicesService {
     return firstValueFrom(response$);
   }
 
-
-  addFlavorToProduct(productId: string, flavorName: string, quantity: number, imageUrl: string): Promise<any> {
-    // First get the current product to ensure we have the latest data
-    return firstValueFrom(this.getProductById(productId))
-      .then(product => {
-        // Update the product with the new flavor
-        if (!product.available_flavors) {
-          product.available_flavors = [];
-        }
-        if (!product.flavor_quantity) {
-          product.flavor_quantity = {};
-        }
-        if (!product.product_images) {
-          product.product_images = {};
-        }
-        
-        // Add the new flavor data
-        if (!product.available_flavors.includes(flavorName)) {
-          product.available_flavors.push(flavorName);
-        }
-        product.flavor_quantity[flavorName] = quantity;
-        product.product_images[flavorName] = imageUrl;
-        
-        // Save the updated product
-        return firstValueFrom(this.updateProduct(productId, product));
+  // Fixed method to properly add a flavor to a product
+  addFlavorToProduct(productId: string, flavorName: string, quantity: number, imageUrl: string): Observable<any> {
+    // Create a direct request body with all required parameters
+    const body = {
+      flavorName: flavorName,
+      quantity: quantity,
+      imageUrl: imageUrl
+    };
+    
+    const url = `${this.productsUrl}/${productId}/admin/flavor`;
+    
+    // Return the Observable directly - let the component handle converting to Promise
+    return this.http.post<any>(url, body, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Failed to add flavor:', error);
+        return throwError(() => new Error(error.error?.message || 'Failed to add flavor'));
       })
-      .catch(error => {
-        console.error('Error adding flavor to product:', error);
-        return Promise.reject(error);
-      });
+    );
+  }
+
+  // Error handling method
+  private handleError(error: HttpErrorResponse) {
+    console.error('API Error:', error);
+    
+    let errorMessage = 'An unknown error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = error.error?.message || `Error Code: ${error.status}, Message: ${error.message}`;
+    }
+    
+    return throwError(() => new Error(errorMessage));
   }
 }

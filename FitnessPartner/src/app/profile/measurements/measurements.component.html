@@ -1,0 +1,136 @@
+<div class="container-fluid my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="mb-0">
+        <i class="bi bi-person-arms-up me-2"></i> Your Measurements History
+      </h4>
+      <button class="btn btn-success" (click)="goToNewDietPlan()">
+        <i class="bi bi-plus-circle me-1"></i> New Diet Plan
+      </button>
+    </div>
+  
+    <div *ngIf="loading" class="d-flex justify-content-center my-5">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+    <div *ngIf="!loading && measurements.length === 0" class="alert alert-info">
+      <i class="bi bi-info-circle me-2"></i> You haven't recorded any measurements yet. 
+      <a [routerLink]="['/nutrition']" class="alert-link">Generate a diet plan</a> to save your measurements.
+    </div>
+  
+    <div *ngIf="!loading && measurements.length > 0" class="row">
+      <!-- Measurements List -->
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Measurement Records</h5>
+          </div>
+          <div class="list-group list-group-flush">
+            <button *ngFor="let measurement of measurements" 
+                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                    [class.active]="selectedMeasurement?.id === measurement.id"
+                    (click)="selectMeasurement(measurement)">
+              <div>
+                <div class="fw-bold">
+                  {{ getDate(measurement.date) | date:'dd,MM, y' }}
+                </div>
+                <small>{{ measurement.goal }}</small>
+              </div>
+              <div>
+                <span class="badge bg-primary rounded-pill me-2">{{ measurement.weight }} kg</span>
+                <button class="btn btn-sm btn-outline-danger" 
+                        (click)="deleteMeasurement(measurement.id, $event)"
+                        title="Delete this record">
+                  <i class="bi bi-trash "></i>
+                </button>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Selected Measurement Details -->
+      <div class="col-md-8">
+        <div *ngIf="selectedMeasurement" class="row">
+          <!-- Measurements Data -->
+          <div class="col-md-5 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                  <i class="bi bi-clipboard-data me-2"></i> Body Metrics
+                </h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Date</span>
+                    <span class="fw-bold">{{ getDate(selectedMeasurement.date) | date:'dd,MM,y' }}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Age</span>
+                    <span class="fw-bold">{{ selectedMeasurement.age }} years</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Gender</span>
+                    <span class="fw-bold">{{ selectedMeasurement.gender }}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Weight</span>
+                    <span class="fw-bold">{{ selectedMeasurement.weight }} kg</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Height</span>
+                    <span class="fw-bold">{{ selectedMeasurement.height }} cm</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Waist</span>
+                    <span class="fw-bold">{{ selectedMeasurement.waist }} cm</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Neck</span>
+                    <span class="fw-bold">{{ selectedMeasurement.neck }} cm</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Goal</span>
+                    <span class="fw-bold">{{ selectedMeasurement.goal }}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>BMI</span>
+                    <span class="fw-bold">{{ (selectedMeasurement.weight / ((selectedMeasurement.height/100) * (selectedMeasurement.height/100))).toFixed(1) }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Diet Plan -->
+          <div class="col-md-7 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                  <i class="bi bi-list-check me-2"></i> Diet Plan
+                </h5>
+              </div>
+              <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+                <div class="p-3 bg-light rounded border"
+                     style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.9rem; line-height: 1.6;">
+                  <div *ngFor="let line of selectedMeasurement.dietPlan.split('\n')" class="py-2 border-bottom"
+                       [ngClass]="{'border-0': line === selectedMeasurement.dietPlan.split('\n')[selectedMeasurement.dietPlan.split('\n').length - 1]}">
+                    {{ line }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+        <div *ngIf="!selectedMeasurement && measurements.length > 0" class="alert alert-info">
+          Please select a measurement record from the list to view details.
+        </div>
+      </div>
+    </div>
+  </div>

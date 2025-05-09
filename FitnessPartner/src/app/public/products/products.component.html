@@ -185,7 +185,17 @@
           <div class="product-brand">{{ product.brand }}</div>
           <h3 class="product-name">{{ product.name }}</h3>
           <div class="product-price">
-            <span class="price">{{ product.price }}.00 EGP</span>
+            <ng-container *ngIf="(product.discount ?? 0) > 0; else noDiscount">
+              <span class="price text-danger">
+                {{ (product.price * (1 - (product.discount ?? 0) / 100) | number: '1.2-2') }} EGP
+              </span>
+              <span class="text-muted text-decoration-line-through">
+                {{ product.price }} EGP
+              </span>
+            </ng-container>
+            <ng-template #noDiscount>
+              <span class="price">{{ product.price }}.00 EGP</span>
+            </ng-template>
           </div>
           <div class="product-expiry">
             <span class="expiry-date"
@@ -263,7 +273,15 @@
         <!-- Product Details -->
         <div class="col-md-7">
           <div class="product-price mb-3">
-            <span class="price">{{ selectedProduct.price }}EGP</span>
+            <span *ngIf="selectedProduct.discount" class="original-price">
+              {{ selectedProduct.price }} EGP
+            </span>
+            <span class="price">
+              {{ selectedProduct.discount 
+                  ? (selectedProduct.price - (selectedProduct.price * selectedProduct.discount / 100)) 
+                  : selectedProduct.price 
+              }} EGP
+            </span>
           </div>
 
           <h2 class="product-title mb-3">{{ selectedProduct.name }}</h2>
@@ -286,9 +304,10 @@
             >
               <label> {{ "shop.product.flavor" | translate }} </label>
               <select
-              class="form-control"
-            [(ngModel)]="selectedFlavor"
-            (change)="onFlavorSelect(selectedFlavor); checkFlavorStock()">  
+                class="form-control"
+                [(ngModel)]="selectedFlavor"
+                (change)="onFlavorSelect(selectedFlavor); checkFlavorStock()"
+              >  
                 <option *ngIf="!selectedFlavor" disabled selected>
                   {{ "shop.product.selectLabel" | translate }}
                 </option>
@@ -342,26 +361,25 @@
                 </button>
               </div>
 
-           
-
               <!-- Add to Cart Button -->
               <button
-                       class="btn-add-to-cart"
-                       (click)="addToCart(selectedProduct)"
-                      [disabled]="isFlavorOutOfStock">
-                       {{"shop.product.btn2" | translate }}
+                class="btn-add-to-cart"
+                (click)="addToCart(selectedProduct)"
+                [disabled]="isFlavorOutOfStock"
+              >
+                {{"shop.product.btn2" | translate }}
               </button>
 
               <!-- Pop-up message -->
-          <div *ngIf="showPopUpMessage" class="pop-up-message">
+              <div *ngIf="showPopUpMessage" class="pop-up-message">
                 {{ "shop.product.popMsg" | translate }}
               </div> 
             </div>
 
-              <!-- Flavor out of stock message -->
-              <div class=" mt-3 py-1 text-danger" *ngIf="isFlavorOutOfStock">
-                This flavor is currently out of stock.
-                </div>
+            <!-- Flavor out of stock message -->
+            <div class="mt-3 py-1 text-danger" *ngIf="isFlavorOutOfStock">
+              This flavor is currently out of stock.
+            </div>
 
             <div class="share-product">
               <strong>{{ "shop.product.share" | translate }}</strong>

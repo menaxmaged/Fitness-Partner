@@ -61,4 +61,9 @@ export class AddToCartDto {
   @IsOptional()
   @IsNumber()
   total?: number;
+  
+  @IsOptional()
+  @IsNumber()
+  discount?: number;
+  
 }

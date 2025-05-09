@@ -56,7 +56,12 @@
       </div>
 
       <div class="product-price">
-        <span class="current-price">{{ product.price }} EGP</span>
+        <span *ngIf="discountPercentage > 0" class="original-price text-muted text-decoration-line-through me-2">
+          {{ product.price }} EGP
+        </span>
+        <span class="current-price fw-bold">
+          {{ getDiscountedPrice(product.price, discountPercentage) }} EGP
+        </span>
       </div>
 
       <!-- Product Description -->
@@ -118,13 +123,18 @@
     <h2 class="section-title">RELATED PRODUCTS</h2>
     <div class="products-grid">
       <div class="product-card" *ngFor="let relatedProduct of similarProducts">
-        <div class="product-image">
+        <div class="product-image position-relative">
           <a [routerLink]="['/products', relatedProduct.id]">
             <img 
               [src]="relatedProduct.image" 
               [alt]="relatedProduct.name"
             />
           </a>
+          <div 
+            class="discount-badge"
+            *ngIf="relatedProduct.discount && relatedProduct.discount > 0">
+            {{ relatedProduct.discount }}% OFF
+          </div>
         </div>
       
         <!-- Product Category -->
@@ -139,7 +149,16 @@
         
         <!-- Product Price -->
         <div class="product-price">
-          <span class="current-price">{{ relatedProduct.price }} EGP</span>
+          <span *ngIf="relatedProduct.discount" class="original-price">
+            {{ relatedProduct.price }} EGP
+          </span>
+          <span class="current-price">
+            {{
+              relatedProduct.discount
+                ? getDiscountedPrice(relatedProduct.price, relatedProduct.discount)
+                : relatedProduct.price
+            }} EGP
+          </span>
         </div>
         
         <!-- Product Actions -->

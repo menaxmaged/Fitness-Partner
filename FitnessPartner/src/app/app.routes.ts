@@ -155,6 +155,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { DietFormComponent } from './diet-form/diet-form.component';
 import { AdminTrainersComponent } from './admin/admin-trainers/admin-trainers.component';
+import { MeasurementsComponent } from './profile/measurements/measurements.component';
 
 export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -212,6 +213,7 @@ export const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: 'measurements', component: MeasurementsComponent, canActivate: [AuthGuard] },
       { path: 'orders', component: OrdersComponent },
       { path: 'passwords', component: PasswordComponent },
       { path: 'settings', component: SettingsComponent },

@@ -1,4 +1,3 @@
-// Example Cart schema
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -15,6 +14,9 @@ class CartItem {
 
   @Prop({ required: true })
   price: number;
+
+  @Prop({ default: 0 }) // New: Discount percentage
+  discount: number;
 
   @Prop({ default: '' })
   selectedFlavor: string;
