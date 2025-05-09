@@ -6,7 +6,7 @@
 <div class="container my-5">
   <h2 class="text-center mb-5">{{ "exercises.gym.h2" | translate }}</h2>
   <!-- Breadcrumb Navigation -->
-  <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a [routerLink]="['/']">{{ "exercises.gym.Breadcrumb.li1" | translate }}</a>
@@ -19,7 +19,6 @@
       <li
         class="breadcrumb-item active"
         aria-current="page"
-        style="font-size: 18px"
       >
         {{ "exercises.gym.Breadcrumb.li3" | translate }}
       </li>
@@ -47,7 +46,6 @@
   .breadcrumb-item a {
     color: #e83f01;
     text-decoration: none;
-    font-size: 18px;
   }
   .breadcrumb-item a:hover {
     color: #cc0000;

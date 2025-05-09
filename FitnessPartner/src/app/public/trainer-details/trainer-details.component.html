@@ -88,7 +88,7 @@
 <div class="trainer-details-wrapper" *ngIf="trainer">
   <div class="trainer-details-content">
     <!-- Breadcrumb Navigation -->
-    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+    <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a [routerLink]="['/']">{{
@@ -103,7 +103,6 @@
         <li
           class="breadcrumb-item active"
           aria-current="page"
-          style="font-size: 18px"
         >
           {{ "trainers.Breadcrumb.li3" | translate }}
         </li>
@@ -158,7 +157,6 @@
   .breadcrumb-item a {
     color: #e83f01;
     text-decoration: none;
-    font-size: 18px;
   }
   .breadcrumb-item a:hover {
     color: #cc0000;
