@@ -28,33 +28,29 @@ async function bootstrap() {
     logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
 
-  // Global validation setup
-  // app.useGlobalPipes(
-  //   new ValidationPipe({
-  //     whitelist: true,
-  //     forbidNonWhitelisted: true,
-  //     transform: true,
-  //     exceptionFactory: (errors) => {
-  //       console.error('Validation Errors:', JSON.stringify(errors, null, 2));
-  //       return new BadRequestException(errors);
-  //     },
-  //   }),
-  // );
-
   // CORS configuration
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:4200',
+    origin: process.env.CORS_ORIGIN || 'https://fitness-partner-akhp.vercel.app/',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     allowedHeaders: 'Content-Type,Authorization',
+    
   });
-
+  
+//   if (process.env.NODE_ENV !== 'production') {
+//    await app.listen(3000);
+//  }
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   // Start application
   const port = process.env.PORT || 3000;
   await app.listen(port);
   logger.log(`Application running on: http://localhost:${port}`);
   logger.debug(`NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+
+  
+
+  return app;
+
 }
 
 bootstrap();
