@@ -9,7 +9,7 @@ import { environment } from '../../../environment.prod';
   providedIn: 'root'
 })
 export class TrainersDataService {
-  private apiUrl = `${environment.apiUrl}/trainers`//private apiUrl = `http://localhost:3000/trainers`;
+  private apiUrl = `https://fitness-partner-no76.vercel.app/trainers`//private apiUrl = `http://localhost:3000/trainers`;
   
   constructor(
     private http: HttpClient,
