@@ -1,7 +1,41 @@
 {
   "version": 2,
-  "framework": "angular",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "public": true,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/fitness-partner/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/dist/fitness-partner/assets/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/dist/fitness-partner/favicon.ico"
+    },
+    {
+      "src": "/icon2.png",
+      "dest": "/dist/fitness-partner/icon2.png"
+    },
+    {
+      "src": "/runtime-env.js",
+      "dest": "/dist/fitness-partner/runtime-env.js"
+    },
+    {
+      "src": "/(.*\\.[a-z0-9]{1,10})$",
+      "dest": "/dist/fitness-partner/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/fitness-partner/index.html",
+      "headers": { "Cache-Control": "no-cache" }
+    }
   ]
 }
