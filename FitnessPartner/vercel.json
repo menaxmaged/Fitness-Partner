@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pwd && ls -la && npm run build",
-  "outputDirectory": "dist/fitness-partner",
+  "version": 2,
+  "framework": "angular",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
