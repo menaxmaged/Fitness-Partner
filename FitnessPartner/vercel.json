@@ -1,15 +1,22 @@
 {
   "version": 2,
-  "routes": [
+  "public": true,
+  "framework": "angular",
+  "redirects": [
+    { "source": "/api/(.*)", "destination": "https://fitness-partner-no76.vercel.app/api/$1" }
+  ],
+  "headers": [
     {
-      "src": "/assets/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
