@@ -11,6 +11,7 @@ export class DietAiService {
   constructor(private http: HttpClient) {}
 
   generateDietPlan(data: any): Observable<string> {
+    console.log(data, ' data sent in req');
     return this.http.post(this.apiUrl, data, { responseType: 'text' });
   }
 }
