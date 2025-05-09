@@ -5,11 +5,10 @@
   "redirects": [
     { "source": "/api/(.*)", "destination": "https://fitness-partner-no76.vercel.app/api/$1" }
   ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/(.*)\\.(.+)", "dest": "/$1.$2" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/assets/(.*)", "destination": "/assets/$1" },
+    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/(.*)\\.(.+)", "destination": "/$1.$2" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
