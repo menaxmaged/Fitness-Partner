@@ -30,7 +30,7 @@ async function bootstrap() {
 
   // CORS configuration
   app.enableCors({
-    origin: 'https://fitness-partner-ruddy.vercel.app/',
+    origin: process.env.CORS_ORIGIN || 'https://fitness-partner-ruddy.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     allowedHeaders: 'Content-Type,Authorization',
