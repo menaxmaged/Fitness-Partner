@@ -16,6 +16,7 @@
             "outputPath": "dist/fitness-partner",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "main":"src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
