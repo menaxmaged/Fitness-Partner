@@ -46,6 +46,7 @@ async function bootstrap() {
   await app.listen(port);
   logger.log(`Application running on: http://localhost:${port}`);
   logger.debug(`NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+  logger.log(`Cors: ${process.env.CORS_ORIGIN}`);
 
 
 
